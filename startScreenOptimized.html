@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Permutations</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<h1>Permutations</h1>
+<p>Enter a string of up to 7 characters:</p>
+<!--This is an optimized version of the App1 GemaCrypt app that instead of generating all permutations at once, it will generate them one by one as the user types.  
+However this has not resolved the issue of processing words larger than 7 characters.-->
+<input type="text" id="inputText" maxlength="7" oninput="updatePermutations()">
+<ul id="permutations"></ul>
+<p>Random Hebrew word:</p>
+<div id="randword"></div>
+<script>
+let permutations = [];
+let currentIndex = 0;
+
+document.addEventListener('DOMContentLoaded', function() { //Sets the focus to the first text input field upon page load.
+document.getElementById('inputText').focus();
+});
+
+function updatePermutations() {
+    const inputText = document.getElementById('inputText').value;
+    if (inputText.length > 7) {
+        alert('Please enter a string of up to 7 characters.');
+        return;
+    }
+    permutations = generatePermutations(inputText);
+    displayPermutations();
+}
+
+function generatePermutations(string) {
+    const permutations = [];
+    const length = string.length;
+    const chars = string.split('');
+    function generate(index, prefix) {
+        if (index === length) {
+            permutations.push(prefix);
+            return;
+        }
+        for (let i = 0; i < length; i++) {
+            const remaining = [...chars];
+            remaining.splice(i, 1);
+            generate(index + 1, prefix + string[i], remaining);
+        }
+    }
+    generate(0, '');
+    return permutations;
+}
+
+function displayPermutations() {
+    const permutationsList = document.getElementById('permutations');
+    permutationsList.innerHTML = '';
+    for (let i = 0; i < permutations.length; i++) {
+        const li = document.createElement('li');
+        li.textContent = permutations[i];
+        permutationsList.appendChild(li);
+    }
+}
+
+function randomString(length, chars) {
+    let ranum = Math.floor(Math.random() * ((7 - 2) + 1) + 2);
+    const inputText = document.getElementById('inputText').value;
+    inputText = inputText.replace(/[^\w\u05D0-\u05EA\u037B-\u03FF]/g, '');
+    if ((inputText.length > 1) && (inputText.length < 8)) {
+        ranum = inputText.length;
+    }
+    let mask = '';
+    if (chars.indexOf('A') > -1) {
+        mask += '\u05D0\u05D1\u05D2\u05D3\u05D4\u05D5\u05D6\u05D7\u05D8\u05D9\u05DA\u05DB\u05DC\u05DE\u05E0\u05E1\u05E2\u05E4\u05E6\u05E7\u05E8\u05E9\u05EA';
+    }
+    let randword = '';
+    for (let i = ranum; i > 0; --i) {
+        randword += mask[Math.round(Math.random() * (mask.length - 1))];
+    }
+    return randword;
+}
+
+rand = randomString(6, 'A');
+document.getElementById("randword").innerHTML = "<a href='http://translate.google.com/#auto/en/" + rand + "' target='_blank' style='color: white; font-weight: 400;'>" + rand + "</a><br />";
+</script>
+
+
+</script>
+</body>
+</html>

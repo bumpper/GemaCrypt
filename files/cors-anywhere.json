@@ -1,0 +1,6 @@
+{
+  "origin": ["*"],
+  "methods": ["GET", "HEAD", "PUT", "POST", "DELETE", "PATCH"],
+  "optionsSuccessStatus": 200,
+  "maxage": 1728000
+}

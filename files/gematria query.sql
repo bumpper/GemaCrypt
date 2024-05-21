@@ -1,0 +1,1 @@
+select * from gematriadb.gematriatable where gematria1 = 95;

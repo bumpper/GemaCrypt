@@ -1,0 +1,13 @@
+[Unit]
+Description=CORS Anywhere proxy
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /var/www/html/cors-anywhere/server.js -d /etc/cors-anywhere.json
+Restart=always
+User=www-data
+Group=www-data
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

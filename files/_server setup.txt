@@ -1,0 +1,182 @@
+sudo su -
+sudo apt update && sudo apt upgrade -y
+sudo apt install git
+git --version
+sudo apt update
+sudo apt install apache2
+apachectl -v
+sudo systemctl start apache2
+snap install httpie
+httpd -v
+sudo systemctl restart apache2
+#change the permissions of the www root directory and subdirectory with files so you can write to it for creating error logs.
+sudo chmod -R 755 /var/www/
+apt install php7.4-cli
+sudo apt-get install libapache2-mod-php7.4
+php -v
+git clone https://github.com/Rob--W/cors-anywhere.git
+cd cors-anywhere
+npm install
+npm audit fix --force
+npm audit fix
+npm -v
+curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+node -v
+#############################################################################
+###create the file /etc/cors-anywhere.json###################################
+	{
+	  "origin": ["*"],
+	  "methods": ["GET", "HEAD", "PUT", "POST", "DELETE", "PATCH"],
+	  "optionsSuccessStatus": 200,
+	  "maxage": 1728000
+	}
+#############################################################################
+###create the file /etc/systemd/system/cors-anywhere.service#################
+	[Unit]
+	Description=CORS Anywhere proxy
+	After=network.target
+
+	[Service]
+	ExecStart=/usr/bin/node /var/www/html/cors-anywhere/server.js -d /etc/cors-anywhere.json
+	Restart=always
+	User=www-data
+	Group=www-data
+	Environment=NODE_ENV=production
+
+	[Install]
+	WantedBy=multi-user.target
+#############################################################################
+sudo systemctl daemon-reload
+sudo systemctl start cors-anywhere
+sudo systemctl status cors-anywhere
+node server.js
+node server.js --port 9000
+sudo apt-get install mysql-server
+sudo systemctl start mysql
+sudo systemctl status mysql
+sudo mysqladmin -p -u root version
+sudo apt-get install php-mysqli
+sudo apt-get install phpmyadmin
+###Save the following file to /etc/apache2/conf-available/phpmyadmin.conf####
+	# phpMyAdmin configuration
+
+	Alias /phpmyadmin /usr/share/phpmyadmin
+
+	<Directory /usr/share/phpmyadmin>
+	   Options FollowSymLinks
+	   DirectoryIndex index.php
+
+	   <IfModule mod_php5.c>
+	      AddType application/x-httpd-php .php
+
+	      php_flag magic_quotes_gpc Off
+	      php_flag track_vars On
+	      php_flag register_globals Off
+	      php_admin_value upload_max_filesize 128M
+	      php_admin_value post_max_size 128M
+	      php_admin_value max_execution_time 360
+	      php_admin_value max_input_time 360
+	   </IfModule>
+	</Directory>
+
+	# Disallow web access to directories that don't need it
+	<Directory /usr/share/phpmyadmin/templates>
+	   Require all denied
+	</Directory>
+	<Directory /usr/share/phpmyadmin/libraries>
+	   Require all denied
+	</Directory>
+#############################################################################
+###Create a DB in phpMyAdmin called gematriaDB
+###Create a DB user named DBuser in phpMyAdmin and give it rights to gematriaDB
+###Use the script /app1/files/createMySQLDB.sql to create the Table gematriaTable and Columns
+###Create the following script to generate a daily backup of gematriaDB /var/local/backup-gematriaDB.sh
+	#!/bin/bash
+	# Set the MySQL user, password, and database name
+	MYSQL_USER="bumpper"
+	MYSQL_PASSWORD="Normal02!"
+	MYSQL_DATABASE="gematriaDB"
+
+	# Set the backup file name and path
+	BACKUP_FILE="/var/www/html/app1/files/gematriaDB.sql"
+
+	# Dump the database to the backup file
+	mysqldump -u ${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} > ${BACKUP_FILE}
+
+	# Verify that the backup was successful
+	if [ $? -eq 0 ]; then
+	  echo "Backup of ${MYSQL_DATABASE} was successful. Saved to ${BACKUP_FILE}"
+	else
+	  echo "Backup of ${MYSQL_DATABASE} failed. Check the error log for details"
+	fi
+
+	# Schedule the next backup for 2:00pm server time tomorrow
+	at -f /var/local/backup-gematriaDB.sh 14:00 +1day
+#############################################################################
+chmod +x /var/local/backup-gematriaDB.sh
+contab -e
+0 14 * * * /var/local/backup-gematriaDB.sh
+Crtl+X
+Y
+#############################################################################
+#################################OPTIONAL####################################
+###Optionally install PostgreSQL as alt DBMS, but not needed#################
+sudo apt-get install postgresql postgresql-contrib
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+npm install pg
+sudo su - postgres
+psql
+sudo apt-get update
+wget --quiet -O - https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add -
+sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+sudo apt-get install pgadmin4
+sudo apt-get install libnss3-dev
+sudo apt-get install libatk1.0-0
+sudo apt-get install libcups2
+sudo apt-get install libxkbcommon-x11-0
+sudo apt-get install at-spi2-core
+sudo apt-get install libxdamage1
+sudo apt-get install libgbm1
+sudo apt-get install mesa-common-dev
+sudo apt-get install libpango-1.0-0
+sudo apt-get install libcairo2
+sudo apt-get install -f
+sudo /usr/pgadmin4/bin/setup-web.sh
+sudo systemctl start pgadmin4-web
+sudo vim /etc/pgadmin/config.py
+sudo /usr/pgadmin4/bin/pgadmin4 --no-browser
+
+#############################################################################
+###Optionally install phpPgAdmin as alt DB web interface, but not needed#####
+sudo apt install phppgadmin php-pgsql -y
+sudo vim /etc/phppgadmin/config.inc.php
+sudo systemctl restart postgresql
+sudo ufw allow 80
+sudo ufw allow 443
+sudo vim /etc/apache2/sites-available/000-default.conf
+	<Directory /path/to/phppgadmin>
+	    Options Indexes FollowSymLinks
+	    AllowOverride All
+	    Require all granted
+	</Directory>
+sudo systemctl restart apache2
+#############################################################################
+sudo a2enconf phpmyadmin
+sudo systemctl restart apache2
+mysql -u root -p
+###Enter same password used for MySQL########################################
+CREATE USER 'root2'@'localhost' IDENTIFIED BY 'some_password';
+GRANT ALL PRIVILEGES ON *.* TO 'root2'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+###Browse to http://domain-name.com/phpmyadmin & login with new user#########
+#############################################################################
+###Optionally install Docker for containers, but not needed##################
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository 'deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable'
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
+sudo docker run hello-world

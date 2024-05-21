@@ -1,0 +1,1 @@
+select * from gematriadb.gematriatable where word1 LIKE 'תת%';

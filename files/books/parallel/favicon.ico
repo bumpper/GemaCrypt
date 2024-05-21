@@ -1,0 +1,11 @@
+<html>
+<head>
+<title>File not found</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+This page could not be found.<br>
+<br>
+Go to Home Page : <a href="javascript:if(confirm('http://www.scripture4all.org  \n\nThis file was not retrieved by BackStreet browser, because it is addressed on a domain or path outside the boundaries set for its Project.  \n\nDo you want to open it from the server?'))window.location='http://www.scripture4all.org'">www.scripture4all.org</a> 
+</body>
+</html>
