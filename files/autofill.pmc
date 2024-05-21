@@ -1,46 +1,49 @@
 ﻿[PMC Globals]|None||
-[PMC Code v5.4.1]|F4||1|Window,2,Fast,0,1,Input,-1,-1,1|1|Macro2
+[PMC Code v5.4.1]|F4||1|Window,2,Fast,0,1,Input,-1,-1,1|1|Macro1
 Context=None|
 Groups=Start:1
-1|WinActivate||1|0|WinActivate||ahk_class EmEditorMainFrame3|||1|
-2|Left Move & Click|531, 445 Left, Up|1|0|Click|||||2|
-3|[Pause]||1|30|Sleep|||||3|
-4|WinActivate||1|0|WinActivate||F:\Daniel\My Web Sites\public_html\app1\files\dictionary.txt - EmEditor ahk_class EmEditorMainFrame3|||4|
-5|RControl Down|{RControl Down}|1|0|Send|||||5|
-6|[Pause]||1|30|Sleep|||||6|
-7|Home Down|{Home Down}|1|0|Send|||||7|
-8|[Pause]||1|30|Sleep|||||8|
-9|RControl Up|{RControl Up}|1|0|Send|||||9|
-10|Home Up|{Home Up}|1|0|Send|||||10|
-11|[Pause]||1|30|Sleep|||||10|
-12|LShift Down|{LShift Down}|1|0|Send|||||11|
-13|[Pause]||1|30|Sleep|||||12|
-14|Down Down|{Down Down}|1|0|Send|||||13|
-15|[Pause]||1|30|Sleep|||||14|
-16|Down Up|{Down Up}|1|0|Send|||||15|
-17|LShift Up|{LShift Up}|1|0|Send|||||16|
-18|[Pause]||1|30|Sleep|||||16|
-19|LControl Down|{LControl Down}|1|0|Send|||||17|
-20|[Pause]||1|30|Sleep|||||18|
-21|x Down|{x Down}|1|0|Send|||||19|
-22|[Pause]||1|30|Sleep|||||20|
-23|[Pause]||1|30|Sleep|||||21|
-24|LControl Up|{LControl Up}|1|0|Send|||||22|
-25|x Up|{x Up}|1|0|Send|||||23|
-26|[Pause]||1|30|Sleep|||||23|
-27|WinActivate||1|0|WinActivate||GemaCrypt — Mozilla Firefox ahk_class MozillaWindowClass|||24|
-28|Left Move & Click|440, 454 Left, Down|1|0|Click|||||25|
-29|[Pause]||1|30|Sleep|||||26|
-30|Left Move & Click|445, 454 Left, Up|1|0|Click|||||27|
-31|[Pause]||1|30|Sleep|||||28|
-32|LControl Down|{LControl Down}|1|0|Send|||||29|
-33|[Pause]||1|30|Sleep|||||30|
-34|v Down|{v Down}|1|0|Send|||||31|
-35|[Pause]||1|30|Sleep|||||32|
-36|LControl Up|{LControl Up}|1|0|Send|||||33|
-37|v Up|{v Up}|1|0|Send|||||34|
-38|[Pause]||1|30|Sleep|||||34|
-39|NumpadEnter Down|{NumpadEnter Down}|1|0|Send|||||35|
-40|[Pause]||1|30|Sleep|||||36|
-41|NumpadEnter Up|{NumpadEnter Up}|1|0|Send|||||37|
+1|[Pause]||1|10|Sleep|||||1|
+2|[LoopStart]|LoopStart|0|0|Loop|||||2|
+3|[Pause]||1|10|Sleep|||||4|
+4|WinActivate||1|333|WinActivate||F:\Daniel\My Web Sites\public_html\app1\files\dictionary.txt - Notepad++ ahk_class Notepad++|||5|
+5|[Pause]||1|10|Sleep|||||7|
+6|Left Move & Click|468, 527 Left, 1|1|10|Click|||||8|
+7|[Pause]||1|10|Sleep|||||10|
+8|RControl Down|{RControl Down}|1|0|Send|||||11|
+9|[Pause]||1|10|Sleep|||||12|
+10|Home Down|{Home Down}|1|0|Send|||||13|
+11|[Pause]||1|10|Sleep|||||14|
+12|RControl Up|{RControl Up}|1|0|Send|||||15|
+13|[Pause]||1|10|Sleep|||||16|
+14|Home Up|{Home Up}|1|0|Send|||||17|
+15|[Pause]||1|10|Sleep|||||18|
+16|RShift Down|{RShift Down}|1|0|Send|||||19|
+17|[Pause]||1|10|Sleep|||||20|
+18|Down Down|{Down Down}|1|0|Send|||||21|
+19|[Pause]||1|10|Sleep|||||22|
+20|RShift Up|{RShift Up}|1|0|Send|||||23|
+21|[Pause]||1|10|Sleep|||||24|
+22|Down Up|{Down Up}|1|0|Send|||||25|
+23|[Pause]||1|10|Sleep|||||26|
+24|RControl Down|{RControl Down}|1|0|Send|||||27|
+25|[Pause]||1|10|Sleep|||||28|
+26|x Down|{x Down}|1|0|Send|||||29|
+27|[Pause]||1|10|Sleep|||||30|
+28|RControl Up|{RControl Up}|1|0|Send|||||31|
+29|[Pause]||1|10|Sleep|||||32|
+30|x Up|{x Up}|1|0|Send|||||33|
+31|[Pause]||1|10|Sleep|||||34|
+32|WinActivate||1|333|WinActivate||GemaCrypt — Mozilla Firefox|||35|
+33|Left Move & Click|456, 337 Left, 1|1|10|Click|||||37|
+34|[Pause]||1|10|Sleep|||||39|
+35|RControl Down|{RControl Down}|1|0|Send|||||40|
+36|[Pause]||1|10|Sleep|||||41|
+37|v|{v}|1|0|Send|||||42|
+38|[Pause]||1|10|Sleep|||||43|
+39|RControl Up|{RControl Up}|1|0|Send|||||44|
+40|[Pause]||1|10|Sleep|||||45|
+41|Enter|{Enter}|1|0|Send|||||46|
+42|[Pause]||1|5000|Sleep|||||47|
+43|[LoopEnd]|LoopEnd|1|0|Loop|||||48|
+44|[Pause]||1|10|Sleep|||||49|
 
