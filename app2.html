@@ -746,12 +746,19 @@
 
 
 <script>
-	var input;
 encryptionSelect.onchange = function() {
   input = this.options[this.selectedIndex].text;
-  document.getElementById("input").value = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+  document.getElementById("input").value = input;
 
-// Encryption select change event listener
+  // Update the input variable with the modified value
+  input = input.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]]/gi, '');
+
+  input = encryptionSelect.options[encryptionSelect.selectedIndex].text;
+input = input.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]]/gi, '');
+document.getElementById("input").value = input;
+
+
+  // Encryption select change event listener
             var wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 			var letter="";
 			//let input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
