@@ -259,8 +259,6 @@
 		cursor: pointer;
 		}
     </style>
-</head>
-    </style>
 
 <script>
 	// Declair variables initially
@@ -633,8 +631,9 @@
 			<option value='HaKadmi'>HaKadmi</option>
 			<option value='HaPerati'>HaPerati</option>
 			<option value='Miluy'>Miluy</option>
-        </select>        
-		<select id="encryptionSelect" tabIndex="2" onchange="encryption = this.value"><!--onchange="updateEncryptionText()"-->
+        </select>
+
+		<select id="encryptionSelect" tabIndex="2" onchange="encryption = this.value" onclick="encryption = this.value">
 			<option value='Encryption' selected="true">Encryption:</option>
 			<option value='AYiK-BeCheR'>AYiK-BeCheR</option>
 			<option value='AL-BaM'>AL-BaM</option>
@@ -648,12 +647,15 @@
 			<option value='AL-BeTh'>AL-BeTh</option>
 			<option value='Ofanim'>Ofanim</option>
 		  </select>
-
 		  <script>
 			encryptionSelect.onchange = function() {
-	  			  document.getElementById("input").value = this.options[this.selectedIndex].text;
-	  			}	  
+			  document.getElementById("input").value = this.options[this.selectedIndex].text;
+			}
+		  	encryptionSelect.onclick = function() {
+			  document.getElementById("input").value = this.options[this.selectedIndex].text;
+			}
 		  </script>
+
         <select id="removeSelect" tabIndex="" onChange="">
             <option value='Remove' selected="true">Remove:</option>
 			<option value='Niqqud'>Niqqud (Vowel Points)</option>
@@ -665,6 +667,7 @@
 			<option value='GreekLetters'>Greek Letters</option>
 			<option value='HebrewLetters'>Hebrew Letters</option>
         </select>
+
 		<button id="calculateBtn" class="textBtn" onclick="createModal(); openModal(textHighlight, textTotal, textEncrypted);"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="8" border="0">Calculate</button>
 		<!--<button id="copyBtn" class="textBtn" onclick=""><img src="img/copy.png" height="16" width="16" border="0" alt="Copy"><img src="img/invis.gif" width="8" border="0">Copy</button>-->
 		<button id="directionBtn" class="textBtn" onclick="toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><!--<img src="img/invis.gif" width="8" border="0">Direction--></button>
@@ -675,6 +678,7 @@
         <button id="clearBtn" class="textBtn" onclick=""><img src="img/clear.png" height="16" width="16" border="0" alt="Clear"><img src="img/invis.gif" width="8" border="0">Clear</button>
         <button id="helpBtn" class="textBtn" onclick="window.open('help.html', '_blank')"><img src="img/help.png" height="16" width="16" border="0" alt="Help"><img src="img/invis.gif" width="8" border="0">Help</button>
     </div>
+	
     <div class="container">
 		<div class="textArea" id="textArea" dir="rtl" contenteditable="true" style="font-family: 'Fira Code', 'Courier New', 'Cascadia Mono', Courier, monospace, 'Times New Roman'; text-shadow: 0 0 5px #FFF;"></div>
 		<div class="statusBar" id="statusBar">
@@ -1656,24 +1660,6 @@ encryptionSelect.onchange = function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script>
         // Declair variables
         const openBtn = document.getElementById('openBtn');
@@ -1683,7 +1669,9 @@ encryptionSelect.onchange = function() {
         const encryptionSelect = document.getElementById('encryptionSelect');
         const removeSelect = document.getElementById('removeSelect');
         const calculateBtn = document.getElementById('calculateBtn');
-        const copyBtn = document.getElementById('copyBtn');
+        //const copyBtn = document.getElementById('copyBtn');
+		const directionBtn = document.getElementById('directionBtn');
+		const lightmodeBtn = document.getElementById('lightmodeBtn');
         const matchBtn = document.getElementById('matchBtn');
         const translateBtn = document.getElementById('translateBtn');
         const printBtn = document.getElementById('printBtn');
@@ -1781,6 +1769,8 @@ if (encryptionSelect == "AYiK-BeCheR") {
 				default:letter = "";break;
 			}
 			textEncrypted += letter;
+			alert(textEncrypted);
+			document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 		}
 	}
 	if(gematria == "HaKlali"){
@@ -1806,6 +1796,7 @@ if (encryptionSelect == "AYiK-BeCheR") {
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 else if (encryptionSelect == "AL-BaM") {
 	for (var i=0; i < input.length; i++){
@@ -1852,6 +1843,8 @@ else if (encryptionSelect == "AL-BaM") {
 				default:letter = "";break;
 			}
 			textEncrypted += letter;
+			alert(textEncrypted);
+			document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 		}
 	}
 	if(gematria == "HaKlali"){
@@ -1877,6 +1870,7 @@ else if (encryptionSelect == "AL-BaM") {
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 else if (encryptionSelect == "AT-BaSh") {
 	for (var i=0; i < input.length; i++){
@@ -1911,8 +1905,7 @@ else if (encryptionSelect == "AT-BaSh") {
 			default:letter = "";break;
 		}
 		textEncrypted += letter;
-		alert(textEncrypted);
-
+		
 // If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
 if(i+1 == input.length){
 	switch(letter){
@@ -1924,6 +1917,8 @@ if(i+1 == input.length){
 		default:letter = "";break;
 	}
 	textEncrypted += letter;
+	alert(textEncrypted);
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 }
 	if(gematria == "HaKlali"){
@@ -1949,6 +1944,7 @@ if(i+1 == input.length){
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 else if (encryptionSelect == "ACh-BI") {
 	for (var i=0; i < input.length; i++){
@@ -1995,6 +1991,8 @@ else if (encryptionSelect == "ACh-BI") {
 			default:letter = "";break;
 			}
 			textEncrypted += letter;
+			alert(textEncrypted);
+			document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 		}
 	}
 	if(gematria == "HaKlali"){
@@ -2020,6 +2018,7 @@ else if (encryptionSelect == "ACh-BI") {
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 else if (encryptionSelect == "AChaS-BeTA") {
 	for (var i=0; i < input.length; i++){
@@ -2066,6 +2065,8 @@ else if (encryptionSelect == "AChaS-BeTA") {
 				default:letter = "";break;
 			}
 			textEncrypted += letter;
+			alert(textEncrypted);
+			document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 		}
 	}
 	if(gematria == "HaKlali"){
@@ -2091,6 +2092,7 @@ else if (encryptionSelect == "AChaS-BeTA") {
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 else if (encryptionSelect == "AT-BaCh") {
 	for (var i=0; i < input.length; i++){
@@ -2137,6 +2139,8 @@ else if (encryptionSelect == "AT-BaCh") {
 				default:letter = "";break;
 			}
 			textEncrypted += letter;
+			alert(textEncrypted);
+			document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 		}
 	}
 	if(gematria == "HaKlali"){
@@ -2162,6 +2166,7 @@ else if (encryptionSelect == "AT-BaCh") {
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 else if (encryptionSelect == "AT-BaCh999") {
 	for (var i=0; i < input.length; i++){
@@ -2208,6 +2213,8 @@ else if (encryptionSelect == "AT-BaCh999") {
 				default:letter = "";break;
 			}
 			textEncrypted += letter;
+			alert(textEncrypted);
+			document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 		}
 	}
 	if(gematria == "HaKlali"){
@@ -2233,6 +2240,7 @@ else if (encryptionSelect == "AT-BaCh999") {
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 else if (encryptionSelect == "AiY-BaK") {
 	for (var i=0; i < input.length; i++){
@@ -2279,6 +2287,8 @@ else if (encryptionSelect == "AiY-BaK") {
 				default:letter = "";break;
 			}
 			textEncrypted += letter;
+			alert(textEncrypted);
+			document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 		}
 	}
 	if(gematria == "HaKlali"){
@@ -2304,6 +2314,7 @@ else if (encryptionSelect == "AiY-BaK") {
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 else if (encryptionSelect == "ATz-BaPh") {
 	for (var i=0; i < input.length; i++){
@@ -2350,6 +2361,8 @@ else if (encryptionSelect == "ATz-BaPh") {
 				default:letter = "";break;
 			}
 			textEncrypted += letter;
+			alert(textEncrypted);
+			document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 		}
 	}
 	if(gematria == "HaKlali"){
@@ -2375,6 +2388,7 @@ else if (encryptionSelect == "ATz-BaPh") {
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 else if (encryptionSelect == "AL-BeTh") {
 	for (var i=0; i < input.length; i++){
@@ -2421,6 +2435,8 @@ else if (encryptionSelect == "AL-BeTh") {
 				default:letter = "";break;
 			}
 			textEncrypted += letter;
+			alert(textEncrypted);
+			document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 		}
 	}
 	if(gematria == "HaKlali"){
@@ -2446,6 +2462,7 @@ else if (encryptionSelect == "AL-BeTh") {
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 else if( encryptionSelect == "Ofanim" ){
 	for (var i=0; i < input.length; i++){
@@ -2492,6 +2509,8 @@ else if( encryptionSelect == "Ofanim" ){
 				default:letter = "";break;
 			}
 			textEncrypted += letter;
+			alert(textEncrypted);
+			document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 		}
 	}
 	if(gematria == "HaKlali"){
@@ -2517,38 +2536,39 @@ else if( encryptionSelect == "Ofanim" ){
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 else{ // Default to the AT-BaSh convertions
 	for (var i=0; i < input.length; i++){
 		switch(array[i]){
-			/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05D9";gematria2 += L10;break;	// yod
-			/*bet*/		case "\u05D1":gematria1 += L02;letter = "\u05DB";gematria2 += L11;break;	// kaf
-			/*gimel*/	case "\u05D2":gematria1 += L03;letter = "\u05DC";gematria2 += L12;break;	// lamed
-			/*dalet*/	case "\u05D3":gematria1 += L04;letter = "\u05DE";gematria2 += L13;break;	// mem
-			/*hey*/		case "\u05D4":gematria1 += L05;letter = "\u05E0";gematria2 += L14;break;	// nun
-			/*vav*/		case "\u05D5":gematria1 += L06;letter = "\u05E1";gematria2 += L15;break;	// samech
+			/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05EA";gematria2 += L22;break;	// tav
+			/*bet*/		case "\u05D1":gematria1 += L02;letter = "\u05E9";gematria2 += L21;break;	// shin
+			/*gimel*/	case "\u05D2":gematria1 += L03;letter = "\u05E8";gematria2 += L20;break;	// resh
+			/*dalet*/	case "\u05D3":gematria1 += L04;letter = "\u05E7";gematria2 += L19;break;	// kuf
+			/*hey*/		case "\u05D4":gematria1 += L05;letter = "\u05E6";gematria2 += L18;break;	// tzadi
+			/*vav*/		case "\u05D5":gematria1 += L06;letter = "\u05E4";gematria2 += L17;break;	// pey
 			/*zayin*/	case "\u05D6":gematria1 += L07;letter = "\u05E2";gematria2 += L16;break;	// ayin
-			/*chet*/	case "\u05D7":gematria1 += L08;letter = "\u05E4";gematria2 += L17;break;	// pey
-			/*tet*/		case "\u05D8":gematria1 += L09;letter = "\u05E6";gematria2 += L18;break;	// tzadi
-			/*yod*/		case "\u05D9":gematria1 += L10;letter = "\u05E7";gematria2 += L19;break;	// kuf
-			/*kaf*/		case "\u05DB":gematria1 += L11;letter = "\u05E8";gematria2 += L20;break;	// resh
-			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E9";gematria2 += L21;break;	// shin
-			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05EA";gematria2 += L22;break;	// tav
-			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05DB";gematria2 += L11;break;	// kaf
-			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
-			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05E0";gematria2 += L12;break;	// nun
-			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05E4";gematria2 += L17;break;	// pey
-			/*tzadi*/	case "\u05E6":gematria1 += L18;letter = "\u05E6";gematria2 += L18;break;	// tzadi
-			/*kuf*/		case "\u05E7":gematria1 += L19;letter = "\u05D0";gematria2 += L01;break;	// aleph
-			/*resh*/	case "\u05E8":gematria1 += L20;letter = "\u05D1";gematria2 += L02;break;	// bet
-			/*shin*/	case "\u05E9":gematria1 += L21;letter = "\u05D2";gematria2 += L03;break;	// gimel
-			/*tav*/		case "\u05EA":gematria1 += L22;letter = "\u05D3";gematria2 += L04;break;	// dalet
-			/*kaf F*/	case "\u05DA":gematria1 += L23;letter = "\u05D4";gematria2 += L05;break;	// hey
-			/*mem F*/	case "\u05DD":gematria1 += L24;letter = "\u05D5";gematria2 += L06;break;	// vav
-			/*nun F*/	case "\u05DF":gematria1 += L25;letter = "\u05D6";gematria2 += L07;break;	// zayin
-			/*pey F*/	case "\u05E3":gematria1 += L26;letter = "\u05D7";gematria2 += L08;break;	// chet
-			/*tzadi F*/	case "\u05E5":gematria1 += L27;letter = "\u05D8";gematria2 += L09;break;	// tet
-			default:letter = input[i]; break; // Keep original character if not found
+			/*chet*/	case "\u05D7":gematria1 += L08;letter = "\u05E1";gematria2 += L15;break;	// samech
+			/*tet*/		case "\u05D8":gematria1 += L09;letter = "\u05E0";gematria2 += L14;break;	// nun
+			/*yod*/		case "\u05D9":gematria1 += L10;letter = "\u05DE";gematria2 += L13;break;	// mem
+			/*kaf*/		case "\u05DB":gematria1 += L11;letter = "\u05DC";gematria2 += L12;break;	// lamed
+			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05DB";gematria2 += L11;break;	// kaf
+			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D9";gematria2 += L10;break;	// yod
+			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D8";gematria2 += L09;break;	// tet
+			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D7";gematria2 += L08;break;	// chet
+			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D6";gematria2 += L07;break;	// zayin
+			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D5";gematria2 += L06;break;	// vav
+			/*tzadi*/	case "\u05E6":gematria1 += L18;letter = "\u05D4";gematria2 += L05;break;	// hey
+			/*kuf*/		case "\u05E7":gematria1 += L19;letter = "\u05D3";gematria2 += L04;break;	// dalet
+			/*resh*/	case "\u05E8":gematria1 += L20;letter = "\u05D2";gematria2 += L03;break;	// gimel
+			/*shin*/	case "\u05E9":gematria1 += L21;letter = "\u05D1";gematria2 += L02;break;	// bet
+			/*tav*/		case "\u05EA":gematria1 += L22;letter = "\u05D0";gematria2 += L01;break;	// aleph
+			/*kaf F*/	case "\u05DA":gematria1 += L23;letter = "\u05DC";gematria2 += L12;break;	// lamed
+			/*mem F*/	case "\u05DD":gematria1 += L24;letter = "\u05D9";gematria2 += L10;break;	// yod
+			/*nun F*/	case "\u05DF":gematria1 += L25;letter = "\u05D8";gematria2 += L09;break;	// tet
+			/*pey F*/	case "\u05E3":gematria1 += L26;letter = "\u05D5";gematria2 += L06;break;	// vav
+			/*tzadi F*/	case "\u05E5":gematria1 += L27;letter = "\u05D4";gematria2 += L05;break;	// hey
+			default:letter = "";break;
 		}
 		textEncrypted += letter;
 		
@@ -2563,6 +2583,8 @@ if(i+1 == input.length){
 		default:letter = "";break;
 	}
 	textEncrypted += letter;
+	alert(textEncrypted);
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
 }
 	if(gematria == "HaKlali"){
@@ -2588,6 +2610,7 @@ if(i+1 == input.length){
 	gematria2 = remainder2 + product2;}
 	}
 	// encryptionSelect.value = 'Encryption'; // set dropdown menu back to 1st option
+	document.getElementById('encrypted').innerHTML = `Encrypted: <a style="text-decoration: none;" href="http://translate.google.com/#auto/en/"+textEncrypted+" target="_blank"><span style="color: #FFFFFF; font-weight: bold; text-shadow: 0px 0px 5px rgba(255, 255, 255, 100);">${textEncrypted}</span></a>`;
 }
         });
 
@@ -3418,10 +3441,103 @@ if(i+1 == input.length){
 						default: break;
 					}
 				}
-
 		    } else {
 		        textHighlight = '';
 		    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				var encryptionMenu = document.getElementById('encryptionSelect').value;
+				var wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
+				var letter='';
+				var textEncrypted='';
+				var input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				
+				if (encryptionMenu == 'AYiK-BeCheR') {
+					// Add Switch cases for AYiK-BeCheR
+					textEncrypted="AYiK-BeCheR";alert(textEncrypted);
+				} else if (encryptionMenu == 'AL-BaM') {
+					// Add Switch cases for AL-BaM
+					textEncrypted="AL-BaM";alert(textEncrypted);
+				} else if (encryptionMenu == 'AT-BaSh') {
+					// Add Switch cases for AT-BaSh
+					textEncrypted="AT-BaSh";alert(textEncrypted);
+				} else if (encryptionMenu == 'ACh-BI') {
+					// Add Switch cases for ACh-BI
+					textEncrypted="ACh-BI";alert(textEncrypted);
+				} else if (encryptionMenu == 'AChaS-BeTA') {
+					// Add Switch cases for AChaS-BeTA
+					textEncrypted="AChaS-BeTA";alert(textEncrypted);
+				} else if (encryptionMenu == 'AT-BaCh') {
+					// Add Switch cases for AT-BaCh
+					textEncrypted="AT-BaCh";alert(textEncrypted);
+				} else if (encryptionMenu == 'AT-BaCh999') {
+					// Add Switch cases for AT-BaCh999
+					textEncrypted="AT-BaCh999";alert(textEncrypted);
+				} else if (encryptionMenu == 'AiY-BaK') {
+					// Add Switch cases for AiY-BaK
+					textEncrypted="AiY-BaK";alert(textEncrypted);
+				} else if (encryptionMenu == 'ATz-BaPh') {
+					// Add Switch cases for ATz-BaPh
+					textEncrypted="ATz-BaPh";alert(textEncrypted);
+				} else if (encryptionMenu == 'AL-BeTh') {
+					// Add Switch cases for AL-BeTh
+					textEncrypted="AL-BeTh";alert(textEncrypted);
+				} else if (encryptionMenu == 'Ofanim') {
+					// Add Switch cases for Ofanim
+					textEncrypted="Ofanim";alert(textEncrypted);
+				} else if (encryptionMenu == 'Encryption') {
+					// Add Switch cases for AT-BaSh
+					textEncrypted="Encryption";alert(textEncrypted);
+				} else {
+					// Add Switch cases for AT-BaSh
+					textEncrypted="Default";alert(textEncrypted);
+				}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		});
 		
 		// Wait to calculate the Sum of the letters highlighted until the mouse click has been released and all letters are highlighted.
@@ -3440,6 +3556,7 @@ if(i+1 == input.length){
 		            }
 		            return sum;
 		        }, 0);
+
 				var verses = (textHighlight.match(/\d+:\d+/g) || ['1']).length;
 				document.getElementById('verses').innerHTML = `Verses: <span style="color: #35ab47; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${verses.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				let words = textHighlight.trim().split(/\s+/).length;
@@ -3496,46 +3613,6 @@ if(i+1 == input.length){
 		        }
 		    }
 		});
-
-		// Highlight number functionality
-		textArea.addEventListener('click', (event) => {
-		    if (event.target.nodeType === Node.TEXT_NODE) {
-		        const text = event.target.textContent;
-		        const number = parseInt(text);
-		        if (!isNaN(number)) {
-		            const range = document.createRange();
-		            range.selectNodeContents(event.target);
-		            const selection = window.getSelection();
-		            selection.removeAllRanges();
-		            selection.addRange(range);
-		            textArea.focus();
-		            textHighlight = selection.toString();
-		            document.getElementById('sum').textContent = `Sum: ${Array.from(textHighlight).reduce((sum, char) => {
-		                if (/[a-z0-9]/.test(char)) {
-		                    sum += char.charCodeAt(0) - (isNaN(parseInt(char)) ? 96 : 48);
-		                }
-		                return sum;
-		            }, 0)}`;
-		        }
-		    }
-		});
-
-        // Highlight number on control click functionality
-        textArea.addEventListener('click', (event) => {
-            if (event.ctrlKey) {
-                const text = event.target.textContent;
-                const number = parseInt(text);
-                if (!isNaN(number)) {
-                    const range = document.createRange();
-                    range.selectNodeContents(event.target);
-                    const selection = window.getSelection();
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                    const sum = number;
-                    statusBar.textContent = `Sum: <span style="font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">${sum}</span>`;
-                }
-            }
-        });
 
 		// Calculate Button's function
 		//function calculateBtn() {}   
@@ -3612,7 +3689,7 @@ if(i+1 == input.length){
 		}
 
 		// Copy functionality
-		copyBtn.addEventListener('click', () => {
+		/*copyBtn.addEventListener('click', () => {
 		    if (textHighlight) {
 		        // Copy the highlighted text to the clipboard
 		        navigator.clipboard.writeText(textHighlight).then(function() {
@@ -3639,7 +3716,7 @@ if(i+1 == input.length){
 		        const simulatedEvent = new KeyboardEvent('keydown', { key: key, ctrlKey: window.navigator.platform !== 'MacIntel', metaKey: window.navigator.platform === 'MacIntel' });
 		        window.dispatchEvent(simulatedEvent);
 		    }
-		});
+		});*/
 		
 		// Match Next functionality
 		/* matchBtn.addEventListener('click', () => {
@@ -3764,7 +3841,7 @@ if(i+1 == input.length){
 	</script>
 
 	<script>
-	alert(
+	/*alert(
 				"\nmatch:\t\t\t\t"+match+
 				"\nrange:\t\t\t\t"+range+
 				"\nnumber:\t\t\t"+number+
@@ -3824,7 +3901,7 @@ if(i+1 == input.length){
 				"\nU+05DF\t\t\u05DF"+"\t\t\tL25\t\t"+L25+ // nun F
 				"\nU+05E3\t\t\u05E3"+"\t\t\tL26\t\t"+L26+ // pey F
 				"\nU+05E5\t\t\u05E5"+"\t\t\tL27\t\t"+L27+ // tzadi F
-				"\n");
+				"\n");*/
 </script>
 </body>
 </html>
