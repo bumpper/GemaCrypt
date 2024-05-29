@@ -639,6 +639,7 @@
 					}
 				}
 			}
+			
 			//Load a default file upon page load
 			window.onload = function () {
 				loadFile('app1/files/books/default.txt');
@@ -701,7 +702,6 @@
 			<option value='LatinLetters'>Latin Letters</option>
 			<option value='GreekLetters'>Greek Letters</option>
 			<option value='HebrewLetters'>Hebrew Letters</option>
-			<option value='Gematria'>Gematria</option>
 			<option value='AltWord1'>Alt Word #1</option>
 			<option value='AltWord2'>Alt Word #2</option>
         </select>
@@ -736,6 +736,13 @@
 		</div>
     
     <input type="file" id="fileInput" multiple style="display: none;">
+
+	<script>
+		const textarea = document.getElementById("textArea");
+		const text = textarea.textContent;
+		const newText = text.replace(/\*/g, "<font color='#FF0000'>*</font>");
+		textarea.innerHTML = newText;
+	  </script>
 
 	<script>
 		// Text Direction listener
@@ -1701,7 +1708,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				const hebrewCharacters = /[\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g; // except for new lines &&[^\u000A-\u000D\u0085\u2028\u2029\r\n]
 				const noNiqqudContent = noMaqafDashMinus.replace(hebrewCharacters, '');
 				textArea.textContent = noNiqqudContent;
-				removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 			}
 		});
 		// Remove functionality if "Punctuation" is selected, change event listener
@@ -1711,7 +1718,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		        const textAreaContent = textArea.textContent;
 		        const noPunctuationContent = textAreaContent.replace(/[.,!?\-;\*\(\)\[\]\u05C3]/g, '');
 		        textArea.textContent = noPunctuationContent;
-				removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});
 		// Remove functionality if "Digits" are selected, change event listener, including colons and tabs for the verse indicators
@@ -1720,11 +1727,11 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    if (selectedValue === 'Digits') {
 		        const textAreaContent = textArea.textContent;
 		        const noDigitsContent = textAreaContent
-					.replace(/[\d\u003A\u05C3\t]/g, '') // remove Digits, colons, Sof Pasuq (Hebrew colon) & tabs
+					.replace(/[\d,\u003A\u05C3\t]/g, '') // remove Digits, commas, colons, Sof Pasuq (Hebrew colon) & tabs
 					.replace(/\n{2,}/g, '\n') // removes a double or repeating New Line
 					.replace(/\r{2,}/g, '\r'); // removes a double or repeating Carriage Return
 		        textArea.textContent = noDigitsContent;
-				removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});
 		// Remove functionality if "Spaces" are selected, change event listener
@@ -1734,7 +1741,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		        const textAreaContent = textArea.textContent;
 		        const noSpacesContent = textAreaContent.replace(/[^\S\r\n]+/g, '');
 		        textArea.textContent = noSpacesContent;
-				removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});
 		// Remove functionality if "Spaces" are selected, change event listener
@@ -1744,7 +1751,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				const textAreaContent = textArea.textContent;
 				const noCarriageReturnsContent = textAreaContent.replace(/(\r\n|\n|\r)/gm, '');
 				textArea.textContent = noCarriageReturnsContent;
-				removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 
 					textArea.classList.add('horizontalScroll'); // add the class to show horizontal scrollbar for browsers that do not wrap text to the text field.
 			} else {
@@ -1758,7 +1765,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		        const textAreaContent = textArea.textContent;
 		        const noLatinLettersContent = textAreaContent.replace(/[a-zA-Z\uAB30–\uAB6F\uAB65]/g, '');
 		        textArea.textContent = noLatinLettersContent;
-				removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});
 		// Remove functionality if "GreekLetters" are selected, change event listener
@@ -1768,7 +1775,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		        const textAreaContent = textArea.textContent;
 		        const noGreekLettersContent = textAreaContent.replace(/[\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]]/g, '');
 		        textArea.textContent = noGreekLettersContent;
-				removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});
 		// Remove functionality if "HebrewLetters" are selected, change event listener
@@ -1778,24 +1785,9 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		        const textAreaContent = textArea.textContent;
 		        const noHebrewLettersContent = textAreaContent.replace(/[\u0590-\u05FF]/g, '');
 		        textArea.textContent = noHebrewLettersContent;
-				removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});	
-		// Remove functionality if "Gematria" are selected, change event listener, including commas
-		removeSelect.addEventListener('change', () => {
-		    const selectedValue = removeSelect.value;
-		    if (selectedValue === 'Gematria') {
-		        const textAreaContent = textArea.textContent;
-		        const noGematriaContent = textAreaContent
-				.replace(/(?<![:\d])\d+|(?<=\t)\d/g, '')
-					//.replace(/(?<!:)\d+|(?<=\d:)\d+|(?<=:\d)\d+|(?<=\t)\d/g, '') // Removes tabs and commans that directly preceed a digit.  As well as any series of digits that either proceed or follow a colon.  Also removes any repeating new lines. 
-					//.replace(/[\d,\t]/g, '')
-					.replace(/\n{2,}/g, '\n') // removes a double or repeating New Line
-					.replace(/\r{2,}/g, '\r'); // removes a double or repeating Carriage Return
-		        textArea.textContent = noGematriaContent;
-				removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		    }
-		});
 		// Remove functionality if "Alt Word #1" are selected, change event listener.  This is the original word traditionally found in the Old Testament.
 		removeSelect.addEventListener('change', () => {
 		    const selectedValue = removeSelect.value;
@@ -4106,6 +4098,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				}
 				if (encryptedTotal == 0) {encryptedTotal = "";}
 				else {document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;}
+//				else {document.getElementById('encryptedsum').innerHTML = `En. Gematria: <a id="app1Link" href="app1.php" style="text-decoration: none;" target="_blank"><span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span></a>`;}
 			} 
 		);
 		
@@ -4129,12 +4122,31 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				var verses = (textHighlight.match(/\d+:\d+/g) || ['1']).length;
 				let words = textHighlight.trim().split(/\s+/).length;
 				let letters = textHighlight.replace(/[.,&!$%#~*|><}^{/)(-=:;\d\s\r\n_'"`\]\[\+\\\u05C3?\u05BE\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '').length;	// Remove special characters and Niqqud
+
+				/*const link = document.getElementById("app1Link");
+				link.addEventListener("click", function(event) {
+				const inputText = document.createElement("input");
+				inputText.type = "hidden";
+				inputText.name = "inputText";
+				inputText.value = verses;
+				link.appendChild(inputText);
+				const script = document.createElement("script");
+				script.textContent = "window.onload = function() { Transpose(); };";
+				link.appendChild(script);
+				});
+
+				if (letters == 0) {	words = 0;	verses = 0; encryptedTotal = ""; document.getElementById('encryptedsum').innerHTML = `En. Gematria: <a id="app1Link" href="app1.php" style="text-decoration: none;" target="_blank"><span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span></a>`;}	// If there are no letters then there will not be any words or verses either. 
+				document.getElementById('verses').innerHTML = `Verses: <a id="app1Link" href="app1.php" style="text-decoration: none;" target="_blank"><span style="color: #35ab47; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${verses.toLocaleString('en-US', {maximumFractionDigits: 0})}</span></a>`;
+				document.getElementById('words').innerHTML = `Words: <a id="app1Link" href="app1.php" style="text-decoration: none;" target="_blank"><span style="color: #025be0; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${words.toLocaleString('en-US', {maximumFractionDigits: 0})}</span></a>`;
+				document.getElementById('letters').innerHTML = `Letters: <a id="app1Link" href="app1.php" style="text-decoration: none;" target="_blank"><span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${letters.toLocaleString('en-US', {maximumFractionDigits: 0})}</span></a>`;
+				document.getElementById('sum').innerHTML = `Gematria: <a id="app1Link" href="app1.php" style="text-decoration: none;" target="_blank"><span style="color: #FF0000; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span></a>`;*/
+				
 				if (letters == 0) {	words = 0;	verses = 0; encryptedTotal = ""; document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;}	// If there are no letters then there will not be any words or verses either. 
 				document.getElementById('verses').innerHTML = `Verses: <span style="color: #35ab47; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${verses.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('words').innerHTML = `Words: <span style="color: #025be0; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${words.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${letters.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('sum').innerHTML = `Gematria: <span style="color: #FF0000; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
-				
+
 		        if (startContainer.nodeType === Node.TEXT_NODE && endContainer.nodeType === Node.TEXT_NODE) {
 		            const startNode = startContainer.parentNode;
 		            const endNode = endContainer.parentNode;
