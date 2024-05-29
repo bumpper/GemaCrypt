@@ -137,7 +137,7 @@
 		.textArea {
             flex: 1;
             overflow-x: auto;
-            padding: 5px 5px 20px 5px;  /* Top, Right, Bottom, & Left.  Additional padding against the bottom edge so that the Status bar does not cover the last line of the textArea. */
+            padding: 5px 5px 20px 5px;	/* Top, Right, Bottom, & Left.  Additional padding against the bottom edge so that the Status bar does not cover the last line of the textArea. */
             resize: vertical;
             white-space: pre-wrap;
             /*direction: rtl;*/
@@ -148,7 +148,7 @@
 			word-wrap: break-word;
 			background-color: #333;	/* dark grey background for Dark Mode*/
 			color: #FFFFFF;			/* white text for Dark Mode */
-			text-shadow: none;			/* remove text shadow for Dark Mode*/
+			text-shadow: none;			 /* remove text shadow for Dark Mode*/
         }
 		.light-mode {
 			background-color: #FFF;
@@ -727,17 +727,12 @@
 			<div class="encrypted" id="encrypted"><p><span id="encrypted"></span></p></div>
 			<div class="encryptedsum" id="encryptedsum"><p><span id="encryptedsum"></span></p></div>
 		</div>
-		<!--<div class="arrow-container">
-			<span class="arrow left-arrow" style="font-size: 16px; font-weight: bold; vertical-align: bottom;"><a href="javascript:void(0);" onclick="increaseFontSize()"><img src="img/arrow-up.png" height="14" width="14" border="0"></a></span><img src="img/invis.gif" height="0" width="20" border="0">
-			<span class="arrow left-arrow" style="font-size: 16px; font-weight: bold; vertical-align: bottom;"><a href="javascript:void(0);" onclick="decreaseFontSize()"><img src="img/arrow-down.png" height="14" width="14" border="0"></a></span><img src="img/invis.gif" height="0" width="20" border="0">
-			<span class="arrow left-arrow" style="font-size: 16px; font-weight: bold; vertical-align: bottom;"><a href="#" onclick="event.preventDefault(); findPrevious(textHighlight);"><img src="img/arrow-left.png" height="14" width="14" border="0"></a></span><img src="img/invis.gif" height="0" width="20" border="0">
-			<span class = "arrow right-arrow" style="font-size: 16px; font-weight: bold; vertical-align: bottom;"><a href="javascript:void(0);" onclick="Find()"><img src="img/arrow-right.png" height="14" width="14" border="0"></a></span><img src="img/invis.gif" height="0" width="20" border="0">
-			</div>-->
 		</div>
     
     <input type="file" id="fileInput" multiple style="display: none;">
 
 	<script>
+		// Replace * with a red colored *, but this does not work in an editable text field
 		const textarea = document.getElementById("textArea");
 		const text = textarea.textContent;
 		const newText = text.replace(/\*/g, "<font color='#FF0000'>*</font>");
@@ -1727,9 +1722,9 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    if (selectedValue === 'Digits') {
 		        const textAreaContent = textArea.textContent;
 		        const noDigitsContent = textAreaContent
-					.replace(/[\d,\u003A\u05C3\t]/g, '') // remove Digits, commas, colons, Sof Pasuq (Hebrew colon) & tabs
-					.replace(/\n{2,}/g, '\n') // removes a double or repeating New Line
-					.replace(/\r{2,}/g, '\r'); // removes a double or repeating Carriage Return
+					.replace(/[\d,\u003A\u05C3\t]/g, '')	// remove Digits, commas, colons, Sof Pasuq (Hebrew colon) & tabs
+					.replace(/\n{2,}/g, '\n') 				// removes a double or repeating New Line
+					.replace(/\r{2,}/g, '\r');				// removes a double or repeating Carriage Return
 		        textArea.textContent = noDigitsContent;
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
@@ -1793,7 +1788,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    const selectedValue = removeSelect.value;
 		    if (selectedValue === 'AltWord1') {
 		        const textAreaContent = textArea.textContent;
-		        const noAltWord1Content = textAreaContent.replace(/\*(?!.*\*)[^ ]+ /g, '');	// Removes any single * and any characters that follow it until the first space it reaches, and also removes the space, then stops. 
+				const noAltWord1Content = textAreaContent.replace(/(?<!\*)\*(?!\*)[^ ]*/g, '');	// Removes any single * and any characters that follow it until the first space it reaches, and also removes the space, then stops. 
 		        textArea.textContent = noAltWord1Content;
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
@@ -1803,7 +1798,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    const selectedValue = removeSelect.value;
 		    if (selectedValue === 'AltWord2') {
 		        const textAreaContent = textArea.textContent;
-		        const noAltWord2Content = textAreaContent.replace(/\*\*[^\s]*?(?=\s|$)/g, '');//textAreaContent.replace(/\*\*[^ ]+ /g, '');	// Removes any double ** and any characters that follow it until the first space it reaches, and also removes the space, then stops. 
+		        const noAltWord2Content = textAreaContent.replace(/\*\*[^ ]*/g,'**').replace(/\*\*/g,'');	// Replaces anything inbetween a double ** and the next following space, just a double **. Then it also replaces the ** with an empty vaule. 
 		        textArea.textContent = noAltWord2Content;
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
@@ -4194,7 +4189,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		});
 
 		// Calculate Button's function
-		//function calculateBtn() {}   
+		//function calculateBtn() {		}   
 
 		// Create a Modal dialog window
 		function createModal() {
@@ -4294,58 +4289,6 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		        const key = window.navigator.platform === 'MacIntel' ? 'f' : 'F';
 		        const simulatedEvent = new KeyboardEvent('keydown', { key: key, ctrlKey: window.navigator.platform !== 'MacIntel', metaKey: window.navigator.platform === 'MacIntel' });
 		        window.dispatchEvent(simulatedEvent);
-		    }
-		});*/
-		
-		// Match Next functionality
-		/* matchBtn.addEventListener('click', () => {
-		    if (textHighlight) {
-		        window.find(textHighlight);
-		    }
-		});
-		  document.addEventListener('DOMContentLoaded', () => {
-		    function changeTextAreaContent(text) {
-		      const textArea = document.querySelector('#textArea');
-		      textArea.value = text;
-		    }
-		    const rightArrow = document.querySelector('.right-arrow img');
-		    rightArrow.addEventListener('click', () => {
-		      changeTextAreaContent('New Text');
-		    });
-		  });
-
-		// Match Previous functionality
-		function findPrevious(query) {
-		    let match = false;
-		    let currentSelection = window.getSelection();
-		    if (currentSelection) {
-		        let currentRange = currentSelection.getRangeAt(0);
-		        // Check if the current range starts with the query
-		        if (currentRange.toString().startsWith(query)) {
-		            match = true;
-		        }
-		    }
-		    while (!match) {
-		        // Move the window to the previous match
-		        window.find(query, false, false, true, false, false, false);
-		        currentSelection = window.getSelection();
-		        if (currentSelection) {
-		            currentRange = currentSelection.getRangeAt(0);
-		            // Check if the current range starts with the query
-		            if (currentRange.toString().startsWith(query)) {
-		                match = true;
-		            }
-		        } else {
-		            // No more matches found
-		            break;
-		        }
-		    }
-		}
-		
-		// Match Listener
-		matchBtn.addEventListener('click', () => {
-		    if (textHighlight) {
-		        findPrevious(textHighlight);
 		    }
 		});*/
 
