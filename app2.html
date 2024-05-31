@@ -305,9 +305,9 @@
 </head>
 <body>
     <div class="toolbar">
-        <button id="openBtn" class="textBtn"><img src="img/open.png" height="13" width="16" border="0" alt="Open"><img src="img/invis.gif" width="8" border="0">Open</button>
+        <button id="openBtn" class="textBtn"><!--<img src="img/open.png" height="13" width="16" border="0" alt="Open">-->&#x1F4C2;<img src="img/invis.gif" width="8" border="0">Open</button>
 		<select id="bookSelect" onchange="loadFile(this.value)">
-		    <option value='Book' selected="true">Book:</option><!-- OT in Hebrew -->
+		    <option value='Book' selected="true">&#x1F4D6; Book:</option><!-- OT in Hebrew -->
 		    <option value='/app1/files/books/OT/Hebrew/genesis/genesis.txt'>Genesis</option>
 		    <option value='/app1/files/books/OT/Hebrew/exodus/exodus.txt'>Exodus</option>
 		    <option value='/app1/files/books/OT/Hebrew/leviticus/leviticus.txt'>Leviticus</option>
@@ -598,6 +598,8 @@
 			function toggleDirection() {
 			var textarea = document.getElementById('textarea');
 			textarea.dir = textarea.dir === 'rtl'? 'ltr' : 'rtl';
+			var encryptedSpan = document.getElementById('encrypted');
+			encryptedSpan.dir = encryptedSpan.dir === 'rtl'? 'ltr' : 'rtl';
 			}
 			</script>
 		
@@ -655,7 +657,7 @@
 		</script>
 
 		<select id="gematriaSelect" tabIndex="3" onChange="gematria = this.value">
-            <option value='Value' selected="true">Gematria:</option>
+            <option value='Value' selected="true">&#x0023; Gematria:</option>
             <option value='Ragil'>Ragil</option>
 			<option value='Katan'>Katan</option>
 			<option value='HaKlali'>HaKlali</option>
@@ -670,7 +672,7 @@
         </select>
 
 		<select id="encryptionSelect" tabIndex="2" onchange="encryption = this.value" onclick="encryption = this.value">
-			<option value='Encryption' selected="true">Encryption:</option>
+			<option value='Encryption' selected="true">&#x1F512; Encryption:</option>
 			<option value='AYiK-BeCheR'>AYiK-BeCheR</option>
 			<option value='AL-BaM'>AL-BaM</option>
 			<option value='AT-BaSh'>AT-BaSh</option>
@@ -693,7 +695,7 @@
 		  </script>
 
         <select id="removeSelect" tabIndex="" onChange="">
-            <option value='Remove' selected="true">Remove:</option>
+            <option value='Remove' selected="true">&#x1F6AB; Remove:</option>
 			<option value='Niqqud'>Niqqud (Vowel Points)</option>
 			<option value='Punctuation'>Punctuation</option>
 			<option value='Digits'>Digits</option>
@@ -706,15 +708,16 @@
 			<option value='AltWord2'>Alt Word #2</option>
         </select>
 
-		<button id="calculateBtn" class="textBtn" onclick="createModal(); openModal(textHighlight, textTotal, textEncrypted);"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="8" border="0">Calculate</button>
-		<!--<button id="copyBtn" class="textBtn" onclick=""><img src="img/copy.png" height="16" width="16" border="0" alt="Copy"><img src="img/invis.gif" width="8" border="0">Copy</button>-->
+		<button id="calculateBtn" class="textBtn" onclick="createModal(); openModal(textHighlight, textTotal, textEncrypted);"><img src="img/calculate2.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="8" border="0"><!--&#x1F7EE; -->Calculate</button>
+		<!--<button id="copyBtn" class="textBtn" onclick=""><img src="img/copy.png" height="16" width="16" border="0" alt="Copy">&#x1F4D1;<img src="img/invis.gif" width="8" border="0">Copy</button>-->
 		<button id="directionBtn" class="textBtn" onclick="toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><!--<img src="img/invis.gif" width="8" border="0">Direction--></button>
-		<button id="lightmodeBtn" class="textBtn" onclick="toggleLightMode()"><img src="img/moon.png" height="16" width="20" border="0" alt="Text Direction"><!--<img src="img/invis.gif" width="8" border="0">Direction--></button>
-        <button id="translateBtn" class="textBtn" onclick=""><img src="img/translate.png" height="16" width="16" border="0" alt="Translate"><img src="img/invis.gif" width="8" border="0">Translate</button>
-        <button id="printBtn" class="textBtn" onclick=""><img src="img/print.png" height="16" width="16" border="0" alt="Print"><img src="img/invis.gif" width="8" border="0">Print</button>
-        <button id="exportBtn" class="textBtn" onclick=""><img src="img/export.png" height="16" width="16" border="0" alt="Export"><img src="img/invis.gif" width="8" border="0">Export</button>
-        <button id="clearBtn" class="textBtn" onclick=""><img src="img/clear.png" height="16" width="16" border="0" alt="Clear"><img src="img/invis.gif" width="8" border="0">Clear</button>
-        <button id="helpBtn" class="textBtn" onclick="window.open('help.html', '_blank')"><img src="img/help.png" height="16" width="16" border="0" alt="Help"><img src="img/invis.gif" width="8" border="0">Help</button>
+		<button id="lightmodeBtn" class="textBtn" onclick="toggleLightMode()"><img src="img/moon2.png" height="16" width="16" border="0" alt="Light/Dark Mode"><!--<img src="img/invis.gif" width="8" border="0">&#x1F319; Mode--></button>
+        <button id="translateBtn" class="textBtn" onclick=""><img src="img/translate2.png" height="16" width="16" border="0" alt="Translate"><img src="img/invis.gif" width="8" border="0"><!--&#x1F202; -->Translate</button>
+        <button id="printBtn" class="textBtn" onclick=""><img src="img/print2.png" height="16" width="16" border="0" alt="Print"><img src="img/invis.gif" width="8" border="0"><!--&#x1F5A8; -->Print</button>
+        <button id="exportBtn" class="textBtn" onclick=""><!--<img src="img/export.png" height="16" width="16" border="0" alt="Export">-->&#x1F4E5;<img src="img/invis.gif" width="8" border="0">Export</button>
+        <button id="clearBtn" class="textBtn" onclick=""><!--<img src="img/clear.png" height="16" width="16" border="0" alt="Clear"><img src="img/invis.gif" width="8" border="0">-->&#x274C; Clear</button>
+		<button id="app1Btn" class="textBtn" onclick="window.open('app1.php', '_blank')"><img src="img/db.png" height="16" width="16" border="0" alt="GemaCrypt DB"><!--<img src="img/invis.gif" width="8" border="0">&#x1F5C3;--></button>
+        <button id="helpBtn" class="textBtn" onclick="window.open('help.html', '_blank')"><img src="img/help2.png" height="17" width="14" border="0" alt="Help"><img src="img/invis.gif" width="8" border="0">Help</button>
     </div>
 	
     <div class="container">
@@ -724,7 +727,7 @@
 			<div class="words" id="words"><p><span id="words"></span></p></div>
 			<div class="letters" id="letters"><p><span id="letters"></span></p></div>
 			<div class="sum" id="sum"><p><span id="sum"></span></p></div>
-			<div class="encrypted" id="encrypted"><p><span id="encrypted"></span></p></div>
+			<div class="encrypted" id="encrypted"><p><span id="encrypted" dir="rtl"></span></p></div>
 			<div class="encryptedsum" id="encryptedsum"><p><span id="encryptedsum"></span></p></div>
 		</div>
 		</div>
@@ -744,6 +747,8 @@
 		function toggleDirection() {
 		var textarea = document.getElementById('textArea');
 		textarea.dir = textarea.dir === 'rtl'? 'ltr' : 'rtl';
+		var encryptedSpan = document.getElementById('encrypted');
+		encryptedSpan.dir = encryptedSpan.dir === 'rtl'? 'ltr' : 'rtl';
 		}
 		</script>
 
@@ -759,9 +764,9 @@
 
 		// Change the image on the button depending on the current mode
 		if (textArea.classList.contains('light-mode')) {
-			button.querySelector('img').src = 'img/sun.png';
+			button.querySelector('img').src = 'img/sun2.png';
 		} else {
-			button.querySelector('img').src = 'img/moon.png';
+			button.querySelector('img').src = 'img/moon2.png';
 		}
 		}
 	</script>
@@ -1646,6 +1651,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
         const printBtn = document.getElementById('printBtn');
         const exportBtn = document.getElementById('exportBtn');
         const clearBtn = document.getElementById('clearBtn');
+		const app1Btn = document.getElementById('app1Btn');
         const helpBtn = document.getElementById('helpBtn');
         const textArea = document.getElementById('textArea');
         const statusBar = document.getElementById('statusBar');
@@ -4137,7 +4143,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				document.getElementById('sum').innerHTML = `Gematria: <a id="app1Link" href="app1.php" style="text-decoration: none;" target="_blank"><span style="color: #FF0000; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span></a>`;*/
 				
 				if (letters == 0) {	words = 0;	verses = 0; encryptedTotal = ""; document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;}	// If there are no letters then there will not be any words or verses either. 
-				document.getElementById('verses').innerHTML = `Verses: <span style="color: #35ab47; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${verses.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
+				document.getElementById('verses').innerHTML = `Verses: ~<span style="color: #35ab47; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${verses.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('words').innerHTML = `Words: <span style="color: #025be0; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${words.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${letters.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('sum').innerHTML = `Gematria: <span style="color: #FF0000; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
@@ -4326,6 +4332,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
             textArea.textContent = '';
 			clearBtn.textHighlight = '';
         });
+
+		// The App1 button's functionality
+	    app1Btn.addEventListener('click', () => {
+        const url = 'app1.php';
+        window.open(url, '_blank');
+	    });
 
 		// The Help button's functionality
 	    helpBtn.addEventListener('click', () => {
