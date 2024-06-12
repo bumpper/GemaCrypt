@@ -260,7 +260,7 @@ async function copyText2() {
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleKeyboard()"><img src="img/invis.gif" width="10" border="0"><img src="img/kboard.png" alt="Hebrew Keyboard" height="16" width="30" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleNiqqud()"><img src="img/niqqud.png" alt="Niqqud" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleCantillation()"><img src="img/music.png" alt="Cantillation" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
-<a href="help.html" style="color: #555; font-size: 18px;" target="_blank">GemaCrypt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<a href="help.html" style="color: #555; font-size: 18px; text-decoration: none;" target="_blank">GemaCrypt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 <a href="help.html" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/helpblack.png" alt="Help" height="15" width="15" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="16" border="0"></a>
 <a href="http://forevernode.pro/app1/app2.html" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/book.png" alt="App2" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a></h1>
 
@@ -517,12 +517,118 @@ async function copyText2() {
 <!-- Gates -->
 <td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The number of possible combinations from each letter of the original word to every other letter of the original word."><a href="img/gates.jpg" target="_blank" style="text-decoration: none; color: white;"># of Gates:</a></span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="gates"></div></td>
+<!--  -->
+<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><a href="#" style="text-decoration: none;"><span title=""><a href='' target='_blank' style='color: white; font-weight: bold;'></span></a></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id=""></div></div></td></tr>
+
+
+
+
+
+
+
+<!-- Words -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title=""><a href="Total number of words originally entered." target="_blank" style="text-decoration: none; color: white;"># of Words:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="Words"></div></td>
+<!-- Letters -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Total number of letters in the word or phrase."><a href="" style="text-decoration: none; color: white;"># of Letters:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="Letters"></div></td>
+<!-- Ofanim -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Using this method replaces each letter by the last letter of its fully spelled out name."><a href="" style="text-decoration: none; color: white;">Ofanim:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="Ofanim"></div></div></td></tr>
+
+<!-- AYiK-BeCheR -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is also known as the Kabbalah of Nine Chambers, because of its 9 equal rows."><a href="" target="_blank" style="text-decoration: none; color: white;">AYiK-BeCheR:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="AYiK-BeCheR"></div></td>
+<!-- AL-BaM -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The basic direct transformation pattern, wherein the alef-beit is divided into two equal groups of eleven letters which are then paired (first to first, second to second, etc.…) to transform one into the other."><a href="" target="_blank" style="text-decoration: none; color: white;">AL-BaM:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="AL-BaM"></div></td>
+<!-- AT-BaSh -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="This is a basic reflective transformation pattern, wherein the first and last letters of the alef-beit transform into one another, as do the second and second-to-last, and so on."><a href="" style="text-decoration: none; color: white;">AT-BaSh:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="AT-BaSh"></div></div></td></tr>
+
+<!-- ACh-BI -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is a method of alphabetic transformation wherein the alef-beit is divided into two equal groups of eleven letters. Within each group, the letters pair reflectively --the first with the last, the second with the second-to-last, etc."><a href="" target="_blank" style="text-decoration: none; color: white;">ACh-BI:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="ACh-BI"></div></td>
+<!-- AChaS-BeTA -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="This is a method of alphabetic transformation wherein the first 21 letters of the alef-beit are initially divided into three equal groups of seven letters, which are then tripled together in direct order."><a href="" target="_blank" style="text-decoration: none; color: white;">AChaS-BeTA:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="AChaS-BeTA"></div></td>
+<!-- AiY-BaK -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Used for purposes of reincarnation to find the correction one must make.  The first 9 letters are paired with the second 9 letters based on a one for one method.  But the last four letters then make up two pairs."><a href="" style="text-decoration: none; color: white;">AiY-BaK:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="AiY-BaK"></div></div></td></tr>
+
+<!-- AT-BaCh -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is a method of alphabetic transformation that is initially divided into three groups (9, 9, 4)"><a href="" target="_blank" style="text-decoration: none; color: white;">AT-BaCh:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="AT-BaCh"></div></td>
+<!-- AT-BaCh (with Finals) -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="This is a method of alphabetic transformation that is initially divided into three groups (9, 9, 9)"><a href="" target="_blank" style="text-decoration: none; color: white;">AT-BaCh (with Finals):</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="AT-BaCh999"></div></td>
+<!-- ATz-BaPh -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Similar to AT-BaSh, but also including the 5 final form letters."><a href="" style="text-decoration: none; color: white;">ATz-BaPh:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="ATz-BaPh"></div></div></td></tr>
+
+<!-- AL-BeTh -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Based on At-BaSh, but the letters of the 2nd column are reversed and alternated."><a href="" target="_blank" style="text-decoration: none; color: white;">AL-BeTh:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="AL-BeTh"></div></td>
+<!-- Ragil -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The standard and most commonly used form of gematria."><a href="" target="_blank" style="text-decoration: none; color: white;">Ragil:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="Ragil"></div></td>
+<!-- HaKlali -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="The Ragil value of the word squared."><a href="" style="text-decoration: none; color: white;">HaKlali:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="HaKlali"></div></div></td></tr>
+
+<!-- Kolel+letters -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="The Ragil value of the word + the numbers of the letters."><a href="" target="_blank" style="text-decoration: none; color: white;">Kolel +letters:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="Kolel"></div></td>
+<!-- Kolel+word(s) -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The Ragil value of the word + the word itself, or the number of words."><a href="" target="_blank" style="text-decoration: none; color: white;">Kolel +word(s):</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="Kolel+1"></div></td>
+<!-- Reduced -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="The letters positional value by column when the alphabet is ordered in a 3x9 grid (1-9, 1-9, 1-9)."><a href="" style="text-decoration: none; color: white;">Reduced:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="Reduced"></div></div></td></tr>
+
+<!-- Integral-Reduced -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Sum of digits of a word until only one digit is left."><a href="" target="_blank" style="text-decoration: none; color: white;">Integral Reduced:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="Integral-Reduced"></div></td>
+<!-- Katan -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Made by truncating all the trailing zeros."><a href="" target="_blank" style="text-decoration: none; color: white;">Katan:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="Katan"></div></td>
+<!-- Ordinal -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Value is calculated by the letters place within the alphabet, 1-27."><a href="" style="text-decoration: none; color: white;">Ordinal:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="Ordinal"></div></div></td></tr>
+
+<!-- HaKadmi -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="" border="0" style="text-decoration: none; color: white;"><span title="Ragil value plus the value of the preceding letters (triangular value), which uses each letter as the sum of all the standard gematria letter values preceding it."><a href="" target="_blank" style="text-decoration: none; color: white;">HaKadmi:</a></span></a></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="HaKadmi"></div></td>
+<!-- HaPerati -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Each letter squared and added together."><a href="" target="_blank" style="text-decoration: none; color: white;">HaPerati:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="HaPerati"></div></td>
+<!-- Miluy -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title=""><a href="" style="text-decoration: none; color: white;">Miluy:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="Miluy"></div></div></td></tr>
+
+<!-- A"B -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title=""><a href="" target="_blank" style="text-decoration: none; color: white;">A"B:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="AB"></div></td>
+<!-- SaG -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title=""><a href="" target="_blank" style="text-decoration: none; color: white;">SaG:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="SaG"></div></td>
+<!-- MaH -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Value is calculated by the letters place within the alphabet, 1-27."><a href="" style="text-decoration: none; color: white;">MaH:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="MaH"></div></div></td></tr>
+
+<!-- BaN -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title=""><a href="" target="_blank" style="text-decoration: none; color: white;">BaN:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="BaN"></div></td>
+<!--  -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title=""><a href="" target="_blank" style="text-decoration: none; color: white;"></a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id=""></div></td>
 <!-- Ananagrams -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><a href="#" style="text-decoration: none;" onclick="toggleAnagramResults()"><img src="img/expand.png" id="AnagramResultsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>    <a onclick="selectText('anagram')" border="0" style="text-decoration: none; color: white;"><span title="A list of all the possible varations of spellings by permutating the original word.  Also called Tserufim.  &#10;&#10;If the original word is more than 7 characters it may crash the app.  "><a href='startScreenOptimized.html' target='_blank' style='color: white; font-weight: bold;'>Ananagrams</span><!-- (Tserufim)-->:</a></u></b></p>
+<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><a href="#" style="text-decoration: none;" onclick="toggleAnagramResults()"><img src="img/expand.png" id="AnagramResultsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>    <a onclick="selectText('anagram')" border="0" style="text-decoration: none; color: white;"><span title="A list of all the possible varations of spellings by permutating the original word.  Also called Tserufim.  &#10;&#10;If the original word is more than 7 characters it may crash the app.  "><a href='startScreenOptimized.html' target='_blank' style='color: white; font-weight: bold;'>Ananagrams</span><!-- (Tserufim)-->:</a></u></b></p>
 <div id="anagramResults"><ol type="1" style="text-align:right; float:right; clear:both;"><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="anagram"></div></div></td></tr>
 
 <!-- Random Word -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="javascript:location.reload();" border="0" style="text-decoration: none; color: white;" onclick="randomString(6, 'A')"><span title="This will generate a random word based on the number of letters in the original word."><!--Angel:--></span><!--/Random Word--></a></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="javascript:location.reload();" border="0" style="text-decoration: none; color: white;" onclick="randomString(6, 'A')"><span title=""><!--Angel:--></span><!--/Random Word--></a></u></b></p>
 <!--<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="randword"></div>--></td>
 <!-- Google Input Tools -->
 <tr><td width="33%" valign="top"><p align="center" valign="baseline"><b><u><!--<a href="http://www.google.com/inputtools/"><img src="../img/inputtools.jpg" border="0" alt="Google Input Tools"></a>--></u></b></p>
