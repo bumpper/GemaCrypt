@@ -706,7 +706,7 @@
 			<option value='AltWord2'>Alt Word #2</option>
         </select>
 
-		<button id="calculateBtn" class="textBtn" onclick="createModal(); openModal(textHighlight, textTotal, textEncrypted);"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="8" border="0"><!--&#x1F7EE; -->Calculate</button>
+		<!--<button id="calculateBtn" class="textBtn" onclick="createModal(); openModal(textHighlight, textTotal, textEncrypted);"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="8" border="0"><!--&#x1F7EE; Calculate</button>-->
 		<!--<button id="copyBtn" class="textBtn" onclick=""><img src="img/copy.png" height="16" width="16" border="0" alt="Copy">&#x1F4D1;<img src="img/invis.gif" width="8" border="0">Copy</button>-->
 		<button id="directionBtn" class="textBtn" onclick="toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><!--<img src="img/invis.gif" width="8" border="0">Direction--></button>
 		<button id="lightmodeBtn" class="textBtn" onclick="toggleLightMode()"><img src="img/moon.png" height="16" width="16" border="0" alt="Light/Dark Mode"><!--<img src="img/invis.gif" width="8" border="0">&#x1F319; Mode--></button>
@@ -793,7 +793,7 @@
 
 <script>
 encryptionSelect.onchange = encryptionSelect.onclick = function() {	
-    input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+    input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
     wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 	letter=textEncrypted='';
     let selectedOption = encryptionSelect.value; // Get the selected option
@@ -2552,7 +2552,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				if (encryptionSelect.value == "AYiK-BeCheR") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					for (var i=0; i < input.length; i++){
 						switch(input[i]){
 							/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05D9";gematria2 += L10;break;	// yod
@@ -2620,12 +2620,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AL-BaM") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					for (var i=0; i < input.length; i++){
 						switch(input[i]){
 							/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05DC";gematria2 += L12;break;	// lamed
@@ -2693,12 +2693,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AT-BaSh") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					for (var i=0; i < input.length; i++){
 						switch(input[i]){
 							/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05EA";gematria2 += L22;break;	// tav
@@ -2766,12 +2766,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "ACh-BI") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					for (var i=0; i < input.length; i++){
 						switch(input[i]){
 							/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -2839,12 +2839,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AChaS-BeTA") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					for (var i=0; i < input.length; i++){
 						switch(input[i]){
 							/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05D7";gematria2 += L08;break;	// chet
@@ -2912,12 +2912,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AT-BaCh") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					for (var i=0; i < input.length; i++){
 						switch(input[i]){
 							/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05D8";gematria2 += L09;break;	// tet
@@ -2985,12 +2985,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AT-BaCh999") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					for (var i=0; i < input.length; i++){
 						switch(input[i]){
 							/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05D8";gematria2 += L09;break;	// tet
@@ -3058,12 +3058,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AiY-BaK") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					for (var i=0; i < input.length; i++){
 						switch(input[i]){
 							/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05D9";gematria2 += L10;break;	// yod
@@ -3131,12 +3131,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "ATz-BaPh") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					for (var i=0; i < input.length; i++){
 						switch(input[i]){
 							/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05E6";gematria2 += L18;break;	// tzadi
@@ -3204,12 +3204,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AL-BeTh") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					for (var i=0; i < input.length; i++){
 						switch(input[i]){
 							/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05DC";gematria2 += L12;break;	// lamed
@@ -3277,12 +3277,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "Ofanim") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					for (var i=0; i < input.length; i++){
 						switch(input[i]){
 							/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05E4";gematria2 += L17;break;	// pey
@@ -3350,20 +3350,20 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "Encryption") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
-				if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
-				input = textHighlight.replace(/[a-z\t"\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
+				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					// Add Switch cases for AT-BaSh
-					if (textEncrypted!== '') {document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 				}
 
 				var encryptedTotal = 0;
@@ -4095,7 +4095,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						default: break;
 					}
 				}
-				if (encryptedTotal == 0) {encryptedTotal = "";}
+				if (encryptedTotal == 0) {encryptedTotal = ""; }
 				else {document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;}
 //				else {document.getElementById('encryptedsum').innerHTML = `En. Gematria: <a id="app1Link" href="app1.php" style="text-decoration: none;" target="_blank"><span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span></a>`;}
 			} 
@@ -4329,6 +4329,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
         clearBtn.addEventListener('click', () => {
             textArea.textContent = '';
 			clearBtn.textHighlight = '';
+			document.getElementById('verses').innerHTML = ``;
+			document.getElementById('words').innerHTML = ``;
+			document.getElementById('letters').innerHTML = ``;
+			document.getElementById('sum').innerHTML = ``;
+			document.getElementById('encrypted').innerHTML = ``;
+			document.getElementById('encryptedsum').innerHTML = ``;
         });
 
 		// The App1 button's functionality
