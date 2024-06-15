@@ -10,12 +10,12 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     $errorMessage = "Connection failed: ". $conn->connect_error. "<br>";
-    $errorMessage.= "<a href='http://forevernode.pro/app1/app1.html'>Proceed to site without database access</a><br>";
+    $errorMessage.= "<a href='http://forevernode.pro/app1/app1.php'>Proceed to site without database access</a><br>";
     $errorMessage.= "<a href='mailto:bumpper@gmail.com'>Report issue here</a>";
     die($errorMessage);
 }
 
-// Assign the PHP variable values from the javascript variables in app1.html that were sent over via the ajax request
+// Assign the PHP variable values from the javascript variables in app1.php that were sent over via the ajax request
 $original = $_POST['original'];
 $word1 = $_POST['word1'];
 $gematria1 = $_POST['gematria1'];
