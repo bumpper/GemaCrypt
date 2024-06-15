@@ -220,6 +220,10 @@ body { background-color: #000;}
   75%  { content: '...'; }
   100% { content: ''; }
 }
+.modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.4); }
+.modal-content { background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; font-family: Arial, sans-serif; background-image: url(""); background-repeat: repeat; background-position: top left; padding-top: 10px; padding-left: 30px; padding-right: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 10px; outline: 2px solid black; }
+.close { position: absolute; top: 10px; right: 20px; font-size: 30px; font-weight: bold; color: #000; text-decoration: none; }
+.modal-content p { color: #000; }
 </style>
 
 <script language="JavaScript" type="text/javascript">
@@ -260,7 +264,7 @@ async function copyText2() {
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleKeyboard()"><img src="img/invis.gif" width="10" border="0"><img src="img/kboard.png" alt="Hebrew Keyboard" height="16" width="30" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleNiqqud()"><img src="img/niqqud.png" alt="Niqqud" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleCantillation()"><img src="img/music.png" alt="Cantillation" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
-<a href="help.html" style="color: #555; font-size: 18px;" target="_blank">GemaCrypt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<a href="help.html" style="color: #555; font-size: 18px; text-decoration: none;" target="_blank">GemaCrypt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 <a href="help.html" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/helpblack.png" alt="Help" height="15" width="15" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="16" border="0"></a>
 <a href="http://forevernode.pro/app1/app2.html" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/book.png" alt="App2" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a></h1>
 
@@ -482,7 +486,7 @@ async function copyText2() {
 <div align="right" data-role="fieldcontain" class="mobiletextinput4" id="sofim"></div></td></tr>
 
 <!-- Forward Exchange -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Replacing each letter of the original word, by rolling forward one letter to what comes next in the alphabet."><a href="/app1/help.html#ABaG_BeGeD" target="_blank" style="text-decoration: none; color: white;">Av-Gad (Forward Exchange):</a></span></u></b></p><!--Keter-->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Replacing each letter of the original word, by rolling forward one letter to what comes next in the alphabet."><a href="/app1/help.html#ABaG_BeGeD" target="_blank" style="text-decoration: none; color: white;">Av-Gad (Forward Exchange):</a></span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="forexch"></div></td>
 <!-- Knit Word -->
 <td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Weaving the letters of two words together into one new word, by alternativing between each word, letter by letter.">Knit Word:</span></u></b></p>
@@ -505,7 +509,7 @@ async function copyText2() {
 <tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="The letter combination that normally represents the numerical value of the original word.">Summation:</span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="summation"></div></td>
 <!-- Paths -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The number of paths on the Tree of Life, found by the number of unique letters in the original word."><a href="img/paths.jpg" target="_blank" border="0" style="text-decoration: none; color: white;"># of Paths:</a></span></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The number of paths on the Tree of Life, found by the number of unique letters in the original word."><a href="#" onclick="openPathModal();" style="text-decoration: none; color: white;"># of Paths:</a></span></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="paths"></div></td>
 <!-- Divisions -->
 <td width="33%" valign="top"><p align="right" valign="top"><b><u><a href="#" style="text-decoration: none;" onclick="togglePossibleDivisions()"><img src="img/expand.png" id="PossibleDivisionsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>   <span title="The different letter combinations with make words of the same numerical value.">Possible Divisions:</span></u></b></p>
@@ -515,14 +519,108 @@ async function copyText2() {
 <tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="" border="0" style="text-decoration: none; color: white;" onclick="SendReverse()"><span title="This will generate a random word based on the number of letters in the original word."><a href="/app1/help.html#ThShRQ" target="_blank" style="text-decoration: none; color: white;">ThShRQ (Reversed):</a></span></a></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="reverseText"></div></td>
 <!-- Gates -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The number of possible combinations from each letter of the original word to every other letter of the original word."><a href="img/gates.jpg" target="_blank" style="text-decoration: none; color: white;"># of Gates:</a></span></a></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The number of possible combinations from each letter of the original word to every other letter of the original word."><a href="#" onclick="openGateModal();" style="text-decoration: none; color: white;"># of Gates:</a></span></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="gates"></div></td>
+<!-- A"B -->
+<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><span title="AB Spelling"><a href='' target='_blank' style='color: white; font-weight: bold;'></span>A"B:</a></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="AB"></div></div></td></tr>
+
+
+
+
+
+<!-- SaG -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="SaG Spelling"><a href="" target="_blank" style="text-decoration: none; color: white;">SaG:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="SaG"></div></td>
+<!-- MaH -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="MaH Spelling"><a href="" target="_blank" style="text-decoration: none; color: white;">MaH:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="MaH"></div></td>
+<!-- BaN -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="BaN Spelling"><a href="" style="text-decoration: none; color: white;">BaN:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="BaN"></div></div></td></tr>
+
+<!-- Words -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title=""><a href="Total number of words originally entered." target="_blank" style="text-decoration: none; color: white;"># of Words:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="words"></div></td>
+<!-- Letters -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Total number of letters in the word or phrase."><a href="" style="text-decoration: none; color: white;"># of Letters:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="letters"></div></td>
+<!-- Ofanim -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Using this method replaces each letter by the last letter of its fully spelled out name."><a href="" style="text-decoration: none; color: white;">Ofanim:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="Ofanim"></div></div></td></tr>
+
+<!-- AYiK-BeCheR -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is also known as the Kabbalah of Nine Chambers, because of its 9 equal rows."><a href="" target="_blank" style="text-decoration: none; color: white;">AYiK-BeCheR:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="AYiK-BeCheR"></div></td>
+<!-- AL-BaM -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The basic direct transformation pattern, wherein the alef-beit is divided into two equal groups of eleven letters which are then paired (first to first, second to second, etc.…) to transform one into the other."><a href="" target="_blank" style="text-decoration: none; color: white;">AL-BaM:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="AL-BaM"></div></td>
+<!-- AT-BaSh -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="This is a basic reflective transformation pattern, wherein the first and last letters of the alef-beit transform into one another, as do the second and second-to-last, and so on."><a href="" style="text-decoration: none; color: white;">AT-BaSh:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="AT-BaSh"></div></div></td></tr>
+
+<!-- ACh-BI -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is a method of alphabetic transformation wherein the alef-beit is divided into two equal groups of eleven letters. Within each group, the letters pair reflectively --the first with the last, the second with the second-to-last, etc."><a href="" target="_blank" style="text-decoration: none; color: white;">ACh-BI:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="ACh-BI"></div></td>
+<!-- AChaS-BeTA -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="This is a method of alphabetic transformation wherein the first 21 letters of the alef-beit are initially divided into three equal groups of seven letters, which are then tripled together in direct order."><a href="" target="_blank" style="text-decoration: none; color: white;">AChaS-BeTA:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="AChaS-BeTA"></div></td>
+<!-- AiY-BaK -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Used for purposes of reincarnation to find the correction one must make.  The first 9 letters are paired with the second 9 letters based on a one for one method.  But the last four letters then make up two pairs."><a href="" style="text-decoration: none; color: white;">AiY-BaK:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="AiY-BaK"></div></div></td></tr>
+
+<!-- AT-BaCh -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is a method of alphabetic transformation that is initially divided into three groups (9, 9, 4)"><a href="" target="_blank" style="text-decoration: none; color: white;">AT-BaCh:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="AT-BaCh"></div></td>
+<!-- AT-BaCh (with Finals) -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="This is a method of alphabetic transformation that is initially divided into three groups (9, 9, 9)"><a href="" target="_blank" style="text-decoration: none; color: white;">AT-BaCh (with Finals):</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="AT-BaCh999"></div></td>
+<!-- ATz-BaPh -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Similar to AT-BaSh, but also including the 5 final form letters."><a href="" style="text-decoration: none; color: white;">ATz-BaPh:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="ATz-BaPh"></div></div></td></tr>
+
+<!-- AL-BeTh -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Based on At-BaSh, but the letters of the 2nd column are reversed and alternated."><a href="" target="_blank" style="text-decoration: none; color: white;">AL-BeTh:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="AL-BeTh"></div></td>
+<!-- Ragil -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The standard and most commonly used form of gematria."><a href="" target="_blank" style="text-decoration: none; color: white;">Ragil:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="Ragil"></div></td>
+<!-- HaKlali -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="The Ragil value of the word squared."><a href="" style="text-decoration: none; color: white;">HaKlali:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="HaKlali"></div></div></td></tr>
+
+<!-- Kolel+letters -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="The Ragil value of the word + the numbers of the letters."><a href="" target="_blank" style="text-decoration: none; color: white;">Kolel +letters:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="Kolel"></div></td>
+<!-- Kolel+word(s) -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The Ragil value of the word + the word itself, or the number of words."><a href="" target="_blank" style="text-decoration: none; color: white;">Kolel +word(s):</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="Kolel+1"></div></td>
+<!-- Reduced -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="The letters positional value by column when the alphabet is ordered in a 3x9 grid (1-9, 1-9, 1-9)."><a href="" style="text-decoration: none; color: white;">Reduced:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="Reduced"></div></div></td></tr>
+
+<!-- Integral-Reduced -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Sum of digits of a word until only one digit is left."><a href="" target="_blank" style="text-decoration: none; color: white;">Integral Reduced:</a></span></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="Integral-Reduced"></div></td>
+<!-- Katan -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Made by truncating all the trailing zeros."><a href="" target="_blank" style="text-decoration: none; color: white;">Katan:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="Katan"></div></td>
+<!-- Ordinal -->
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Value is calculated by the letters place within the alphabet, 1-27."><a href="" style="text-decoration: none; color: white;">Ordinal:</a></span></u></b></p>
+<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="Ordinal"></div></div></td></tr>
+
+<!-- HaKadmi -->
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="" border="0" style="text-decoration: none; color: white;"><span title="Ragil value plus the value of the preceding letters (triangular value), which uses each letter as the sum of all the standard gematria letter values preceding it."><a href="" target="_blank" style="text-decoration: none; color: white;">HaKadmi:</a></span></a></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="HaKadmi"></div></td>
+<!-- HaPerati -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Each letter squared and added together."><a href="" target="_blank" style="text-decoration: none; color: white;">HaPerati:</a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="HaPerati"></div></td>
 <!-- Ananagrams -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><a href="#" style="text-decoration: none;" onclick="toggleAnagramResults()"><img src="img/expand.png" id="AnagramResultsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>    <a onclick="selectText('anagram')" border="0" style="text-decoration: none; color: white;"><span title="A list of all the possible varations of spellings by permutating the original word.  Also called Tserufim.  &#10;&#10;If the original word is more than 7 characters it may crash the app.  "><a href='startScreenOptimized.html' target='_blank' style='color: white; font-weight: bold;'>Ananagrams</span><!-- (Tserufim)-->:</a></u></b></p>
+<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><a href="#" style="text-decoration: none;" onclick="toggleAnagramResults()"><img src="img/expand.png" id="AnagramResultsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>    <a onclick="selectText('anagram')" border="0" style="text-decoration: none; color: white;"><span title="A list of all the possible varations of spellings by permutating the original word.  Also called Tserufim.  &#10;&#10;If the original word is more than 7 characters it may crash the app.  "><a href='startScreenOptimized.html' target='_blank' style='color: white; font-weight: bold;'>Ananagrams</span><!-- (Tserufim)-->:</a></u></b></p>
 <div id="anagramResults"><ol type="1" style="text-align:right; float:right; clear:both;"><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="anagram"></div></div></td></tr>
 
 <!-- Random Word -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="javascript:location.reload();" border="0" style="text-decoration: none; color: white;" onclick="randomString(6, 'A')"><span title="This will generate a random word based on the number of letters in the original word."><!--Angel:--></span><!--/Random Word--></a></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="javascript:location.reload();" border="0" style="text-decoration: none; color: white;" onclick="randomString(6, 'A')"><span title=""><!--Angel:--></span><!--/Random Word--></a></u></b></p>
 <!--<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="randword"></div>--></td>
 <!-- Google Input Tools -->
 <tr><td width="33%" valign="top"><p align="center" valign="baseline"><b><u><!--<a href="http://www.google.com/inputtools/"><img src="../img/inputtools.jpg" border="0" alt="Google Input Tools"></a>--></u></b></p>
@@ -692,12 +790,67 @@ function toggleGematriaMatches() {
   GematriaMatchesAreVisible = !GematriaMatchesAreVisible;
 }
 GematriaMatchesExpandCollapseImg.src = "img/expand.png"; // Initialize the image source to "img/expand.png"
+
+// Create Gate Modal dialog window
+function createGateModal() {
+  var modal = `
+    <div id="myGateModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p id="modal-message"></p>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modal);
+}
+// Modal dialog for Gates
+function openGateModal() {
+  createGateModal(); // Call createGateModal() first to create the modal HTML
+  var message =  `<center>Gates are the number of unique connections between one letter of the alphabet and another letter.<br><br><img src="img/gates.jpg"></center>`;
+  document.getElementById("modal-message").innerHTML = message;
+  document.getElementById("myGateModal").style.display = "block";
+}
+function closeModal() {
+  document.getElementById("myGateModal").style.display = "none";
+}
+
+// Create Path Modal dialog window
+function createPathModal() {
+  var modal = `
+    <div id="myPathModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closePathModal()">&times;</span>
+        <p id="path-modal-message"></p>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modal);
+}
+// Modal dialog for Paths
+function openPathModal() {
+  createPathModal(); // Call createPathModal() first to create the modal HTML
+  var message =  `<center>Paths are the number of unique connections between the Sephirot (digits 0-9 or 1-10) of the Tree of Life.<br><br><img src="img/paths.jpg"></center>`;
+  document.getElementById("path-modal-message").innerHTML = message;
+  document.getElementById("myPathModal").style.display = "block";
+}
+function closePathModal() {
+  document.getElementById("myPathModal").style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == document.getElementById("myGateModal")) {
+    document.getElementById("myGateModal").style.display = "none";
+  }
+  if (event.target == document.getElementById("myPathModal")) {
+    document.getElementById("myPathModal").style.display = "none";
+  }
+}
+
 </script>
 
 <script>
 function gematriaMenu(gematria) {
 var gematria = document.getElementById('gemmenu').value;
-  if (gematria == 'Ragil' || gematria == 'Kolel' || gematria == 'Kolel +1' || gematria == 'HaKlali'){
+  if (gematria == 'Ragil' || gematria == 'Kolel' || gematria == 'Kolel +1' || gematria == 'HaKlali'/* || gematria == 'Katan'*/){
     var L01 = 1;var L02 = 2;var L03 = 3;var L04 = 4;var L05 = 5;var L06 = 6;var L07 = 7;var L08 = 8;var L09 = 9;var L10 = 10;var L11 = 20;var L12 = 30;var L13 = 40;var L14 = 50;var L15 = 60;var L16 = 70;var L17 = 80;var L18 = 90;var L19 = 100;var L20 = 200;var L21 = 300;var L22 = 400;var L23 = 500;var L24 = 600;var L25 = 700;var L26 = 800;var L27 = 900;
   } else if(gematria == 'Reduced' || gematria == 'IntegralReduced' || gematria == 'Katan'){
     var L01 = 1;var L02 = 2;var L03 = 3;var L04 = 4;var L05 = 5;var L06 = 6;var L07 = 7;var L08 = 8;var L09 = 9;var L10 = 1;var L11 = 2;var L12 = 3;var L13 = 4;var L14 = 5;var L15 = 6;var L16 = 7;var L17 = 8;var L18 = 9;var L19 = 1;var L20 = 2;var L21 = 3;var L22 = 4;var L23 = 5;var L24 = 6;var L25 = 7;var L26 = 8;var L27 = 9;
@@ -814,7 +967,7 @@ var gematria = document.getElementById('gemmenu').value;
 function Transpose(){
 
 // Reset variables
-var alphas=array=array2=backexch=BE=cryptography2=div=FE=forexch=letter=morph=word=pictogram=word1=word2=zeros="";
+var original=alphas=array=array2=backexch=BE=cryptography2=div=FE=forexch=letter=morph=word=pictogram=word1=word2=zeros="";
 var space = "  ";
 var gematria1=gematria2=gematriaMiluy=gematriaAvgadBE=gematriaAvgadFE=gematriaReversed=gematriaAcronym=gematriaSofit=gematriaElision=gematriaLeap=gematriaSkip=gematriaSum=gematriaKnit=gematriaWord2=remainder1=product1=remainder2=product2=i=letterCount=letterCount2=wordCount=L01=L02=L03=L04=L05=L06=L07=L08=L09=L10=L11=L12=L13=L14=L15=L16=L17=L18=L19=L20=L21=L22=L23=L24=L25=L26=L27=0;
 var RagilValue=KolelValue=Kolel1Value=HaKlaliValue=KatanValue=ReducedlValue=IntegralReducedlValue=OrdinalValue=HaKadmiValue=HaPeratiValue=MiluyValue= 0;
@@ -828,11 +981,18 @@ var gematria2AYiKBeCheR=gematria2ATBaSh=gematria2ALBaM=gematria2AChBI=gematria2A
 var AltATBaSh=AltAShBaR=AltARBaK=AltAQBeTz=AltEZBePh=AltAPBE=AltAEBaS=AltASBeN=AltANBaM=AltAMBeL=AltELBaCh=AltAChBI=AltAIBeT=AltATBaCh=AltAChBaZ=AltAZBO=AltAVBaH=AltAHBaD=AltADBeG=AltAGBaB=AltABBA=AltAAhBaT=AltABBaG=AltAGBaD=AltADBaH=AltAHBeV=AltAVBeZ=AltAZBeCh=AltAChBeT=AltATBI=AltAIBech=AltAChBeL=AltELBaM=AltAMBeN=AltANBeS=AltASBA=AltAABaPh=AltAPhBaTz=AltATzBeQ=AltAKBaR=AltARBeSh=AltAShBeT=AltATBaH='';
 var gematria2AltATBaSh=gematria2AltAShBaR=gematria2AltARBaK=gematria2AltAQBeTz=gematria2AltEZBePh=gematria2AltAPBE=gematria2AltAEBaS=gematria2AltASBeN=gematria2AltANBaM=gematria2AltAMBeL=gematria2AltELBaCh=gematria2AltAChBI=gematria2AltAIBeT=gematria2AltATBaCh=gematria2AltAChBaZ=gematria2AltAZBO=gematria2AltAVBaH=gematria2AltAHBaD=gematria2AltADBeG=gematria2AltAGBaB=gematria2AltABBA=gematria2AltAAhBaT=gematria2AltABBaG=gematria2AltAGBaD=gematria2AltADBaH=gematria2AltAHBeV=gematria2AltAVBeZ=gematria2AltAZBeCh=gematria2AltAChBeT=gematria2AltATBI=gematria2AltAIBech=gematria2AltAChBeL=gematria2AltELBaM=gematria2AltAMBeN=gematria2AltANBeS=gematria2AltASBA=gematria2AltAABaPh=gematria2AltAPhBaTz=gematria2AltATzBeQ=gematria2AltAKBaR=gematria2AltARBeSh=gematria2AltAShBeT=gematria2AltATBaH=0;
 
+var paths=gates=words=letters=0;
+
 const userLanguage = navigator.language || navigator.userLanguage;	// Get the user's default language
 const languageCode = userLanguage.split('-')[0];					// Extract the language code (e.g., "en" from "en-US")
 const targetLanguage = languageCode; 								// Set the target language to the user's preferred language
 
 var inputText = document.getElementById('inputText').value;
+var original = document.getElementById('inputText').value;
+words = document.getElementById('inputText').value.trim().split(/\s+/).length;
+document.getElementById("words").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${words}); Transpose(); return false;" target='_blank'><b>${words}</b></a>`;
+letters = document.getElementById('inputText').value.replace(/[^\u0590-\u05FF\u0370-\u03FFa-zA-Z]/g, '').length;
+document.getElementById("letters").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${letters}); Transpose(); return false;" target='_blank'><b>${letters}</b></a>`;
 var inputText2 = document.getElementById('inputText2').value;
 var cryptography = document.getElementById('cryptmenu').value;
 var gematria = document.getElementById('gemmenu').value;
@@ -851,7 +1011,7 @@ inputText2 = '';
 }
 
 // IF statement will decide which system of Gematria to use for the aleph-bet
-if (gematria == 'Ragil' || gematria == 'Kolel' || gematria == 'Kolel +1' || gematria == 'HaKlali'){
+if (gematria == 'Ragil' || gematria == 'Kolel' || gematria == 'Kolel +1' || gematria == 'HaKlali'/* || gematria == 'Katan'*/){
     var L01 = 1;var L02 = 2;var L03 = 3;var L04 = 4;var L05 = 5;var L06 = 6;var L07 = 7;var L08 = 8;var L09 = 9;var L10 = 10;var L11 = 20;var L12 = 30;var L13 = 40;var L14 = 50;var L15 = 60;var L16 = 70;var L17 = 80;var L18 = 90;var L19 = 100;var L20 = 200;var L21 = 300;var L22 = 400;var L23 = 500;var L24 = 600;var L25 = 700;var L26 = 800;var L27 = 900;
   } else if(gematria == 'Reduced' || gematria == 'IntegralReduced' || gematria == 'Katan'){
     var L01 = 1;var L02 = 2;var L03 = 3;var L04 = 4;var L05 = 5;var L06 = 6;var L07 = 7;var L08 = 8;var L09 = 9;var L10 = 1;var L11 = 2;var L12 = 3;var L13 = 4;var L14 = 5;var L15 = 6;var L16 = 7;var L17 = 8;var L18 = 9;var L19 = 1;var L20 = 2;var L21 = 3;var L22 = 4;var L23 = 5;var L24 = 6;var L25 = 7;var L26 = 8;var L27 = 9;
@@ -898,7 +1058,7 @@ knit += word1.substring(start,end);
 knit += word2.substring(start,end);
 end++;
 }
-document.getElementById("knit").innerHTML = "<a href='http://translate.google.com/#auto/en/"+knit+"' target='_blank'><b>" + knit + "</b></a><br />";
+document.getElementById("knit").innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(knit)+"' target='_blank'><b>" + knit + "</b></a><br />";
 
 // inputText will be split up by character or letter
 var array = inputText.split("");
@@ -1679,15 +1839,15 @@ if (forexch.substr(forexch.length - 1, 1) == "\u05DB") {
 }if (backexch.substr(backexch.length - 1, 1) == "\u05E6") {
   backexch = backexch.substr(0, backexch.length - 1) + "\u05E5";
 }
-document.getElementById("backexch").innerHTML = "<a href='http://translate.google.com/#auto/en/"+backexch+"' target='_blank' style='color: white; font-weight: 400;'><b>" + backexch + "</b></a><br />";
-document.getElementById("forexch").innerHTML = "<a href='http://translate.google.com/#auto/en/"+forexch+"' target='_blank' style='color: white; font-weight: 400;'><b>" + forexch + "</b></a><br />";
+document.getElementById("backexch").innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(backexch)+"' target='_blank' style='color: white; font-weight: 400;'><b>" + backexch + "</b></a><br />";
+document.getElementById("forexch").innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(forexch)+"' target='_blank' style='color: white; font-weight: 400;'><b>" + forexch + "</b></a><br />";
 
 // Number of Paths (the 32 paths of Wisdom are the 10 Sephirot 0-9 and the 22 Hebrew letters)
 // Number of Gates 
 var noDups = inputText.replace(/(.)(?=.*\1)/gi, "")// Remove duplicated letters for original word
-var gates=noDups.length;
+gates=noDups.length;
 var gatesTotal=noDups.length;
-var paths=noDups.length;
+paths=noDups.length;
 for (gates-1;gates>0;gates--) { // Loop to find the number of connections between each unique letter and every other unique letter the the word.
 gatesTotal+=(gates-1);
 }
@@ -1851,6 +2011,7 @@ for (var i=0; i < alphas.length; i++){
 		default:letter = "";break;
 	}
 }
+document.getElementById("AB").innerHTML = `<b><a href='#' onclick="replaceInputField('inputText', ${wordAB}); Transpose(); return false;" target='_blank'>${wordAB}</a>` + `<br /><font color='#FFFFFF'>Total = <a href='#' onclick="replaceInputField('inputText', ${gematriaAB}); Transpose(); return false;" target='_blank'>${gematriaAB}</a></font></b>`;
 // SaG Method
 for (var i=0; i < alphas.length; i++){
 	switch(array[i]){
@@ -1884,6 +2045,7 @@ for (var i=0; i < alphas.length; i++){
 		default:letter = "";break;
 	}
 }
+document.getElementById("SaG").innerHTML = `<b><a href='#' onclick="replaceInputField('inputText', ${wordSaG}); Transpose(); return false;" target='_blank'>${wordSaG}</a>` + `<br /><font color='#FFFFFF'>Total = <a href='#' onclick="replaceInputField('inputText', ${gematriaSaG}); Transpose(); return false;" target='_blank'>${gematriaSaG}</a></font></b>`;
 // MaH Method
 for (var i=0; i < alphas.length; i++){
 	switch(array[i]){
@@ -1917,6 +2079,7 @@ for (var i=0; i < alphas.length; i++){
 		default:letter = "";break;
 	}
 }
+document.getElementById("MaH").innerHTML = `<b><a href='#' onclick="replaceInputField('inputText', ${wordMaH}); Transpose(); return false;" target='_blank'>${wordMaH}</a>` + `<br /><font color='#FFFFFF'>Total = <a href='#' onclick="replaceInputField('inputText', ${gematriaMaH}); Transpose(); return false;" target='_blank'>${gematriaMaH}</a></font></b>`;
 // BaN Method
 for (var i=0; i < alphas.length; i++){
 	switch(array[i]){
@@ -1950,6 +2113,7 @@ for (var i=0; i < alphas.length; i++){
 		default:letter = "";break;
 	}
 }
+document.getElementById("BaN").innerHTML = `<b><a href='#' onclick="replaceInputField('inputText', ${wordBaN}); Transpose(); return false;" target='_blank'>${wordBaN}</a>` + `<br /><font color='#FFFFFF'>Total = <a href='#' onclick="replaceInputField('inputText', ${gematriaBaN}); Transpose(); return false;" target='_blank'>${gematriaBaN}</a></font></b>`;
 
 // Use the spelling method that the user has selected from the dropdown menu
 if (spelling == "AB"){
@@ -2029,6 +2193,7 @@ if( cryptography == "AL-BaM" ){
 	gematria1 += wordCount;
 	gematria2 += wordCount;
 	}
+	//else if (gematria == "Katan"){	while (gematria1.endsWith("0")) {gematria1 = gematria1.slice(0, -1);}	}
 	else if (gematria == "IntegralReduced"){
 	while(gematria1 >= 10){
 	product1 = Math.floor(gematria1 / 10);
@@ -2098,6 +2263,7 @@ if(i+1 == alphas.length){
 	gematria1 += wordCount;
 	gematria2 += wordCount;
 	}
+	//else if (gematria == "Katan"){	while (gematria1.endsWith("0")) {gematria1 = gematria1.slice(0, -1);}	}
 	else if (gematria == "IntegralReduced"){
 	while(gematria1 >= 10){
 	product1 = Math.floor(gematria1 / 10);
@@ -2167,6 +2333,7 @@ else if( cryptography == "ACh-BI" ){
 	gematria1 += wordCount;
 	gematria2 += wordCount;
 	}
+	//else if (gematria == "Katan"){	while (gematria1.endsWith("0")) {gematria1 = gematria1.slice(0, -1);}	}
 	else if (gematria == "IntegralReduced"){
 	while(gematria1 >= 10){
 	product1 = Math.floor(gematria1 / 10);
@@ -2237,6 +2404,7 @@ else if( cryptography == "AYiK-BeCheR" ){
 	gematria1 += wordCount;
 	gematria2 += wordCount;
 	}
+	//else if (gematria == "Katan"){	while (gematria1.endsWith("0")) {gematria1 = gematria1.slice(0, -1);}	}
 	else if (gematria == "IntegralReduced"){
 	while(gematria1 >= 10){
 	product1 = Math.floor(gematria1 / 10);
@@ -2307,6 +2475,7 @@ else if( cryptography == "AChaS-BeTA" ){
 	gematria1 += wordCount;
 	gematria2 += wordCount;
 	}
+	//else if (gematria == "Katan"){	while (gematria1.endsWith("0")) {gematria1 = gematria1.slice(0, -1);}	}
 	else if (gematria == "IntegralReduced"){
 	while(gematria1 >= 10){
 	product1 = Math.floor(gematria1 / 10);
@@ -2377,6 +2546,7 @@ else if( cryptography == "AT-BaCh" ){
 	gematria1 += wordCount;
 	gematria2 += wordCount;
 	}
+	//else if (gematria == "Katan"){	while (gematria1.endsWith("0")) {gematria1 = gematria1.slice(0, -1);}	}
 	else if (gematria == "IntegralReduced"){
 	while(gematria1 >= 10){
 	product1 = Math.floor(gematria1 / 10);
@@ -2447,6 +2617,7 @@ else if( cryptography == "AT-BaCh-finals" ){
 	gematria1 += wordCount;
 	gematria2 += wordCount;
 	}
+	//else if (gematria == "Katan"){	while (gematria1.endsWith("0")) {gematria1 = gematria1.slice(0, -1);}	}
 	else if (gematria == "IntegralReduced"){
 	while(gematria1 >= 10){
 	product1 = Math.floor(gematria1 / 10);
@@ -2517,6 +2688,7 @@ else if( cryptography == "AiY-BaK" ){
 	gematria1 += wordCount;
 	gematria2 += wordCount;
 	}
+	//else if (gematria == "Katan"){	while (gematria1.endsWith("0")) {gematria1 = gematria1.slice(0, -1);}	}
 	else if (gematria == "IntegralReduced"){
 	while(gematria1 >= 10){
 	product1 = Math.floor(gematria1 / 10);
@@ -2587,6 +2759,7 @@ else if( cryptography == "ATz-BaPh" ){
 	gematria1 += wordCount;
 	gematria2 += wordCount;
 	}
+	//else if (gematria == "Katan"){	while (gematria1.endsWith("0")) {gematria1 = gematria1.slice(0, -1);}	}
 	else if (gematria == "IntegralReduced"){
 	while(gematria1 >= 10){
 	product1 = Math.floor(gematria1 / 10);
@@ -2657,6 +2830,7 @@ else if( cryptography == "AL-BeTh" ){
 	gematria1 += wordCount;
 	gematria2 += wordCount;
 	}
+	//else if (gematria == "Katan"){	while (gematria1.endsWith("0")) {gematria1 = gematria1.slice(0, -1);}	}
 	else if (gematria == "IntegralReduced"){
 	while(gematria1 >= 10){
 	product1 = Math.floor(gematria1 / 10);
@@ -2727,6 +2901,7 @@ else if( cryptography == "Ofanim" ){
 	gematria1 += wordCount;
 	gematria2 += wordCount;
 	}
+	//else if (gematria == "Katan"){	while (gematria1.endsWith("0")) {gematria1 = gematria1.slice(0, -1);}	}
 	else if (gematria == "IntegralReduced"){
 	while(gematria1 >= 10){
 	product1 = Math.floor(gematria1 / 10);
@@ -2741,11 +2916,11 @@ else if( cryptography == "Ofanim" ){
 
 // Send final variables to displays
 document.getElementById("gem1").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${gematria1}); Transpose(); return false;" target='_blank'><b>${gematria1}</b></a><br />`;
-document.getElementById('crypt2').innerHTML = "<a href='http://translate.google.com/#auto/en/"+cryptography2+"' target='_blank'><b>" + cryptography2 + "</b></a><br />";
+document.getElementById('crypt2').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(cryptography2)+"' target='_blank'><b>" + cryptography2 + "</b></a><br />";
 document.getElementById("gem2").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${gematria2}); Transpose(); return false;" target='_blank'><b>${gematria2}</b></a><br />`;
 document.getElementById("pictogram").innerHTML = pictogram;
 document.getElementById("spelling").innerHTML = word + `<br /><font color='#FFFFFF'>Total = <a href='#' onclick="replaceInputField('inputText', ${gematriaMiluy}); Transpose(); return false;" target='_blank'>${gematriaMiluy}</a></font>`;
-document.getElementById("originalWord").innerHTML = "<a href='http://translate.google.com/#auto/en/"+inputText+"' target='_blank'><b>" + inputText + "</b></a><br />";
+document.getElementById("originalWord").innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(inputText)+"' target='_blank'><b>" + inputText + "</b></a><br />";
 
 // Summation
 var denom = "";
@@ -2897,7 +3072,7 @@ document.getElementById('anagram').innerHTML = '';	// Clear any old string value
 permute(inputText).forEach(function(result) {})
 var anagram = document.getElementById("anagram")
 permute(inputText).forEach(function(result) {
-anagram.innerHTML += "<li><a href='http://translate.google.com/#auto/en/"+result+"' target='_blank'><b>" + result + "</b></a></li>"
+anagram.innerHTML += "<li><a href='http://translate.google.com/#auto/en/"+encodeURIComponent(result)+"' target='_blank'><b>" + result + "</b></a></li>"
 })
 
 function permute(string) {
@@ -2930,7 +3105,7 @@ var arr = inputText.split(' ');
 for(i=0;i<arr.length;i++) {
 acronym += arr[i].substr(0,1)
 }
-document.getElementById('acronym').innerHTML = "<a href='http://translate.google.com/#auto/en/"+acronym+"' target='_blank'><b>" + acronym + "</b></a><br />";
+document.getElementById('acronym').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(acronym)+"' target='_blank'><b>" + acronym + "</b></a><br />";
 for (var i=0; i < acronym.length; i++){
 	switch(acronym[i]){
 	/*aleph*/	case "\u05D0":gematriaAcronym += L01;	break;
@@ -2971,7 +3146,7 @@ var arrev = arrev.split(' ');
 for(i=0;i<arrev.length;i++) {
 sofim += arrev[i].substr(0,1)
 }
-document.getElementById('sofim').innerHTML = "<a href='http://translate.google.com/#auto/en/"+sofim+"' target='_blank'><b>" + sofim + "</b></a><br />";
+document.getElementById('sofim').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(sofim)+"' target='_blank'><b>" + sofim + "</b></a><br />";
 for (var i=0; i < sofim.length; i++){
 	switch(sofim[i]){
 	/*aleph*/	case "\u05D0":gematriaSofit += L01;	break;
@@ -3009,7 +3184,7 @@ for (var i=0; i < sofim.length; i++){
 document.getElementById('elision').innerHTML = '';		// clear any old string value
 var elision = inputText.substr(1, inputText.length-2);
 var elision2 = inputText2.substr(1, inputText2.length-2);
-document.getElementById('elision').innerHTML = "<a href='http://translate.google.com/#auto/en/"+elision+"' target='_blank'><b>" + elision + "</b></a><br />";
+document.getElementById('elision').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(elision)+"' target='_blank'><b>" + elision + "</b></a><br />";
 for (var i=0; i < elision.length; i++){
 	switch(elision[i]){
 	/*aleph*/	case "\u05D0":gematriaElision += L01;	break;
@@ -3045,13 +3220,13 @@ for (var i=0; i < elision.length; i++){
 
 // ThShRQ Reversing or spelling the word backwards
 var reverse = inputText.split('').reverse().join('');
-document.getElementById('reverseText').innerHTML = "<a href='http://translate.google.com/#auto/en/"+reverse+"' target='_blank'><b>" + reverse + "</b></a><br />";
+document.getElementById('reverseText').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(reverse)+"' target='_blank'><b>" + reverse + "</b></a><br />";
 var gematriaReversed = gematria1;
 
 // Remove the first letter of the string to find the "Leap" word
 document.getElementById('leap').innerHTML = '';		// clear any old string value
 var leap = inputText.substr(1);
-document.getElementById('leap').innerHTML = "<a href='http://translate.google.com/#auto/en/"+leap+"' target='_blank'><b>" + leap + "</b></a><br />";
+document.getElementById('leap').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(leap)+"' target='_blank'><b>" + leap + "</b></a><br />";
 for (var i=0; i < leap.length; i++){
 	switch(leap[i]){
 	/*aleph*/	case "\u05D0":gematriaLeap += L01;	break;
@@ -3089,7 +3264,7 @@ for (var i=0; i < leap.length; i++){
 document.getElementById('skip').innerHTML = '';		// clear any old string value
 var skip = inputText.charAt(0) + inputText.substr(2);
 document.getElementById('skip').innerHTML = skip;
-document.getElementById('skip').innerHTML = "<a href='http://translate.google.com/#auto/en/"+skip+"' target='_blank'><b>" + skip + "</b></a><br />";
+document.getElementById('skip').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(skip)+"' target='_blank'><b>" + skip + "</b></a><br />";
 for (var i=0; i < skip.length; i++){
 	switch(skip[i]){
 	/*aleph*/	case "\u05D0":gematriaSkip += L01;	break;
@@ -3225,6 +3400,20 @@ for (var i=0; i < inputText.length; i++){
 	default:break;
 	}
 }
+KolelValue += letterCount;
+Kolel1Value += wordCount;
+//KatanValue = RagilValue.replace(/0+$/, ''); // Truncate any trailing zeros
+
+document.getElementById("Ragil").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${RagilValue}); Transpose(); return false;" target='_blank'><b>${RagilValue}</b></a>`;
+document.getElementById("Kolel").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${KolelValue}); Transpose(); return false;" target='_blank'><b>${KolelValue}</b></a>`;
+document.getElementById("Kolel+1").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${Kolel1Value}); Transpose(); return false;" target='_blank'><b>${Kolel1Value}</b></a>`;
+document.getElementById("HaKlali").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${HaKlaliValue}); Transpose(); return false;" target='_blank'><b>${HaKlaliValue}</b></a>`;
+document.getElementById("Reduced").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${ReducedlValue}); Transpose(); return false;" target='_blank'><b>${ReducedlValue}</b></a>`;
+document.getElementById("Integral-Reduced").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${IntegralReducedlValue}); Transpose(); return false;" target='_blank'><b>${IntegralReducedlValue}</b></a>`;
+document.getElementById("Katan").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${KatanValue}); Transpose(); return false;" target='_blank'><b>${KatanValue}</b></a>`;
+document.getElementById("Ordinal").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${OrdinalValue}); Transpose(); return false;" target='_blank'><b>${OrdinalValue}</b></a>`;
+document.getElementById("HaKadmi").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${HaKadmiValue}); Transpose(); return false;" target='_blank'><b>${HaKadmiValue}</b></a>`;
+document.getElementById("HaPerati").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${HaPeratiValue}); Transpose(); return false;" target='_blank'><b>${HaPeratiValue}</b></a>`;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																																													//
@@ -3286,6 +3475,7 @@ for (var i=0; i < alphas.length; i++){
 			ALBaM += letter;
 		}
 	}
+	document.getElementById('AL-BaM').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(ALBaM)+"' target='_blank'><b>" + ALBaM + "</b></a><br />";
 
 	// AT-BaSh
 	letter = '';
@@ -3321,19 +3511,20 @@ for (var i=0; i < alphas.length; i++){
 			default:letter = "";break;
 		}
 		ATBaSh += letter;
-// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-if(i+1 == alphas.length){
-	switch(letter){
-		/*kaf*/		case "\u05DB":letter = "\u05DA";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L11;gematria2ATBaSh += L23;break;	// kaf F
-		/*mem*/		case "\u05DE":letter = "\u05DD";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L13;gematria2ATBaSh += L24;break;	// mem F
-		/*nun*/		case "\u05E0":letter = "\u05DF";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L14;gematria2ATBaSh += L25;break;	// nun F
-		/*pey*/		case "\u05E4":letter = "\u05E3";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L17;gematria2ATBaSh += L26;break;	// pey F
-		/*tzadi*/	case "\u05E6":letter = "\u05E5";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L18;gematria2ATBaSh += L27;break;	// tzadi F
-		default:letter = "";break;
+		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
+		if(i+1 == alphas.length){
+			switch(letter){
+				/*kaf*/		case "\u05DB":letter = "\u05DA";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L11;gematria2ATBaSh += L23;break;	// kaf F
+				/*mem*/		case "\u05DE":letter = "\u05DD";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L13;gematria2ATBaSh += L24;break;	// mem F
+				/*nun*/		case "\u05E0":letter = "\u05DF";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L14;gematria2ATBaSh += L25;break;	// nun F
+				/*pey*/		case "\u05E4":letter = "\u05E3";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L17;gematria2ATBaSh += L26;break;	// pey F
+				/*tzadi*/	case "\u05E6":letter = "\u05E5";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L18;gematria2ATBaSh += L27;break;	// tzadi F
+				default:letter = "";break;
+			}
+			ATBaSh += letter;
+		}
 	}
-	ATBaSh += letter;
-}
-}
+	document.getElementById('AT-BaSh').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(ATBaSh)+"' target='_blank'><b>" + ATBaSh + "</b></a><br />";
 
 // ACh-BI
 letter = '';
@@ -3382,6 +3573,7 @@ for (var i=0; i < alphas.length; i++){
 			AChBI += letter;
 		}
 	}
+	document.getElementById('ACh-BI').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(AChBI)+"' target='_blank'><b>" + AChBI + "</b></a><br />";
 
 // AYiK-BeCheR
 letter = '';
@@ -3431,6 +3623,7 @@ for (var i=0; i < alphas.length; i++){
 			AYiKBeCheR += letter;
 		}
 	}
+	document.getElementById('AYiK-BeCheR').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(AYiKBeCheR)+"' target='_blank'><b>" + AYiKBeCheR + "</b></a><br />";
 
 // AChaS-BeTA
 letter = '';
@@ -3480,6 +3673,7 @@ for (var i=0; i < alphas.length; i++){
 			AChaSBeTA += letter;
 		}
 	}
+	document.getElementById('AChaS-BeTA').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(AChaSBeTA)+"' target='_blank'><b>" + AChaSBeTA + "</b></a><br />";
 
 // AT-BaCh
 letter = '';
@@ -3529,6 +3723,7 @@ for (var i=0; i < alphas.length; i++){
 			ATBaCh += letter;
 		}
 	}
+	document.getElementById('AT-BaCh').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(ATBaCh)+"' target='_blank'><b>" + ATBaCh + "</b></a><br />";
 
 	// AT-BaCh w/ Finals
 	letter = '';
@@ -3578,6 +3773,7 @@ for (var i=0; i < alphas.length; i++){
 			ATBaCh999 += letter;
 		}
 	}
+	document.getElementById('AT-BaCh999').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(ATBaCh999)+"' target='_blank'><b>" + ATBaCh999 + "</b></a><br />";
 
 // AiY-BaK
 letter = '';
@@ -3627,6 +3823,7 @@ for (var i=0; i < alphas.length; i++){
 			AiYBaK += letter;
 		}
 	}
+	document.getElementById('AiY-BaK').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(AiYBaK)+"' target='_blank'><b>" + AiYBaK + "</b></a><br />";
 
 // ATz-BaPh
 letter = '';
@@ -3676,6 +3873,7 @@ for (var i=0; i < alphas.length; i++){
 			ATzBaPh += letter;
 		}
 	}
+	document.getElementById('ATz-BaPh').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(ATzBaPh)+"' target='_blank'><b>" + ATzBaPh + "</b></a><br />";
 
 // AL-BeTh
 letter = '';
@@ -3725,6 +3923,7 @@ for (var i=0; i < alphas.length; i++){
 			ALBeTh += letter;
 		}
 	}
+	document.getElementById('AL-BeTh').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(ALBeTh)+"' target='_blank'><b>" + ALBeTh + "</b></a><br />";
 
 // Ofanim
 letter = '';
@@ -3774,6 +3973,7 @@ for (var i=0; i < alphas.length; i++){
 			Ofanim += letter;
 		}
 	}
+	document.getElementById('Ofanim').innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(Ofanim)+"' target='_blank'><b>" + Ofanim + "</b></a><br />";
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																																													//
@@ -5923,14 +6123,18 @@ for (var i=0; i < inputText.length; i++){
 "\nU+05E3\t\t\u05E3"+"\t\t\tL26\t\t"+L26+ // pey F
 "\nU+05E5\t\t\u05E5"+"\t\t\tL27\t\t"+L27+ // tzadi F
 "\n\t\t\t\t\t\t\t\t"+
-//"Word 1:\t\t\t\t\t\t\t"+inputText+
+"inputText:\t\t\t\t\t\t"+inputText+
+"\nOriginal:\t\t\t\t\t\t\t"+original+
 //"\ninputText.length:\t\t\t\t\t"+inputText.length+
 //"\nalphas:\t\t\t\t\t\t\t"+alphas+
 //"\nalphas.length:\t\t\t\t\t"+alphas.length+
+//"\nInputText:\t\t\t\t\t\t"+InputText+
 "\nWord 1:\t\t\t\t\t\t\t"+word1+
 "\nWord 1 Gematria:\t\t\t\t\t"+gematria1+
 "\nWord 1 total letters:\t\t\t\t"+letterCount+
 "\nWords in Word 1:\t\t\t\t\t"+wordCount+
+"\nWords in InputText:\t\t\t\t"+words+
+"\nLetters in InputText:\t\t\t\t"+letters+
 "\nPaths (Unique letters):\t\t\t\t"+paths+
 "\nGates (letter permutations):\t\t"+gatesTotal+
 "\nSkip:\t\t\t\t\t\t\t"+skip+
@@ -5964,6 +6168,7 @@ for (var i=0; i < inputText.length; i++){
 "\nBaN Spelling:\t\t\t\t\t"+textBaN+
 "\nBaN Gematria:\t\t\t\t\t"+gematriaBaN+
 "\n\t\t\t\t\t\t\t\t"+
+//"\nInputText2:\t\t\t\t\t\t"+InputText2+
 "\nWord 2:\t\t\t\t\t\t\t"+word2+
 "\nWord 2 Gematria:\t\t\t\t\t"+gematriaWord2+
 "\nKnit:\t\t\t\t\t\t\t"+knit+
@@ -6127,7 +6332,7 @@ for (var i=0; i < inputText.length; i++){
 $.ajax({
     url: 'insert.php',
     type: 'POST',
-    data: { word1: word1, gematria1: gematria1, summation: summation, letterCount: letterCount, wordCount: wordCount, paths: paths, gatesTotal: gatesTotal, skip: skip, gematriaSkip: gematriaSkip, leap: leap, gematriaLeap: gematriaLeap, reverse: reverse, gematriaReversed: gematriaReversed, elision: elision, gematriaElision: gematriaElision, backexch: backexch, gematriaAvgadBE: gematriaAvgadBE, forexch: forexch, gematriaAvgadFE: gematriaAvgadFE, acronym: acronym, gematriaAcronym: gematriaAcronym, sofim: sofim, gematriaSofit: gematriaSofit, gematriaMiluy: gematriaMiluy, textAB: textAB, gematriaAB: gematriaAB, textSaG: textSaG, gematriaSaG: gematriaSaG, textMaH: textMaH, gematriaMaH: gematriaMaH, textBaN: textBaN, gematriaBaN: gematriaBaN, RagilValue: RagilValue, KolelValue: KolelValue, Kolel1Value: Kolel1Value, HaKlaliValue: HaKlaliValue, ReducedlValue: ReducedlValue, IntegralReducedlValue: IntegralReducedlValue, KatanValue: KatanValue, OrdinalValue: OrdinalValue, HaKadmiValue: HaKadmiValue, HaPeratiValue: HaPeratiValue, MiluyValue: MiluyValue, AYiKBeCheR: AYiKBeCheR, gematria2AYiKBeCheR: gematria2AYiKBeCheR, ATBaSh: ATBaSh, gematria2ATBaSh: gematria2ATBaSh, ALBaM: ALBaM, gematria2ALBaM: gematria2ALBaM, AChBI: AChBI, gematria2AChBI: gematria2AChBI, AChaSBeTA: AChaSBeTA, gematria2AChaSBeTA: gematria2AChaSBeTA, ATBaCh: ATBaCh, gematria2ATBaCh: gematria2ATBaCh, ATBaCh999: ATBaCh999, gematria2ATBaCh999: gematria2ATBaCh999, AiYBaK: AiYBaK, gematria2AiYBaK: gematria2AiYBaK, ATzBaPh: ATzBaPh, gematria2ATzBaPh: gematria2ATzBaPh, ALBeTh: ALBeTh, gematria2ALBeTh: gematria2ALBeTh, Ofanim: Ofanim, gematria2Ofanim: gematria2Ofanim, AltATBaSh: AltATBaSh, gematria2AltATBaSh: gematria2AltATBaSh, AltAShBaR: AltAShBaR, gematria2AltAShBaR: gematria2AltAShBaR, AltARBaK: AltARBaK, gematria2AltARBaK: gematria2AltARBaK, AltAQBeTz: AltAQBeTz, gematria2AltAQBeTz: gematria2AltAQBeTz, AltEZBePh: AltEZBePh, gematria2AltEZBePh: gematria2AltEZBePh, AltAPBE: AltAPBE, gematria2AltAPBE: gematria2AltAPBE, AltAEBaS: AltAEBaS, gematria2AltAEBaS: gematria2AltAEBaS, AltASBeN: AltASBeN, gematria2AltASBeN: gematria2AltASBeN, AltANBaM: AltANBaM, gematria2AltANBaM: gematria2AltANBaM, AltAMBeL: AltAMBeL, gematria2AltAMBeL: gematria2AltAMBeL, AltELBaCh: AltELBaCh, gematria2AltELBaCh: gematria2AltELBaCh, AltAChBI: AltAChBI, gematria2AltAChBI: gematria2AltAChBI, AltAIBeT: AltAIBeT, gematria2AltAIBeT: gematria2AltAIBeT, AltATBaCh: AltATBaCh, gematria2AltATBaCh: gematria2AltATBaCh, AltAChBaZ: AltAChBaZ, gematria2AltAChBaZ: gematria2AltAChBaZ, AltAZBO: AltAZBO, gematria2AltAZBO: gematria2AltAZBO, AltAVBaH: AltAVBaH, gematria2AltAVBaH: gematria2AltAVBaH, AltAHBaD: AltAHBaD, gematria2AltAHBaD: gematria2AltAHBaD, AltADBeG: AltADBeG, gematria2AltADBeG: gematria2AltADBeG, AltAGBaB: AltAGBaB, gematria2AltAGBaB: gematria2AltAGBaB, AltABBA: AltABBA, gematria2AltABBA: gematria2AltABBA, AltAAhBaT: AltAAhBaT, gematria2AltAAhBaT: gematria2AltAAhBaT, AltABBaG: AltABBaG, gematria2AltABBaG: gematria2AltABBaG, AltAGBaD: AltAGBaD, gematria2AltAGBaD: gematria2AltAGBaD, AltADBaH: AltADBaH, gematria2AltADBaH: gematria2AltADBaH, AltAHBeV: AltAHBeV, gematria2AltAHBeV: gematria2AltAHBeV, AltAVBeZ: AltAVBeZ, gematria2AltAVBeZ: gematria2AltAVBeZ, AltAZBeCh: AltAZBeCh, gematria2AltAZBeCh: gematria2AltAZBeCh, AltAChBeT: AltAChBeT, gematria2AltAChBeT: gematria2AltAChBeT, AltATBI: AltATBI, gematria2AltATBI: gematria2AltATBI, AltAIBech: AltAIBech, gematria2AltAIBech: gematria2AltAIBech, AltAChBeL: AltAChBeL, gematria2AltAChBeL: gematria2AltAChBeL, AltELBaM: AltELBaM, gematria2AltELBaM: gematria2AltELBaM, AltAMBeN: AltAMBeN, gematria2AltAMBeN: gematria2AltAMBeN, AltANBeS: AltANBeS, gematria2AltANBeS: gematria2AltANBeS, AltASBA: AltASBA, gematria2AltASBA: gematria2AltASBA, AltAABaPh: AltAABaPh, gematria2AltAABaPh: gematria2AltAABaPh, AltAPhBaTz: AltAPhBaTz, gematria2AltAPhBaTz: gematria2AltAPhBaTz, AltATzBeQ: AltATzBeQ, gematria2AltATzBeQ: gematria2AltATzBeQ, AltAKBaR: AltAKBaR, gematria2AltAKBaR: gematria2AltAKBaR, AltARBeSh: AltARBeSh, gematria2AltARBeSh: gematria2AltARBeSh, AltAShBeT: AltAShBeT, gematria2AltAShBeT: gematria2AltAShBeT, AltATBaH: AltATBaH, gematria2AltATBaH: gematria2AltATBaH },
+    data: { original: original, word1: word1, gematria1: gematria1, summation: summation, letterCount: letterCount, wordCount: wordCount, paths: paths, gatesTotal: gatesTotal, skip: skip, gematriaSkip: gematriaSkip, leap: leap, gematriaLeap: gematriaLeap, reverse: reverse, gematriaReversed: gematriaReversed, elision: elision, gematriaElision: gematriaElision, backexch: backexch, gematriaAvgadBE: gematriaAvgadBE, forexch: forexch, gematriaAvgadFE: gematriaAvgadFE, acronym: acronym, gematriaAcronym: gematriaAcronym, sofim: sofim, gematriaSofit: gematriaSofit, gematriaMiluy: gematriaMiluy, textAB: textAB, gematriaAB: gematriaAB, textSaG: textSaG, gematriaSaG: gematriaSaG, textMaH: textMaH, gematriaMaH: gematriaMaH, textBaN: textBaN, gematriaBaN: gematriaBaN, RagilValue: RagilValue, KolelValue: KolelValue, Kolel1Value: Kolel1Value, HaKlaliValue: HaKlaliValue, ReducedlValue: ReducedlValue, IntegralReducedlValue: IntegralReducedlValue, KatanValue: KatanValue, OrdinalValue: OrdinalValue, HaKadmiValue: HaKadmiValue, HaPeratiValue: HaPeratiValue, MiluyValue: MiluyValue, AYiKBeCheR: AYiKBeCheR, gematria2AYiKBeCheR: gematria2AYiKBeCheR, ATBaSh: ATBaSh, gematria2ATBaSh: gematria2ATBaSh, ALBaM: ALBaM, gematria2ALBaM: gematria2ALBaM, AChBI: AChBI, gematria2AChBI: gematria2AChBI, AChaSBeTA: AChaSBeTA, gematria2AChaSBeTA: gematria2AChaSBeTA, ATBaCh: ATBaCh, gematria2ATBaCh: gematria2ATBaCh, ATBaCh999: ATBaCh999, gematria2ATBaCh999: gematria2ATBaCh999, AiYBaK: AiYBaK, gematria2AiYBaK: gematria2AiYBaK, ATzBaPh: ATzBaPh, gematria2ATzBaPh: gematria2ATzBaPh, ALBeTh: ALBeTh, gematria2ALBeTh: gematria2ALBeTh, Ofanim: Ofanim, gematria2Ofanim: gematria2Ofanim, AltATBaSh: AltATBaSh, gematria2AltATBaSh: gematria2AltATBaSh, AltAShBaR: AltAShBaR, gematria2AltAShBaR: gematria2AltAShBaR, AltARBaK: AltARBaK, gematria2AltARBaK: gematria2AltARBaK, AltAQBeTz: AltAQBeTz, gematria2AltAQBeTz: gematria2AltAQBeTz, AltEZBePh: AltEZBePh, gematria2AltEZBePh: gematria2AltEZBePh, AltAPBE: AltAPBE, gematria2AltAPBE: gematria2AltAPBE, AltAEBaS: AltAEBaS, gematria2AltAEBaS: gematria2AltAEBaS, AltASBeN: AltASBeN, gematria2AltASBeN: gematria2AltASBeN, AltANBaM: AltANBaM, gematria2AltANBaM: gematria2AltANBaM, AltAMBeL: AltAMBeL, gematria2AltAMBeL: gematria2AltAMBeL, AltELBaCh: AltELBaCh, gematria2AltELBaCh: gematria2AltELBaCh, AltAChBI: AltAChBI, gematria2AltAChBI: gematria2AltAChBI, AltAIBeT: AltAIBeT, gematria2AltAIBeT: gematria2AltAIBeT, AltATBaCh: AltATBaCh, gematria2AltATBaCh: gematria2AltATBaCh, AltAChBaZ: AltAChBaZ, gematria2AltAChBaZ: gematria2AltAChBaZ, AltAZBO: AltAZBO, gematria2AltAZBO: gematria2AltAZBO, AltAVBaH: AltAVBaH, gematria2AltAVBaH: gematria2AltAVBaH, AltAHBaD: AltAHBaD, gematria2AltAHBaD: gematria2AltAHBaD, AltADBeG: AltADBeG, gematria2AltADBeG: gematria2AltADBeG, AltAGBaB: AltAGBaB, gematria2AltAGBaB: gematria2AltAGBaB, AltABBA: AltABBA, gematria2AltABBA: gematria2AltABBA, AltAAhBaT: AltAAhBaT, gematria2AltAAhBaT: gematria2AltAAhBaT, AltABBaG: AltABBaG, gematria2AltABBaG: gematria2AltABBaG, AltAGBaD: AltAGBaD, gematria2AltAGBaD: gematria2AltAGBaD, AltADBaH: AltADBaH, gematria2AltADBaH: gematria2AltADBaH, AltAHBeV: AltAHBeV, gematria2AltAHBeV: gematria2AltAHBeV, AltAVBeZ: AltAVBeZ, gematria2AltAVBeZ: gematria2AltAVBeZ, AltAZBeCh: AltAZBeCh, gematria2AltAZBeCh: gematria2AltAZBeCh, AltAChBeT: AltAChBeT, gematria2AltAChBeT: gematria2AltAChBeT, AltATBI: AltATBI, gematria2AltATBI: gematria2AltATBI, AltAIBech: AltAIBech, gematria2AltAIBech: gematria2AltAIBech, AltAChBeL: AltAChBeL, gematria2AltAChBeL: gematria2AltAChBeL, AltELBaM: AltELBaM, gematria2AltELBaM: gematria2AltELBaM, AltAMBeN: AltAMBeN, gematria2AltAMBeN: gematria2AltAMBeN, AltANBeS: AltANBeS, gematria2AltANBeS: gematria2AltANBeS, AltASBA: AltASBA, gematria2AltASBA: gematria2AltASBA, AltAABaPh: AltAABaPh, gematria2AltAABaPh: gematria2AltAABaPh, AltAPhBaTz: AltAPhBaTz, gematria2AltAPhBaTz: gematria2AltAPhBaTz, AltATzBeQ: AltATzBeQ, gematria2AltATzBeQ: gematria2AltATzBeQ, AltAKBaR: AltAKBaR, gematria2AltAKBaR: gematria2AltAKBaR, AltARBeSh: AltARBeSh, gematria2AltARBeSh: gematria2AltARBeSh, AltAShBeT: AltAShBeT, gematria2AltAShBeT: gematria2AltAShBeT, AltATBaH: AltATBaH, gematria2AltATBaH: gematria2AltATBaH }, // The first object is the DB column name, and the second object is the actual variable containing it's value.
     success: function(response) {
         console.log(response);
         // Display the HTML table structure returned from the server
@@ -6166,7 +6371,7 @@ function randomString(length, chars) {
 	return randword;
 }
 rand = randomString(6, 'A');
-document.getElementById("randword").innerHTML = "<a href='http://translate.google.com/#auto/en/"+rand+"' target='_blank' style='color: white; font-weight: 400;'>" + rand + "</a><br />";
+document.getElementById("randword").innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(rand)+"' target='_blank' style='color: white; font-weight: 400;'>" + rand + "</a><br />";
 </script>
 
 <script type="text/javascript">
