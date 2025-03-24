@@ -8,7 +8,7 @@
 <link rel="SHORTCUT ICON" href="img/bet.png" />
 <meta name="Rating" content="general" />
 <meta name="DESCRIPTION" content="Decode Hebrew words to find hidden meanings.  With this app you can find the numerical value of a word or letter.  Words with the same numerical value are said to relate to each other.  Use different algorathims like AL-BaM, AT-BaSh, ACh-BI, Ayik-becher, AChaS-BeTA, At-bech to decode hebrew words.  Use the different gematriaot to find a words numerical value like Ragil, Katan, HaKlali, Kolel, HaKadmi, HaPerati, Miluy." />
-<meta name="KEYWORDS" content="Absolute, Ordinal, Reduced, Integral Reduced, Spelling, Pictograms, Meaning, Symbols, Miluy, Miluim, Gematriaot, Gematria, Cryptography, Encrypt, Decrypt, Encode, Decode, BibleCode, Bible, Code, ALBaM, ATBaSh, AChBI, AYiKBeCheR, AChaSBeTA, ATBeCh, ATzBaPh, ALBeTh, AL-BaM, AT-BaSh, ACh-BI, AYiK-BeCheR, AChaS-BeTA, AT-BeCh, ATz-BaPh, AL-BeTh, AL BaM, AT BaSh, ACh BI, AYiK BeCheR, AChaS BeTA, AT BeCh, ATz BaPh, ALBeTh, Ofanim, Sofit, Finals, Initials, Greek, Hebrew, Aramaic, Letter, Sequence, Ananagram, Matrix, Mystery, Word, Value, Verse, Calculate, Calculator, Ragil, Katan, HaKlali, Kolel, HaKadmi, HaPerati, Miluy, Spelling, Torah, Skip, Leap, Elision, A''B, AB, SaG, MaH, BaN, Cantillation, Niqqud, Vowels, Knit, AV-GaD, AVGaD, Forward Exchange, AT-BA, ATBA, Backward Exchange, Acronym, Paths, Gates, Sum, ThShRQ, Reversed />
+<meta name="KEYWORDS" content="Absolute, Ordinal, Reduced, Integral Reduced, Spelling, Pictograms, Meaning, Symbols, Miluy, Miluim, Gematriaot, Gematria, Cryptography, Encrypt, Decrypt, Encode, Decode, BibleCode, Bible, Code, ALBaM, ATBaSh, AChBI, AYiKBeCheR, AChaSBeTA, ATBeCh, ATzBaPh, ALBeTh, AL-BaM, AT-BaSh, ACh-BI, AYiK-BeCheR, AChaS-BeTA, AT-BeCh, ATz-BaPh, AL-BeTh, AL BaM, AT BaSh, ACh BI, AYiK BeCheR, AChaS BeTA, AT BeCh, ATz BaPh, ALBeTh, Ofanim, Sofit, Finals, Initials, Greek, Hebrew, Aramaic, Letter, Sequence, Ananagram, Matrix, Mystery, Word, Value, Verse, Calculate, Calculator, Ragil, Katan, HaKlali, Kolel, HaKadmi, HaPerati, Miluy, Spelling, Torah, Skip, Leap, Elision, A''B, AB, SaG, MaH, BaN, Cantillation, Niqqud, Vowels, Knit, AV-GaD, AVGaD, Forward Exchange, AT-BA, ATBA, Backward Exchange, Acronym, Paths, Gates, Sum, ThShRQ, Reversed" />
 <meta name="distribution" content="Global" />
 <meta name="robots" content="FOLLOW,INDEX" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -198,6 +198,7 @@ margin : 0;
 padding : 0;">
 
 <style>
+.hidden-title { display: none;}
 a:link { color: #fff; text-decoration: none;}
 a:visited { color: #fff; text-decoration: none;}
 a:hover { color: #fff; text-decoration: underline; cursor:default;}
@@ -258,7 +259,7 @@ async function copyText2() {
   }
 }
 </script>
-
+<div class="hidden-title"><center><h1>GemaCrypt</h1></center></p></div>
 <div data-role="page" style="min-height:480px;" dsid="startScreen" id="j_0" class="type-interior" data-theme="a" data-add-back-btn="false" data-back-btn-text="Back">
 <div id="header" data-role="header" data-position="" data-theme="d" name="mobileheader1" id="j_2" class='mobileHeader mobileheader1'><h1 dsid="mobileheader1">
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleKeyboard()"><img src="img/invis.gif" width="10" border="0"><img src="img/kboard.png" alt="Hebrew Keyboard" height="16" width="30" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>

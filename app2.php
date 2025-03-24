@@ -23,6 +23,9 @@
             flex-direction: column;
             height: 100vh;
         }
+        .hidden-title {
+		    display: none;
+		}
         .toolbar {
 		background-color: #3333aa;
 		display: flex;
@@ -302,6 +305,7 @@
 
 </head>
 <body>
+<div class="hidden-title"><center><h1>GemaThesaurus</h1></center></p></div>
     <div class="toolbar">
         <button id="openBtn" class="textBtn"><!--<img src="img/open.png" height="13" width="16" border="0" alt="Open">-->&#x1F4C2;<img src="img/invis.gif" width="8" border="0">Open</button>
 		<select id="bookSelect" onchange="loadFile(this.value)">
