@@ -1,4 +1,4 @@
-﻿
+﻿ 
 Matthew 
 1:1	A roll of the birth of Jesus Christ, son of David, son of Abraham. 
 1:2	Abraham begat Isaac, and Isaac begat Jacob, and Jacob begat Judah and his brethren, 
@@ -1071,3 +1071,4 @@ Matthew
 28:18	And having come near, Jesus spake to them, saying, 'Given to me was all authority in heaven and on earth; 
 28:19	having gone, then, disciple all the nations, (baptizing them -- to the name of the Father, and of the Son, and of the Holy Spirit, 
 28:20	teaching them to observe all, whatever I did command you,) and lo, I am with you all the days -- till the full end of the age.' 
+ 

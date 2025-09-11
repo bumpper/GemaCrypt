@@ -1,4 +1,4 @@
-﻿
+﻿ 
 1:1	Love righteousness, you rulers of the earth, think of the Lord with uprightness, and seek him with sincerity of heart; 
 1:2	because he is found by those who do not put him to the test, and manifests himself to those who do not distrust him. 
 1:3	For perverse thoughts separate men from God, and when his power is tested, it convicts the foolish; 
@@ -129,7 +129,7 @@
 7:1	I also am mortal, like all men, a descendant of the first-formed child of earth; and in the womb of a mother I was molded into flesh, 
 7:2	within the period of ten months, compacted with blood, from the seed of a man and the pleasure of marriage. 
 7:3	And when I was born, I began to breathe the common air, and fell upon the kindred earth, and my first sound was a cry, like that of all. 
-7:4	I was nursed with care in swaddling cloths. 
+7:4	I was nursed with care in swaddling clothes. 
 7:5	For no king has had a different beginning of existence; 
 7:6	there is for all mankind one entrance into life, and a common departure. 
 7:7	Therefore I prayed, and understanding was given me; I called upon God, and the spirit of wisdom came to me. 
@@ -250,7 +250,7 @@
 12:6	these parents who murder helpless lives, thou didst will to destroy by the hands of our fathers, 
 12:7	that the land most precious of all to thee might receive a worthy colony of the servants of God. 
 12:8	But even these thou didst spare, since they were but men, and didst send wasps as forerunners of thy army, to destroy them little by little, 
-12:9	though thou wast not unable to give the ungodly into the hands of the righteous in battle, or to destroy them at one blow by dread wild beasts or thy stern word. 
+12:9	though thou was not unable to give the ungodly into the hands of the righteous in battle, or to destroy them at one blow by dread wild beasts or thy stern word. 
 12:10	But judging them little by little thou gave them a chance to repent, though thou was not unaware that their origin was evil and their wickedness inborn, and that their way of thinking would never change. 
 12:11	For they were an accursed race from the beginning, and it was not through fear of any one that thou didst leave them unpunished for their sins. 
 12:12	For who will say, "What hast thou done?" Or will resist thy judgment? Who will accuse thee for the destruction of nations which thou didst make? Or who will come before thee to plead as an advocate for unrighteous men? 
@@ -363,7 +363,7 @@
 16:23	whereas the fire, in order that the righteous might be fed, even forgot its native power. 
 16:24	For creation, serving thee who hast made it, exerts itself to punish the unrighteous, and in kindness relaxes on behalf of those who trust in thee. 
 16:25	Therefore at that time also, changed into all forms, it served thy all-nourishing bounty, according to the desire of those who had need, 
-16:26	so that thy sons, whom thou didst love, O Lord, might learn that it is not the production of crops that feeds man, but that thy word preserves those who trust in thee. 
+16:26	so that thy sons, whom thou did love, O Lord, might learn that it is not the production of crops that feeds man, but that thy word preserves those who trust in thee. 
 16:27	For what was not destroyed by fire was melted when simply warmed by a fleeting ray of the sun, 
 16:28	to make it known that one must rise before the sun to give thee thanks, and must pray to thee at the dawning of the light; 
 16:29	for the hope of an ungrateful man will melt like wintry frost, and flow away like waste water. 
@@ -434,4 +434,5 @@
 19:19	For land animals were transformed into water creatures, and creatures that swim moved over to the land. 
 19:20	Fire even in water retained its normal power, and water forgot its fire-quenching nature. 
 19:21	Flames, on the contrary, failed to consume the flesh of perishable creatures that walked among them, nor did they melt the crystalline, easily melted kind of heavenly food. 
-19:22	For in everything, O Lord, thou hast exalted and glorified thy people; and thou hast not neglected to help them at all times and in all places. 
+19:22	For in everything, O Lord, thou hast exalted and glorified thy people; and thou hast not neglected to help them at all times and in all places.
+ 

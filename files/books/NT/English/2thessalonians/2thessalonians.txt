@@ -1,4 +1,4 @@
-﻿
+﻿ 
 II Thessalonians 
 1:1	Paul, and Silvanus, and Timotheus, to the assembly of Thessalonians in God our Father, and the Lord Jesus Christ: 
 1:2	Grace to you, and peace, from God our Father, and the Lord Jesus Christ! 
@@ -47,3 +47,4 @@ II Thessalonians
 3:16	and may the Lord of the peace Himself give to you the peace always in every way; the Lord is with you all! 
 3:17	The salutation by the hand of me, Paul, which is a sign in every letter; thus I write; 
 3:18	the grace of our Lord Jesus Christ is with you all! Amen. 
+ 

@@ -1,0 +1,107 @@
+Install CORS-Anywhere
+
+Install MySQL Server
+
+Install PHP
+
+Install Apache2
+
+Install MyPhpAdmin
+
+*****ENABLE OTHER DOMAINS TO DISPLAY PAGES FROM THIS SITE****
+Add the following to the end of \etc\apace2\apache2.conf:
+
+	# Header always set X-Frame-Options "ALLOW-FROM https://bumpper.com"
+	Header always set X-Frame-Options "ALLOWALL"
+	
+	# -------------------------------------------------
+	# 1)  GLOBAL  –  no X-Frame-Options, just CSP
+	# -------------------------------------------------
+	<IfModule mod_headers.c>
+	#    Only allow bumpper.com and sub-domains to reference radius.center:
+	#    	Header always set Content-Security-Policy "frame-ancestors 'self' http://bumpper.com https://bumpper.com http://*.bumpper.com https://*.bumpper.com;"
+		Header always set Content-Security-Policy "frame-ancestors 'self' *;"
+	</IfModule>
+	
+	# -------------------------------------------------
+	# 2)  radius.center  –  HTTPS virtual host
+	# -------------------------------------------------
+	<VirtualHost *:443>
+	    ServerName radius.center
+	    DocumentRoot /var/www/html
+	
+	#    already set globally, but harmless to repeat here
+	#    Only allow bumpper.com and sub-domains to reference radius.center:
+	#	Header always set Content-Security-Policy "frame-ancestors 'self' http://bumpper.com https://bumpper.com http://*.bumpper.com https://*.bumpper.com;"
+		Header always set Content-Security-Policy "frame-ancestors 'self' *;"
+	</VirtualHost>
+	
+	Header set Cache-Control "no-cache, no-store, must-revalidate"
+	Header set Pragma "no-cache"
+	Header set Expires 0
+	
+	# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+
+****ADD/RESET A PASSWORD FOR A DIRECTORY****
+Add the following to /etc/apache2/sites-available/000-default.conf and save it:
+
+	<Directory /var/www/html/commentary/>
+		AllowOverride All
+	</Directory>
+	
+	<Directory /var/www/html/commentary/>
+	    AuthType Basic
+	    AuthName "Restricted Area"
+	    AuthUserFile /etc/apache2/.htpasswd
+	    Require valid-user
+	</Directory>
+
+	<Directory /var/www/html/personal/>
+		AllowOverride All
+	</Directory>
+	
+	<Directory /var/www/html/personal/>
+	    AuthType Basic
+	    AuthName "Restricted Area"
+	    AuthUserFile /etc/apache2/.htpasswd
+	    Require valid-user
+	</Directory>
+
+	<Directory /var/www/html/prophetics/>
+		AllowOverride All
+	</Directory>
+	
+	<Directory /var/www/html/prophetics/>
+	    AuthType Basic
+	    AuthName "Restricted Area"
+	    AuthUserFile /etc/apache2/.htpasswd
+	    Require valid-user
+	</Directory>
+
+sudo htpasswd -c /etc/apache2/.htpasswd radius
+	type password and press [Enter]
+	repeat password and press [Enter]
+sudo htpasswd -c /etc/apache2/.htpasswd radius
+	type password and press [Enter]
+	repeat password and press [Enter]
+sudo htpasswd -c /etc/apache2/.htpasswd radius
+	type password and press [Enter]
+	repeat password and press [Enter]
+
+
+sudo a2enmod headers
+sudo apache2ctl configtest
+sudo systemctl reload apache2
+
+****INSTALL CERTBOT FOR SELF-SIGNED CERTS**** (https://certbot.eff.org/instructions?ws=apache&os=snap)
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo certbot --apache
+radius1thousand@gmail.com
+Y
+N
+1
+
+****UPDATE ALL APPLICATIONS****
+sudo apt update
+sudo snap refresh

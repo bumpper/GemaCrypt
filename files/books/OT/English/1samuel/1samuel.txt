@@ -1,4 +1,4 @@
-
+ 
 I Samuel 
 1:1	And there is a certain man of Ramathaim-Zophim, of the hill-country of Ephraim, and his name is Elkanah, son of Jeroham, son of Elihu, son of Tohu, son of Zuph, and Ephrathite, 
 1:2	and he hath two wives, the name of the one is Hannah, and the name of the second Peninnah, and Peninnah hath children, and Hannah hath no children. 
@@ -810,3 +810,4 @@ I Samuel
 31:11	And they hear regarding it -- the inhabitants of Jabesh-Gilead -- that which the Philistines have done to Saul, 
 31:12	and all the men of valour arise, and go all the night, and take the body of Saul, and the bodies of his sons, from the wall of Beth-Shan, and come in to Jabesh, and burn them there, 
 31:13	and they take their bones, and bury them under the tamarisk in Jabesh, and fast seven days. 
+ 

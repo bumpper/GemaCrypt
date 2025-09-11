@@ -1,4 +1,4 @@
-
+ 
 Joshua 
 1:1	And it cometh to pass after the death of Moses, servant of Jehovah, that Jehovah speaketh unto Joshua son of Nun, minister of Moses, saying, 
 1:2	'Moses my servant is dead, and now, rise, pass over this Jordan, thou, and all this people, unto the land which I am giving to them, to the sons of Israel. 
@@ -658,3 +658,4 @@ Joshua
 24:31	And Israel serveth Jehovah all the days of Joshua, and all the days of the elders who prolonged days after Joshua, and who knew all the work of Jehovah which He did to Israel. 
 24:32	And the bones of Joseph, which the sons of Israel brought up out of Egypt, they buried in Shechem, in the portion of the field which Jacob bought from the sons of Hamor father of Shechem, with a hundred kesitah; and they are to the sons of Joseph for an inheritance. 
 24:33	And Eleazar son of Aaron died, and they bury him in the hill of Phinehas his son, which was given to him in the hill-country of Ephraim. 
+ 

@@ -1,4 +1,4 @@
-﻿
+﻿ 
 1:1	In the twelfth year of the reign of Nebuchadnezzar, who ruled over the Assyrians in the great city of Nineveh, in the days of Arphaxad, who ruled over the Medes in Ecbatana -- 
 1:2	he is the king who built walls about Ecbatana with hewn stones three cubits thick and six cubits long; he made the walls seventy cubits high and fifty cubits wide; 
 1:3	at the gates he built towers a hundred cubits high and sixty cubits wide at the foundations; 
@@ -49,7 +49,7 @@
 3:4	Our cities also and their inhabitants are your slaves; come and deal with them in any way that seems good to you." 
 3:5	The men came to Holofernes and told him all this. 
 3:6	Then he went down to the seacoast with his army and stationed garrisons in the hilltop cities and took picked men from them as his allies. 
-3:7	And these people and all in the country round about welcomed him with garlands and dances and tambourines. 
+3:7	And these people and all in the country roundabout welcomed him with garlands and dances and tambourines. 
 3:8	And he demolished all their shrines and cut down their sacred groves; for it had been given to him to destroy all the gods of the land, so that all nations should worship Nebuchadnezzar only, and all their tongues and tribes should call upon him as god. 
 3:9	Then he came to the edge of Esdraelon, near Dothan, fronting the great ridge of Judea; 
 3:10	here he camped between Geba and Scythopolis, and remained for a whole month in order to assemble all the supplies for his army. 
@@ -116,7 +116,7 @@
 7:1	The next day Holofernes ordered his whole army, and all the allies who had joined him, to break camp and move against Bethulia, and to seize the passes up into the hill country and make war on the Israelites. 
 7:2	So all their warriors moved their camp that day; their force of men of war was one hundred and seventy thousand infantry and twelve thousand cavalry, together with the baggage and the foot soldiers handling it, a very great multitude. 
 7:3	They encamped in the valley near Bethulia, beside the spring, and they spread out in breadth over Dothan as far as Balbaim and in length from Bethulia to Cyamon, which faces Esdraelon. 
-7:4	When the Israelites saw their vast numbers they were greatly terrified, and every one said to his neighbor, "These men will now lick up the face of the whole land; neither the high mountains nor the valleys nor the hills will bear their weight." 
+7:4	When the Israelites saw their vast numbers they were greatly terrified, and everyone said to his neighbor, "These men will now lick up the face of the whole land; neither the high mountains nor the valleys nor the hills will bear their weight." 
 7:5	Then each man took up his weapons, and when they had kindled fires on their towers they remained on guard all that night. 
 7:6	On the second day Holofernes led out all his cavalry in full view of the Israelites in Bethulia, 
 7:7	and examined the approaches to the city, and visited the springs that supplied their water, and seized them and set guards of soldiers over them, and then returned to his army. 
@@ -213,7 +213,7 @@
 10:16	And when you stand before him, do not be afraid in your heart, but tell him just what you have said, and he will treat you well." 
 10:17	They chose from their number a hundred men to accompany her and her maid, and they brought them to the tent of Holofernes. 
 10:18	There was great excitement in the whole camp, for her arrival was reported from tent to tent, and they came and stood around her as she waited outside the tent of Holofernes while they told him about her. 
-10:19	And they marveled at her beauty, and admired the Israelites, judging them by her, and every one said to his neighbor, "Who can despise these people, who have women like this among them? Surely not a man of them had better be left alive, for if we let them go they will be able to ensnare the whole world!" 
+10:19	And they marveled at her beauty, and admired the Israelites, judging them by her, and everyone said to his neighbor, "Who can despise these people, who have women like this among them? Surely not a man of them had better be left alive, for if we let them go they will be able to ensnare the whole world!" 
 10:20	Then Holofernes' companions and all his servants came out and led her into the tent. 
 10:21	Holofernes was resting on his bed, under a canopy which was woven with purple and gold and emeralds and precious stones. 
 10:22	When they told him of her he came forward to the front of the tent, with silver lamps carried before him. 
@@ -337,4 +337,5 @@
 16:22	Many desired to marry her, but she remained a widow all the days of her life after Manasseh her husband died and was gathered to his people. 
 16:23	She became more and more famous, and grew old in her husband's house, until she was one hundred and five years old. She set her maid free. She died in Bethulia, and they buried her in the cave of her husband Manasseh, 
 16:24	and the house of Israel mourned for her seven days. Before she died she distributed her property to all those who were next of kin to her husband Manasseh, and to her own nearest kindred. 
-16:25	And no one ever again spread terror among the people of Israel in the days of Judith, or for a long time after her death. 
+16:25	And no one ever again spread terror among the people of Israel in the days of Judith, or for a long time after her death.
+ 

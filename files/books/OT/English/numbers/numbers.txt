@@ -1,4 +1,4 @@
-
+ 
 Numbers 
 1:1	And Jehovah speaketh unto Moses in the wilderness of Sinai, in the tent of meeting, on the first of the second month, in the second year of their going out of the land of Egypt, saying: 
 1:2	'Take ye up the sum of all the company of the sons of Israel by their families, by the house of their fathers, in the number of names -- every male by their polls; 
@@ -1288,3 +1288,4 @@ Numbers
 36:11	and Mahlah, Tirzah, and Hoglah, and Milcah, and Noah, daughters of Zelophehad, are to the sons of their fathers' brethren for wives; 
 36:12	to men of the families of the sons of Manasseh, son of Joseph, they have been for wives, and their inheritance is with the tribe of the family of their father. 
 36:13	These are the commands and the judgments which Jehovah hath commanded, by the hand of Moses, concerning the sons of Israel, in the plains of Moab, by Jordan, near Jericho. 
+ 

@@ -1,4 +1,4 @@
-
+ 
 Nehemiah 
 1:1	Words of Nehemiah son of Hachaliah. And it cometh to pass, in the month of Chisleu, the twentieth year, and I have been in Shushan the palace, 
 1:2	and come in doth Hanani, one of my brethren, he and men of Judah, and I ask them concerning the Jews, the escaped part that have been left of the captivity, and concerning Jerusalem; 
@@ -406,3 +406,4 @@ Nehemiah
 13:29	Be mindful of them, O my God, for the redeemed of the priesthood, and the covenant of the priesthood, and of the Levites. 
 13:30	And I have cleansed them from every stranger, and appoint charges to priests and to Levites, each in his work, 
 13:31	and for the wood-offering at appointed times, and for first-fruits. Be mindful of me, O my God, for good. 
+ 

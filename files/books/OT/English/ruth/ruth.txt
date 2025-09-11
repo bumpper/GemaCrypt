@@ -1,4 +1,4 @@
-
+ 
 Ruth 
 1:1	And it cometh to pass, in the days of the judging of the judges, that there is a famine in the land, and there goes a man from Beth-Lehem-Judah to sojourn in the fields of Moab, he, and his wife, and his two sons. 
 1:2	And the name of the man is Elimelech, and the name of his wife Naomi, and the name of his two sons Mahlon and Chilion, Ephrathites from Beth-Lehem-Judah; and they come into the fields of Moab, and are there. 
@@ -85,3 +85,4 @@ Ruth
 4:20	and Amminidab begat Nahshon, and Nahshon begat Salmon, 
 4:21	and Salmon begat Boaz, and Boaz begat Obed, 
 4:22	and Obed begat Jesse, and Jesse begat David. 
+ 

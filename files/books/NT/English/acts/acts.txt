@@ -1,4 +1,4 @@
-﻿
+﻿ 
 Acts 
 1:1	The former account, indeed, I made concerning all things, O Theophilus, that Jesus began both to do and to teach, 
 1:2	till the day in which, having given command, through the Holy Spirit, to the apostles whom he did choose out, he was taken up, 
@@ -1007,3 +1007,4 @@ Acts
 28:29	and he having said these things, the Jews went away, having much disputation among themselves; 
 28:30	and Paul remained an entire two years in his own hired house, and was receiving all those coming in unto him, 
 28:31	preaching the reign of God, and teaching the things concerning the Lord Jesus Christ with all boldness -- unforbidden. 
+ 

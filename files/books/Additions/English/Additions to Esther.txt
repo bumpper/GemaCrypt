@@ -59,7 +59,7 @@
 14:13	Put eloquent speech in my mouth before the lion, and turn his heart to hate the man who is fighting against us, so that there may be an end of him and those who agree with him. 
 14:14	But save us by thy hand, and help me, who am alone and have no helper but thee, O Lord. 
 14:15	Thou hast knowledge of all things; and thou knows that I hate the splendor of the wicked and abhor the bed of the uncircumcised and of any alien. 
-14:16	Thou knowest my necessity -- that I abhor the sign of my proud position, which is upon my head on the days when I appear in public. I abhor it like a monstrous rag, and I do not wear it on the days when I am at leisure. 
+14:16	Thou knows my necessity -- that I abhor the sign of my proud position, which is upon my head on the days when I appear in public. I abhor it like a monstrous rag, and I do not wear it on the days when I am at leisure. 
 14:17	And thy servant has not eaten at Haman's table, and I have not honored the king's feast or drunk the wine of the libations. 
 14:18	Thy servant has had no joy since the day that I was brought here until now, except in thee, O Lord God of Abraham. 
 14:19	O God, whose might is over all, hear the voice of the despairing, and save us from the hands of evildoers. And save me from my fear!" 
@@ -102,4 +102,5 @@
 16:21	For God, who rules over all things, has made this day to be a joy to his chosen people instead of a day of destruction for them. 
 16:22	"Therefore you shall observe this with all good cheer as a notable day among your commemorative festivals, 
 16:23	so that both now and hereafter it may mean salvation for us and the loyal Persians, but that for those who plot against us it may be a reminder of destruction. 
-16:24	"Every city and country, without exception, which does not act accordingly, shall be destroyed in wrath with spear and fire. It shall be made not only impassable for men, but also most hateful for all time to beasts and birds." 
+16:24	"Every city and country, without exception, which does not act accordingly, shall be destroyed in wrath with spear and fire. It shall be made not only impassable for men, but also most hateful for all time to beasts and birds."
+ 

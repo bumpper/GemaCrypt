@@ -1,4 +1,4 @@
-﻿
+﻿ 
 Revelation 
 1:1	A revelation of Jesus Christ, that God gave to him, to shew to his servants what things it behoveth to come to pass quickly; and he did signify it, having sent through his messenger to his servant John, 
 1:2	who did testify the word of God, and the testimony of Jesus Christ, as many things also as he did see. 
@@ -404,3 +404,4 @@ Revelation
 22:19	and if anyone may take away from the words of the scroll of this prophecy, God shall take away his part from the scroll of the life, and out of the holy city, and the things that have been written in this scroll;' 
 22:20	he saith -- who is testifying these things -- 'Yes, I come quickly!' Amen! Yes, be coming, Lord Jesus! 
 22:21	The grace of our Lord Jesus Christ is with you all. Amen. 
+ 

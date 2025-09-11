@@ -1,4 +1,4 @@
-
+ 
 Job 
 1:1	A man there hath been in the land of Uz -- Job his name -- and that man hath been perfect and upright -- both fearing God, and turning aside from evil. 
 1:2	And there are borne to him seven sons and three daughters, 
@@ -1070,3 +1070,4 @@ Job
 42:15	And there have not been found women fair as the daughters of Job in all the land, and their father doth give to them an inheritance in the midst of their brethren. 
 42:16	And Job liveth after this a hundred and forty years, and seeth his sons, and his sons' sons, four generations; 
 42:17	and Job dieth, aged and satisfied with days. 
+ 

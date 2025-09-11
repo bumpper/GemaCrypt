@@ -1,4 +1,4 @@
-
+ 
 II Kings 
 1:1	And Moab transgresseth against Israel after the death of Ahab, 
 1:2	and Ahaziah falleth through the lattice in his upper chamber that is in Samaria, and is sick, and sendeth messengers, and saith unto them, 'Go ye, inquire of Baal-Zebub god of Ekron if I recover from this sickness.' 
@@ -719,3 +719,4 @@ II Kings
 25:28	and speaketh with him good things and putteth his throne above the throne of the kings who are with him in Babylon, 
 25:29	and hath changed the garments of his restraint, and he hath eaten bread continually before him all days of his life, 
 25:30	and his allowance -- a continual allowance -- hath been given to him from the king, the matter of a day in its day, all days of his life. 
+ 

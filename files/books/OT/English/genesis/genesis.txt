@@ -1,4 +1,4 @@
-﻿
+﻿ 
 Genesis 
 1:1	In the beginning of God's preparing the heavens and the earth -- 
 1:2	the earth hath existed waste and void, and darkness is on the face of the deep, and the Spirit of God fluttering on the face of the waters, 
@@ -1533,3 +1533,4 @@ Genesis
 50:24	And Joseph saith unto his brethren, 'I am dying, and God doth certainly inspect you, and hath caused you to go up from this land, unto the land which He hath sworn to Abraham, to Isaac, and to Jacob.' 
 50:25	And Joseph causeth the sons of Israel to swear, saying, 'God doth certainly inspect you, and ye have brought up my bones from this place.' 
 50:26	And Joseph dieth, a son of an hundred and ten years, and they embalm him, and he is put into a coffin in Egypt. 
+ 

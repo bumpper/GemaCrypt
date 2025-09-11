@@ -1,4 +1,4 @@
-﻿
+﻿ 
 Titus 
 1:1	Paul, a servant of God, and an apostle of Jesus Christ, according to the faith of the choice ones of God, and an acknowledging of truth that is according to piety, 
 1:2	upon hope of life age-during, which God, who doth not lie, did promise before times of ages, 
@@ -46,3 +46,4 @@ Titus
 3:13	Zenas the lawyer and Apollos bring diligently on their way, that nothing to them may be lacking, 
 3:14	and let them learn -- ours also -- to be leading in good works to the necessary uses, that they may not be unfruitful. 
 3:15	Salute thee do all those with me; salute those loving us in faith; the grace is with you all! 
+ 

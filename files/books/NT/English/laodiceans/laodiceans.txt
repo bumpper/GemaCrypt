@@ -1,4 +1,4 @@
-﻿
+﻿ 
 Laodiceans 
 1:1	Paul, an apostle not of men nor by man, but by Jesus Christ, unto the brethren that are at Laodicea. 
 1:2	Grace be unto you and peace from God the Father and the Lord Jesus Christ. 
@@ -20,3 +20,4 @@ Laodiceans
 1:18	The saints salute you. 
 1:19	The grace of the Lord Jesus be with your spirit. 
 1:20	And cause this epistle to be read unto them of Colossae, and the epistle of the Colossians to be read unto you. 
+ 

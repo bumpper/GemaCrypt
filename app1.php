@@ -224,7 +224,37 @@ body { background-color: #000;}
 .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.4); }
 .modal-content { background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; font-family: Arial, sans-serif; background-image: url(""); background-repeat: repeat; background-position: top left; padding-top: 10px; padding-left: 30px; padding-right: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 10px; outline: 2px solid black; }
 .close { position: absolute; top: 10px; right: 20px; font-size: 30px; font-weight: bold; color: #000; text-decoration: none; }
-.modal-content p { color: #000; }
+.modal-content p { color: #000; 
+}
+/* --- Responsive layout for the 4 control buttons --- */
+@media (max-width: 600px) {
+  /* The row that contains the four <td> cells */
+  #controlsRow {
+    display: block;            /* force the <tr> to act like a block */
+  }
+  #controlsRow td {
+    display: block;            /* each <td> becomes a full-width block */
+    width: 100%;
+    margin-bottom: .6em;       /* small spacer between stacked buttons */
+  }
+}
+/* (optional) keep the labels centered on the tiny stack */
+#controlsRow td span[title] {
+  text-align: center;
+  display: block;
+}
+/* ----------  Mobile: keep tables in view and center them  ---------- */
+@media (max-width: 600px) {
+  #keyboard.result {
+    justify-content: center;
+    overflow-x: auto;       /* still allow scroll if content > viewport */
+  }
+  #keyboard.result table {
+    width: auto !important; /* override the 100 % width */
+    min-width: 0;          /* allow shrink-to-fit */
+    margin: 0 auto;        /* fallback centering */
+  }
+}
 </style>
 
 <script language="JavaScript" type="text/javascript">
@@ -267,7 +297,7 @@ async function copyText2() {
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleCantillation()"><img src="img/music.png" alt="Cantillation" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
 <a href="help.html" style="color: #555; font-size: 18px; text-decoration: none;" target="_blank">GemaCrypt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 <a href="help.html" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/helpblack.png" alt="Help" height="15" width="15" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="16" border="0"></a>
-<a href="http://forevernode.pro/app1/app2.php" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/book.png" alt="App2" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a></h1>
+<a href="http://radius.center/app1/app2.php" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/book.png" alt="App2" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a></h1>
 
 <!--Hebrew letters if no keyboard is installed-->
 <div id="keyboard" class="result">
@@ -388,7 +418,7 @@ async function copyText2() {
 
 <!-- 2 Word to be Knit -->
 <table width="100%" cellpadding="5" cellspacing="5" border="0" align="center">
-<tr><td><div style="position: relative;"><input type='text' list='listid' placeholder="Optional word to be Knit with above word" TABINDEX="" value="" dsid="input2" id="inputText2" data-theme="a" data-mini='false' class='input mobiletextinput1' onChange="inputText2 = this.value" style="background-color: #222222; color:#FFFFFF; text-align:right; text-shadow: 0 0 5px #FFFFFF; font-family: Arial; font-size: 18px; width: 100%; display: inline-block; resize: both; overflow: hidden;"><img src="img/copy-icon.png" alt="Copy Text" border="0" id="copyIcon2" onclick="copyText2()" style="position: absolute; top: 19px; left: 0px; width: 32px; height: 21px; cursor: pointer;"></div>
+<tr><td><div style="position: relative;"><input type='text' list='listid' placeholder="Optional word to be Knit" TABINDEX="" value="" dsid="input2" id="inputText2" data-theme="a" data-mini='false' class='input mobiletextinput1' onChange="inputText2 = this.value" style="background-color: #222222; color:#FFFFFF; text-align:right; text-shadow: 0 0 5px #FFFFFF; font-family: Arial; font-size: 18px; width: 100%; display: inline-block; resize: both; overflow: hidden;"><img src="img/copy-icon.png" alt="Copy Text" border="0" id="copyIcon2" onclick="copyText2()" style="position: absolute; top: 19px; left: 0px; width: 32px; height: 21px; cursor: pointer;"></div>
 	<datalist id='listid'>
 	<option label='Ehyeh' value='&#x05D0;&#x05D4;&#x05D5;&#x05D4;'>
 	<option label='YHVH' value='&#x05D9;&#x05D4;&#x05D5;&#x05D4;'>
@@ -403,9 +433,9 @@ async function copyText2() {
 </datalist></td></tr></table>
 
 
-<table width="100%" cellpadding="10" cellspacing="10" border="0" align="center"><tr style="text-align: center;">
+<table width="100%" cellpadding="10" cellspacing="10" border="0" align="center"><tr id="controlsRow" style="text-align: center;">
 	<td width="25%">
-	<!-- cryptographyMenu --><span title="Select the algorithm you wish to use to encrypt the original word."><center>Encryption Algorithm</center>
+	<!-- cryptographyMenu --><span title="Select the algorithm you wish to use to encrypt the original word."><center>Encryption</center>
 	<div data-role="fieldcontain" class="mobileselectmenu2">
 	<select name="cryptographyMenu" id="cryptmenu" dsid="cryptographyMenu" data-theme="b" data-inline='false' data-mini='false' data-icon='arrow-d' data-iconpos='right' data-native-menu="true" tabIndex="2" tiggzi-class="mobileselectmenu2" onChange="cryptography = this.value" style="background-color: #222222; color:#FFFFFF; text-shadow: 0 0 5px #FFFFFF;">
 	<option value='AYiK-BeCheR' reRender='cryptographyMenu' dsid='cryptographyMenu-3'>AYiK-BeCheR</option><!--Arich Anpin-->
@@ -422,7 +452,7 @@ async function copyText2() {
 	</select></div></span></td>
 	
     <td width="25%">
-  <!-- gematriaMenu --><span title="Select the system you wish to use for assigning numerical values to each letter."><center>Gematria System</center>
+  <!-- gematriaMenu --><span title="Select the system you wish to use for assigning numerical values to each letter."><center>Gematria</center>
   <div data-role="fieldcontain" class="mobileselectmenu2">
     <select name="gematriaMenu" id="gemmenu" dsid="gematriaMenu" data-theme="b" data-inline='false' data-mini='false' data-icon='arrow-d' data-iconpos='right' data-native-menu="true" tabIndex="3" tiggzi-class="mobileselectmenu2" onChange="gematria = this.value; gematriaMenu();" style="background-color: #222222; color:#FFFFFF; text-shadow: 0 0 5px #FFFFFF;">
 	<!--<select name="gematriaMenu" id="gemmenu" dsid="gematriaMenu" data-theme="b" data-inline='false' data-mini='false' data-icon='arrow-d' data-iconpos='right' data-native-menu="true" tabIndex="3" tiggzi-class="mobileselectmenu2" onchange="gematriaMenu(this.value);" style="background-color: #222222; color:#FFFFFF; text-shadow: 0 0 5px #FFFFFF;">-->
@@ -639,6 +669,22 @@ async function copyText2() {
 </div>
 
 <script>
+/* ----------  Hide keyboard by default on mobile  ---------- */
+document.addEventListener('DOMContentLoaded', function () {
+  const isMobile = window.matchMedia('(max-width: 600px)').matches;
+
+  const tables = document.querySelectorAll('#keyboard table');
+  tables.forEach(table => {
+    const cells = table.querySelectorAll('td');
+    cells.forEach(cell => {
+      cell.style.display = isMobile ? 'none' : 'table-cell';
+    });
+  });
+
+  window.keyboardIsVisible = !isMobile;   // sync the global flag
+});
+</script>
+<script>
   // Hide-Unhide the Niqqud keys on the keyboard
   let niqqudIsVisible = false;
   function toggleNiqqud() {
@@ -686,6 +732,12 @@ function replaceInputField(inputId, value) {
 }
 // Hide-Unhide keyboard
 let keyboardIsVisible = true;
+/* ----------  Start : hide keyboard by default on iOS / Android function  ---------- */
+(function () {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) keyboardIsVisible = false;
+})();
+/* ----------  End : hide keyboard by default on iOS / Android function  ---------- */
 function toggleKeyboard() {
   let tables = document.querySelectorAll(`#keyboard table`);
   tables.forEach(function(table) {

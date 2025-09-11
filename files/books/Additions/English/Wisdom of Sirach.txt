@@ -1,4 +1,4 @@
-﻿
+﻿ 
 1:1	All wisdom comes from the Lord and is with him forever. 
 1:2	The sand of the sea, the drops of rain, and the days of eternity -- who can count them? 
 1:3	The height of heaven, the breadth of the earth, the abyss, and wisdom -- who can search them out? 
@@ -35,7 +35,7 @@
 2:7	You who fear the Lord, wait for his mercy; and turn not aside, lest you fall. 
 2:8	You who fear the Lord, trust in him, and your reward will not fail; 
 2:9	you who fear the Lord, hope for good things, for everlasting joy and mercy. 
-2:10	Consider the ancient generations and see: who ever trusted in the Lord and was put to shame? Or whoever persevered in the fear of the Lord and was forsaken? Or whoever called upon him and was overlooked? 
+2:10	Consider the ancient generations and see: whoever trusted in the Lord and was put to shame? Or whoever persevered in the fear of the Lord and was forsaken? Or whoever called upon him and was overlooked? 
 2:11	For the Lord is compassionate and merciful; he forgives sins and saves in time of affliction. 
 2:12	Woe to timid hearts and to slack hands, and to the sinner who walks along two ways! 
 2:13	Woe to the faint heart, for it has no trust! Therefore it will not be sheltered. 
@@ -553,7 +553,7 @@
 21:26	The mind of fools is in their mouth, but the mouth of wise men is in their mind. 
 21:27	When an ungodly man curses his adversary, he curses his own soul. 
 21:28	A whisperer defiles his own soul and is hated in his neighborhood. 
-22:1	The indolent may be compared to a filthy stone, and every one hisses at his disgrace. 
+22:1	The indolent may be compared to a filthy stone, and everyone hisses at his disgrace. 
 22:2	The indolent may be compared to the filth of dunghills; any one that picks it up will shake it off his hand. 
 22:3	It is a disgrace to be the father of an undisciplined son, and the birth of a daughter is a loss. 
 22:4	A sensible daughter obtains her husband, but one who acts shamefully brings grief to her father. 
@@ -1298,7 +1298,7 @@
 50:1	The leader of his brethren and the pride of his people was Simon the high priest, son of Onias, who in his life repaired the house, and in his time fortified the temple. 
 50:2	He laid the foundations for the high double walls, the high retaining walls for the temple enclosure. 
 50:3	In his days a cistern for water was quarried out, a reservoir like the sea in circumference. 
-50:4	He considered how to save his people from ruin, and fortified the city to withstand a seige. 
+50:4	He considered how to save his people from ruin, and fortified the city to withstand a siege. 
 50:5	How glorious he was when the people gathered round him as he came out of the inner sanctuary! 
 50:6	Like the morning star among the clouds, like the moon when it is full; 
 50:7	like the sun shining upon the temple of the Most High, and like the rainbow gleaming in glorious clouds; 
@@ -1353,4 +1353,5 @@
 51:27	See with your eyes that I have labored little and found myself much rest. 
 51:28	Get instruction with a large sum of silver, and you will gain by it much gold. 
 51:29	May your soul rejoice in his mercy, and may you not be put to shame when you praise him. 
-51:30	Do your work before the appointed time, and in God's time he will give you your reward. 
+51:30	Do your work before the appointed time, and in God's time he will give you your reward.
+ 

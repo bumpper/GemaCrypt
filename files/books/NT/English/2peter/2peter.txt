@@ -1,4 +1,4 @@
-﻿
+﻿ 
 II Peter 
 1:1	Simeon Peter, a servant and an apostle of Jesus Christ, to those who did obtain a like precious faith with us in the righteousness of our God and Savior Jesus Christ: 
 1:2	Grace to you, and peace be multiplied in the acknowledgement of God and of Jesus our Lord! 
@@ -61,3 +61,4 @@ II Peter
 1:16	as also in all the epistles, speaking in them concerning these things, among which things are certain hard to be understood, which the untaught and unstable do wrest, as also the other Writings, unto their own destruction. 
 1:17	Ye, then, beloved, knowing before, take heed, lest, together with the error of the impious being led away, ye may fall from your own steadfastness, 
 1:18	and increase ye in grace, and in the knowledge of our Lord and Savior Jesus Christ; to him is the glory both now, and to the day of the age! Amen. 
+ 

@@ -1,5 +1,5 @@
-﻿
-1:1	
+﻿ 
+1:1	???
 1:2	thou who hast made heaven and earth with all their order; 
 1:3	who hast shackled the sea by thy word of command, who hast confined the deep and sealed it with thy terrible and glorious name; 
 1:4	at whom all things shudder, and tremble before thy power, 
@@ -14,3 +14,4 @@
 1:13	I earnestly beseech thee, forgive me, O Lord, forgive me! Do not destroy me with my transgressions! Do not be angry with me forever or lay up evil for me; do not condemn me to the depths of the earth. For thou, O Lord, art the God of those who repent, 
 1:14	and in me thou wilt manifest thy goodness; for, unworthy as I am, thou wilt save me in thy great mercy, 
 1:15	and I will praise thee continually all the days of my life. For all the host of heaven sings thy praise, and thine is the glory forever. Amen. 
+ 

@@ -1,4 +1,4 @@
-
+ 
 Hosea 
 1:1	A word of Jehovah that hath been unto Hosea, son of Beeri, in the days of Uzziah, Jotham, Ahaz, Hezekiah, kings of Judah, and in the days of Jeroboam son of Joash, king of Israel: 
 1:2	The commencement of Jehovah's speaking by Hosea. And Jehovah saith unto Hosea, 'Go, take to thee a woman of whoredoms, and children of whoredoms, for utterly go a-whoring doth the land from after Jehovah.' 
@@ -197,3 +197,4 @@ Hosea
 14:7	Return do the dwellers under his shadow, They revive as corn, and flourish as a vine, His memorial is as wine of Lebanon. 
 14:8	O Ephraim, what to Me any more with idols? I -- I afflicted, and I cause him to sing: 'I am as a green fir-tree,' From Me is thy fruit found. 
 14:9	Who is wise, and doth understand these? Prudent, and knoweth them? For upright are the ways of Jehovah, And the righteous go on in them, And the transgressors stumble therein! 
+ 

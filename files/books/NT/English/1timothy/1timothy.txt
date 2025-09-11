@@ -1,4 +1,4 @@
-﻿
+﻿ 
 I Timothy 
 1:1	Paul, an apostle of Jesus Christ, according to a command of God our Savior, and of the Lord Jesus Christ our hope, 
 1:2	to Timotheus -- genuine child in faith: Grace, kindness, peace, from God our Father, and Christ Jesus our Lord, 
@@ -113,3 +113,4 @@ I Timothy
 6:19	treasuring up to themselves a right foundation for the time to come, that they may lay hold on the life age-during. 
 6:20	O Timotheus, the thing entrusted guard thou, avoiding the profane vain-words and opposition of the falsely-named knowledge, 
 6:21	which certain professing -- concerning the faith did swerve; the grace is with you. Amen. 
+ 

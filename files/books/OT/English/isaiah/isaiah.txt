@@ -1,4 +1,4 @@
-
+ 
 Isaiah 
 1:1	The Visions of Isaiah son of Amoz, that he hath seen concerning Judah and Jerusalem, in the days of Uzziah, Jotham, Ahaz, Hezekiah, kings of Judah. 
 1:2	Hear, O heavens, and give ear, O earth, For Jehovah hath spoken: Sons I have nourished and brought up, And they -- they transgressed against Me. 
@@ -1292,3 +1292,4 @@ Isaiah
 66:22	For, as the new heavens and the new earth that I am making, Are standing before Me, An affirmation of Jehovah! So remain doth your seed and your name. 
 66:23	And it hath been from month to month, And from sabbath to sabbath, Come do all flesh to bow themselves before Me, Said Jehovah. 
 66:24	And they have gone forth, And looked on the carcases of the men Who are transgressing against me, For their worm dieth not, And their fire is not quenched, And they have been an abhorrence to all flesh! 
+ 

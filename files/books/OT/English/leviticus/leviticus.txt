@@ -1,4 +1,4 @@
-
+ 
 Leviticus 
 1:1	And Jehovah calleth unto Moses, and speaketh unto him out of the tent of meeting, saying, 
 1:2	'Speak unto the sons of Israel, and thou hast said unto them, Any man of you when he doth bring near an offering to Jehovah, out of the cattle -- out of the herd, or out of the flock -- ye do bring near your offering. 
@@ -859,3 +859,4 @@ Leviticus
 27:32	'And all the tithe of the herd and of the flock -- all that passeth by under the rod -- the tenth is holy to Jehovah; 
 27:33	he enquireth not between good and bad, nor doth he change it; and if he really change it -- then it hath been -- it and its exchange is holy; it is not redeemed.' 
 27:34	These are the commands which Jehovah hath commanded Moses for the sons of Israel, in mount Sinai. 
+ 

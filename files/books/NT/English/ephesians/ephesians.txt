@@ -1,4 +1,4 @@
-﻿
+﻿ 
 Ephesians 
 1:1	Paul, an apostle of Jesus Christ through the will of God, to the saints who are in Ephesus, and to the faithful in Christ Jesus: 
 1:2	Grace to you, and peace from God our Father, and the Lord Jesus Christ! 
@@ -155,3 +155,4 @@ Ephesians
 6:22	whom I did send unto you for this very thing, that ye might know the things concerning us, and that he might comfort your hearts. 
 6:23	Peace to the brethren, and love, with faith, from God the Father, and the Lord Jesus Christ! 
 6:24	The grace with all those loving our Lord Jesus Christ -- undecayingly! Amen. 
+ 

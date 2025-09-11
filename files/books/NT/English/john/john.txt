@@ -1,4 +1,4 @@
-﻿
+﻿ 
 John 
 1:1	In the beginning was the Word, and the Word was with God, and the Word was God; 
 1:2	this one was in the beginning with God; 
@@ -879,3 +879,4 @@ John
 21:23	yet Jesus did not say to him, that he doth not die, but, 'If him I will to remain till I come, what -- to thee?' 
 21:24	this is the disciple who is testifying concerning these things, and he wrote these things, and we have known that his testimony is true. 
 21:25	And there are also many other things -- as many as Jesus did -- which, if they may be written one by one, not even the world itself I think to have place for the books written. Amen. 
+ 

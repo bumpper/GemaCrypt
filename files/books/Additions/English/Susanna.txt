@@ -1,5 +1,5 @@
-﻿
-1:1	
+﻿ 
+1:1	???
 1:2	And he took a wife named Susanna, the daughter of Hilkiah, a very beautiful woman and one who feared the Lord. 
 1:3	Her parents were righteous, and had taught their daughter according to the law of Moses. 
 1:4	Joakim was very rich, and had a spacious garden adjoining his house; and the Jews used to come to him because he was the most honored of them all. 
@@ -41,7 +41,7 @@
 1:40	So we seized this woman and asked her who the young man was, but she would not tell us. These things we testify." 
 1:41	The assembly believed them, because they were elders of the people and judges; and they condemned her to death. 
 1:42	Then Susanna cried out with a loud voice, and said, "O eternal God, who dost discern what is secret, who art aware of all things before they come to be, 
-1:43	thou knowest that these men have borne false witness against me. And now I am to die! Yet I have done none of the things that they have wickedly invented against me!" 
+1:43	thou knows that these men have borne false witness against me. And now I am to die! Yet I have done none of the things that they have wickedly invented against me!" 
 1:44	The Lord heard her cry. 
 1:45	And as she was being led away to be put to death, God aroused the holy spirit of a young lad named Daniel; 
 1:46	and he cried with a loud voice, "I am innocent of the blood of this woman." 
@@ -62,4 +62,5 @@
 1:61	And they rose against the two elders, for out of their own mouths Daniel had convicted them of bearing false witness; 
 1:62	and they did to them as they had wickedly planned to do to their neighbor; acting in accordance with the Law of Moses, they put them to death. Thus innocent blood was saved that day. 
 1:63	And Hilkiah and his wife praised God for their daughter Susanna, and so did Joakim her husband and all her kindred, because nothing shameful was found in her. 
-1:64	And from that day onward Daniel had a great reputation among the people. 
+1:64	And from that day onward Daniel had a great reputation among the people.
+ 

@@ -1,4 +1,4 @@
-
+ 
 Exodus 
 1:1	And these are the names of the sons of Israel who are coming into Egypt with Jacob; a man and his household have they come; 
 1:2	Reuben, Simeon, Levi, and Judah, 
@@ -1213,3 +1213,4 @@ Exodus
 40:36	And in the going up of the cloud from off the tabernacle the sons of Israel journey in all their journeys; 
 40:37	and if the cloud go not up then they journey not, until the day of its going up: 
 40:38	for the cloud of Jehovah is on the tabernacle by day, and fire is in it by night, before the eyes of all the house of Israel in all their journeys. 
+ 

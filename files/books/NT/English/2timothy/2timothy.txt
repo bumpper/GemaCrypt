@@ -1,4 +1,4 @@
-﻿
+﻿ 
 II Timothy 
 1:1	Paul, an apostle of Jesus Christ, through the will of God, according to a promise of life that is in Christ Jesus, 
 1:2	to Timotheus, beloved child: Grace, kindness, peace, from God the Father, and Christ Jesus our Lord! 
@@ -83,3 +83,4 @@ II Timothy
 4:20	Erastus did remain in Corinth, and Trophimus I left in Miletus infirm; 
 4:21	be diligent to come before winter. Salute thee doth Eubulus, and Pudens, and Linus, and Claudia, and all the brethren. 
 4:22	The Lord Jesus Christ is with thy spirit; the grace is with you! Amen. 
+ 

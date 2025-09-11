@@ -1,4 +1,4 @@
-﻿
+﻿ 
 Luke 
 1:1	Seeing that many did take in hand to set in order a narration of the matters that have been fully assured among us, 
 1:2	as they did deliver to us, who from the beginning became eye-witnesses, and officers of the Word, -- 
@@ -1151,3 +1151,4 @@ Luke
 24:51	and it came to pass, in his blessing them, he was parted from them, and was borne up to the heaven; 
 24:52	and they, having bowed before him, did turn back to Jerusalem with great joy, 
 24:53	and were continually in the temple, praising and blessing God. Amen. 
+ 
