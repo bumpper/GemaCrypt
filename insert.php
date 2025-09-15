@@ -10,8 +10,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     $errorMessage = "Connection failed: ". $conn->connect_error. "<br>";
-    $errorMessage.= "<a href='http://forevernode.pro/app1/app1.php'>Proceed to site without database access</a><br>";
-    $errorMessage.= "<a href='mailto:bumpper@gmail.com'>Report issue here</a>";
+    $errorMessage.= "<a href='http://radius.center/gemacrypt/app1.php'>Proceed to site without database access</a><br>";
+    $errorMessage.= "<a href='mailto:radius1thousand@gmail.com'>Report issue here</a>";
     die($errorMessage);
 }
 

@@ -90,7 +90,7 @@ sudo apt-get install phpmyadmin
 #############################################################################
 ###Create a DB in phpMyAdmin called gematriaDB
 ###Create a DB user named DBuser in phpMyAdmin and give it rights to gematriaDB
-###Use the script /app1/files/createMySQLDB.sql to create the Table gematriaTable and Columns
+###Use the script /gemacrypt/files/createMySQLDB.sql to create the Table gematriaTable and Columns
 ###Create the following script to generate a daily backup of gematriaDB /var/local/backup-gematriaDB.sh
 	#!/bin/bash
 	# Set the MySQL user, password, and database name
@@ -99,7 +99,7 @@ sudo apt-get install phpmyadmin
 	MYSQL_DATABASE="gematriaDB"
 
 	# Set the backup file name and path
-	BACKUP_FILE="/var/www/html/app1/files/gematriaDB.sql"
+	BACKUP_FILE="/var/www/html/gemacrypt/files/gematriaDB.sql"
 
 	# Dump the database to the backup file
 	mysqldump -u ${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} > ${BACKUP_FILE}

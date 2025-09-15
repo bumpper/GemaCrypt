@@ -255,6 +255,21 @@ body { background-color: #000;}
     margin: 0 auto;        /* fallback centering */
   }
 }
+/* keep it pinned to the true viewport corner, above everything */
+		#breakOutLink{
+		position: fixed;          /* viewport-relative */
+		top: 0;                   /* touch the very top */
+		right: 0;                 /* touch the very right */
+		z-index: 100000;          /* stay above toolbar, toggler, etc. */
+		line-height: 0;           /* kill inline gap */
+		}
+		#breakOutLink img{
+		display: block;           /* remove descender space */
+		width: 10px;              /* adjust to taste */
+		height: 10px;
+		cursor: pointer;
+		border: none;
+		}
 </style>
 
 <script language="JavaScript" type="text/javascript">
@@ -297,7 +312,7 @@ async function copyText2() {
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleCantillation()"><img src="img/music.png" alt="Cantillation" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
 <a href="help.html" style="color: #555; font-size: 18px; text-decoration: none;" target="_blank">GemaCrypt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 <a href="help.html" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/helpblack.png" alt="Help" height="15" width="15" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="16" border="0"></a>
-<a href="http://radius.center/app1/app2.php" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/book.png" alt="App2" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a></h1>
+<a href="http://radius.center/gemacrypt/app2.php" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/book.png" alt="App2" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a></h1>
 
 <!--Hebrew letters if no keyboard is installed-->
 <div id="keyboard" class="result">
@@ -392,6 +407,16 @@ async function copyText2() {
 </div>
 </div>
 
+		<a id="breakOutLink" href="javascript:void(0)" title="Frame Break Out"><img src="img/breakout.png" alt="Frame Break Out"></a>
+		<script>
+			/* === Click handler: break out of frames === */
+			document.getElementById('breakOutLink').addEventListener('click', function () {
+			if (window.top !== window.self) {          // inside frame
+				window.top.location = window.self.location.href; // jump to full tab
+			}
+			});
+		</script>
+
 <!-- mobilecontainer1 -->
 <div data-role="content" id="j_3" name="mobilecontainer1" class="mobileContent mobilecontainer1" dsid="mobilecontainer1" data-theme=''>
 
@@ -399,7 +424,7 @@ async function copyText2() {
 <script>document.getElementById("inputText").value = "";</script> <!-- set the default value \u05D9\u05D4\u05D5\u05D4 -->
 <div data-role="fieldcontain" class="mobiletextinput1">
 <table width="100%" cellpadding="5" cellspacing="5" border="0" align="center">
-<tr><td><div style="position: relative;"><input type="text" list='listid1' placeholder="Type your word here" TABINDEX="2" value="" dsid="input" id="inputText" data-theme="a" data-mini='false' class='input mobiletextinput1' style="background-color: #222222; color:#FFFFFF; text-align:right; text-shadow: 0 0 5px #FFFFFF; font-family: Arial; font-size: 18px; width: 100%; display: inline-block; resize: both; overflow: hidden;" onchange="inputText = this.value;"><img src="img/copy-icon.png" alt="Copy Text" border="0" id="copyIcon" onclick="copyText()" style="position: absolute; top: 10px; left: 0px; width: 32px; height: 21px; cursor: pointer;"></div>
+<tr><td><div style="position: relative;"><input type="text" list='listid1' placeholder="Type your word here  " TABINDEX="2" value="" dsid="input" id="inputText" data-theme="a" data-mini='false' class='input mobiletextinput1' style="background-color: #222222; color:#FFFFFF; text-align:right; text-shadow: 0 0 5px #FFFFFF; font-family: Arial; font-size: 18px; width: 100%; display: inline-block; resize: both; overflow: hidden;" onchange="inputText = this.value;"><img src="img/copy-icon.png" alt="Copy Text" border="0" id="copyIcon" onclick="copyText()" style="position: absolute; top: 10px; left: 0px; width: 32px; height: 21px; cursor: pointer;"></div>
 	<datalist id='listid1'>
 	<option label='Ehyeh' value='&#x05D0;&#x05D4;&#x05D5;&#x05D4;'>
 	<option label='YHVH' value='&#x05D9;&#x05D4;&#x05D5;&#x05D4;'>
@@ -413,12 +438,12 @@ async function copyText2() {
 	<option label='Adoni' value='&#x05D0;&#x05D3;&#x05D5;&#x05E0;&#x05D9;'>
 </datalist>
 <!--Likely will not need if you can use the Transpose button instead</td><td width="20px"><a data-role="button" name="samech" dsid="samechButton" class='' id='samech' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick=""/><span title="Add this word to the Database.">&#10133;</span></a>
-</td><td width="20px"><a data-role="button" name="samech" dsid="samechButton" class='' id='samech' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF width: 20px;"  background-image: url('https://bumpper.com/app1/files/resources/lib/jquerymobile/images/icon-search-black.png'); background-size: 20px 20px; background-repeat: no-repeat; background-position: center;" onclick=""/><span title="Search for this word in the Database.">&#128269;</span></a>-->
+</td><td width="20px"><a data-role="button" name="samech" dsid="samechButton" class='' id='samech' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF width: 20px;"  background-image: url('https://radius.center/gemacrypt/files/resources/lib/jquerymobile/images/icon-search-black.png'); background-size: 20px 20px; background-repeat: no-repeat; background-position: center;" onclick=""/><span title="Search for this word in the Database.">&#128269;</span></a>-->
 </td></tr></table></div>
 
 <!-- 2 Word to be Knit -->
 <table width="100%" cellpadding="5" cellspacing="5" border="0" align="center">
-<tr><td><div style="position: relative;"><input type='text' list='listid' placeholder="Optional word to be Knit" TABINDEX="" value="" dsid="input2" id="inputText2" data-theme="a" data-mini='false' class='input mobiletextinput1' onChange="inputText2 = this.value" style="background-color: #222222; color:#FFFFFF; text-align:right; text-shadow: 0 0 5px #FFFFFF; font-family: Arial; font-size: 18px; width: 100%; display: inline-block; resize: both; overflow: hidden;"><img src="img/copy-icon.png" alt="Copy Text" border="0" id="copyIcon2" onclick="copyText2()" style="position: absolute; top: 19px; left: 0px; width: 32px; height: 21px; cursor: pointer;"></div>
+<tr><td><div style="position: relative;"><input type='text' list='listid' placeholder="Optional word to be Knit  " TABINDEX="" value="" dsid="input2" id="inputText2" data-theme="a" data-mini='false' class='input mobiletextinput1' onChange="inputText2 = this.value" style="background-color: #222222; color:#FFFFFF; text-align:right; text-shadow: 0 0 5px #FFFFFF; font-family: Arial; font-size: 18px; width: 100%; display: inline-block; resize: both; overflow: hidden;"><img src="img/copy-icon.png" alt="Copy Text" border="0" id="copyIcon2" onclick="copyText2()" style="position: absolute; top: 19px; left: 0px; width: 32px; height: 21px; cursor: pointer;"></div>
 	<datalist id='listid'>
 	<option label='Ehyeh' value='&#x05D0;&#x05D4;&#x05D5;&#x05D4;'>
 	<option label='YHVH' value='&#x05D9;&#x05D4;&#x05D5;&#x05D4;'>
@@ -487,50 +512,50 @@ async function copyText2() {
 <div id="Results" class="hidden">
 <table width="100%" cellpadding="10" cellspacing="10" border="0" align="center">
 <!-- Input Phrase Gematria -->
-<tr><td width="33%" valign="top"><p align='left' valign='top'><b><u><span title="The numerical value of all the letters from the original word."><a href="/app1/help.html#Gematria" target="_blank" style="text-decoration: none; color: white;">Input Phrase Gematria:</a></span></b></u></p>
+<tr><td width="33%" valign="top"><p align='left' valign='top'><b><u><span title="The numerical value of all the letters from the original word."><a href="/gemacrypt/help.html#Gematria" target="_blank" style="text-decoration: none; color: white;">Input Phrase Gematria:</a></span></b></u></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="gem1"></div></p></td>
 <!-- Encrypted Pharse -->
 <td width="33%" valign="top"><p align='center' valign='top'><b><u><a href="" border="0" style="text-decoration: none; color: white;" onclick="SendCryptography2()"><span title="The new word once it has been transposed used the methods below.">Encrypted Phrase:</span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="crypt2"></div></p></td>
 <!-- Encrypted Phrase Gematria -->
-<td width="33%" valign="top"><p align='right' valign='top'><b><u><span title="The numerical value of the transposed new word."><a href="/app1/help.html#Cyphers" target="_blank" style="text-decoration: none; color: white;">Encrypted Phrase Gematria:</a></span></b></u></p>
+<td width="33%" valign="top"><p align='right' valign='top'><b><u><span title="The numerical value of the transposed new word."><a href="/gemacrypt/help.html#Cyphers" target="_blank" style="text-decoration: none; color: white;">Encrypted Phrase Gematria:</a></span></b></u></p>
 <div align="right" data-role="fieldcontain" class="mobiletextinput4" id="gem2"></div></p></td></tr>
 
 <!-- Original Word -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="The original word entered in the first text box."><a href="/app1/help.html#Hebrew" target="_blank" style="text-decoration: none; color: white;">Original Input Phrase:</a></span></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="The original word entered in the first text box."><a href="/gemacrypt/help.html#Hebrew" target="_blank" style="text-decoration: none; color: white;">Original Input Phrase:</a></span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="originalWord"></div></td>
 <!-- Leap -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><a href="/app1/help.html#Leap" target="_blank" border="0" style="text-decoration: none; color: white;" onclick="SendLeap()"><span title="Also called a Jump, where the first letter of the original word is removed of leaped over, to see if it reveals a root word.">Leap</span><!-- (Jump)-->:</a></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><a href="/gemacrypt/help.html#Leap" target="_blank" border="0" style="text-decoration: none; color: white;" onclick="SendLeap()"><span title="Also called a Jump, where the first letter of the original word is removed of leaped over, to see if it reveals a root word.">Leap</span><!-- (Jump)-->:</a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="leap"></div></td>
 <!-- Skip -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><a href="/app1/help.html#Skip" target="_blank" border="0" style="text-decoration: none; color: white;" onclick="SendSkip()"><span title="Also called a Dilug, where the second letter of the original word is removed or skipped over, to see if it reveals a root word.">Skip:</span></a></u></b></p>
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><a href="/gemacrypt/help.html#Skip" target="_blank" border="0" style="text-decoration: none; color: white;" onclick="SendSkip()"><span title="Also called a Dilug, where the second letter of the original word is removed or skipped over, to see if it reveals a root word.">Skip:</span></a></u></b></p>
 <div align="right" data-role="fieldcontain" class="mobiletextinput4" id="skip"></div></td></tr>
 
 <!-- Acronym -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="/app1/help.html#Acronym" target="_blank" border="0" style="text-decoration: none; color: white;" onclick="SendAcronym()"><span title="Takes the first letter of each word and combines them to see if they reveal a hidden word.">Acronym:</span></a></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="/gemacrypt/help.html#Acronym" target="_blank" border="0" style="text-decoration: none; color: white;" onclick="SendAcronym()"><span title="Takes the first letter of each word and combines them to see if they reveal a hidden word.">Acronym:</span></a></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="acronym"></div></td>
 <!-- Elision -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Removing the first and last letter."><a href="/app1/help.html#Elision" target="_blank" style="text-decoration: none; color: white;">Elision:</a></span></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Removing the first and last letter."><a href="/gemacrypt/help.html#Elision" target="_blank" style="text-decoration: none; color: white;">Elision:</a></span></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="elision"></div></td>
 <!-- Acronym with Finals -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="A reverse acronym, where the last letter of each of the original words is combined to see if they reveal a hidden word."><a href="/app1/help.html#Acronym" target="_blank" style="text-decoration: none; color: white;">Finals:</a></span><!--Sofim--></u></b></p>
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="A reverse acronym, where the last letter of each of the original words is combined to see if they reveal a hidden word."><a href="/gemacrypt/help.html#Acronym" target="_blank" style="text-decoration: none; color: white;">Finals:</a></span><!--Sofim--></u></b></p>
 <div align="right" data-role="fieldcontain" class="mobiletextinput4" id="sofim"></div></td></tr>
 
 <!-- Forward Exchange -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Replacing each letter of the original word, by rolling forward one letter to what comes next in the alphabet."><a href="/app1/help.html#ABaG_BeGeD" target="_blank" style="text-decoration: none; color: white;">Av-Gad (Forward Exchange):</a></span></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Replacing each letter of the original word, by rolling forward one letter to what comes next in the alphabet."><a href="/gemacrypt/help.html#ABaG_BeGeD" target="_blank" style="text-decoration: none; color: white;">Av-Gad (Forward Exchange):</a></span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="forexch"></div></td>
 <!-- Knit Word -->
 <td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Weaving the letters of two words together into one new word, by alternativing between each word, letter by letter.">Knit Word:</span></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="knit"></div></td>
 <!-- Backward Exchange -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Replacing each letter of the original word, by rolling backwards one letter to what came before it in the alphabet."><a href="/app1/help.html#ABaG_BeGeD" target="_blank" style="text-decoration: none; color: white;">At-Ba (Backward Exchange):</a></span></u></b></p>
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Replacing each letter of the original word, by rolling backwards one letter to what came before it in the alphabet."><a href="/gemacrypt/help.html#ABaG_BeGeD" target="_blank" style="text-decoration: none; color: white;">At-Ba (Backward Exchange):</a></span></u></b></p>
 <div align="right" data-role="fieldcontain" class="mobiletextinput4" id="backexch"></div></td></tr>
 
 <!-- Pictogram & Meaning -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="img/pictographs/Pictograms.pdf" border="0" style="text-decoration: none; color: white;"><span title="The pictograms for each letter of the original word and their meanings."><a href="/app1/help.html#Four_Major_Writing_Styles" target="_blank" style="text-decoration: none; color: white;">Pictogram & Meaning:</a></span></u></b> <a href="#" style="text-decoration: none;" onclick="togglePictograms()"><img src="img/expand.png" id="PictogramsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="img/pictographs/Pictograms.pdf" border="0" style="text-decoration: none; color: white;"><span title="The pictograms for each letter of the original word and their meanings."><a href="/gemacrypt/help.html#Four_Major_Writing_Styles" target="_blank" style="text-decoration: none; color: white;">Pictogram & Meaning:</a></span></u></b> <a href="#" style="text-decoration: none;" onclick="togglePictograms()"><img src="img/expand.png" id="PictogramsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a></p>
 <div id="Pictograms"><div align="left" data-role="fieldcontain" class="mobiletextinput4" id="pictogram"></div></div></td>
 <!-- Miluy (Spelling) -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The full spelling of each letter written out beginning with the first letter at the top and ending with the last letter at the bottom."><a href="/app1/help.html#ABaG_BeGeD" target="_blank" style="text-decoration: none; color: white;">Miluy (Spelling):</a></span></u></b> <a href="#" style="text-decoration: none;" onclick="toggleMiluy()"><img src="img/expand.png" id="MiluyExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The full spelling of each letter written out beginning with the first letter at the top and ending with the last letter at the bottom."><a href="/gemacrypt/help.html#ABaG_BeGeD" target="_blank" style="text-decoration: none; color: white;">Miluy (Spelling):</a></span></u></b> <a href="#" style="text-decoration: none;" onclick="toggleMiluy()"><img src="img/expand.png" id="MiluyExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></p>
 <div id="Miluy"><div align="center" data-role="fieldcontain" class="mobiletextinput4" id="spelling"></div></div></td>
 <!-- Morphs -->
 <td width="33%" valign="top"><p align="right" valign="top"><b><u><a href="#" style="text-decoration: none;" onclick="toggleMorphs()"><img src="img/expand.png" id="MorphsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>   <span title="The assumption that a letter is made up of 2 or more similar letters based on their appearance, where these new/additional letter could be substituted for that letter.">Morphs:</span></u></b></p>
@@ -547,7 +572,7 @@ async function copyText2() {
 <div id="PossibleDivisions"><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="div"></div></div></td></tr>
 
 <!-- Reversed -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="" border="0" style="text-decoration: none; color: white;" onclick="SendReverse()"><span title="This will generate a random word based on the number of letters in the original word."><a href="/app1/help.html#ThShRQ" target="_blank" style="text-decoration: none; color: white;">ThShRQ (Reversed):</a></span></a></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="" border="0" style="text-decoration: none; color: white;" onclick="SendReverse()"><span title="This will generate a random word based on the number of letters in the original word."><a href="/gemacrypt/help.html#ThShRQ" target="_blank" style="text-decoration: none; color: white;">ThShRQ (Reversed):</a></span></a></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="reverseText"></div></td>
 <!-- Gates -->
 <td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The number of possible combinations from each letter of the original word to every other letter of the original word."><a href="#" onclick="openGateModal();" style="text-decoration: none; color: white;"># of Gates:</a></span></u></b></p>
