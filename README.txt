@@ -26,7 +26,7 @@ This README provides step-by-step instructions for installing GemaCrypt on vario
    ssh username@your-server-ip
 
 2. **Download the installation script:**
-   wget https://raw.githubusercontent.com/your-repo/install.sh
+   wget https://raw.githubusercontent.com/bumpper/GemaCrypt/main/install.sh
    *OR if you have the file locally, upload it to your server*
 
 3. **Make the script executable:**
@@ -52,7 +52,7 @@ This README provides step-by-step instructions for installing GemaCrypt on vario
    - OR go to Applications > Utilities > Terminal
 
 3. **Download the installation script:**
-   curl -O https://raw.githubusercontent.com/your-repo/install.sh
+   curl -O https://raw.githubusercontent.com/bumpper/GemaCrypt/main/install.sh
 
 4. **Make the script executable:**
    chmod +x install.sh
@@ -67,7 +67,7 @@ This README provides step-by-step instructions for installing GemaCrypt on vario
    ssh username@your-server-ip
 
 2. **Download the installation script:**
-   fetch https://raw.githubusercontent.com/your-repo/install.sh
+   fetch https://raw.githubusercontent.com/bumpper/GemaCrypt/main/install.sh
 
 3. **Make the script executable:**
    chmod +x install.sh
@@ -83,7 +83,7 @@ This README provides step-by-step instructions for installing GemaCrypt on vario
    ssh username@your-server-ip
 
 2. **Download the installation script:**
-   ftp https://raw.githubusercontent.com/your-repo/install.sh
+   ftp https://raw.githubusercontent.com/bumpper/GemaCrypt/main/install.sh
 
 3. **Make the script executable:**
    chmod +x install.sh
@@ -98,7 +98,7 @@ This README provides step-by-step instructions for installing GemaCrypt on vario
    ssh username@your-server-ip
 
 2. **Download the installation script:**
-   wget https://raw.githubusercontent.com/your-repo/install.sh
+   wget https://raw.githubusercontent.com/bumpper/GemaCrypt/main/install.sh
 
 3. **Make the script executable:**
    chmod +x install.sh
