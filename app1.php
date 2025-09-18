@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>GemaCrypt</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="files/resources/lib/theme/jqm/jqm.css" rel="stylesheet" />
 <link href="files/resources/lib/jquerymobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -12,16 +13,12 @@
 <meta name="distribution" content="Global" />
 <meta name="robots" content="FOLLOW,INDEX" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="initial-scale=1" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 <noscript><span class="span-red">Warning! JavaScript is disabled, the functionality is unavailable.</span><br>
 You will need to enable JavaScript in your web browser: see the <a class="ext" href="https://www.enable-javascript.com/" target="_blank">instructions</a>.<br><br></noscript>
 
-<!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css"> <!-- jQuery library to make inputText resizable -->
-<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery library to make inputText resizable -->
-<!--<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script> <!-- jQuery library to make inputText resizable -->
 <script>
 	// Create a separate instance of jQuery for the older version (1.8.2)
 	var jq182 = jQuery.noConflict(true);
@@ -177,8 +174,7 @@ You will need to enable JavaScript in your web browser: see the <a class="ext" h
 <link href="files/resources/css/mobilebase.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="files/views/assets/js/Copy.js"></script>
 <script type="text/javascript" src="files/views/assets/js/transpose.js"></script>
-<link href="startScreen.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="startScreen.js"></script>
+<script type="text/javascript" src="optimized-permutations.js"></script>
 
 <script language="JavaScript">
 function stopError() {
@@ -189,7 +185,7 @@ window.onerror = stopError;
 
 </head>
 
-<body OnLoad="" style="background-color : #fff;
+<body OnLoad="" style="background-color : #444;
 background-image:url('img/bg3.png');
 background-attachment: fixed;
 background-repeat: no-repeat;
@@ -270,6 +266,80 @@ body { background-color: #000;}
 		cursor: pointer;
 		border: none;
 		}
+
+/* Custom Scrollbar Styling */
+/* Main vertical scrollbar */
+::-webkit-scrollbar {
+    width: 16px;
+}
+
+::-webkit-scrollbar-track {
+    background: #444;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
+}
+
+::-webkit-scrollbar-button {
+    background: #ccc;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-button:hover {
+    background: #bbb;
+}
+
+::-webkit-scrollbar-corner {
+    background: #444;
+}
+
+/* Horizontal scrollbar for Gematria Matches table */
+.result::-webkit-scrollbar {
+    height: 16px;
+}
+
+.result::-webkit-scrollbar-track {
+    background: #444;
+}
+
+.result::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.result::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
+}
+
+.result::-webkit-scrollbar-button {
+    background: #ccc;
+    border-radius: 2px;
+}
+
+.result::-webkit-scrollbar-button:hover {
+    background: #bbb;
+}
+
+.result::-webkit-scrollbar-corner {
+    background: #444;
+}
+
+/* Firefox scrollbar styling */
+html {
+    scrollbar-width: auto;
+    scrollbar-color: #ccc #444;
+}
+
+.result {
+    scrollbar-width: auto;
+    scrollbar-color: #ccc #444;
+}
 </style>
 
 <script language="JavaScript" type="text/javascript">
@@ -326,15 +396,15 @@ async function copyText2() {
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N02Amount" title="Gershayim"><a data-role="button" name="Gershayim" dsid="" class='' id='Gershayim' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '׀')"/><font size="+4">׀</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N02Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N03Amount" title="Hataf Patah"><a data-role="button" name="Hataf Patah" dsid="" class='' id='Hataf Patah' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05BE')"/><font size="+4">&#x05BE;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N03Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N04Amount" title="Segol"><a data-role="button" name="Segol" dsid="" class='' id='Segol' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05B7')"/><font size="+4">&#x05B7;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N04Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L01Amount" title="Aleph (1)"><a data-role="button" name="aleph" dsid="alephButton" class='' id='aleph' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D0')"/>&#x05D0;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L01Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L02Amount" title="Bet (2)"><a data-role="button" name="bet" dsid="betButton" class='' id='bet' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D1')"/>&#x05D1;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L02Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L03Amount" title="Gimel (3)"><a data-role="button" name="gimel" dsid="gimelButton" class='' id='gimel' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D2')"/>&#x05D2;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L03Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L04Amount" title="Dalet (4)"><a data-role="button" name="dalet" dsid="daletButton" class='' id='dalet' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D3')"/>&#x05D3;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L04Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L05Amount" title="Hey (5)"><a data-role="button" name="hey" dsid="heyButton" class='' id='hey' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D4')"/>&#x05D4;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L05Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L06Amount" title="Vav (6)"><a data-role="button" name="vav" dsid="vavButton" class='' id='vav' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D5')"/>&#x05D5;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L06Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L07Amount" title="Zayin (7)"><a data-role="button" name="zayin" dsid="zayinButton" class='' id='zayin' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D6')"/>&#x05D6;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L07Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L08Amount" title="Chet (8)"><a data-role="button" name="chet" dsid="chetButton" class='' id='chet' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D7')"/>&#x05D7;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L08Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L09Amount" title="Tet (9)"><a data-role="button" name="tet" dsid="tetButton" class='' id='tet' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D8')"/>&#x05D8;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L09Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L08Amount" title="Chet (8)"><a data-role="button" name="chet" dsid="chetButton" class='' id='chet' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D7')"/>&#x05D7;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L08Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L07Amount" title="Zayin (7)"><a data-role="button" name="zayin" dsid="zayinButton" class='' id='zayin' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D6')"/>&#x05D6;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L07Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L06Amount" title="Vav (6)"><a data-role="button" name="vav" dsid="vavButton" class='' id='vav' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D5')"/>&#x05D5;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L06Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L05Amount" title="Hey (5)"><a data-role="button" name="hey" dsid="heyButton" class='' id='hey' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D4')"/>&#x05D4;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L05Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L04Amount" title="Dalet (4)"><a data-role="button" name="dalet" dsid="daletButton" class='' id='dalet' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D3')"/>&#x05D3;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L04Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L03Amount" title="Gimel (3)"><a data-role="button" name="gimel" dsid="gimelButton" class='' id='gimel' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D2')"/>&#x05D2;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L03Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L02Amount" title="Bet (2)"><a data-role="button" name="bet" dsid="betButton" class='' id='bet' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D1')"/>&#x05D1;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L02Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L01Amount" title="Aleph (1)"><a data-role="button" name="aleph" dsid="alephButton" class='' id='aleph' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D0')"/>&#x05D0;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L01Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N05Amount" title="Kamats"><a data-role="button" name="Kamats" dsid="" class='' id='Kamats' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05B1')"/><font size="+4">&#x05B1;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N05Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N06Amount" title="Hataf Kamats"><a data-role="button" name="Hataf Kamats" dsid="" class='' id='Hataf Kamats' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05B2')"/><font size="+4">&#x05B2;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N06Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N07Amount" title="Hiriq"><a data-role="button" name="Hiriq" dsid="" class='' id='Hiriq' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05B3')"/><font size="+4">&#x05B3;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N07Text"></p></span></div></td>
@@ -355,15 +425,15 @@ async function copyText2() {
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N09Amount" title="Siluq"><a data-role="button" name="Siluq" dsid="" class='' id='Siluq' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '״')"/><font size="+4">״</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N09Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N10Amount" title="Hataf Hiriq"><a data-role="button" name="Hataf Hiriq" dsid="" class='' id='Hataf Hiriq' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05B4')"/><font size="+4">&#x05B4;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N10Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N11Amount" title="Tsere"><a data-role="button" name="Tsere" dsid="" class='' id='Tsere' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05B5')"/><font size="+4">&#x05B5;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N11Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L10Amount" title="Yod (10)"><a data-role="button" name="yod" dsid="yodButton" class='' id='yod' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D9')"/>&#x05D9;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L10Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L11Amount" title="Chaf (20)"><a data-role="button" name="kaf" dsid="kafButton" class='' id='kaf' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DB')"/>&#x05DB;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L11Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L12Amount" title="Lamed (30)"><a data-role="button" name="lamed" dsid="lamedButton" class='' id='lamed' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DC')"/>&#x05DC;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L12Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L13Amount" title="Mem (40)"><a data-role="button" name="mem" dsid="memButton" class='' id='mem' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DE')"/>&#x05DE;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L13Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L14Amount" title="Nun (50)"><a data-role="button" name="nun" dsid="nunButton" class='' id='nun' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E0')"/>&#x05E0;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L14Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L15Amount" title="Samech (60)"><a data-role="button" name="samech" dsid="samechButton" class='' id='samech' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E1')"/>&#x05E1;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L15Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L16Amount" title="Ayin (70)"><a data-role="button" name="ayin" dsid="ayinButton" class='' id='ayin' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E2')"/>&#x05E2;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L16Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L17Amount" title="Pey (80)"><a data-role="button" name="pey" dsid="peyButton" class='' id='pey' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E4')"/>&#x05E4;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L17Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L18Amount" title="Tzadi (90)"><a data-role="button" name="tzadi" dsid="tzadiButton" class='' id='tzadi' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E6')"/>&#x05E6;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L18Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L17Amount" title="Pey (80)"><a data-role="button" name="pey" dsid="peyButton" class='' id='pey' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E4')"/>&#x05E4;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L17Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L16Amount" title="Ayin (70)"><a data-role="button" name="ayin" dsid="ayinButton" class='' id='ayin' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E2')"/>&#x05E2;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L16Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L15Amount" title="Samech (60)"><a data-role="button" name="samech" dsid="samechButton" class='' id='samech' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E1')"/>&#x05E1;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L15Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L14Amount" title="Nun (50)"><a data-role="button" name="nun" dsid="nunButton" class='' id='nun' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E0')"/>&#x05E0;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L14Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L13Amount" title="Mem (40)"><a data-role="button" name="mem" dsid="memButton" class='' id='mem' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DE')"/>&#x05DE;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L13Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L12Amount" title="Lamed (30)"><a data-role="button" name="lamed" dsid="lamedButton" class='' id='lamed' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DC')"/>&#x05DC;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L12Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L11Amount" title="Chaf (20)"><a data-role="button" name="kaf" dsid="kafButton" class='' id='kaf' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DB')"/>&#x05DB;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L11Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L10Amount" title="Yod (10)"><a data-role="button" name="yod" dsid="yodButton" class='' id='yod' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05D9')"/>&#x05D9;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L10Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N12Amount" title="Hataf Tsere"><a data-role="button" name="Hataf Tsere" dsid="" class='' id='Hataf Tsere' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05B6')"/><font size="+4">&#x05B6;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N12Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N13Amount" title="Qamats"><a data-role="button" name="Qamats" dsid="" class='' id='Qamats' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05B7')"/><font size="+4">&#x05B7;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N13Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N14Amount" title="Hataf Qamats"><a data-role="button" name="Hataf Qamats" dsid="" class='' id='Hataf Qamats' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05B9')"/><font size="+4">&#x05B9;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N14Text"></p></span></div></td>
@@ -384,15 +454,15 @@ async function copyText2() {
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N16Amount" title="Shekel"><a data-role="button" name="Shekel" dsid="" class='' id='Shekel' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '')"/>₪<font size="12"></font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N16Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N17Amount" title="Hataf Holem"><a data-role="button" name="Hataf Holem" dsid="" class='' id='Hataf Holem' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05B8')"/><font size="+4">&#x05B8;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N17Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N18Amount" title="Shin Dot"><a data-role="button" name="Shin Dot" dsid="" class='' id='Shin Dot' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05BC')"/><font size="+4">&#x05BC;</font></a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N18Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L19Amount" title="Kuf (100)"><a data-role="button" name="kuf" dsid="kufButton" class='' id='kuf' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E7')"/>&#x05E7;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L19Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L20Amount" title="Resh (200)"><a data-role="button" name="resh" dsid="reshButton" class='' id='resh' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E8')"/>&#x05E8;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L20Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L21Amount" title="Shin (300)"><a data-role="button" name="shin" dsid="shinButton" class='' id='shin' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E9')"/>&#x05E9;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L21Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L22Amount" title="Tav (400)"><a data-role="button" name="tav" dsid="tavButton" class='' id='tav' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05EA')"/>&#x05EA;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L22Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L23Amount" title="Chaf Sofit (500)"><a data-role="button" name="kafF" dsid="kafFButton" class='' id='kafF' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DA')"/>&#x05DA;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L23Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L24Amount" title="Mem Sofit (600)"><a data-role="button" name="memF" dsid="memFButton" class='' id='memF' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DD')"/>&#x05DD;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L24Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L25Amount" title="Nun Sofit (700)"><a data-role="button" name="nunF" dsid="nunFButton" class='' id='nunF' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DF')"/>&#x05DF;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L25Text"></p></span></div></td>
-	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L26Amount" title="Pey Sofit (800)"><a data-role="button" name="peyF" dsid="peyFButton" class='' id='peyF' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E3')"/>&#x05E3;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L26Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L27Amount" title="Tzadi Sofit (900)"><a data-role="button" name="tzadiF" dsid="tzadiFButton" class='' id='tzadiF' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E5')"/>&#x05E5;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L27Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L26Amount" title="Pey Sofit (800)"><a data-role="button" name="peyF" dsid="peyFButton" class='' id='peyF' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E3')"/>&#x05E3;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L26Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L25Amount" title="Nun Sofit (700)"><a data-role="button" name="nunF" dsid="nunFButton" class='' id='nunF' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DF')"/>&#x05DF;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L25Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L24Amount" title="Mem Sofit (600)"><a data-role="button" name="memF" dsid="memFButton" class='' id='memF' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DD')"/>&#x05DD;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L24Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L23Amount" title="Chaf Sofit (500)"><a data-role="button" name="kafF" dsid="kafFButton" class='' id='kafF' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05DA')"/>&#x05DA;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L23Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L22Amount" title="Tav (400)"><a data-role="button" name="tav" dsid="tavButton" class='' id='tav' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05EA')"/>&#x05EA;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L22Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L21Amount" title="Shin (300)"><a data-role="button" name="shin" dsid="shinButton" class='' id='shin' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E9')"/>&#x05E9;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L21Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L20Amount" title="Resh (200)"><a data-role="button" name="resh" dsid="reshButton" class='' id='resh' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E8')"/>&#x05E8;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L20Text"></p></span></div></td>
+	<td width="3.7%" class="KeyCell" valign="bottom"><span id="L19Amount" title="Kuf (100)"><a data-role="button" name="kuf" dsid="kufButton" class='' id='kuf' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', '\u05E7')"/>&#x05E7;</a></span><span style="font-size: 10px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="L19Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N19Amount" title="Vav Hahipuch"><a data-role="button" name="Vav Hahipuch" dsid="" class='' id='Vav Hahipuch' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', 'וֹ')"/><font size="+4">וֹ</font></a></span><span style="font-size: 28px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N198Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N20Amount" title="Vav Point"><a data-role="button" name="Vav Point" dsid="" class='' id='Vav Point' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', 'וּ')"/><font size="+4">וּ</font></a></span><span style="font-size: 28px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N20Text"></p></span></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Niqqud"><span id="N21Amount" title="Holem"><a data-role="button" name="Holem" dsid="" class='' id='Holem' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick="appendToInputField('inputText', 'ּ')"/><font size="+4">ּ</font></a></span><span style="font-size: 28px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="N21Text"></p></span></div></td>
@@ -457,6 +527,22 @@ async function copyText2() {
 	<option label='Adoni' value='&#x05D0;&#x05D3;&#x05D5;&#x05E0;&#x05D9;'>
 </datalist></td></tr></table>
 
+<script>
+/* ---- Prevent OnFocus for mobile to stop ListID1 from loading expanded by default ---- */
+(function () {
+    /* Check is being loaded on a mobile browser */
+    var isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (!isMobile) return;                 // leave desktop behaviour untouched
+    window.addEventListener('DOMContentLoaded', function () {
+        ['inputText', 'inputText2'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            /* blur once the keyboard is about to appear */
+            setTimeout(function () { el.blur(); }, 0);   // 0 ms is enough
+        });
+    });
+})();
+</script>
 
 <table width="100%" cellpadding="10" cellspacing="10" border="0" align="center"><tr id="controlsRow" style="text-align: center;">
 	<td width="25%">
@@ -672,7 +758,7 @@ async function copyText2() {
 <td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Each letter squared and added together."><a href="" target="_blank" style="text-decoration: none; color: white;">HaPerati:</a></span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="HaPerati"></div></td>
 <!-- Ananagrams -->
-<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><a href="#" style="text-decoration: none;" onclick="toggleAnagramResults()"><img src="img/expand.png" id="AnagramResultsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>    <a onclick="selectText('anagram')" border="0" style="text-decoration: none; color: white;"><span title="A list of all the possible varations of spellings by permutating the original word.  Also called Tserufim.  &#10;&#10;If the original word is more than 7 characters it may crash the app.  "><a href='startScreenOptimized.html' target='_blank' style='color: white; font-weight: bold;'>Ananagrams</span><!-- (Tserufim)-->:</a></u></b></p>
+<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><a href="#" style="text-decoration: none;" onclick="toggleAnagramResults()"><img src="img/expand.png" id="AnagramResultsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>    <a onclick="selectText('anagram')" border="0" style="text-decoration: none; color: white;"><span title="A list of all the possible varations of spellings by permutating the original word.  Also called Tserufim.  "><a href='' target='_blank' style='color: white; font-weight: bold;'>Ananagrams</span>:</a></u></b></p>
 <div id="anagramResults"><ol type="1" style="text-align:right; float:right; clear:both;"><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="anagram"></div></div></td></tr>
 
 <!-- Random Word -->
@@ -763,6 +849,23 @@ let keyboardIsVisible = true;
   if (isMobile) keyboardIsVisible = false;
 })();
 /* ----------  End : hide keyboard by default on iOS / Android function  ---------- */
+// Helper function to center the keyboard horizontally
+function centerKeyboard() {
+  const keyboardContainer = document.getElementById('keyboard');
+  if (keyboardContainer) {
+    // Wait a brief moment for the display changes to take effect
+    setTimeout(() => {
+      const scrollWidth = keyboardContainer.scrollWidth;
+      const clientWidth = keyboardContainer.clientWidth;
+      const maxScrollLeft = scrollWidth - clientWidth;
+      
+      // Center the scroll position at 50% of the scrollable width
+      const centerPosition = maxScrollLeft / 2;
+      keyboardContainer.scrollLeft = centerPosition;
+    }, 50);
+  }
+}
+
 function toggleKeyboard() {
   let tables = document.querySelectorAll(`#keyboard table`);
   tables.forEach(function(table) {
@@ -777,6 +880,11 @@ function toggleKeyboard() {
     });
   });
   keyboardIsVisible = !keyboardIsVisible;
+  
+  // Center the keyboard when showing it
+  if (keyboardIsVisible) {
+    centerKeyboard();
+  }
 }
 // Hide-Unhide Pictograms
 let PictogramsAreVisible = true;
@@ -3145,36 +3253,84 @@ for (var i=0; i < summation.length; i++){
 }
 document.getElementById("summation").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${gematria1}); Transpose(); return false;" target='_blank'><b>${summation}</b></a><br />`;
 
-// Permutation of the original word written by Jared Miller
+// Optimized Permutation Generation - No More Browser Freezing!
 document.getElementById('anagram').innerHTML = '';	// Clear any old string value
-permute(inputText).forEach(function(result) {})
-var anagram = document.getElementById("anagram")
-permute(inputText).forEach(function(result) {
-anagram.innerHTML += "<li><a href='http://translate.google.com/#auto/en/"+encodeURIComponent(result)+"' target='_blank'><b>" + result + "</b></a></li>"
-})
 
-function permute(string) {
-// Builds our array of all permutations
-function recurse(string, prefix) {
-var pre, post, a, out, distinct;
-if (!string.length) {
-        return [prefix]
+// Use the new optimized permutation manager
+if (typeof permutationManager !== 'undefined' && permutationManager.generatePermutations) {
+    console.log('Using optimized permutation system for:', inputText);
+    permutationManager.generatePermutations(inputText);
+} else {
+    console.log('Permutation manager not available, using fallback');
+    // Enhanced fallback permutation generation
+    if (inputText.length <= 5) {
+        var anagram = document.getElementById("anagram");
+        var permutations = simplePermute(inputText);
+        var unique = [...new Set(permutations)];
+        unique.forEach(function(result) {
+            anagram.innerHTML += "<li><a href='http://translate.google.com/#auto/en/"+encodeURIComponent(result)+"' target='_blank'><b>" + result + "</b></a></li>";
+        });
+        console.log('Generated ' + unique.length + ' unique permutations');
+    } else {
+        // For longer words, use async processing even in fallback
+        document.getElementById('anagram').innerHTML = '<li style="color: yellow;">Processing ' + inputText.length + '-letter word asynchronously...</li>';
+        setTimeout(function() {
+            generateLargePermutationsAsync(inputText);
+        }, 100);
+    }
 }
-out = []
-if (string.length > 6) {  string = string.substring(0, 5);} // Don't calculate anagrams if word is greater than 7 letters.  If 7 or less only calculate anagrams out to 5 characters to prevent app from crashing the browser.  
-for (a = 0; a < string.length; a++) {
-	pre = string.substring(0, a)
-	post = string.substring(a + 1)
-	out = out.concat(recurse(pre + post, string[a] + prefix))
+
+// Async fallback for larger words
+function generateLargePermutationsAsync(inputText) {
+    var anagram = document.getElementById("anagram");
+    anagram.innerHTML = '<li style="color: cyan;">Generating permutations for ' + inputText.length + '-letter word...</li>';
+    
+    // Remove limitation on characters for fallback async processing
+    var processText = inputText;
+    
+    setTimeout(function() {
+        try {
+            var permutations = simplePermute(processText);
+            var unique = [...new Set(permutations)];
+            
+            anagram.innerHTML = '';
+            var batchSize = 50;
+            var index = 0;
+            
+            function displayBatch() {
+                var endIndex = Math.min(index + batchSize, unique.length);
+                for (var i = index; i < endIndex; i++) {
+                    anagram.innerHTML += "<li><a href='http://translate.google.com/#auto/en/"+encodeURIComponent(unique[i])+"' target='_blank'><b>" + unique[i] + "</b></a></li>";
+                }
+                index = endIndex;
+                
+                if (index < unique.length) {
+                    setTimeout(displayBatch, 10); // Continue with next batch
+                } else {
+                    console.log('Generated ' + unique.length + ' unique permutations');
+                }
+            }
+            
+            displayBatch();
+        } catch (error) {
+            anagram.innerHTML = '<li style="color: red;">Error generating permutations: ' + error.message + '</li>';
+        }
+    }, 50);
 }
-	return out
-}
-// Remove duplicates by storing each permutation in an Object (as a key).
-distinct = {}
-recurse(string, "").forEach(function(result) {
-distinct[result] = true
-});
-return Object.keys(distinct)
+
+// Simple fallback permutation function
+function simplePermute(string) {
+    if (string.length <= 1) return [string];
+    var results = [];
+    for (var i = 0; i < string.length; i++) {
+        var char = string[i];
+        var remaining = string.slice(0, i) + string.slice(i + 1);
+        var perms = simplePermute(remaining);
+        for (var j = 0; j < perms.length; j++) {
+            results.push(char + perms[j]);
+        }
+    }
+    return results;
 }
 
 // Get the first letter of each word and combine into an Acronym 

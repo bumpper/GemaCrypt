@@ -1,32 +1,8 @@
-<?php
-/* app2.php – silent mobile redirect */
-$isMobileAgent = false;
-$hasMobileViewport = false;
-// 1. User-Agent test
-if (isset($_SERVER['HTTP_USER_AGENT'])) {
-    $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
-    $mobileKeys = ['android','iphone','ipod','ipad','windows phone','mobile','iemobile'];
-    foreach ($mobileKeys as $k) {
-        if (strpos($ua, $k) !== false) { $isMobileAgent = true; break; }
-    }
-}
-// 2. “Design” test – look for a viewport meta that screams mobile
-$self = file_get_contents(__FILE__);
-if (preg_match('/<meta[^>]+name=[\'"]viewport[\'"][^>]+content=[\'"][^\'"]*(width\s*=\s*device-width|initial-scale\s*=)[^\'"]*[\'"][^>]*>/i', $self)) {
-    $hasMobileViewport = true;
-}
-// 3. Redirect only when BOTH signals agree
-if ($isMobileAgent && $hasMobileViewport) {
-    header('Location: app2m.php', true, 302);
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="SHORTCUT ICON" href="img/bet.png" />
 	<meta name="Rating" content="general" />
 	<meta name="DESCRIPTION" content="Decode Hebrew words to find hidden meanings using Gematria. With this app you can find the numerical values of words. Words with the same numerical value are said to spiritual synonyms. Also use the different Hebrew encryption algorithms to find hidden meanings such as AL-bam, At-BaSh, ACh-BI, AYiK-BeCheR, AChaS-BeTA, AT-BeCh to decode hebrew words.  Use the different gematriaot to find a words numerical value like Ragil, Katan, HaKlali, Kolel, HaKadmi, HaPerati, Miluy." />
@@ -34,7 +10,6 @@ if ($isMobileAgent && $hasMobileViewport) {
 	<meta name="distribution" content="Global" />
 	<meta name="robots" content="FOLLOW,INDEX" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport" content="initial-scale=1" />
     <title>GemaCrypt2</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,7 +37,7 @@ if ($isMobileAgent && $hasMobileViewport) {
 			overflow-y: auto;          /* native scroll when needed */
 			-webkit-overflow-scrolling: touch;   /* smooth iOS scroll */
 			/* never grow taller than “100 % of the viewport minus the space that the toolbar + status bar need” */
-			max-height: calc(100vh - 40px - 18px);   /* 40 px toolbar, 18 px status */
+			/* max-height will be set dynamically by JavaScript based on toolbar state */
 			flex: 1 1 auto;           /* take all available space */
 			overflow-y: auto;         /* own vertical scrollbar when needed */
 			overflow-x: auto;
@@ -79,7 +54,7 @@ if ($isMobileAgent && $hasMobileViewport) {
         height:8px;                /* thin handle */
         background:#ccc;
         cursor:pointer;
-        z-index:9999;
+        z-index:3;
         display:flex;
         align-items:center;
         justify-content:center;
@@ -111,7 +86,7 @@ if ($isMobileAgent && $hasMobileViewport) {
 		position: fixed;          /* viewport-relative */
 		top: 0;                   /* touch the very top */
 		right: 0;                 /* touch the very right */
-		z-index: 100000;          /* stay above toolbar, toggler, etc. */
+		z-index: 100000;          /* stay above everything */
 		line-height: 0;           /* kill inline gap */
 		}
 		#breakOutLink img{
@@ -280,42 +255,50 @@ if ($isMobileAgent && $hasMobileViewport) {
   			box-shadow: 1 1 2px rgba(0, 0, 0, 100) !important; 
         }
         #statusBar {
-			font-family: Arial, sans-serif;
-			font-size: 12px;
-			position: fixed;
-			bottom: 2px;          /* was 0 */
+	        font-family: Arial, sans-serif;
+	        font-size: 12px;
+	        position: fixed;
+			height: auto;
+			min-height: 18px;
+			bottom: 2px;
 			left: 0;
 			right: 0;
-			z-index: 1;
-			display: flex;
-			flex-wrap: wrap;
-			align-items: left;
-			gap: 5px;				/* vertical gap between rows */
-			overflow: hidden;		/* use javascript to change if something really overflows */
+			display: flex !important;
+			align-items: flex-start;
+			flex-wrap: nowrap;
+			gap: 5px;				/* gap between items */
 			box-sizing: border-box;
+			z-index: 1;
+			overflow: visible;		/* allow content to show when wrapping */
 			border-radius: 0px !important;
-			/*overflow-x: auto; 		 horizontal scroll when needed */
-			/*overflow-y: hidden;		 never a vertical bar */
-			/*white-space: nowrap;	 	 keep everything on one line */
+			transition: height 0.2s ease;	/* smooth height transitions */
 		}
 	    .statusBar {
 		    background-color: #ccc;
 		    padding: 2px;
 		    height: auto !important;          /* let JS drive the height */
-			min-height: 0px;                 /* but never smaller than one row */
-			overflow: hidden !important;   /* let JS drive the overflow */
+			min-height: 18px;                /* minimum one row height */
+			overflow: visible !important;    /* allow content to wrap */
 		    position: fixed;
 		    bottom: 0;
 		    left: 0;
 		    right: 0;
-		    display: flex;
+		    display: flex !important;
 		    justify-content: flex-start;
-		    align-items: center;
+		    align-items: flex-start;
 			width: 100%;
-			display: flex;
 			border-top: 1px solid #ccc;	/* add a border to separate from textArea */
-			flex: 0 0 auto;					/* fixed height */
+			flex: 0 0 auto;					/* flexible height */
 			border-radius: 0px !important;
+			flex-wrap: nowrap;				/* will be controlled by JS */
+			transition: height 0.2s ease;	/* smooth height transitions */
+		}
+		.statusBar.hidden {
+			display: none !important;
+		}
+		.statusBar p span {
+			line-height: 18px;  
+			margin: 0;
 		}
 		.statusBar .number {
             direction: ltr;
@@ -381,27 +364,38 @@ if ($isMobileAgent && $hasMobileViewport) {
 		    color: #555;
 		}
 		.verses, .words, .letters, .sum, .encrypted, .encryptedsum {
-			-webkit-appearance: none;   /* <- add this */
+			-webkit-appearance: none;
 			border-radius: 5 !important;
+			height: 18px;
+			line-height: 18px;
+			overflow: hidden;
 		}
 		/* A popup message that appears when the Calculate button is clicked. */
 		.modal {
 		display: none;
 		position: fixed;
-		z-index: 1;
+		z-index: 4;
 		left: 0;
 		top: 0;
 		width: 100%;
 		height: 100%;
-		overflow: auto;
+		overflow-y: auto;
+		overflow-x: hidden;
 		background-color: rgba(0, 0, 0, 0.4);
+		/* Enable smooth scrolling */
+		scroll-behavior: smooth;
+		-webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
 		}
 		.modal-content {
 		background-color: #fefefe;
-		margin: 15% auto;
+		margin: 5vh auto;
 		padding: 20px;
 		border: 1px solid #888;
 		width: 80%;
+		max-width: 800px;
+		max-height: 90vh;
+		overflow-y: auto;
+		overflow-x: hidden;
 		font-family: Arial, sans-serif;
 		background-image: url("");
 		background-repeat: repeat;
@@ -412,6 +406,27 @@ if ($isMobileAgent && $hasMobileViewport) {
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 		border-radius: 10px;
 		outline: 2px solid black;
+		/* Ensure proper box sizing */
+		box-sizing: border-box;
+		/* Enable smooth scrolling within modal content */
+		scroll-behavior: smooth;
+		-webkit-overflow-scrolling: touch;
+		}
+		/* Responsive modal sizing */
+		@media (max-width: 768px) {
+			.modal-content {
+				width: 95%;
+				margin: 2vh auto;
+				max-height: 96vh;
+				padding-left: 15px;
+				padding-right: 15px;
+			}
+		}
+		@media (max-height: 600px) {
+			.modal-content {
+				margin: 1vh auto;
+				max-height: 98vh;
+			}
 		}
 		.close {
 		color: #aaa;
@@ -461,14 +476,14 @@ if ($isMobileAgent && $hasMobileViewport) {
 		        align-items: center;
 		        padding: 0 0 3px 0;   /* no top padding – handle will sit there */
 				position: relative;
-				z-index: 10001;   /* above everything else */
+				z-index: 2;
 				background: #ccc;
 		    }
 		    /* 2. Buttons / selects keep their width */
 		    .toolbar > button,
 		    .toolbar > select {
 		        width: auto;
-		        /* min-width: 80px; */
+		        min-width: 80px;
 		        margin: 2px 0;
 		    }
 		    /* 3. Triangle handle sits inside the toolbar, sticky top & centered */
@@ -480,7 +495,7 @@ if ($isMobileAgent && $hasMobileViewport) {
 		        height: 10px;
 		        background: #ddd;
 		        cursor: pointer;
-		        z-index: 10000;
+		        z-index: 3;
 		        display: flex !important;     /* make sure it renders */
 		        align-items: center;
 		        justify-content: center;
@@ -528,8 +543,211 @@ if ($isMobileAgent && $hasMobileViewport) {
 <script>
 	// Declair variables initially
 	var L01 = 1;L02 = 2;L03 = 3;L04 = 4;L05 = 5;L06 = 6;L07 = 7;L08 = 8;L09 = 9;L10 = 10;L11 = 20;L12 = 30;L13 = 40;L14 = 50;L15 = 60;L16 = 70;L17 = 80;L18 = 90;L19 = 100;L20 = 200;L21 = 300;L22 = 400;L23 = 500;L24 = 600;L25 = 700;L26 = 800;L27 = 900;
-	var textTotal=wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
+	var textTotal=wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=encryptedTotal=encryptedsum=0;
 	var letter=textEncrypted=cryptography=input='';
+	
+	// Function to calculate encrypted total
+	function calculateEncryptedTotal() {
+		encryptedTotal = 0;
+		
+		// Handle the case where encryptionSelect is at default "Encryption" value
+		// but textEncrypted is empty (page load scenario)
+		const encryptionSelect = document.getElementById('encryptionSelect');
+		if (encryptionSelect && encryptionSelect.value === 'Encryption' && textEncrypted === '') {
+			// Perform AT-BaSh encryption on the input to populate textEncrypted
+			let currentTextEncrypted = '';
+			
+			for (let i = 0; i < input.length; i++) {
+				let letter = '';
+				switch(input[i]) {
+					/*aleph*/	case "\u05D0": letter = "\u05EA"; break;	// tav
+					/*bet*/		case "\u05D1": letter = "\u05E9"; break;	// shin
+					/*gimel*/	case "\u05D2": letter = "\u05E8"; break;	// resh
+					/*dalet*/	case "\u05D3": letter = "\u05E7"; break;	// kuf
+					/*hey*/		case "\u05D4": letter = "\u05E6"; break;	// tzadi
+					/*vav*/		case "\u05D5": letter = "\u05E4"; break;	// pey
+					/*zayin*/	case "\u05D6": letter = "\u05E2"; break;	// ayin
+					/*chet*/	case "\u05D7": letter = "\u05E1"; break;	// samech
+					/*tet*/		case "\u05D8": letter = "\u05E0"; break;	// nun
+					/*yod*/		case "\u05D9": letter = "\u05DE"; break;	// mem
+					/*kaf*/		case "\u05DB": letter = "\u05DC"; break;	// lamed
+					/*lamed*/	case "\u05DC": letter = "\u05DB"; break;	// kaf
+					/*mem*/		case "\u05DE": letter = "\u05D9"; break;	// yod
+					/*nun*/		case "\u05E0": letter = "\u05D8"; break;	// tet
+					/*samech*/	case "\u05E1": letter = "\u05D7"; break;	// chet
+					/*ayin*/	case "\u05E2": letter = "\u05D6"; break;	// zayin
+					/*pey*/		case "\u05E4": letter = "\u05D5"; break;	// vav
+					/*tzadi*/	case "\u05E6": letter = "\u05D4"; break;	// hey
+					/*kuf*/		case "\u05E7": letter = "\u05D3"; break;	// dalet
+					/*resh*/	case "\u05E8": letter = "\u05D2"; break;	// gimel
+					/*shin*/	case "\u05E9": letter = "\u05D1"; break;	// bet
+					/*tav*/		case "\u05EA": letter = "\u05D0"; break;	// aleph
+					/*kaf F*/	case "\u05DA": letter = "\u05DC"; break;	// lamed
+					/*mem F*/	case "\u05DD": letter = "\u05D9"; break;	// yod
+					/*nun F*/	case "\u05DF": letter = "\u05D8"; break;	// tet
+					/*pey F*/	case "\u05E3": letter = "\u05D5"; break;	// vav
+					/*tzadi F*/	case "\u05E5": letter = "\u05D4"; break;	// hey
+					default: letter = input[i]; break; // Keep non-Hebrew characters as-is
+				}
+				currentTextEncrypted += letter;
+			}
+			
+			// Update the global textEncrypted variable
+			textEncrypted = currentTextEncrypted;
+		}
+
+
+		
+		
+		// Calculate encrypted total from textEncrypted
+		for (let i = 0; i < textEncrypted.length; i++) {
+			const char = textEncrypted[i];
+			switch (char) {
+				// Hebrew letters
+				case "\u05D0": encryptedTotal += L01;	break;	//aleph		א
+				case "\u05D1": encryptedTotal += L02;	break;	//bet		ב
+				case "\u05D2": encryptedTotal += L03;	break;	//gimel		ג
+				case "\u05D3": encryptedTotal += L04;	break;	//dalet		ד
+				case "\u05D4": encryptedTotal += L05;	break;	//hey		ה
+				case "\u05D5": encryptedTotal += L06;	break;	//vav		ו
+				case "\u05D6": encryptedTotal += L07;	break;	//zayin		ז
+				case "\u05D7": encryptedTotal += L08;	break;	//chet		ח
+				case "\u05D8": encryptedTotal += L09;	break;	//tet		ט
+				case "\u05D9": encryptedTotal += L10;	break;	//yod		י
+				case "\u05DB": encryptedTotal += L11;	break;	//kaf		כ
+				case "\u05DC": encryptedTotal += L12;	break;	//lamed		ל
+				case "\u05DE": encryptedTotal += L13;	break;	//mem		מ
+				case "\u05E0": encryptedTotal += L14;	break;	//nun		נ
+				case "\u05E1": encryptedTotal += L15;	break;	//samech	ס
+				case "\u05E2": encryptedTotal += L16;	break;	//ayin		ע
+				case "\u05E4": encryptedTotal += L17;	break;	//pey		פ
+				case "\u05E6": encryptedTotal += L18;	break;	//tzadi		צ
+				case "\u05E7": encryptedTotal += L19;	break;	//kuf		ק
+				case "\u05E8": encryptedTotal += L20;	break;	//resh		ר
+				case "\u05E9": encryptedTotal += L21;	break;	//shin		ש
+				case "\u05EA": encryptedTotal += L22;	break;	//tav		ת
+				case "\u05DA": encryptedTotal += L23;	break;	//kaf F		ך
+				case "\u05DD": encryptedTotal += L24;	break;	//mem F		ם
+				case "\u05DF": encryptedTotal += L25;	break;	//nun F		ן
+				case "\u05E3": encryptedTotal += L26;	break;	//pey F		ף
+				case "\u05E5": encryptedTotal += L27;	break;	//tzadi F	ץ
+				// Greek letters
+				case "\u0386": encryptedTotal += L01;	break;	//alpha		Ά
+				case "\u0391": encryptedTotal += L01;	break;	//alpha		Α
+				case "\u03AC": encryptedTotal += L01;	break;	//alpha		ά
+				case "\u03B1": encryptedTotal += L01;	break;	//alpha		α
+				case "\u0392": encryptedTotal += L02;	break;	//beta		Β
+				case "\u03B2": encryptedTotal += L02;	break;	//beta		β
+				case "\u0393": encryptedTotal += L03;	break;	//gamma		Γ
+				case "\u03B3": encryptedTotal += L03;	break;	//gamma		γ
+				case "\u0394": encryptedTotal += L04;	break;	//delta		Δ
+				case "\u03B4": encryptedTotal += L04;	break;	//delta		δ
+				case "\u0388": encryptedTotal += L05;	break;	//epsilon	Έ
+				case "\u0395": encryptedTotal += L05;	break;	//epsilon	Ε
+				case "\u03AD": encryptedTotal += L05;	break;	//epsilon	έ
+				case "\u03B5": encryptedTotal += L05;	break;	//epsilon	ε
+				case "\u0396": encryptedTotal += L07;	break;	//zeta		Ζ
+				case "\u03B6": encryptedTotal += L07;	break;	//zeta		ζ
+				case "\u0389": encryptedTotal += L08;	break;	//eta		Ή
+				case "\u0397": encryptedTotal += L08;	break;	//eta		Η
+				case "\u03AE": encryptedTotal += L08;	break;	//eta		ή
+				case "\u03B7": encryptedTotal += L08;	break;	//eta		η
+				case "\u0398": encryptedTotal += L09;	break;	//theta		Θ
+				case "\u03B8": encryptedTotal += L09;	break;	//theta		θ
+				case "\u038A": encryptedTotal += L10;	break;	//iota		Ί
+				case "\u0399": encryptedTotal += L10;	break;	//iota		Ι
+				case "\u03AF": encryptedTotal += L10;	break;	//iota		ί
+				case "\u03B9": encryptedTotal += L10;	break;	//iota		ι
+				case "\u039A": encryptedTotal += L11;	break;	//kappa		Κ
+				case "\u03BA": encryptedTotal += L11;	break;	//kappa		κ
+				case "\u039B": encryptedTotal += L12;	break;	//lambda	Λ
+				case "\u03BB": encryptedTotal += L12;	break;	//lambda	λ
+				case "\u039C": encryptedTotal += L13;	break;	//mu		Μ
+				case "\u03BC": encryptedTotal += L13;	break;	//mu		μ
+				case "\u039D": encryptedTotal += L14;	break;	//nu		Ν
+				case "\u03BD": encryptedTotal += L14;	break;	//nu		ν
+				case "\u039E": encryptedTotal += L15;	break;	//xi		Ξ
+				case "\u03BE": encryptedTotal += L15;	break;	//xi		ξ
+				case "\u038C": encryptedTotal += L16;	break;	//omicron	Ό
+				case "\u039F": encryptedTotal += L16;	break;	//omicron	Ο
+				case "\u03CC": encryptedTotal += L16;	break;	//omicron	ό
+				case "\u03BF": encryptedTotal += L16;	break;	//omicron	ο
+				case "\u03A0": encryptedTotal += L17;	break;	//pi		Π
+				case "\u03C0": encryptedTotal += L17;	break;	//pi		π
+				case "\u03A1": encryptedTotal += L18;	break;	//rho		Ρ
+				case "\u03C1": encryptedTotal += L18;	break;	//rho		ρ
+				case "\u03A3": encryptedTotal += L19;	break;	//sigma		Σ
+				case "\u03C2": encryptedTotal += L19;	break;	//sigma		ς
+				case "\u03C3": encryptedTotal += L19;	break;	//sigma		σ
+				case "\u03A4": encryptedTotal += L20;	break;	//tau		Τ
+				case "\u03C4": encryptedTotal += L20;	break;	//tau		τ
+				case "\u038E": encryptedTotal += L21;	break;	//upsilon	Ύ
+				case "\u03A5": encryptedTotal += L21;	break;	//upsilon	Υ
+				case "\u03CD": encryptedTotal += L21;	break;	//upsilon	ύ
+				case "\u03C5": encryptedTotal += L21;	break;	//upsilon	υ
+				case "\u03A6": encryptedTotal += L22;	break;	//phi		Φ
+				case "\u03C6": encryptedTotal += L22;	break;	//phi		φ
+				case "\u03A7": encryptedTotal += L23;	break;	//chi		Χ
+				case "\u03C7": encryptedTotal += L23;	break;	//chi		χ
+				case "\u03A8": encryptedTotal += L24;	break;	//psi		Ψ
+				case "\u03C8": encryptedTotal += L24;	break;	//psi		ψ
+				case "\u038F": encryptedTotal += L25;	break;	//omega		Ώ
+				case "\u03A9": encryptedTotal += L25;	break;	//omega		Ω
+				case "\u03CE": encryptedTotal += L25;	break;	//omega		ώ
+				case "\u03C9": encryptedTotal += L25;	break;	//omega		ω
+				// English letters
+				case "A": case "a": encryptedTotal += 1; break;
+				case "B": case "b": encryptedTotal += 2; break;
+				case "C": case "c": encryptedTotal += 3; break;
+				case "D": case "d": encryptedTotal += 4; break;
+				case "E": case "e": encryptedTotal += 5; break;
+				case "F": case "f": encryptedTotal += 6; break;
+				case "G": case "g": encryptedTotal += 7; break;
+				case "H": case "h": encryptedTotal += 8; break;
+				case "I": case "i": encryptedTotal += 9; break;
+				case "J": case "j": encryptedTotal += 10; break;
+				case "K": case "k": encryptedTotal += 11; break;
+				case "L": case "l": encryptedTotal += 12; break;
+				case "M": case "m": encryptedTotal += 13; break;
+				case "N": case "n": encryptedTotal += 14; break;
+				case "O": case "o": encryptedTotal += 15; break;
+				case "P": case "p": encryptedTotal += 16; break;
+				case "Q": case "q": encryptedTotal += 17; break;
+				case "R": case "r": encryptedTotal += 18; break;
+				case "S": case "s": encryptedTotal += 19; break;
+				case "T": case "t": encryptedTotal += 20; break;
+				case "U": case "u": encryptedTotal += 21; break;
+				case "V": case "v": encryptedTotal += 22; break;
+				case "W": case "w": encryptedTotal += 23; break;
+				case "X": case "x": encryptedTotal += 24; break;
+				case "Y": case "y": encryptedTotal += 25; break;
+				case "Z": case "z": encryptedTotal += 26; break;
+				default: break; // Ignore other characters
+			}
+		}
+		
+		// Apply gematria modifiers
+		var gematriaSelect = document.getElementById('gematriaSelect');
+		if(gematriaSelect.value == "HaKlali"){
+			encryptedTotal = encryptedTotal * encryptedTotal;
+		}
+		else if(gematriaSelect.value == "Kolel"){
+			encryptedTotal += letterCount;
+		}
+		else if(gematriaSelect.value == "Kolel+1"){
+			encryptedTotal += wordCount;
+		}
+		else if (gematriaSelect.value == "IntegralReduced"){
+			while(encryptedTotal >= 10){
+				let product = Math.floor(encryptedTotal / 10);
+				let remainder = encryptedTotal % 10;
+				encryptedTotal = remainder + product;
+			}
+		}
+		
+		// Update encryptedsum for display
+		encryptedsum = encryptedTotal;
+	}
 </script>
 
 </head>
@@ -555,11 +773,14 @@ if ($isMobileAgent && $hasMobileViewport) {
 			const collapsed = tb.classList.toggle('collapsed');
 			toggler.classList.toggle('up',  !collapsed);
 			toggler.classList.toggle('down', collapsed);
-			/* let textarea use the space */
+			/* dynamically adjust textarea max-height based on toolbar state */
 			const ta = document.getElementById('textArea');
 			if (ta) {
-				ta.style.transition = 'padding-top .25s';
-				ta.style.paddingTop = collapsed ? '8px' : '';
+				ta.style.transition = 'max-height 0s';
+				// When collapsed: only 8px for toggler, when expanded: 40px for toolbar + 8px for toggler
+				const toolbarHeight = collapsed ? 8 : 48;
+				const statusBarHeight = 18;
+				ta.style.maxHeight = `calc(100vh - ${toolbarHeight}px - ${statusBarHeight}px)`;
 			}
 		}
 		toggler.addEventListener('mouseup',  toggleToolbar);
@@ -567,6 +788,15 @@ if ($isMobileAgent && $hasMobileViewport) {
 
         /* 3. start open with UP arrow showing */
         toggler.classList.add('up');
+        
+        /* 4. initialize textArea max-height on page load */
+        document.addEventListener('DOMContentLoaded', () => {
+            const ta = document.getElementById('textArea');
+            if (ta) {
+                // Set initial max-height for expanded toolbar (40px toolbar + 8px toggler + 18px statusBar)
+                ta.style.maxHeight = 'calc(100vh - 48px - 18px)';
+            }
+        });
         })();
         </script>
 
@@ -1998,7 +2228,12 @@ if ($isMobileAgent && $hasMobileViewport) {
 			}
 		  </script>
 
-		<button id="calculateBtn" class="textBtn" onclick="createModal(); openModal(textHighlight, textTotal, textEncrypted);"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><!--<img src="img/invis.gif" width="4" border="0">Calculate--></button>
+		<button id="calculateBtn" class="textBtn" onclick="createModal(); calculateEncryptedTotal(); openModal(textHighlight, textTotal, textEncrypted, input, encryptedTotal, encryptedsum/*, input, words, letters, sum, removeSelect, gematriaSelect, highlight, total, match, range, number, selection, languageCode, char, i, 
+		currentFontSize, selectedValue, corsProxy, response, files, fileText, files2, fileText2, reader2, resultText, textAreaContent, maqafDashMinus, noMaqafDashMinus, hebrewCharacters, noNiqqudContent, noPunctuation, 
+		noDigitContent, noSpaceContent, noCarriageReturnContent, noLatinLettersContent, noGreekLettersContent, noHebrewLettersContent*/);"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="4" border="0">Calc</button>
+		<button id="findBtn" class="textBtn" onclick="toggleFind"><img src="img/find.png" height="16" width="14" border="0" alt="Find"><img src="img/invis.gif" width="4" border="0">Find</button>
+		<button id="elsBtn" class="textBtn" onclick="toggleELS"><img src="img/els.png" height="16" width="14" border="0" alt="Equidistant Letter Sequence"><img src="img/invis.gif" width="4" border="0">ELS</button>
+		<button id="swapBtn" class="textBtn" onclick="toggleSwap"><img src="img/swap.png" height="16" width="14" border="0" alt="Swap"><img src="img/invis.gif" width="4" border="0">Swap</button>
 		<!--<button id="copyBtn" class="textBtn" onclick=""><img src="img/copy.png" height="16" width="16" border="0" alt="Copy">&#x1F4D1;<img src="img/invis.gif" width="4" border="0">Copy</button>-->
 		<button id="directionBtn" class="textBtn" onclick="toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><img src="img/invis.gif" width="6" border="0">Align</button>
 		<button id="wrapBtn" class="textBtn" onclick="toggleWrap()"><img src="img/wrap.png" height="16" width="20" border="0" alt="Wrap Text"><img src="img/invis.gif" width="6" border="0">Wrap</button>
@@ -2046,6 +2281,63 @@ if ($isMobileAgent && $hasMobileViewport) {
 		textarea.innerHTML = newText;
 	  </script>
 
+<script>
+		function toggleCalc(){
+			/*
+			Insert a new line after each carriage return.
+			Beginning with the first line of the original text, take the first word until you run into a space, and find the gematria of those letters and append a space to it's numerical value then paste it on the blank line directly below that word.  
+			Continue this process for the next word following that word that was just worked, and do the same process appending its gematria value on the line directly below it next to the gematria value that was previously placed there as well.
+			When calculating the gematria remove any from the input text that is not a Hebrew, Greek, Latin, or English letter.
+			When you reach the end of the first line of text jump down to what use to be the next line, but is now the 3rd line and repeat the process, pasting the gematria values on the blank line directly below it, which would not be the 4th line. 
+			Continue this process until there are no more lines of text to process.
+			*/
+		}
+	</script>
+
+	<script>
+		function toggleFind(){
+			/*
+			Open a new modal called findModal with a text input field called findInput and the findBtn to the right of it.
+			WHen the findBtn is clicked take the text from findInput and convert it to its gematria value as the variable called findGematria.
+			Then start with the first letter in the textAre and assign to to the variable compareText.
+			Then calculate compareText's gematria value, and assign that value as compareGematria.
+			Compare findGematria with compareGematria and see if they are equal.
+			If so save compareText to an array named findResults.
+			If compareGematria is more than findGematria, then begin again with the next letter after that one in textArea.
+			If compareGematria does not equal findGematria, but less than findGematria, then take the next letter after compareText in textArea and append it to compareText so that it is the new compareText variable, and sum all the letters of compareText and assing that value asa the new compareGematria.
+			Do another check if compareGematra equals findGematria and repeat until compareGematra is more than findGematria or there are no more letters in textArea to be used.
+			Exit the loop and display the results in findModal below findInput and display the value of findGematria and then below findGematria have each compareText that did match findGematria listed on a new line of findModal for display purposes.
+			*/
+		}
+	</script>
+
+	<script>
+		function toggleELS(){
+			/*
+			Beginning with the first letter of the text within textArea count the letters up to the last letter contained in highlightedText and save it as the variable called guessStartPosition.  Only count Hebrew, Greek, Latin, and English letters. Ignor all spaces, number, and special chararters. 
+			Open a new modal called elsModal with a text input field called starPosition that is defaulted to the value of guessStartPosition. 
+			If no letters are currently highlighted or only the very first letter of textArea is highlighted then set guessStartPosition to 1. 
+			To the right of starPosition create another text input field called sequenceNum. 
+			If letters are manually entered into startPosition or sequenceNum convert them to their gematria equalivant. 
+			To the right of sequencInput put a button labeled Search. 
+			Beginning at the startPosition which will count as 0 count forward by 1 until the sequenceNum is reached and append it to a variable called elsResults.
+			Continue counting but the next number will start over at 1.  Repeat this process each time appending the sequenceNum is reached append it to elsResults until there are no more letters in the textArea.
+			Then display elsResult below the text input fields and the search button of the elsModal.
+			*/
+		}
+	</script>
+
+	<script>
+		function toggleSwap(){
+			/*
+			Take the value of encryptedText and paste it into textArea replacing the highlighted text, and make encryptedText in a font color of either red, purple, green, dark blue, light blue, brown, or orange.  The font color should be chosen at random.
+			Then seach for the same encryptedText in the rest of textArea and if it is found again in textArea also replace the additional matches in the same color.
+			If any additional swap functions are triggered do that same, but use a new color of font for encryptedText, until all the colors have been used then allow previously used colors to be used again.  The font color should always be chosen at random.
+			Pressing the clearBtn will reset the font color choices.
+			*/
+		}
+	</script>
+
 	<script>
 		// Text Direction listener
 		function toggleDirection() {
@@ -2057,16 +2349,10 @@ if ($isMobileAgent && $hasMobileViewport) {
 		</script>
 	
 	<script>
-		/**
-		 * toggleWrap – toggles the *soft-wrap* of long lines while
-		 * keeping every original newline intact.
-		 */
 		function toggleWrap() {
 		const ta  = document.getElementById('textArea');
 		const btn = document.getElementById('wrapBtn');
-
 		const isWrapped = ta.style.whiteSpace !== 'pre';   // wrapped = pre-wrap by default
-
 		if (isWrapped) {
 			/* -----  un-wrapped mode  ----- */
 			ta.style.whiteSpace = 'pre';      // honour CR/LF, no soft-wrap
@@ -5508,8 +5794,317 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			} 
 		);
 		
+		// Set the default encryption method when the page loads.
+			document.addEventListener('DOMContentLoaded', () => {
+			const sel = document.getElementById('encryptionSelect');
+			sel.value = 'Encryption';          // make sure the option is chosen
+			sel.dispatchEvent(new Event('change')); // trigger your encryption handler
+		});
+
 		// Wait to calculate the Sum of the letters highlighted until the mouse click has been released and all letters are highlighted.
-		textArea.addEventListener('mouseup', () => {
+		function handleTextSelection() {
+			const selection = window.getSelection();
+			if (selection.toString().length > 0) {
+				const range = selection.getRangeAt(0);
+				const startContainer = range.startContainer;
+				const endContainer = range.endContainer;
+				const startOffset = range.startOffset;
+				const endOffset = range.endOffset;
+				const selectedText = selection.toString();
+				textHighlight = selectedText;
+				
+				// Calculate counts
+				wordCount = selectedText.split(/\s+/).filter(word => word.length > 0).length;
+				letterCount = selectedText.replace(/\s/g, '').length;
+				
+				// Calculate gematria total
+				textTotal = 0;
+				for (let i = 0; i < selectedText.length; i++) {
+					const char = selectedText[i];
+					switch (char) {
+						// Hebrew letters
+						case "\u05D0": textTotal += L01; break; // aleph
+						case "\u05D1": textTotal += L02; break; // bet
+						case "\u05D2": textTotal += L03; break; // gimel
+						case "\u05D3": textTotal += L04; break; // dalet
+						case "\u05D4": textTotal += L05; break; // hey
+						case "\u05D5": textTotal += L06; break; // vav
+						case "\u05D6": textTotal += L07; break; // zayin
+						case "\u05D7": textTotal += L08; break; // chet
+						case "\u05D8": textTotal += L09; break; // tet
+						case "\u05D9": textTotal += L10; break; // yod
+						case "\u05DB": textTotal += L11; break; // kaf
+						case "\u05DC": textTotal += L12; break; // lamed
+						case "\u05DE": textTotal += L13; break; // mem
+						case "\u05E0": textTotal += L14; break; // nun
+						case "\u05E1": textTotal += L15; break; // samech
+						case "\u05E2": textTotal += L16; break; // ayin
+						case "\u05E4": textTotal += L17; break; // pey
+						case "\u05E6": textTotal += L18; break; // tzadi
+						case "\u05E7": textTotal += L19; break; // kuf
+						case "\u05E8": textTotal += L20; break; // resh
+						case "\u05E9": textTotal += L21; break; // shin
+						case "\u05EA": textTotal += L22; break; // tav
+						case "\u05DA": textTotal += L23; break; // kaf F
+						case "\u05DD": textTotal += L24; break; // mem F
+						case "\u05DF": textTotal += L25; break; // nun F
+						case "\u05E3": textTotal += L26; break; // pey F
+						case "\u05E5": textTotal += L27; break; // tzadi F
+						// Greek letters
+						case "\u0386": textTotal += L01; break; // alpha
+						case "\u0391": textTotal += L01; break; // alpha
+						case "\u03AC": textTotal += L01; break; // alpha
+						case "\u03B1": textTotal += L01; break; // alpha
+						case "\u0392": textTotal += L02; break; // beta
+						case "\u03B2": textTotal += L02; break; // beta
+						case "\u0393": textTotal += L03; break; // gamma
+						case "\u03B3": textTotal += L03; break; // gamma
+						case "\u0394": textTotal += L04; break; // delta
+						case "\u03B4": textTotal += L04; break; // delta
+						case "\u0388": textTotal += L05; break; // epsilon
+						case "\u0395": textTotal += L05; break; // epsilon
+						case "\u03AD": textTotal += L05; break; // epsilon
+						case "\u03B5": textTotal += L05; break; // epsilon
+						case "\u0396": textTotal += L07; break; // zeta
+						case "\u03B6": textTotal += L07; break; // zeta
+						case "\u0389": textTotal += L08; break; // eta
+						case "\u0397": textTotal += L08; break; // eta
+						case "\u03AE": textTotal += L08; break; // eta
+						case "\u03B7": textTotal += L08; break; // eta
+						case "\u0398": textTotal += L09; break; // theta
+						case "\u03B8": textTotal += L09; break; // theta
+						case "\u038A": textTotal += L10; break; // iota
+						case "\u0399": textTotal += L10; break; // iota
+						case "\u03AF": textTotal += L10; break; // iota
+						case "\u03B9": textTotal += L10; break; // iota
+						case "\u039A": textTotal += L11; break; // kappa
+						case "\u03BA": textTotal += L11; break; // kappa
+						case "\u039B": textTotal += L12; break; // lambda
+						case "\u03BB": textTotal += L12; break; // lambda
+						case "\u039C": textTotal += L13; break; // mu
+						case "\u03BC": textTotal += L13; break; // mu
+						case "\u039D": textTotal += L14; break; // nu
+						case "\u03BD": textTotal += L14; break; // nu
+						case "\u039E": textTotal += L15; break; // xi
+						case "\u03BE": textTotal += L15; break; // xi
+						case "\u038C": textTotal += L16; break; // omicron
+						case "\u039F": textTotal += L16; break; // omicron
+						case "\u03CC": textTotal += L16; break; // omicron
+						case "\u03BF": textTotal += L16; break; // omicron
+						case "\u03A0": textTotal += L17; break; // pi
+						case "\u03C0": textTotal += L17; break; // pi
+						case "\u03A1": textTotal += L18; break; // rho
+						case "\u03C1": textTotal += L18; break; // rho
+						case "\u03A3": textTotal += L19; break; // sigma
+						case "\u03C2": textTotal += L19; break; // sigma
+						case "\u03C3": textTotal += L19; break; // sigma
+						case "\u03A4": textTotal += L20; break; // tau
+						case "\u03C4": textTotal += L20; break; // tau
+						case "\u038E": textTotal += L21; break; // upsilon
+						case "\u03A5": textTotal += L21; break; // upsilon
+						case "\u03CD": textTotal += L21; break; // upsilon
+						case "\u03C5": textTotal += L21; break; // upsilon
+						case "\u03A6": textTotal += L22; break; // phi
+						case "\u03C6": textTotal += L22; break; // phi
+						case "\u03A7": textTotal += L23; break; // chi
+						case "\u03C7": textTotal += L23; break; // chi
+						case "\u03A8": textTotal += L24; break; // psi
+						case "\u03C8": textTotal += L24; break; // psi
+						case "\u038F": textTotal += L25; break; // omega
+						case "\u03A9": textTotal += L25; break; // omega
+						case "\u03CE": textTotal += L25; break; // omega
+						case "\u03C9": textTotal += L25; break; // omega
+						// English letters
+						case "A": case "a": textTotal += 1; break;
+						case "B": case "b": textTotal += 2; break;
+						case "C": case "c": textTotal += 3; break;
+						case "D": case "d": textTotal += 4; break;
+						case "E": case "e": textTotal += 5; break;
+						case "F": case "f": textTotal += 6; break;
+						case "G": case "g": textTotal += 7; break;
+						case "H": case "h": textTotal += 8; break;
+						case "I": case "i": textTotal += 9; break;
+						case "J": case "j": textTotal += 10; break;
+						case "K": case "k": textTotal += 11; break;
+						case "L": case "l": textTotal += 12; break;
+						case "M": case "m": textTotal += 13; break;
+						case "N": case "n": textTotal += 14; break;
+						case "O": case "o": textTotal += 15; break;
+						case "P": case "p": textTotal += 16; break;
+						case "Q": case "q": textTotal += 17; break;
+						case "R": case "r": textTotal += 18; break;
+						case "S": case "s": textTotal += 19; break;
+						case "T": case "t": textTotal += 20; break;
+						case "U": case "u": textTotal += 21; break;
+						case "V": case "v": textTotal += 22; break;
+						case "W": case "w": textTotal += 23; break;
+						case "X": case "x": textTotal += 24; break;
+						case "Y": case "y": textTotal += 25; break;
+						case "Z": case "z": textTotal += 26; break;
+						default: break; // Ignore other characters
+					}
+				}
+				
+				// Apply gematria modifiers
+				var gematriaSelect = document.getElementById('gematriaSelect');
+				if(gematriaSelect.value == "HaKlali"){
+					textTotal = textTotal * textTotal;
+				}
+				else if(gematriaSelect.value == "Kolel"){
+					textTotal += letterCount;
+				}
+				else if(gematriaSelect.value == "Kolel+1"){
+					textTotal += wordCount;
+				}
+				else if (gematriaSelect.value == "IntegralReduced"){
+					while(textTotal >= 10){
+						let product = Math.floor(textTotal / 10);
+						let remainder = textTotal % 10;
+						textTotal = remainder + product;
+					}
+				}
+				
+				// Calculate verse count, word count, and letter count for status bar
+				var verses = (textHighlight.match(/\d+:\d+/g) || ['1']).length;
+				let words = textHighlight.trim().split(/\s+/).filter(word => word.length > 0).length;
+				let letters = textHighlight.replace(/[.,&!$%#~*|><}^{/)(-=:;\d\s\r\n_'"`\]\[\+\\\u05C3?\u05BE\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '').length;
+
+				// Calculate encryption by default (AT-BaSh) for statusBar display
+				input = textHighlight.replace(/[a-z\t"'·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, '');
+				textEncrypted = '';
+				
+				// Perform AT-BaSh encryption by default
+				for (var i = 0; i < input.length; i++) {
+					var letter = '';
+					switch(input[i]) {
+						/*aleph*/	case "\u05D0": letter = "\u05EA"; break;	// tav
+						/*bet*/		case "\u05D1": letter = "\u05E9"; break;	// shin
+						/*gimel*/	case "\u05D2": letter = "\u05E8"; break;	// resh
+						/*dalet*/	case "\u05D3": letter = "\u05E7"; break;	// kuf
+						/*hey*/		case "\u05D4": letter = "\u05E6"; break;	// tzadi
+						/*vav*/		case "\u05D5": letter = "\u05E4"; break;	// pey
+						/*zayin*/	case "\u05D6": letter = "\u05E2"; break;	// ayin
+						/*chet*/	case "\u05D7": letter = "\u05E1"; break;	// samech
+						/*tet*/		case "\u05D8": letter = "\u05E0"; break;	// nun
+						/*yod*/		case "\u05D9": letter = "\u05DE"; break;	// mem
+						/*kaf*/		case "\u05DB": letter = "\u05DC"; break;	// lamed
+						/*lamed*/	case "\u05DC": letter = "\u05DB"; break;	// kaf
+						/*mem*/		case "\u05DE": letter = "\u05D9"; break;	// yod
+						/*nun*/		case "\u05E0": letter = "\u05D8"; break;	// tet
+						/*samech*/	case "\u05E1": letter = "\u05D7"; break;	// chet
+						/*ayin*/	case "\u05E2": letter = "\u05D6"; break;	// zayin
+						/*pey*/		case "\u05E4": letter = "\u05D5"; break;	// vav
+						/*tzadi*/	case "\u05E6": letter = "\u05D4"; break;	// hey
+						/*kuf*/		case "\u05E7": letter = "\u05D3"; break;	// dalet
+						/*resh*/	case "\u05E8": letter = "\u05D2"; break;	// gimel
+						/*shin*/	case "\u05E9": letter = "\u05D1"; break;	// bet
+						/*tav*/		case "\u05EA": letter = "\u05D0"; break;	// aleph
+						/*kaf F*/	case "\u05DA": letter = "\u05DC"; break;	// lamed
+						/*mem F*/	case "\u05DD": letter = "\u05D9"; break;	// yod
+						/*nun F*/	case "\u05DF": letter = "\u05D8"; break;	// tet
+						/*pey F*/	case "\u05E3": letter = "\u05D5"; break;	// vav
+						/*tzadi F*/	case "\u05E5": letter = "\u05D4"; break;	// hey
+						default: letter = input[i]; break; // Keep non-Hebrew characters as-is
+					}
+					textEncrypted += letter;
+					
+					// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
+					if(i+1 == input.length) {
+						switch(letter) {
+							/*kaf*/		case "\u05DB": letter = "\u05DA"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// kaf F
+							/*mem*/		case "\u05DE": letter = "\u05DD"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// mem F
+							/*nun*/		case "\u05E0": letter = "\u05DF"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// nun F
+							/*pey*/		case "\u05E4": letter = "\u05E3"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// pey F
+							/*tzadi*/	case "\u05E6": letter = "\u05E5"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// tzadi F
+							default: letter = ""; break;
+						}
+						textEncrypted += letter;
+					}
+				}
+				
+				// Calculate encrypted total and display encrypted text and sum
+				calculateEncryptedTotal();
+				
+				// Update status bar with calculated values
+				if (letters == 0) { words = 0; verses = 0; encryptedTotal = ""; }
+				document.getElementById('verses').innerHTML = `Verses: ~<span style="color: #35ab47; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${verses.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
+				document.getElementById('words').innerHTML = `Words: <span style="color: #025be0; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${words.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
+				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${letters.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
+				document.getElementById('sum').innerHTML = `Gematria: <span style="color: #FF0000; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
+				
+				// Display encrypted text
+				if (/[\u05D0-\u05E5]/.test(textEncrypted)) { 
+					document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;
+				} else {
+					document.getElementById('encrypted').innerHTML = `Encrypted: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>`;
+				}
+				
+				// Display encrypted sum
+				document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
+			}
+		}
+
+		// Add event listeners for both mouseup and touchend events
+		textArea.addEventListener('mouseup', handleTextSelection);
+		textArea.addEventListener('touchend', handleTextSelection);
+
+		/* ----------------------------------------------------------
+		GLOBAL STATUS-BAR ADJUSTMENT FUNCTION
+		---------------------------------------------------------- */
+		function adjustStatusBarHeight() {
+			const bar = document.getElementById('statusBar');
+			if (!bar) return;
+			
+			// Force a reflow to get accurate measurements
+			bar.style.flexWrap = 'nowrap';
+			bar.style.height = 'auto';
+			
+			// Small delay to ensure layout is updated
+			setTimeout(() => {
+				const boxes = Array.from(bar.querySelectorAll('.verses, .words, .letters, .sum, .encrypted, .encryptedsum'));
+				const gap = 5; // CSS gap value
+				const barW = bar.clientWidth;
+				let usedW = 0;
+
+				// Calculate total width needed - use scrollWidth for accurate measurement
+				boxes.forEach(b => {
+					if (b.offsetWidth > 0) { // Only count visible elements
+						usedW += b.scrollWidth + gap;
+					}
+				});
+				usedW -= gap; // Remove last extra gap
+
+				// Determine number of rows needed with some buffer
+				const rows = (usedW > (barW - 10)) ? 2 : 1; // 10px buffer for safety
+				
+				// Apply height and flex-wrap
+				bar.style.height = `${rows * 22}px`;
+				bar.style.flexWrap = (rows === 2) ? 'wrap' : 'nowrap';
+				
+				// Update textArea max-height to account for statusbar height changes
+				const textArea = document.getElementById('textArea');
+				if (textArea) {
+					const toolbar = document.querySelector('.toolbar');
+					const toolbarHeight = toolbar && !toolbar.classList.contains('collapsed') ? 48 : 8;
+					const statusBarHeight = rows * 22;
+					textArea.style.maxHeight = `calc(100vh - ${toolbarHeight}px - ${statusBarHeight}px)`;
+				}
+			}, 10); // Small delay to ensure accurate measurements
+		}
+
+		// Add resize event listener for statusbar adjustment
+		window.addEventListener('resize', adjustStatusBarHeight);
+		
+		// Add orientation change listener for mobile devices
+		window.addEventListener('orientationchange', () => {
+			setTimeout(adjustStatusBarHeight, 100); // Small delay to ensure layout is updated
+		});
+
+		// Initial statusbar adjustment on page load
+		document.addEventListener('DOMContentLoaded', adjustStatusBarHeight);
+		
+		// Also listen for touchend events for mobile devices
+		textArea.addEventListener('touchend', () => {
 			const selection = window.getSelection();
 			if (selection.toString().length > 0) {
 				const range = selection.getRangeAt(0);
@@ -5534,6 +6129,72 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				document.getElementById('words').innerHTML = `Words: <span style="color: #025be0; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${words.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${letters.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('sum').innerHTML = `Gematria: <span style="color: #FF0000; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
+				
+				// Calculate encryption by default (AT-BaSh) for statusBar display
+				input = textHighlight.replace(/[a-z\t"'·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, '');
+				textEncrypted = '';
+				
+				// Perform AT-BaSh encryption by default
+				for (var i = 0; i < input.length; i++) {
+					var letter = '';
+					switch(input[i]) {
+						/*aleph*/	case "\u05D0": letter = "\u05EA"; break;	// tav
+						/*bet*/		case "\u05D1": letter = "\u05E9"; break;	// shin
+						/*gimel*/	case "\u05D2": letter = "\u05E8"; break;	// resh
+						/*dalet*/	case "\u05D3": letter = "\u05E7"; break;	// kuf
+						/*hey*/		case "\u05D4": letter = "\u05E6"; break;	// tzadi
+						/*vav*/		case "\u05D5": letter = "\u05E4"; break;	// pey
+						/*zayin*/	case "\u05D6": letter = "\u05E2"; break;	// ayin
+						/*chet*/	case "\u05D7": letter = "\u05E1"; break;	// samech
+						/*tet*/		case "\u05D8": letter = "\u05E0"; break;	// nun
+						/*yod*/		case "\u05D9": letter = "\u05DE"; break;	// mem
+						/*kaf*/		case "\u05DB": letter = "\u05DC"; break;	// lamed
+						/*lamed*/	case "\u05DC": letter = "\u05DB"; break;	// kaf
+						/*mem*/		case "\u05DE": letter = "\u05D9"; break;	// yod
+						/*nun*/		case "\u05E0": letter = "\u05D8"; break;	// tet
+						/*samech*/	case "\u05E1": letter = "\u05D7"; break;	// chet
+						/*ayin*/	case "\u05E2": letter = "\u05D6"; break;	// zayin
+						/*pey*/		case "\u05E4": letter = "\u05D5"; break;	// vav
+						/*tzadi*/	case "\u05E6": letter = "\u05D4"; break;	// hey
+						/*kuf*/		case "\u05E7": letter = "\u05D3"; break;	// dalet
+						/*resh*/	case "\u05E8": letter = "\u05D2"; break;	// gimel
+						/*shin*/	case "\u05E9": letter = "\u05D1"; break;	// bet
+						/*tav*/		case "\u05EA": letter = "\u05D0"; break;	// aleph
+						/*kaf F*/	case "\u05DA": letter = "\u05DC"; break;	// lamed
+						/*mem F*/	case "\u05DD": letter = "\u05D9"; break;	// yod
+						/*nun F*/	case "\u05DF": letter = "\u05D8"; break;	// tet
+						/*pey F*/	case "\u05E3": letter = "\u05D5"; break;	// vav
+						/*tzadi F*/	case "\u05E5": letter = "\u05D4"; break;	// hey
+						default: letter = input[i]; break; // Keep non-Hebrew characters as-is
+					}
+					textEncrypted += letter;
+					
+					// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
+					if(i+1 == input.length) {
+						switch(letter) {
+							/*kaf*/		case "\u05DB": letter = "\u05DA"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// kaf F
+							/*mem*/		case "\u05DE": letter = "\u05DD"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// mem F
+							/*nun*/		case "\u05E0": letter = "\u05DF"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// nun F
+							/*pey*/		case "\u05E4": letter = "\u05E3"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// pey F
+							/*tzadi*/	case "\u05E6": letter = "\u05E5"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// tzadi F
+							default: letter = ""; break;
+						}
+						textEncrypted += letter;
+					}
+				}
+				
+				// Calculate encrypted total and display encrypted text and sum
+				calculateEncryptedTotal();
+				
+				// Display encrypted text
+				if (/[\u05D0-\u05E5]/.test(textEncrypted)) { 
+					document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;
+				} else {
+					document.getElementById('encrypted').innerHTML = `Encrypted: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>`;
+				}
+				
+				// Display encrypted sum
+				document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 
 				/* ----------------------------------------------------------
 				SMART STATUS-BAR  –  grows & wraps only when needed
@@ -5548,24 +6209,21 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							document.getElementById('encryptedsum').innerHTML =
 								`En. Gematria: <span style="color:#f2f542;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${encryptedTotal}</span>`;
 						}
-						document.getElementById('verses').innerHTML =
-							`Verses: ~<span style="color:#35ab47;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${verses.toLocaleString('en-US')}</span>`;
-						document.getElementById('words').innerHTML =
-							`Words: <span style="color:#025be0;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${words.toLocaleString('en-US')}</span>`;
-						document.getElementById('letters').innerHTML =
-							`Letters: <span style="color:#7a489c;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${letters.toLocaleString('en-US')}</span>`;
-						document.getElementById('sum').innerHTML =
-							`Gematria: <span style="color:#FF0000;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${textTotal.toLocaleString('en-US')}</span>`;
+						document.getElementById('verses').innerHTML = `Verses: ~<span style="color:#35ab47;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${verses.toLocaleString('en-US')}</span>`;
+						document.getElementById('words').innerHTML = `Words: <span style="color:#025be0;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${words.toLocaleString('en-US')}</span>`;
+						document.getElementById('letters').innerHTML = `Letters: <span style="color:#7a489c;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${letters.toLocaleString('en-US')}</span>`;
+						document.getElementById('sum').innerHTML = `Gematria: <span style="color:#FF0000;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${textTotal.toLocaleString('en-US')}</span>`;
 					}
 
 					/* ---- 2.  decide how many rows we really need ---- */
 					function adjustHeight() {
 						const bar   = document.getElementById('statusBar');
-						const boxes = Array.from(bar.querySelectorAll('.verses, .words, .letters, .sum')); // only these 4
+						const boxes = Array.from(bar.querySelectorAll('.verses, .words, .letters, .sum, .encryptedsum'));
 						const gap   = 5;                                              // CSS gap value
 						const barW  = bar.clientWidth;
 						let usedW   = 0;
 
+						bar.classList.remove('hidden');								// make statusbar visible
 						boxes.forEach(b => usedW += b.scrollWidth + gap);             // add up real widths
 						usedW -= gap;                                                 // remove last extra gap
 
@@ -5628,9 +6286,6 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			}
 		});
 
-		// Calculate Button's function
-		//function calculateBtn() {		}   
-
 		// Create a Modal dialog window
 		function createModal() {
 		var modal = `
@@ -5646,7 +6301,9 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		}
 
 		// Modal dialog for Calculate button
-		function openModal(textHighlight, textTotal, encrypted, input, encryptedTotal, encryptedsum) {
+		function openModal(textHighlight, textTotal, encrypted, input, encryptedTotal, encryptedsum, /*input, words, letters, sum, removeSelect, gematriaSelect, highlight, total, match, range, number, selection, languageCode, char, i, 
+		currentFontSize, selectedValue, corsProxy, response, files, fileText, files2, fileText2, reader2, resultText, textAreaContent, maqafDashMinus, noMaqafDashMinus, hebrewCharacters, noNiqqudContent, noPunctuation, 
+		noDigitContent, noSpaceContent, noCarriageReturnContent, noLatinLettersContent, noGreekLettersContent, noHebrewLettersContent*/) {
 		var message =  `Highlighted Text = ${textHighlight}<br><br>
 						Gematria Value = ${textTotal}<br><br>
 						Encrypt to = ${encrypted}<br><br>
@@ -5774,18 +6431,6 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			document.getElementById('encrypted').innerHTML = ``;
 			document.getElementById('encryptedsum').innerHTML = ``;
         });
-
-		// The App1 button's functionality
-	    app1Btn.addEventListener('click', () => {
-        const url = 'app1.php';
-        window.open(url, '_blank');
-	    });
-
-		// The Help button's functionality
-	    helpBtn.addEventListener('click', () => {
-        const url = 'help.html';
-        window.open(url, '_blank');
-	    });
     </script>
     
     <script>
