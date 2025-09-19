@@ -631,6 +631,20 @@ if [ -d "$GEMACRYPT_DIR" ]; then
             fi
         done
         
+        # Handle README.txt separately (no backup file creation)
+        if [ -f "$GEMACRYPT_DIR/README.txt" ]; then
+            # Replace radius.center with the new domain in README.txt without creating backup
+            sed -i "s/radius\.center/$DOMAIN_NAME/g" "$GEMACRYPT_DIR/README.txt"
+            
+            if [ $? -eq 0 ]; then
+                echo "✓ Updated README.txt with domain"
+            else
+                echo "✗ Failed to update README.txt with domain"
+            fi
+        else
+            echo "⚠ Warning: README.txt not found in GemaCrypt directory"
+        fi
+        
         echo "✓ Domain configuration completed"
     else
         echo "⚠ No domain name provided, skipping domain replacement"
@@ -664,12 +678,18 @@ echo ""
 
 # Database setup
 echo "Step 11: Database setup..."
-echo "Creating gematriaDB database and DBuser..."
+echo ""
+echo "Choose database setup option:"
+echo "1) Create a new empty personal database (gematriaDB)"
+echo "2) Import existing database from https://radius.center/gemacrypt/files/gematriaDB.sql"
+echo ""
+read -p "Enter your choice (1 or 2): " DB_CHOICE
 
-# Generate random 16-character password
-DB_PASSWORD=$(openssl rand -base64 12 | tr -d "=+/" | cut -c1-16)
+# Generate random 16-character password for DBuser (same for both options)
+DB_PASSWORD=$(openssl rand -base64 16 | tr -d "=+/" | cut -c1-16)
 
-# Create database and user
+# Create database user (same for both options)
+echo "Creating database user 'DBuser'..."
 mysql -u root << EOF
 CREATE DATABASE IF NOT EXISTS gematriaDB;
 CREATE USER IF NOT EXISTS 'DBuser'@'localhost' IDENTIFIED BY '$DB_PASSWORD';
@@ -681,7 +701,49 @@ if [ $? -eq 0 ]; then
     echo "✓ Database 'gematriaDB' created successfully"
     echo "✓ User 'DBuser' created with password: $DB_PASSWORD"
     
-    # Update insert.php with the generated password
+    # Handle database content based on user choice
+    if [ "$DB_CHOICE" = "2" ]; then
+        echo "Downloading and importing database from https://radius.center/gemacrypt/files/gematriaDB.sql..."
+        
+        # Try to download the SQL file using wget first, then curl as fallback
+        if command -v wget >/dev/null 2>&1; then
+            wget -O /tmp/gematriaDB.sql https://radius.center/gemacrypt/files/gematriaDB.sql
+            DOWNLOAD_SUCCESS=$?
+        elif command -v curl >/dev/null 2>&1; then
+            curl -o /tmp/gematriaDB.sql https://radius.center/gemacrypt/files/gematriaDB.sql
+            DOWNLOAD_SUCCESS=$?
+        else
+            echo "✗ Neither wget nor curl found. Cannot download database file."
+            echo "⚠ Please install wget or curl and try again, or choose option 1 for empty database."
+            DOWNLOAD_SUCCESS=1
+        fi
+        
+        if [ $DOWNLOAD_SUCCESS -eq 0 ]; then
+            echo "✓ Database file downloaded successfully"
+            echo "Importing database..."
+            
+            # Import the SQL file into the database
+            mysql -u root gematriaDB < /tmp/gematriaDB.sql
+            
+            if [ $? -eq 0 ]; then
+                echo "✓ Database imported successfully"
+                # Clean up temporary file
+                rm -f /tmp/gematriaDB.sql
+            else
+                echo "✗ Failed to import database"
+                echo "⚠ Database 'gematriaDB' was created but is empty"
+                # Clean up temporary file even on failure
+                rm -f /tmp/gematriaDB.sql
+            fi
+        else
+            echo "✗ Failed to download database file"
+            echo "⚠ Database 'gematriaDB' was created but is empty"
+        fi
+    else
+        echo "✓ Empty database 'gematriaDB' created successfully"
+    fi
+    
+    # Update insert.php with the generated password (same for both options)
     if [ -f "$GEMACRYPT_DIR/insert.php" ]; then
         # Replace the password variable in insert.php
         sed -i.tmp "s/\$password = \".*\";/\$password = \"$DB_PASSWORD\";/g" "$GEMACRYPT_DIR/insert.php" && rm "$GEMACRYPT_DIR/insert.php.tmp"
