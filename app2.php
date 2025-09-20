@@ -170,7 +170,7 @@
 		    appearance: none;
 		    -webkit-appearance: none;
 		    -moz-appearance: none;
-		    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 8'><polygon points='0,0 7,8 14,0'/></svg>");
+		    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNCA4Ij48cG9seWdvbiBwb2ludHM9IjAsMCA3LDggMTQsMCIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==");
 		    background-position: right 10px center;
 		    background-repeat: no-repeat;
 		    background-size: 12px;
@@ -215,6 +215,10 @@
 		/* Dropdown Menu Items color when mouse is release so it reverts back to original color */
 		.toolbar select:active:not(:hover), .toolbar select:focus:not(:hover) {
 		    background-color: #3333aa;
+		}
+		/* Hide the copy button */
+		#copyBtn {
+		    display: none;
 		}
 		.container {
 			flex: 1 1 auto;           /* fill remaining height */
@@ -294,7 +298,11 @@
 			transition: height 0.2s ease;	/* smooth height transitions */
 		}
 		.statusBar.hidden {
-			display: none !important;
+			height: 0px !important;
+			min-height: 0px !important;
+			overflow: hidden !important;
+			padding: 0 !important;
+			border: none !important;
 		}
 		.statusBar p span {
 			line-height: 18px;  
@@ -332,15 +340,88 @@
 			overflow-y: auto;
 			overflow-x: hidden; /* Hide horizontal scrollbar */
 			word-wrap: break-word;
+			max-height: 54px; /* Allow up to 3 rows (18px * 3) */
+			height: auto; /* Allow flexible height */
+			display: flex;
+			flex-direction: row; /* Change to row so label and content are side by side */
+			align-items: flex-start; /* Align items to top */
+		}
+		
+		/* Mobile layout for encrypted content - force new line at 930px or less */
+		@media (max-width: 930px) {
+			.encrypted {
+				width: 100%; /* Take full width on smaller screens */
+				order: 10; /* Force encrypted content to appear on new line */
+			}
+		}
+		.encrypted .encrypted-label {
+			flex-shrink: 0; /* Keep label always visible */
+			line-height: 18px;
+			height: 18px;
+			white-space: nowrap; /* Prevent label from wrapping */
+			margin-right: 5px; /* Add space between label and content */
+		}
+		.encrypted .encrypted-content {
+			flex: 1;
+			overflow-y: auto;
+			overflow-x: hidden;
+			word-wrap: break-word;
+			line-height: 18px;
+			max-height: 36px; /* Max 2 additional rows */
+			min-height: 18px; /* Ensure at least one row height */
+		}
+		
+		/* Custom scrollbar styling for encrypted content */
+		.encrypted .encrypted-content::-webkit-scrollbar {
+			width: 12px;
+		}
+		
+		.encrypted .encrypted-content::-webkit-scrollbar-track {
+			background: #ccc;
+		}
+		
+		.encrypted .encrypted-content::-webkit-scrollbar-thumb {
+			background: #333;
+			border-radius: 6px;
+		}
+		
+		.encrypted .encrypted-content::-webkit-scrollbar-thumb:hover {
+			background: #555;
+		}
+		
+		.encrypted .encrypted-content::-webkit-scrollbar-button {
+			background: #333;
+			height: 12px;
+		}
+		
+		.encrypted .encrypted-content::-webkit-scrollbar-button:hover {
+			background: #555;
+		}
+		
+		.encrypted .encrypted-content::-webkit-scrollbar-corner {
+			background: #ccc;
 		}
 		.encryptedsum {
 			margin-right: 5px;
 			width: 220px; 
-			min-width: 80px;
+			min-width: 150px; /* Further increased min-width to ensure visibility */
 			font-size: 16px;
 			font-weight: bold;
 			background-color: #ccc;
 			overflow-y: auto;
+			flex-shrink: 0; /* Prevent shrinking that could hide content */
+		}
+=======
+		.encryptedsum {
+			margin-right: 5px;
+			width: 220px; 
+			min-width: 150px; /* Further increased min-width to ensure visibility */
+			font-size: 16px;
+			font-weight: bold;
+			background-color: #ccc;
+			overflow-y: auto;
+			flex-shrink: 0; /* Prevent shrinking that could hide content */
+			order: -1; /* Give higher priority in flex layout */
 		}
 		.number {
         	font-family: Arial, sans-serif;
@@ -363,12 +444,17 @@
 		.up-arrow:hover, .down-arrow:hover, .left-arrow:hover, .right-arrow:hover {
 		    color: #555;
 		}
-		.verses, .words, .letters, .sum, .encrypted, .encryptedsum {
+		.verses, .words, .letters, .sum, .encryptedsum {
 			-webkit-appearance: none;
 			border-radius: 5 !important;
 			height: 18px;
 			line-height: 18px;
 			overflow: hidden;
+		}
+		/* Override for encrypted class to allow flexible height */
+		.encrypted {
+			height: auto !important;
+			overflow: visible !important;
 		}
 		/* A popup message that appears when the Calculate button is clicked. */
 		.modal {
@@ -536,6 +622,47 @@
 			.toolbar button,
 			.toolbar select {
 				margin: 2px 1px;                 /* 1 px keeps them visually separate but lets many more fit before the wrap happens */
+			}
+		}
+		
+		/* Status bar responsive behavior - only wrap when absolutely necessary */
+		@media (max-width: 1220px) {
+			.statusBar {
+				flex-wrap: wrap;                 /* Allow wrapping when needed */
+				height: auto !important;         /* Allow height to grow */
+			}
+			
+			.encryptedsum {
+				min-width: 150px !important;    /* Reduce min-width to allow more flexibility */
+				flex-shrink: 0 !important;      /* Never allow shrinking */
+			}
+			
+			.sum {
+				min-width: 120px !important;    /* Allow some flexibility */
+				flex-shrink: 0 !important;      /* Never allow shrinking */
+			}
+			
+			.verses, .words, .letters {
+				flex-shrink: 1;                 /* Allow shrinking if needed */
+				min-width: 70px !important;     /* Reduce minimum to allow more on one line */
+			}
+		}
+		
+		/* Additional protection for very narrow screens */
+		@media (max-width: 900px) {
+			.statusBar {
+				flex-wrap: wrap !important;
+				height: auto !important;
+				min-height: 44px !important;    /* Ensure space for 2+ rows */
+			}
+			
+			.encryptedsum, .sum {
+				min-width: 120px !important;    /* Reduce min-width for better fitting */
+				flex-basis: auto !important;    /* Allow natural sizing */
+			}
+			
+			.verses, .words, .letters {
+				min-width: 60px !important;     /* Further reduce for narrow screens */
 			}
 		}
 		</style>
@@ -2234,7 +2361,7 @@
 		<button id="findBtn" class="textBtn" onclick="toggleFind"><img src="img/find.png" height="16" width="14" border="0" alt="Find"><img src="img/invis.gif" width="4" border="0">Find</button>
 		<button id="elsBtn" class="textBtn" onclick="toggleELS"><img src="img/els.png" height="16" width="14" border="0" alt="Equidistant Letter Sequence"><img src="img/invis.gif" width="4" border="0">ELS</button>
 		<button id="swapBtn" class="textBtn" onclick="toggleSwap"><img src="img/swap.png" height="16" width="14" border="0" alt="Swap"><img src="img/invis.gif" width="4" border="0">Swap</button>
-		<!--<button id="copyBtn" class="textBtn" onclick=""><img src="img/copy.png" height="16" width="16" border="0" alt="Copy">&#x1F4D1;<img src="img/invis.gif" width="4" border="0">Copy</button>-->
+		<button id="copyBtn" class="textBtn" onclick=""><img src="img/copy.png" height="16" width="16" border="0" alt="Copy">&#x1F4D1;<img src="img/invis.gif" width="4" border="0">Copy</button>
 		<button id="directionBtn" class="textBtn" onclick="toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><img src="img/invis.gif" width="6" border="0">Align</button>
 		<button id="wrapBtn" class="textBtn" onclick="toggleWrap()"><img src="img/wrap.png" height="16" width="20" border="0" alt="Wrap Text"><img src="img/invis.gif" width="6" border="0">Wrap</button>
 		<button id="lightmodeBtn" class="textBtn" onclick="toggleLightMode()"><img src="img/moon.png" height="16" width="16" border="0" alt="Light/Dark Mode"><img src="img/invis.gif" width="4" border="0">Mode</button>
@@ -2266,8 +2393,8 @@
 			<div class="words" id="words"><p><span id="words"></span></p></div>
 			<div class="letters" id="letters"><p><span id="letters"></span></p></div>
 			<div class="sum" id="sum"><p><span id="sum"></span></p></div>
-			<div class="encrypted" id="encrypted"><p><span id="encrypted" dir="rtl"></span></p></div>
 			<div class="encryptedsum" id="encryptedsum"><p><span id="encryptedsum"></span></p></div>
+			<div class="encrypted" id="encrypted"><p><span id="encrypted" dir="rtl"></span></p></div>
 		</div>
 		</div>
     
@@ -4241,6 +4368,9 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    } else {
 		        textHighlight = '';
 		}
+		
+		// Call adjustStatusBarHeight to show/hide the statusbar after any text selection change
+		adjustStatusBarHeight();
 
 				if (encryptionSelect.value == "AYiK-BeCheR") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
@@ -4313,7 +4443,15 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { 
+						document.getElementById('encrypted').innerHTML = `
+							<div class="encrypted-label">Encrypted:</div>
+							<div class="encrypted-content">
+								<a style="text-decoration: none; direction: rtl;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank">
+									<span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
+								</a>
+							</div>`;
+					}
 
 				} else if (encryptionSelect.value == "AL-BaM") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
@@ -5789,7 +5927,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					}
 				}
 				if (encryptedTotal == 0) {encryptedTotal = ""; }
-				else {document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;}
+				else {document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;}
 //				else {document.getElementById('encryptedsum').innerHTML = `En. Gematria: <a id="app1Link" href="app1.php" style="text-decoration: none;" target="_blank"><span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span></a>`;}
 			} 
 		);
@@ -6032,21 +6170,63 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${letters.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('sum').innerHTML = `Gematria: <span style="color: #FF0000; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				
-				// Display encrypted text
+				// Display encrypted text with new structure and swapped color (now yellow)
 				if (/[\u05D0-\u05E5]/.test(textEncrypted)) { 
-					document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;
+					document.getElementById('encrypted').innerHTML = `
+						<div class="encrypted-label">Encrypted:</div>
+						<div class="encrypted-content">
+							<a style="text-decoration: none; direction: rtl;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank">
+								<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
+							</a>
+						</div>`;
 				} else {
-					document.getElementById('encrypted').innerHTML = `Encrypted: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>`;
+					document.getElementById('encrypted').innerHTML = `
+						<div class="encrypted-label">Encrypted:</div>
+						<div class="encrypted-content">
+							<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
+						</div>`;
 				}
 				
-				// Display encrypted sum
-				document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
+				// Display encrypted sum with swapped color (now orange)
+				document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
+				
+				// Call adjustStatusBarHeight to show the statusbar after content is populated
+				adjustStatusBarHeight();
 			}
 		}
 
 		// Add event listeners for both mouseup and touchend events
 		textArea.addEventListener('mouseup', handleTextSelection);
 		textArea.addEventListener('touchend', handleTextSelection);
+
+		// Add event listener to handle when text selection is cleared
+		document.addEventListener('selectionchange', () => {
+			const selection = window.getSelection();
+			if (selection.toString().length === 0) {
+				// Clear all statusbar content when no text is selected
+				textHighlight = '';
+				document.getElementById('verses').innerHTML = '';
+				document.getElementById('words').innerHTML = '';
+				document.getElementById('letters').innerHTML = '';
+				document.getElementById('sum').innerHTML = '';
+				document.getElementById('encrypted').innerHTML = '';
+				document.getElementById('encryptedsum').innerHTML = '';
+				
+				// Force statusbar to hide
+				const statusBar = document.getElementById('statusBar');
+				if (statusBar) {
+					statusBar.classList.add('hidden');
+				}
+				
+				// Update textArea max-height when statusbar is hidden
+				const textArea = document.getElementById('textArea');
+				if (textArea) {
+					const toolbar = document.querySelector('.toolbar');
+					const toolbarHeight = toolbar && !toolbar.classList.contains('collapsed') ? 48 : 8;
+					textArea.style.maxHeight = `calc(100vh - ${toolbarHeight}px)`;
+				}
+			}
+		});
 
 		/* ----------------------------------------------------------
 		GLOBAL STATUS-BAR ADJUSTMENT FUNCTION
@@ -6075,7 +6255,38 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				usedW -= gap; // Remove last extra gap
 
 				// Determine number of rows needed with some buffer
-				const rows = (usedW > (barW - 10)) ? 2 : 1; // 10px buffer for safety
+				let rows = (usedW > (barW - 10)) ? 2 : 1; // 10px buffer for safety
+				
+				// If encrypted content is empty, force rows to 1 to avoid extra height
+				const encryptedContent = bar.querySelector('.encrypted .encrypted-content');
+				if (encryptedContent && encryptedContent.textContent.trim() === '') {
+					rows = 1;
+				}
+				
+				// Hide the status bar until text is highlighted
+				const hasAnyContent = boxes.some(box => {
+					// Get the actual text content from the span elements inside each box
+					const span = box.querySelector('span');
+					const content = span ? span.textContent || span.innerHTML : '';
+					
+					// Check if there's actual meaningful content (numbers/values) after the labels
+					if (!content || content.trim() === '') return false;
+					
+					// Look for actual numeric values or encrypted text content
+					const hasNumbers = /\d/.test(content);
+					const hasHebrewText = /[\u05D0-\u05EA]/.test(content);
+					const hasGreekText = /[\u0370-\u03FF]/.test(content);
+					
+					// Only show statusbar if there are actual values, not just labels
+					return hasNumbers || hasHebrewText || hasGreekText;
+				});
+				
+				if (!hasAnyContent) {
+					bar.classList.add('hidden');
+					return; // Exit early since we're hiding the bar
+				} else {
+					bar.classList.remove('hidden');
+				}
 				
 				// Apply height and flex-wrap
 				bar.style.height = `${rows * 22}px`;
@@ -6100,8 +6311,14 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			setTimeout(adjustStatusBarHeight, 100); // Small delay to ensure layout is updated
 		});
 
-		// Initial statusbar adjustment on page load
-		document.addEventListener('DOMContentLoaded', adjustStatusBarHeight);
+		// Initial statusbar adjustment on page load - start hidden
+		document.addEventListener('DOMContentLoaded', () => {
+			const statusBar = document.getElementById('statusBar');
+			if (statusBar) {
+				statusBar.classList.add('hidden');
+			}
+			adjustStatusBarHeight();
+		});
 		
 		// Also listen for touchend events for mobile devices
 		textArea.addEventListener('touchend', () => {
@@ -6124,7 +6341,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				let words = textHighlight.trim().split(/\s+/).length;
 				let letters = textHighlight.replace(/[.,&!$%#~*|><}^{/)(-=:;\d\s\r\n_'"`\]\[\+\\\u05C3?\u05BE\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '').length;
 
-				if (letters == 0) { words = 0; verses = 0; encryptedTotal = ""; document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`; }
+				if (letters == 0) { words = 0; verses = 0; encryptedTotal = ""; document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`; }
 				document.getElementById('verses').innerHTML = `Verses: ~<span style="color: #35ab47; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${verses.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('words').innerHTML = `Words: <span style="color: #025be0; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${words.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${letters.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
@@ -6186,15 +6403,25 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				// Calculate encrypted total and display encrypted text and sum
 				calculateEncryptedTotal();
 				
-				// Display encrypted text
+				// Display encrypted text with swapped color (now yellow)
 				if (/[\u05D0-\u05E5]/.test(textEncrypted)) { 
-					document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;
+					document.getElementById('encrypted').innerHTML = `
+						<div class="encrypted-label">Encrypted:</div>
+						<div class="encrypted-content">
+							<a style="text-decoration: none; direction: rtl;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank">
+								<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
+							</a>
+						</div>`;
 				} else {
-					document.getElementById('encrypted').innerHTML = `Encrypted: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>`;
+					document.getElementById('encrypted').innerHTML = `
+						<div class="encrypted-label">Encrypted:</div>
+						<div class="encrypted-content">
+							<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
+						</div>`;
 				}
 				
-				// Display encrypted sum
-				document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
+				// Display encrypted sum with swapped color (now orange)
+				document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 
 				/* ----------------------------------------------------------
 				SMART STATUS-BAR  –  grows & wraps only when needed
@@ -6362,7 +6589,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		}
 
 		// Copy functionality
-		/*copyBtn.addEventListener('click', () => {
+		copyBtn.addEventListener('click', () => {
 		    if (textHighlight) {
 		        // Copy the highlighted text to the clipboard
 		        navigator.clipboard.writeText(textHighlight).then(function() {
@@ -6389,7 +6616,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		        const simulatedEvent = new KeyboardEvent('keydown', { key: key, ctrlKey: window.navigator.platform !== 'MacIntel', metaKey: window.navigator.platform === 'MacIntel' });
 		        window.dispatchEvent(simulatedEvent);
 		    }
-		});*/
+		});
 
 		// The Translate button's functionality
 		translateBtn.addEventListener('click', () => {

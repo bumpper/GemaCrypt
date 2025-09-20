@@ -179,12 +179,6 @@ set_os_variables() {
             APACHE_ENABLE_MOD="echo"
             APACHE_ENABLE_CONF="echo"
             ;;
-        "windows")
-            echo "Windows detected. This script is designed for Unix-like systems."
-            echo "For Windows, please use XAMPP, WAMP, or similar solutions."
-            echo "Visit: https://www.apachefriends.org/index.html"
-            exit 1
-            ;;
         *)
             echo "Unsupported operating system. Defaulting to Debian/Ubuntu commands."
             OS="debian"
@@ -269,15 +263,26 @@ manage_service() {
 # Check if running with appropriate privileges
 check_privileges() {
     case $OS in
-        "windows")
-            echo "Windows detected. Please use XAMPP, WAMP, or similar solutions."
-            exit 1
-            ;;
         "macos")
             if ! command -v brew &> /dev/null; then
-                echo "Homebrew is required for macOS installation."
-                echo "Please install Homebrew first: https://brew.sh/"
-                exit 1
+                echo "Homebrew is not installed."
+                read -p "Would you like to install Homebrew? (y/n): " -n 1 -r
+                echo ""
+                if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    echo "Installing Homebrew..."
+                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+                    if [ $? -eq 0 ]; then
+                        echo "✓ Homebrew installed successfully"
+                        # Add Homebrew to PATH for the current session
+                        eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
+                    else
+                        echo "✗ Failed to install Homebrew"
+                        exit 1
+                    fi
+                else
+                    echo "Homebrew is required for macOS installation."
+                    exit 1
+                fi
             fi
             ;;
         *)
@@ -292,6 +297,37 @@ check_privileges() {
 
 # Detect OS and set variables
 detect_os
+
+# Handle Windows WSL
+if [[ "$OS" == "windows" ]]; then
+    if command -v wsl >/dev/null 2>&1; then
+        echo "WSL detected. Entering WSL to perform installation..."
+        SCRIPT_PATH=$(realpath "$0")
+        wsl bash "$SCRIPT_PATH"
+        exit $?
+    else
+        echo "WSL not detected. Windows Subsystem for Linux (WSL) is required to proceed."
+        echo ""
+        echo "To install WSL automatically (requires administrator privileges):"
+        echo "Run the following command in PowerShell or Command Prompt as administrator:"
+        echo "wsl --install"
+        echo ""
+        echo "This will install WSL with Ubuntu by default. After installation, restart your computer if prompted, then re-run this script."
+        echo ""
+        echo "Manual installation instructions:"
+        echo "1. Open PowerShell or Command Prompt as administrator"
+        echo "2. Run: dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart"
+        echo "3. Run: dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart"
+        echo "4. Restart your computer"
+        echo "5. Download and install a Linux distribution from the Microsoft Store (e.g., Ubuntu)"
+        echo "6. Launch the distribution and set up a username/password"
+        echo "7. Re-run this script"
+        echo ""
+        echo "For more information, visit: https://docs.microsoft.com/en-us/windows/wsl/install"
+        exit 1
+    fi
+fi
+
 set_os_variables
 check_privileges
 
@@ -631,18 +667,18 @@ if [ -d "$GEMACRYPT_DIR" ]; then
             fi
         done
         
-        # Handle README.txt separately (no backup file creation)
-        if [ -f "$GEMACRYPT_DIR/README.txt" ]; then
-            # Replace radius.center with the new domain in README.txt without creating backup
-            sed -i "s/radius\.center/$DOMAIN_NAME/g" "$GEMACRYPT_DIR/README.txt"
+        # Handle README.html separately (no backup file creation)
+        if [ -f "$GEMACRYPT_DIR/README.html" ]; then
+            # Replace radius.center with the new domain in README.html without creating backup
+            sed -i "s/radius\.center/$DOMAIN_NAME/g" "$GEMACRYPT_DIR/README.html"
             
             if [ $? -eq 0 ]; then
-                echo "✓ Updated README.txt with domain"
+                echo "✓ Updated README.html with domain"
             else
-                echo "✗ Failed to update README.txt with domain"
+                echo "✗ Failed to update README.html with domain"
             fi
         else
-            echo "⚠ Warning: README.txt not found in GemaCrypt directory"
+            echo "⚠ Warning: README.html not found in GemaCrypt directory"
         fi
         
         echo "✓ Domain configuration completed"
