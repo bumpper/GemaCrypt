@@ -36,8 +36,6 @@
 			z-index: 0; 
 			overflow-y: auto;          /* native scroll when needed */
 			-webkit-overflow-scrolling: touch;   /* smooth iOS scroll */
-			/* never grow taller than “100 % of the viewport minus the space that the toolbar + status bar need” */
-			/* max-height will be set dynamically by JavaScript based on toolbar state */
 			flex: 1 1 auto;           /* take all available space */
 			overflow-y: auto;         /* own vertical scrollbar when needed */
 			overflow-x: auto;
@@ -81,7 +79,6 @@
         #toolbarToggler::after{   /* add a slight shadow for the up/down arrows */
         filter: drop-shadow(0 1px 1px rgba(0,0,0,.45));
         }
-		/* keep it pinned to the true viewport corner, above everything */
 		#breakOutLink{
 		position: fixed;          /* viewport-relative */
 		top: 0;                   /* touch the very top */
@@ -331,8 +328,7 @@
 		}
 		.encrypted {
 			margin-right: 5px;
-			width: calc(80vw - 200px); /* Subtract the minimum width from the full viewport width 
-			width: 600px; */
+			width: calc(80vw - 200px); /* Subtract the minimum width from the full viewport width */
 			min-width: 80px;
 			font-size: 16px;
 			font-weight: bold;
@@ -345,8 +341,7 @@
 			display: flex;
 			flex-direction: row; /* Change to row so label and content are side by side */
 			align-items: flex-start; /* Align items to top */
-		}
-		
+		}		
 		/* Mobile layout for encrypted content - force new line at 930px or less */
 		@media (max-width: 930px) {
 			.encrypted {
@@ -369,35 +364,28 @@
 			line-height: 18px;
 			max-height: 36px; /* Max 2 additional rows */
 			min-height: 18px; /* Ensure at least one row height */
-		}
-		
+		}		
 		/* Custom scrollbar styling for encrypted content */
 		.encrypted .encrypted-content::-webkit-scrollbar {
 			width: 12px;
-		}
-		
+		}		
 		.encrypted .encrypted-content::-webkit-scrollbar-track {
 			background: #ccc;
-		}
-		
+		}		
 		.encrypted .encrypted-content::-webkit-scrollbar-thumb {
 			background: #333;
 			border-radius: 6px;
-		}
-		
+		}		
 		.encrypted .encrypted-content::-webkit-scrollbar-thumb:hover {
 			background: #555;
-		}
-		
+		}		
 		.encrypted .encrypted-content::-webkit-scrollbar-button {
 			background: #333;
 			height: 12px;
-		}
-		
+		}		
 		.encrypted .encrypted-content::-webkit-scrollbar-button:hover {
 			background: #555;
-		}
-		
+		}		
 		.encrypted .encrypted-content::-webkit-scrollbar-corner {
 			background: #ccc;
 		}
@@ -411,17 +399,15 @@
 			overflow-y: auto;
 			flex-shrink: 0; /* Prevent shrinking that could hide content */
 		}
-=======
 		.encryptedsum {
 			margin-right: 5px;
-			width: 220px; 
+			width: 220px;
 			min-width: 150px; /* Further increased min-width to ensure visibility */
 			font-size: 16px;
 			font-weight: bold;
 			background-color: #ccc;
 			overflow-y: auto;
 			flex-shrink: 0; /* Prevent shrinking that could hide content */
-			order: -1; /* Give higher priority in flex layout */
 		}
 		.number {
         	font-family: Arial, sans-serif;
@@ -456,7 +442,6 @@
 			height: auto !important;
 			overflow: visible !important;
 		}
-		/* A popup message that appears when the Calculate button is clicked. */
 		.modal {
 		display: none;
 		position: fixed;
@@ -623,44 +608,37 @@
 			.toolbar select {
 				margin: 2px 1px;                 /* 1 px keeps them visually separate but lets many more fit before the wrap happens */
 			}
-		}
-		
+		}		
 		/* Status bar responsive behavior - only wrap when absolutely necessary */
 		@media (max-width: 1220px) {
 			.statusBar {
 				flex-wrap: wrap;                 /* Allow wrapping when needed */
 				height: auto !important;         /* Allow height to grow */
-			}
-			
+			}			
 			.encryptedsum {
 				min-width: 150px !important;    /* Reduce min-width to allow more flexibility */
 				flex-shrink: 0 !important;      /* Never allow shrinking */
-			}
-			
+			}			
 			.sum {
 				min-width: 120px !important;    /* Allow some flexibility */
 				flex-shrink: 0 !important;      /* Never allow shrinking */
-			}
-			
+			}			
 			.verses, .words, .letters {
 				flex-shrink: 1;                 /* Allow shrinking if needed */
 				min-width: 70px !important;     /* Reduce minimum to allow more on one line */
 			}
-		}
-		
+		}		
 		/* Additional protection for very narrow screens */
 		@media (max-width: 900px) {
 			.statusBar {
 				flex-wrap: wrap !important;
 				height: auto !important;
 				min-height: 44px !important;    /* Ensure space for 2+ rows */
-			}
-			
+			}			
 			.encryptedsum, .sum {
 				min-width: 120px !important;    /* Reduce min-width for better fitting */
 				flex-basis: auto !important;    /* Allow natural sizing */
-			}
-			
+			}			
 			.verses, .words, .letters {
 				min-width: 60px !important;     /* Further reduce for narrow screens */
 			}
@@ -672,13 +650,15 @@
 	var L01 = 1;L02 = 2;L03 = 3;L04 = 4;L05 = 5;L06 = 6;L07 = 7;L08 = 8;L09 = 9;L10 = 10;L11 = 20;L12 = 30;L13 = 40;L14 = 50;L15 = 60;L16 = 70;L17 = 80;L18 = 90;L19 = 100;L20 = 200;L21 = 300;L22 = 400;L23 = 500;L24 = 600;L25 = 700;L26 = 800;L27 = 900;
 	var textTotal=wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=encryptedTotal=encryptedsum=0;
 	var letter=textEncrypted=cryptography=input='';
-	
+
+	const colors = ['red', 'purple', 'green', 'darkblue', 'lightblue', 'brown', 'orange'];
+	let availableColors = [...colors];
+
 	// Function to calculate encrypted total
 	function calculateEncryptedTotal() {
 		encryptedTotal = 0;
 		
-		// Handle the case where encryptionSelect is at default "Encryption" value
-		// but textEncrypted is empty (page load scenario)
+		// Handle the case where encryptionSelect is at default "Encryption" value but textEncrypted is empty (page load scenario)
 		const encryptionSelect = document.getElementById('encryptionSelect');
 		if (encryptionSelect && encryptionSelect.value === 'Encryption' && textEncrypted === '') {
 			// Perform AT-BaSh encryption on the input to populate textEncrypted
@@ -723,9 +703,6 @@
 			textEncrypted = currentTextEncrypted;
 		}
 
-
-		
-		
 		// Calculate encrypted total from textEncrypted
 		for (let i = 0; i < textEncrypted.length; i++) {
 			const char = textEncrypted[i];
@@ -2355,12 +2332,10 @@
 			}
 		  </script>
 
-		<button id="calculateBtn" class="textBtn" onclick="createModal(); calculateEncryptedTotal(); openModal(textHighlight, textTotal, textEncrypted, input, encryptedTotal, encryptedsum/*, input, words, letters, sum, removeSelect, gematriaSelect, highlight, total, match, range, number, selection, languageCode, char, i, 
-		currentFontSize, selectedValue, corsProxy, response, files, fileText, files2, fileText2, reader2, resultText, textAreaContent, maqafDashMinus, noMaqafDashMinus, hebrewCharacters, noNiqqudContent, noPunctuation, 
-		noDigitContent, noSpaceContent, noCarriageReturnContent, noLatinLettersContent, noGreekLettersContent, noHebrewLettersContent*/);"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="4" border="0">Calc</button>
+		<button id="calculateBtn" class="textBtn" onclick="createModal(); calculateEncryptedTotal(); openModal(textHighlight, textTotal, textEncrypted, input, encryptedTotal, encryptedsum);"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="4" border="0">Calc</button>
 		<button id="findBtn" class="textBtn" onclick="toggleFind"><img src="img/find.png" height="16" width="14" border="0" alt="Find"><img src="img/invis.gif" width="4" border="0">Find</button>
 		<button id="elsBtn" class="textBtn" onclick="toggleELS"><img src="img/els.png" height="16" width="14" border="0" alt="Equidistant Letter Sequence"><img src="img/invis.gif" width="4" border="0">ELS</button>
-		<button id="swapBtn" class="textBtn" onclick="toggleSwap"><img src="img/swap.png" height="16" width="14" border="0" alt="Swap"><img src="img/invis.gif" width="4" border="0">Swap</button>
+<button id="swapBtn" class="textBtn" onclick="toggleSwap()"><img src="img/swap.png" height="16" width="14" border="0" alt="Swap"><img src="img/invis.gif" width="4" border="0">Swap</button>
 		<button id="copyBtn" class="textBtn" onclick=""><img src="img/copy.png" height="16" width="16" border="0" alt="Copy">&#x1F4D1;<img src="img/invis.gif" width="4" border="0">Copy</button>
 		<button id="directionBtn" class="textBtn" onclick="toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><img src="img/invis.gif" width="6" border="0">Align</button>
 		<button id="wrapBtn" class="textBtn" onclick="toggleWrap()"><img src="img/wrap.png" height="16" width="20" border="0" alt="Wrap Text"><img src="img/invis.gif" width="6" border="0">Wrap</button>
@@ -2440,28 +2415,137 @@
 
 	<script>
 		function toggleELS(){
-			/*
-			Beginning with the first letter of the text within textArea count the letters up to the last letter contained in highlightedText and save it as the variable called guessStartPosition.  Only count Hebrew, Greek, Latin, and English letters. Ignor all spaces, number, and special chararters. 
-			Open a new modal called elsModal with a text input field called starPosition that is defaulted to the value of guessStartPosition. 
-			If no letters are currently highlighted or only the very first letter of textArea is highlighted then set guessStartPosition to 1. 
-			To the right of starPosition create another text input field called sequenceNum. 
-			If letters are manually entered into startPosition or sequenceNum convert them to their gematria equalivant. 
-			To the right of sequencInput put a button labeled Search. 
-			Beginning at the startPosition which will count as 0 count forward by 1 until the sequenceNum is reached and append it to a variable called elsResults.
-			Continue counting but the next number will start over at 1.  Repeat this process each time appending the sequenceNum is reached append it to elsResults until there are no more letters in the textArea.
-			Then display elsResult below the text input fields and the search button of the elsModal.
-			*/
+			console.log('toggleELS triggered');
+			const textArea = document.getElementById('textArea');
+			const selection = window.getSelection();
+			let guessStartPosition = 1;
+			if (selection.rangeCount > 0) {
+				const range = selection.getRangeAt(0);
+				const selectedText = selection.toString();
+				console.log('Selected text:', selectedText);
+				if (selectedText.trim()) {
+					const fullText = textArea.textContent;
+					const endIndex = range.endOffset;
+					let count = 0;
+					for (let i = 0; i < endIndex; i++) {
+						const char = fullText[i];
+						if (isLetter(char)) {
+							count++;
+						}
+					}
+					guessStartPosition = count;
+					if (guessStartPosition === 0) guessStartPosition = 1;
+					console.log('guessStartPosition:', guessStartPosition);
+				}
+			} else {
+				console.log('No selection range');
+			}
+
+			function isLetter(char) {
+				const code = char.charCodeAt(0);
+				return (code >= 0x05D0 && code <= 0x05EA) || (code >= 0x05DA && code <= 0x05DF) || (code >= 0x0370 && code <= 0x03FF) || (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+			}
+
+			function convertToGematria(str) {
+				let total = 0;
+				for (let char of str) {
+					const code = char.charCodeAt(0);
+					if (code >= 0x05D0 && code <= 0x05EA) {
+						const index = code - 0x05D0;
+						total += [1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900][index] || 0;
+					} else if (code >= 0x05DA && code <= 0x05DF) {
+						const finals = [500,600,700,800,900,900];
+						total += finals[code - 0x05DA];
+					} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+						const upper = code >= 65 && code <= 90 ? code : code - 32;
+						total += upper - 64;
+					} else if (code >= 0x0391 && code <= 0x03A9) {
+						const greek = [1,2,3,4,5,7,8,9,10,20,30,40,50,60,70,80,100,200,300,400,500,600,700,800,900];
+						total += greek[code - 0x0391] || 0;
+					}
+				}
+				return total;
+			}
+
+			const modal = document.createElement('div');
+			modal.id = 'elsModal';
+			modal.className = 'modal';
+			modal.innerHTML = `
+				<div class="modal-content">
+					<span class="close" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+					<h2>Equidistant Letter Sequence</h2>
+					<label for="startPosition">Start Position:</label>
+					<input type="text" id="startPosition" value="${guessStartPosition}">
+					<label for="sequenceNum">Sequence Number:</label>
+					<input type="text" id="sequenceNum">
+					<button id="elsSearchBtn">Search</button>
+					<div id="elsResults"></div>
+				</div>
+			`;
+			document.body.appendChild(modal);
+			modal.style.display = 'block';
+
+			document.getElementById('startPosition').addEventListener('input', function() {
+				const val = this.value;
+				if (/^[a-zA-Z\u0590-\u05FF\u0370-\u03FF]+$/.test(val)) {
+					this.value = convertToGematria(val);
+				}
+			});
+
+			document.getElementById('sequenceNum').addEventListener('input', function() {
+				const val = this.value;
+				if (/^[a-zA-Z\u0590-\u05FF\u0370-\u03FF]+$/.test(val)) {
+					this.value = convertToGematria(val);
+				}
+			});
+
+			document.getElementById('elsSearchBtn').addEventListener('click', function() {
+				const start = parseInt(document.getElementById('startPosition').value) || 1;
+				const seq = parseInt(document.getElementById('sequenceNum').value) || 1;
+				const fullText = textArea.textContent;
+				let letters = [];
+				for (let i = 0; i < fullText.length; i++) {
+					if (isLetter(fullText[i])) {
+						letters.push(fullText[i]);
+					}
+				}
+				let results = '';
+				for (let i = start - 1; i < letters.length; i += seq) {
+					results += letters[i];
+				}
+				document.getElementById('elsResults').textContent = results;
+			});
 		}
 	</script>
 
 	<script>
 		function toggleSwap(){
-			/*
-			Take the value of encryptedText and paste it into textArea replacing the highlighted text, and make encryptedText in a font color of either red, purple, green, dark blue, light blue, brown, or orange.  The font color should be chosen at random.
-			Then seach for the same encryptedText in the rest of textArea and if it is found again in textArea also replace the additional matches in the same color.
-			If any additional swap functions are triggered do that same, but use a new color of font for encryptedText, until all the colors have been used then allow previously used colors to be used again.  The font color should always be chosen at random.
-			Pressing the clearBtn will reset the font color choices.
-			*/
+			const textArea = document.getElementById('textArea');
+			if (availableColors.length === 0) {
+				availableColors = [...colors];
+			}
+			const chosenColor = availableColors.splice(Math.floor(Math.random() * availableColors.length), 1)[0];
+			const selection = window.getSelection();
+			if (selection.rangeCount === 0) {
+				return; // No selection, do nothing
+			}
+			const selectedText = selection.toString();
+			if (!selectedText) {
+				return; // Empty selection, do nothing
+			}
+			// Escape special regex characters in selectedText for use in RegExp
+			const escapedSelectedText = selectedText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+			// Create a case-insensitive regex to match all instances of selectedText
+			const regex = new RegExp(escapedSelectedText, 'gi');
+			// Replace all instances of selectedText in textArea's textContent with colored textEncrypted
+			// We will replace innerHTML carefully to avoid breaking other HTML tags
+			// So we replace in innerHTML but only the text nodes matching selectedText
+			// For simplicity, replace in innerHTML with regex and wrap replaced text in span with color
+			const coloredText = `<span style="color: ${chosenColor};">${textEncrypted}</span>`;
+			// Replace all instances case-insensitively
+			textArea.innerHTML = textArea.innerHTML.replace(regex, coloredText);
+			// Clear selection
+			selection.removeAllRanges();
 		}
 	</script>
 
@@ -3477,7 +3561,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			baseURL += protocol;																// Add the protocol to the baseURL variable
 			baseURL += window.location.hostname;												// Add the domain name to the baseURL variable
 			//baseURL += window.location.pathname;												// Add the current path to the baseURL variable
-			const defaultPath = baseURL + '/gemacrypt/files/books/';									// Sets the default path when the Open button is clicked to /gemacrypt/files/books/ directory
+			const defaultPath = baseURL + '/gemacrypt/files/books/';							// Sets the default path when the Open button is clicked to /gemacrypt/files/books/ directory
 			fileInput.setAttribute('nwworkingdir', defaultPath);								// Set the default working directory to open to contained in variable defaultPath.
 			fileInput.click();
 		}
@@ -5928,7 +6012,6 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				}
 				if (encryptedTotal == 0) {encryptedTotal = ""; }
 				else {document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;}
-//				else {document.getElementById('encryptedsum').innerHTML = `En. Gematria: <a id="app1Link" href="app1.php" style="text-decoration: none;" target="_blank"><span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span></a>`;}
 			} 
 		);
 		
@@ -6170,7 +6253,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${letters.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('sum').innerHTML = `Gematria: <span style="color: #FF0000; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				
-				// Display encrypted text with new structure and swapped color (now yellow)
+				// Display encrypted text with new structure
 				if (/[\u05D0-\u05E5]/.test(textEncrypted)) { 
 					document.getElementById('encrypted').innerHTML = `
 						<div class="encrypted-label">Encrypted:</div>
@@ -6187,7 +6270,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						</div>`;
 				}
 				
-				// Display encrypted sum with swapped color (now orange)
+				// Display encrypted sum
 				document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				
 				// Call adjustStatusBarHeight to show the statusbar after content is populated
@@ -6403,7 +6486,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				// Calculate encrypted total and display encrypted text and sum
 				calculateEncryptedTotal();
 				
-				// Display encrypted text with swapped color (now yellow)
+				// Display encrypted text
 				if (/[\u05D0-\u05E5]/.test(textEncrypted)) { 
 					document.getElementById('encrypted').innerHTML = `
 						<div class="encrypted-label">Encrypted:</div>
@@ -6420,7 +6503,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						</div>`;
 				}
 				
-				// Display encrypted sum with swapped color (now orange)
+				// Display encrypted sum
 				document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 
 				/* ----------------------------------------------------------
@@ -6528,54 +6611,13 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		}
 
 		// Modal dialog for Calculate button
-		function openModal(textHighlight, textTotal, encrypted, input, encryptedTotal, encryptedsum, /*input, words, letters, sum, removeSelect, gematriaSelect, highlight, total, match, range, number, selection, languageCode, char, i, 
-		currentFontSize, selectedValue, corsProxy, response, files, fileText, files2, fileText2, reader2, resultText, textAreaContent, maqafDashMinus, noMaqafDashMinus, hebrewCharacters, noNiqqudContent, noPunctuation, 
-		noDigitContent, noSpaceContent, noCarriageReturnContent, noLatinLettersContent, noGreekLettersContent, noHebrewLettersContent*/) {
+		function openModal(textHighlight, textTotal, encrypted, input, encryptedTotal, encryptedsum) {
 		var message =  `Highlighted Text = ${textHighlight}<br><br>
 						Gematria Value = ${textTotal}<br><br>
 						Encrypt to = ${encrypted}<br><br>
 						Encrypted Gematria = ${encryptedTotal}<br><br>
 						`;
-						/*`Input Text = ${input}<br><br>
-						Word Count = ${words}<br>
-						/*`Word Count = ${words}<br>
-						Letter Count = ${letters}<br>
-						sum:\t\t\t\t${sum}<br>
-						removeSelect:\t\t${removeSelect}<br>
-						gematriaSelect:\t\t${gematriaSelect}<br>
-						Highlight: ${highlight}<br>
-						Total: ${total}<br>
-						match:\t\t\t\t${match}<br>
-						range:\t\t\t\t${range}<br>
-						number:\t\t\t${number}<br>
-						selection:\t\t\t${selection}<br>
-						match:\t\t\t\t${match}<br>
-						languageCode:\t\t${languageCode}<br>
-						char:\t\t\t\t${char}<br>
-						i:\t\t\t\t${i}<br>
-						currentFontSize:\t\t${currentFontSize}<br>
-						selectedValue:\t\t${selectedValue}<br>
-						corsPorxy:\t\t\t${corsPorxy}<br>
-						response:\t\t\t${response}<br>
-						files:\t\t\t\t${files}<br>
-						fileText:\t\t\t${fileText}<br>
-						files2:\t\t\t\t${files2}<br>
-						fileText2:\t\t\t${fileText2}<br>
-						reader2:\t\t\t\t${reader2}<br>
-						resultText:\t\t\t${resultText}<br>
-						gematriaSelect:\t\t${gematriaSelect}<br>
-						textAreaContent:\t\t${textAreaContent}<br>
-						maqafDashMinus:\t\t${maqafDashMinus}<br>
-						noMaqafDashMinus:\t\t${noMaqafDashMinus}<br>
-						hebrewCharacters:\t\t${hebrewCharacters}<br>
-						noNiqqudContent:\t\t${noNiqqudContent}<br>
-						noPunctuationContent:\t${noPunctuationContent}<br>
-						noDigitsContent:\t\t${noDigitsContent}<br>
-						noSpacesContent:\t\t${noSpacesContent}<br>
-						noCarriageReturnsContent:\t${noCarriageReturnsContent}<br>
-						noLatinLettersContent:\t${noLatinLettersContent}<br>
-						noGreekLettersContent:\t${noGreekLettersContent}<br>
-						noHebrewLettersContent:\t${noHebrewLettersContent}<br>`;*/
+						
 		document.getElementById("modal-message").innerHTML = message;
 		document.getElementById("myModal").style.display = "block";
 		}
@@ -6657,6 +6699,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			document.getElementById('sum').innerHTML = ``;
 			document.getElementById('encrypted').innerHTML = ``;
 			document.getElementById('encryptedsum').innerHTML = ``;
+			availableColors = [...colors];
         });
     </script>
     
@@ -6691,68 +6734,5 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		);
 	</script>
 
-	<script>
-	/*alert(
-				"\nmatch:\t\t\t\t"+match+
-				"\nrange:\t\t\t\t"+range+
-				"\nnumber:\t\t\t"+number+
-				"\nselection:\t\t\t"+selection+
-				"\nlanguageCode:\t\t"+languageCode+
-				"\nchar:\t\t\t\t"+char+
-				"\ni:\t\t\t\t"+i+
-				"\ncurrentFontSize:\t\t"+currentFontSize+
-				"\nselectedValue:\t\t"+selectedValue+
-				"\ncorsPorxy:\t\t\t"+corsPorxy+
-				"\nresponse:\t\t\t"+response+
-				"\nfiles:\t\t\t\t"+files+
-				"\nfileText:\t\t\t"+fileText+
-				"\nfiles2:\t\t\t\t"+files2+
-				"\n\nfileText2:\t\t\t"+fileText2+
-				"\nreader2:\t\t\t\t"+reader2+
-				"\nresultText:\t\t\t"+resultText+
-				"\ngematriaSelect:\t\t"+gematriaSelect+
-				"\ntextAreaContent:\t\t"+textAreaContent+
-				"\nmaqafDashMinus:\t\t"+maqafDashMinus+
-				"\nnoMaqafDashMinus:\t\t"+noMaqafDashMinus+
-				"\nhebrewCharacters:\t\t"+hebrewCharacters+
-				"\nnoNiqqudContent:\t\t"+noNiqqudContent+
-				"\nnoPunctuationContent:\t"+noPunctuationContent+
-				"\nnoDigitsContent:\t\t"+noDigitsContent+
-				"\nnoSpacesContent:\t\t"+noSpacesContent+
-				"\nnoCarriageReturnsContent:\t"+noCarriageReturnsContent+
-				"\nnoLatinLettersContent:\t"+noLatinLettersContent+
-				"\nnoGreekLettersContent:\t"+noGreekLettersContent+
-				"\nnoHebrewLettersContent:\t"+noHebrewLettersContent+
-				"\n\t\t\t\t\t\t\t\t"+
-				"\nU+05D0\t\t\u05D0"+"\t\t\tL01\t\t"+L01+ // aleph
-				"\nU+05D1\t\t\u05D1"+"\t\t\tL02\t\t"+L02+ // bet
-				"\nU+05D2\t\t\u05D2"+"\t\t\tL03\t\t"+L03+ // gimel
-				"\nU+05D3\t\t\u05D3"+"\t\t\tL04\t\t"+L04+ // dalet
-				"\nU+05D4\t\t\u05D4"+"\t\t\tL05\t\t"+L05+ // hey
-				"\nU+05D5\t\t\u05D5"+"\t\t\tL06\t\t"+L06+ // vav
-				"\nU+05D6\t\t\u05D6"+"\t\t\tL07\t\t"+L07+ // zayin
-				"\nU+05D7\t\t\u05D7"+"\t\t\tL08\t\t"+L08+ // chet
-				"\nU+05D8\t\t\u05D8"+"\t\t\tL09\t\t"+L09+ // tet
-				"\nU+05D9\t\t\u05D9"+"\t\t\tL10\t\t"+L10+ // yod
-				"\nU+05DB\t\t\u05DB"+"\t\t\tL11\t\t"+L11+ // chaf
-				"\nU+05DC\t\t\u05DC"+"\t\t\tL12\t\t"+L12+ // lamed
-				"\nU+05DE\t\t\u05DE"+"\t\t\tL13\t\t"+L13+ // mem
-				"\nU+05E0\t\t\u05E0"+"\t\t\tL14\t\t"+L14+ // nun
-				"\nU+05E1\t\t\u05E1"+"\t\t\tL15\t\t"+L15+ // samech
-				"\nU+05E2\t\t\u05E2"+"\t\t\tL16\t\t"+L16+ // ayin
-				"\nU+05E4\t\t\u05E4"+"\t\t\tL17\t\t"+L17+ // pey
-				"\nU+05E4\t\t\u05E6"+"\t\t\tL18\t\t"+L18+ // tzadi
-				"\nU+05E4\t\t\u05E7"+"\t\t\tL19\t\t"+L19+ // kuf
-				"\nU+05E4\t\t\u05E8"+"\t\t\tL20\t\t"+L20+ // resh
-				"\nU+05E4\t\t\u05E9"+"\t\t\tL21\t\t"+L21+ // shin
-				"\nU+05E4\t\t\u05EA"+"\t\t\tL22\t\t"+L22+ // tav
-				"\n\t\t\t\t\t\t\t\t"+
-				"\nU+05DA\t\t\u05DA"+"\t\t\tL23\t\t"+L23+ // chaf F
-				"\nU+05DD\t\t\u05DD"+"\t\t\tL24\t\t"+L24+ // mem F
-				"\nU+05DF\t\t\u05DF"+"\t\t\tL25\t\t"+L25+ // nun F
-				"\nU+05E3\t\t\u05E3"+"\t\t\tL26\t\t"+L26+ // pey F
-				"\nU+05E5\t\t\u05E5"+"\t\t\tL27\t\t"+L27+ // tzadi F
-				"\n");*/
-</script>
 </body>
 </html>

@@ -172,8 +172,6 @@ You will need to enable JavaScript in your web browser: see the <a class="ext" h
 <script type="text/javascript" src="files/resources/lib/base/jquery.xml2json.min.js"></script>
 <script type="text/javascript" src="files/resources/lib/base/tiggzi.js"></script>
 <link href="files/resources/css/mobilebase.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="files/views/assets/js/Copy.js"></script>
-<script type="text/javascript" src="files/views/assets/js/transpose.js"></script>
 <script type="text/javascript" src="optimized-permutations.js"></script>
 
 <script language="JavaScript">
@@ -507,8 +505,6 @@ async function copyText2() {
 	<option label='El-Shaddai' value='&#x05D0;&#x05DC; &#x05E9;&#x05D3;&#x05D9;'>
 	<option label='Adoni' value='&#x05D0;&#x05D3;&#x05D5;&#x05E0;&#x05D9;'>
 </datalist>
-<!--Likely will not need if you can use the Transpose button instead</td><td width="20px"><a data-role="button" name="samech" dsid="samechButton" class='' id='samech' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='a' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF;" onclick=""/><span title="Add this word to the Database.">&#10133;</span></a>
-</td><td width="20px"><a data-role="button" name="samech" dsid="samechButton" class='' id='samech' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF; color:#FFFFFF width: 20px;"  background-image: url('https://radius.center/gemacrypt/files/resources/lib/jquerymobile/images/icon-search-black.png'); background-size: 20px 20px; background-repeat: no-repeat; background-position: center;" onclick=""/><span title="Search for this word in the Database.">&#128269;</span></a>-->
 </td></tr></table></div>
 
 <!-- 2 Word to be Knit -->
@@ -2029,7 +2025,6 @@ document.getElementById("backexch").innerHTML = "<a href='http://translate.googl
 document.getElementById("forexch").innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(forexch)+"' target='_blank' style='color: white; font-weight: 400;'><b>" + forexch + "</b></a><br />";
 
 // Number of Paths (the 32 paths of Wisdom are the 10 Sephirot 0-9 and the 22 Hebrew letters)
-// Number of Gates 
 var noDups = inputText.replace(/(.)(?=.*\1)/gi, "")// Remove duplicated letters for original word
 gates=noDups.length;
 var gatesTotal=noDups.length;
@@ -6326,241 +6321,6 @@ for (var i=0; i < inputText.length; i++){
 			AltATBaH += letter;
 		}
 	}
-
-/*alert(
-"\nU+05D0\t\t\u05D0"+"\t\t\tL01\t\t"+L01+ // aleph
-"\nU+05D1\t\t\u05D1"+"\t\t\tL02\t\t"+L02+ // bet
-"\nU+05D2\t\t\u05D2"+"\t\t\tL03\t\t"+L03+ // gimel
-"\nU+05D3\t\t\u05D3"+"\t\t\tL04\t\t"+L04+ // dalet
-"\nU+05D4\t\t\u05D4"+"\t\t\tL05\t\t"+L05+ // hey
-"\nU+05D5\t\t\u05D5"+"\t\t\tL06\t\t"+L06+ // vav
-"\nU+05D6\t\t\u05D6"+"\t\t\tL07\t\t"+L07+ // zayin
-"\nU+05D7\t\t\u05D7"+"\t\t\tL08\t\t"+L08+ // chet
-"\nU+05D8\t\t\u05D8"+"\t\t\tL09\t\t"+L09+ // tet
-"\nU+05D9\t\t\u05D9"+"\t\t\tL10\t\t"+L10+ // yod
-"\nU+05DB\t\t\u05DB"+"\t\t\tL11\t\t"+L11+ // chaf
-"\nU+05DC\t\t\u05DC"+"\t\t\tL12\t\t"+L12+ // lamed
-"\nU+05DE\t\t\u05DE"+"\t\t\tL13\t\t"+L13+ // mem
-"\nU+05E0\t\t\u05E0"+"\t\t\tL14\t\t"+L14+ // nun
-"\nU+05E1\t\t\u05E1"+"\t\t\tL15\t\t"+L15+ // samech
-"\nU+05E2\t\t\u05E2"+"\t\t\tL16\t\t"+L16+ // ayin
-"\nU+05E4\t\t\u05E4"+"\t\t\tL17\t\t"+L17+ // pey
-"\nU+05E4\t\t\u05E6"+"\t\t\tL18\t\t"+L18+ // tzadi
-"\nU+05E4\t\t\u05E7"+"\t\t\tL19\t\t"+L19+ // kuf
-"\nU+05E4\t\t\u05E8"+"\t\t\tL20\t\t"+L20+ // resh
-"\nU+05E4\t\t\u05E9"+"\t\t\tL21\t\t"+L21+ // shin
-"\nU+05E4\t\t\u05EA"+"\t\t\tL22\t\t"+L22+ // tav
-"\n\t\t\t\t\t\t\t\t"+
-"\nU+05DA\t\t\u05DA"+"\t\t\tL23\t\t"+L23+ // chaf F
-"\nU+05DD\t\t\u05DD"+"\t\t\tL24\t\t"+L24+ // mem F
-"\nU+05DF\t\t\u05DF"+"\t\t\tL25\t\t"+L25+ // nun F
-"\nU+05E3\t\t\u05E3"+"\t\t\tL26\t\t"+L26+ // pey F
-"\nU+05E5\t\t\u05E5"+"\t\t\tL27\t\t"+L27+ // tzadi F
-"\n\t\t\t\t\t\t\t\t"+
-"inputText:\t\t\t\t\t\t"+inputText+
-"\nOriginal:\t\t\t\t\t\t\t"+original+
-//"\ninputText.length:\t\t\t\t\t"+inputText.length+
-//"\nalphas:\t\t\t\t\t\t\t"+alphas+
-//"\nalphas.length:\t\t\t\t\t"+alphas.length+
-//"\nInputText:\t\t\t\t\t\t"+InputText+
-"\nWord 1:\t\t\t\t\t\t\t"+word1+
-"\nWord 1 Gematria:\t\t\t\t\t"+gematria1+
-"\nWord 1 total letters:\t\t\t\t"+letterCount+
-"\nWords in Word 1:\t\t\t\t\t"+wordCount+
-"\nWords in InputText:\t\t\t\t"+words+
-"\nLetters in InputText:\t\t\t\t"+letters+
-"\nPaths (Unique letters):\t\t\t\t"+paths+
-"\nGates (letter permutations):\t\t"+gatesTotal+
-"\nSkip:\t\t\t\t\t\t\t"+skip+
-"\nSkip Gematria\t\t\t\t\t"+gematriaSkip+
-"\nLeap:\t\t\t\t\t\t\t"+leap+
-"\nLeap Gematria\t\t\t\t\t"+gematriaLeap+
-"\nReversed:\t\t\t\t\t\t"+reverse+
-"\nReversed Word 1 Gematria:\t\t"+gematriaReversed+
-"\nElision:\t\t\t\t\t\t\t"+elision+
-"\nElision Gematria:\t\t\t\t\t"+gematriaElision+
-"\nSummation:\t\t\t\t\t\t"+summation+
-"\nSummation Gematria:\t\t\t\t"+gematriaSum+
-"\nBackwards Exchange roll:\t\t\t"+backexch+
-"\nForward Ex Gematria:\t\t\t\t"+gematriaAvgadBE+
-"\nForeward Exchange roll:\t\t\t"+forexch+
-"\nForward Ex Gematria:\t\t\t\t"+gematriaAvgadFE+
-"\nAcronym:\t\t\t\t\t\t"+acronym+
-"\nAcronym Gematria:\t\t\t\t"+gematriaAcronym+
-//"\nAcronym Length:\t\t\t\t\t"+acronym.length+
-"\nFinals:\t\t\t\t\t\t\t"+sofim+
-"\nFinals Gematria:\t\t\t\t\t"+gematriaSofit+
-//"\nAcronym Length:\t\t\t\t\t"+acronym.length+
-//"\nMuliy Method:\t\t\t\t\t"+spelling+
-"\nMuliy Total:\t\t\t\t\t\t"+gematriaMiluy+
-"\nAB Spelling:\t\t\t\t\t\t"+textAB+
-"\nAB Gematria:\t\t\t\t\t\t"+gematriaAB+
-"\nSaG Spelling:\t\t\t\t\t\t"+textSaG+
-"\nSaG Gematria:\t\t\t\t\t"+gematriaSaG+
-"\nMaH Spelling:\t\t\t\t\t"+textMaH+
-"\nMaH Gematria:\t\t\t\t\t"+gematriaMaH+
-"\nBaN Spelling:\t\t\t\t\t"+textBaN+
-"\nBaN Gematria:\t\t\t\t\t"+gematriaBaN+
-"\n\t\t\t\t\t\t\t\t"+
-//"\nInputText2:\t\t\t\t\t\t"+InputText2+
-"\nWord 2:\t\t\t\t\t\t\t"+word2+
-"\nWord 2 Gematria:\t\t\t\t\t"+gematriaWord2+
-"\nKnit:\t\t\t\t\t\t\t"+knit+
-"\nKnit Gematria:\t\t\t\t\t"+gematriaKnit+
-"\n\t\t\t\t\t\t\t\t"+
-"\nRagil:\t\t\t\t\t\t\t"+RagilValue+
-"\nKolel:\t\t\t\t\t\t\t"+KolelValue+
-"\nKolel1:\t\t\t\t\t\t\t"+Kolel1Value+
-"\nHaKlali:\t\t\t\t\t\t\t"+HaKlaliValue+
-"\nReduced:\t\t\t\t\t\t"+ReducedlValue+
-"\nIntegralReduced:\t\t\t\t\t"+IntegralReducedlValue+
-"\nKatan:\t\t\t\t\t\t\t"+KatanValue+
-"\nOrdinal:\t\t\t\t\t\t\t"+OrdinalValue+
-"\nHaKadmi:\t\t\t\t\t\t"+HaKadmiValue+
-"\nHaPerati:\t\t\t\t\t\t"+HaPeratiValue+
-"\nMiluy:\t\t\t\t\t\t\t"+MiluyValue+
-"\n\t\t\t\t\t\t\t\t"+
-"\nAYik-BeCheR:\t\t\t\t\t"+AYiKBeCheR+
-"\nAYik-BeCheR Encrypted Gematria:\t"+gematria2AYiKBeCheR+
-"\nAT-BaSh:\t\t\t\t\t\t"+ATBaSh+
-"\nAT-BaSh Encrypted Gematria:\t\t"+gematria2ATBaSh+
-"\nAL-BaM:\t\t\t\t\t\t"+ALBaM+
-"\nAL-BaM Encrypted Gematria:\t\t"+gematria2ALBaM+
-"\nACh-BI:\t\t\t\t\t\t\t"+AChBI+
-"\nACh-BI Encrypted Gematria:\t\t"+gematria2AChBI+
-"\nAChaS-BeTA:\t\t\t\t\t\t"+AChaSBeTA+
-"\nAChaS-BeTA Encrypted Gematria:\t"+gematria2AChaSBeTA+
-"\nAT-BaCh:\t\t\t\t\t\t"+ATBaCh+
-"\nAT-BaCh Encrypted Gematria:\t\t"+gematria2ATBaCh+
-"\nAT-BaCh F:\t\t\t\t\t\t"+ATBaCh999+
-"\nAT-BaCh F Encrypted Gematria:\t\t"+gematria2ATBaCh999+
-"\nAiY-BaK:\t\t\t\t\t\t"+AiYBaK+
-"\nAiY-BaK Encrypted Gematria:\t\t"+gematria2AiYBaK+
-"\nATz-BaPh:\t\t\t\t\t\t"+ATzBaPh+
-"\nATz-BaPh Encrypted Gematria:\t\t"+gematria2ATzBaPh+
-"\nAL-BeTh:\t\t\t\t\t\t"+ALBeTh+
-"\nAL-BeTh Encrypted Gematria:\t\t"+gematria2ALBeTh+
-"\nOfanim:\t\t\t\t\t\t\t"+Ofanim+
-"\nOfanim Encrypted Gematria:\t\t"+gematria2Ofanim+
-"\n\t\t\t\t\t\t\t\t"+
-"\n\t\t\t\t\t\t\t\t"+
-"\n\t\t\t\t\t\t\t\t"+
-"\nAltATBaSh:\t\t\t\t\t\t"+AltATBaSh+
-"\nAltATBaSh Encrypted Gematria:\t\t"+gematria2AltATBaSh+
-"\nAltAShBaR:\t\t\t\t\t\t"+AltAShBaR+
-"\nAltAShBaR Encrypted Gematria:\t"+gematria2AltAShBaR+
-"\nAltARBaK:\t\t\t\t\t\t"+AltARBaK+
-"\nAltARBaK Encrypted Gematria:\t\t"+gematria2AltARBaK+
-"\nAltAQBeTz:\t\t\t\t\t\t"+AltAQBeTz+
-"\nAltAQBeTz Encrypted Gematria:\t\t"+gematria2AltAQBeTz+
-"\nAltEZBePh:\t\t\t\t\t\t"+AltEZBePh+
-"\nAltEZBePh Encrypted Gematria:\t\t"+gematria2AltEZBePh+
-"\nAltAPBE:\t\t\t\t\t\t"+AltAPBE+
-"\nAltAPBE Encrypted Gematria:\t\t"+gematria2AltAPBE+
-"\nAltAEBaS:\t\t\t\t\t\t"+AltAEBaS+
-"\nAltAEBaS Encrypted Gematria:\t\t"+gematria2AltAEBaS+
-"\nAltASBeN:\t\t\t\t\t\t"+AltASBeN+
-"\nAltASBeN Encrypted Gematria:\t\t"+gematria2AltASBeN+
-"\nAltANBaM:\t\t\t\t\t\t"+AltANBaM+
-"\nAltANBaM Encrypted Gematria:\t"+gematria2AltANBaM+
-"\nAltAMBeL:\t\t\t\t\t\t"+AltAMBeL+
-"\nAltAMBeL Encrypted Gematria:\t\t"+gematria2AltAMBeL+
-"\nAltELBaCh:\t\t\t\t\t\t"+AltELBaCh+
-"\nAltELBaCh Encrypted Gematria:\t\t"+gematria2AltELBaCh+
-"\nAltAChBI:\t\t\t\t\t\t"+AltAChBI+
-"\nAltAChBI Encrypted Gematria:\t\t"+gematria2AltAChBI+
-"\nAltAIBeT:\t\t\t\t\t\t"+AltAIBeT+
-"\nAltAIBeT Encrypted Gematria:\t\t"+gematria2AltAIBeT+
-"\nAltATBaCh:\t\t\t\t\t\t"+AltATBaCh+
-"\nAltATBaCh Encrypted Gematria:\t"+gematria2AltATBaCh+
-"\nAltAChBaZ:\t\t\t\t\t\t"+AltAChBaZ+
-"\nAltAChBaZ Encrypted Gematria:\t"+gematria2AltAChBaZ+
-"\nAltAZBO:\t\t\t\t\t\t"+AltAZBO+
-"\nAltAZBO Encrypted Gematria:\t\t"+gematria2AltAZBO+
-"\nAltAVBaH:\t\t\t\t\t\t"+AltAVBaH+
-"\nAltAVBaH Encrypted Gematria:\t\t"+gematria2AltAVBaH+
-"\nAltAHBaD:\t\t\t\t\t\t"+AltAHBaD+
-"\nAltAHBaD Encrypted Gematria:\t\t"+gematria2AltAHBaD+
-"\nAltADBeG:\t\t\t\t\t\t"+AltADBeG+
-"\nAltADBeG Encrypted Gematria:\t\t"+gematria2AltADBeG+
-"\nAltAGBaB:\t\t\t\t\t\t"+AltAGBaB+
-"\nAltAGBaB Encrypted Gematria:\t\t"+gematria2AltAGBaB+
-"\nAltABBA:\t\t\t\t\t\t"+AltABBA+
-"\nAltABBA Encrypted Gematria:\t\t"+gematria2AltABBA+
-"\nAltAAhBaT:\t\t\t\t\t\t"+AltAAhBaT+
-"\nAltAAhBaT Encrypted Gematria:\t"+gematria2AltAAhBaT+
-"\nAltABBaG:\t\t\t\t\t\t"+AltABBaG+
-"\nAltABBaG Encrypted Gematria:\t\t"+gematria2AltABBaG+
-"\nAltAGBaD:\t\t\t\t\t\t"+AltAGBaD+
-"\nAltAGBaD Encrypted Gematria:\t\t"+gematria2AltAGBaD+
-"\nAltADBaH:\t\t\t\t\t\t"+AltADBaH+
-"\nAltADBaH Encrypted Gematria:\t\t"+gematria2AltADBaH+
-"\nAltAHBeV:\t\t\t\t\t\t"+AltAHBeV+
-"\nAltAHBeV Encrypted Gematria:\t\t"+gematria2AltAHBeV+
-"\nAltAVBeZ:\t\t\t\t\t\t"+AltAVBeZ+
-"\nAltAVBeZ Encrypted Gematria:\t\t"+gematria2AltAVBeZ+
-"\nAltAZBeCh:\t\t\t\t\t\t"+AltAZBeCh+
-"\nAltAZBeCh Encrypted Gematria:\t"+gematria2AltAZBeCh+
-"\nAltAChBeT:\t\t\t\t\t\t"+AltAChBeT+
-"\nAltAChBeT Encrypted Gematria:\t"+gematria2AltAChBeT+
-"\nAltATBI:\t\t\t\t\t\t\t"+AltATBI+
-"\nAltATBI Encrypted Gematria:\t\t"+gematria2AltATBI+
-"\nAltAIBech:\t\t\t\t\t\t"+AltAIBech+
-"\nAltAIBech Encrypted Gematria:\t\t"+gematria2AltAIBech+
-"\nAltAChBeL:\t\t\t\t\t\t"+AltAChBeL+
-"\nAltAChBeL Encrypted Gematria:\t"+gematria2AltAChBeL+
-"\nAltELBaM:\t\t\t\t\t\t"+AltELBaM+
-"\nAltELBaM Encrypted Gematria:\t\t"+gematria2AltELBaM+
-"\nAltAMBeN:\t\t\t\t\t\t"+AltAMBeN+
-"\nAltAMBeN Encrypted Gematria:\t"+gematria2AltAMBeN+
-"\nAltANBeS:\t\t\t\t\t\t"+AltANBeS+
-"\nAltANBeS Encrypted Gematria:\t\t"+gematria2AltANBeS+
-"\nAltASBA:\t\t\t\t\t\t"+AltASBA+
-"\nAltASBA Encrypted Gematria:\t\t"+gematria2AltASBA+
-"\nAltAABaPh:\t\t\t\t\t\t"+AltAABaPh+
-"\nAltAABaPh Encrypted Gematria:\t"+gematria2AltAABaPh+
-"\nAltAPhBaTz:\t\t\t\t\t\t"+AltAPhBaTz+
-"\nAltAPhBaTz Encrypted Gematria:\t"+gematria2AltAPhBaTz+
-"\nAltATzBeQ:\t\t\t\t\t\t"+AltATzBeQ+
-"\nAltATzBeQ Encrypted Gematria:\t\t"+gematria2AltATzBeQ+
-"\nAltAKBaR:\t\t\t\t\t\t"+AltAKBaR+
-"\nAltAKBaR Encrypted Gematria:\t\t"+gematria2AltAKBaR+
-"\nAltARBeSh:\t\t\t\t\t\t"+AltARBeSh+
-"\nAltARBeSh Encrypted Gematria:\t"+gematria2AltARBeSh+
-"\nAltAShBeT:\t\t\t\t\t\t"+AltAShBeT+
-"\nAltAShBeT Encrypted Gematria:\t\t"+gematria2AltAShBeT+
-"\nAltATBaH:\t\t\t\t\t\t"+AltATBaH+
-"\nAltATBaH Encrypted Gematria:\t\t"+gematria2AltATBaH+
-"\n\t\t\t\t\t\t\t\t"+
-//"\nEncryption Method:\t\t\t\t"+cryptography+
-"\nEncrypted:\t\t\t\t\t\t"+cryptography2+
-//"\nEncrypted # of letters:\t\t\t\t"+cryptography2.length+
-"\nEncrypted Gematria:\t\t\t\t"+gematria2+
-//"\nPictogram:\t\t\t\t\t\t"+pictogram+
-//"\nmorph:\t\t\t\t\t\t\t"+morph+
-//"\n\t\t\t\t\t\t\t\t"+
-//
-//"\nTzadi Sofit:\t\t\t\t\t\t"+L27+
-//"\nTzadi Sofit name:\t\t\t\t\t"+L27+
-//"\nTzadi Sofit numeric value:\t\t\t"+L27+
-//
-//"\ngematriaSummation:\t\t\t\t\t\t"+gematriaSummation+
-//"\ncryptography.length:\t\t\t"\t+cryptography.length+
-//
-//"\nArray:\t\t\t\t\t\t\t"+array+
-//"\nArray Reversed:\t\t\t\t\t"+arrev+
-//
-//"\nDenominator:\t\t\t\t\t"+denominator+
-//"\nDenom:\t\t\t\t\t\t"+denom+
-//"\nNumerator:\t\t\t\t\t\t"+numerator+
-//"\nOne:\t\t\t\t\t\t\t"+one+
-//"\nZeros:\t\t\t\t\t\t\t"+zeros+
-//"\nTemp:\t\t\t\t\t\t\t"+temp+
-//"\nTemp2:\t\t\t\t\t\t\t"+temp2+
-//"\nTemp3:\t\t\t\t\t\t\t"+temp3+
-//"\nTemp4:\t\t\t\t\t\t\t"+temp4+
-//"\nTemp5:\t\t\t\t\t\t\t"+temp5+
-"\n");*/
 
 // Send an AJAX request to the server to execute the insert.php script
 $.ajax({
