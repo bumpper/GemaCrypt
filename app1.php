@@ -3,7 +3,7 @@
 <head>
 <title>GemaCrypt</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="files/resources/lib/theme/jqm/jqm.css" rel="stylesheet" />
+<link id="theme-css" href="files/resources/lib/theme/jqm/jqm.css" rel="stylesheet" />
 <link href="files/resources/lib/jquerymobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="SHORTCUT ICON" href="img/bet.png" />
@@ -351,6 +351,27 @@ html {
 </script>
 
 <script>
+// Theme switching functionality
+function switchTheme(themeName) {
+  const themeLink = document.getElementById('theme-css');
+  if (themeLink) {
+    themeLink.href = `files/resources/lib/theme/${themeName}/${themeName}.css`;
+    
+    // Store the selected theme in localStorage for persistence
+    localStorage.setItem('selectedTheme', themeName);
+    
+    console.log(`Theme switched to: ${themeName}`);
+  }
+}
+
+// Load saved theme on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const savedTheme = localStorage.getItem('selectedTheme');
+  if (savedTheme) {
+    switchTheme(savedTheme);
+  }
+});
+
 // Adds the copy icon and functionality to the form elements inputText & inputText2 in order to copy their contents.  
 async function copyText() {
   try {
@@ -378,9 +399,17 @@ async function copyText2() {
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleKeyboard()"><img src="img/invis.gif" width="10" border="0"><img src="img/kboard.png" alt="Hebrew Keyboard" height="16" width="30" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleNiqqud()"><img src="img/niqqud.png" alt="Niqqud" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleCantillation()"><img src="img/music.png" alt="Cantillation" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
-<a href="help.html" style="color: #555; font-size: 18px; text-decoration: none;" target="_blank">GemaCrypt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<a href="#" style="text-decoration: none; float: left;" onclick="switchTheme('cappucino')"><img src="img/theme1.png" alt="Theme" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
+<a href="#" style="text-decoration: none; float: left;" onclick="switchTheme('dendrite')"><img src="img/theme2.png" alt="Theme" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
+<a href="#" style="text-decoration: none; float: left;" onclick="switchTheme('gelato')"><img src="img/theme3.png" alt="Theme" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
+<a href="#" style="text-decoration: none; float: left;" onclick="switchTheme('jqm')"><img src="img/theme4.png" alt="Theme" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
+<a href="#" style="text-decoration: none; float: left;" onclick="switchTheme('olive')"><img src="img/theme5.png" alt="Theme" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
+<a href="#" style="text-decoration: none; float: left;" onclick="switchTheme('pastel')"><img src="img/theme6.png" alt="Theme" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
+<a href="#" style="text-decoration: none; float: left;" onclick="switchTheme('winter')"><img src="img/theme7.png" alt="Theme" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
+<a href="help.html" style="color: #555; font-size: 18px; text-decoration: none;" target="_blank">GemaCrypt<!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 <a href="help.html" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/helpblack.png" alt="Help" height="15" width="15" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="16" border="0"></a>
-<a href="http://radius.center/gemacrypt/app2.php" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/book.png" alt="App2" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a></h1>
+<a href="http://radius.center/gemacrypt/app2.php" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/book.png" alt="App2" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a>
+<a href="https://radius.center/phpmyadmin/db_sql.php?db=gematriaDB" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/query.png" alt="Query" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a></h1>
 
 <!--Hebrew letters if no keyboard is installed-->
 <div id="keyboard" class="result">

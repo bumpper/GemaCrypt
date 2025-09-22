@@ -255,6 +255,13 @@
 			font-weight: bold !important; 
   			box-shadow: 1 1 2px rgba(0, 0, 0, 100) !important; 
         }
+        .gematria-match {
+            background-color: #00FF00 !important; /* Bright green background */
+            color: #000000 !important; /* Black text for contrast */
+            font-weight: bold !important;
+            padding: 1px 2px !important;
+            border-radius: 2px !important;
+        }
         #statusBar {
 	        font-family: Arial, sans-serif;
 	        font-size: 12px;
@@ -463,10 +470,11 @@
 		padding: 20px;
 		border: 1px solid #888;
 		width: 80%;
-		max-width: 800px;
+		min-width: 400px;
+		max-width: 90vw;
 		max-height: 90vh;
 		overflow-y: auto;
-		overflow-x: hidden;
+		overflow-x: auto;
 		font-family: Arial, sans-serif;
 		background-image: url("");
 		background-repeat: repeat;
@@ -482,6 +490,8 @@
 		/* Enable smooth scrolling within modal content */
 		scroll-behavior: smooth;
 		-webkit-overflow-scrolling: touch;
+		/* Allow modal to expand as needed */
+		resize: both;
 		}
 		/* Responsive modal sizing */
 		@media (max-width: 768px) {
@@ -2332,10 +2342,10 @@
 			}
 		  </script>
 
-		<button id="calculateBtn" class="textBtn" onclick="createModal(); calculateEncryptedTotal(); openModal(textHighlight, textTotal, textEncrypted, input, encryptedTotal, encryptedsum);"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="4" border="0">Calc</button>
-		<button id="findBtn" class="textBtn" onclick="toggleFind"><img src="img/find.png" height="16" width="14" border="0" alt="Find"><img src="img/invis.gif" width="4" border="0">Find</button>
-		<button id="elsBtn" class="textBtn" onclick="toggleELS"><img src="img/els.png" height="16" width="14" border="0" alt="Equidistant Letter Sequence"><img src="img/invis.gif" width="4" border="0">ELS</button>
-<button id="swapBtn" class="textBtn" onclick="toggleSwap()"><img src="img/swap.png" height="16" width="14" border="0" alt="Swap"><img src="img/invis.gif" width="4" border="0">Swap</button>
+		<button id="calcBtn" class="textBtn" onclick="toggleCalc();"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="4" border="0">Calc</button>
+		<button id="findBtn" class="textBtn" onclick="toggleFind()"><img src="img/find.png" height="16" width="14" border="0" alt="Find"><img src="img/invis.gif" width="4" border="0">Find</button>
+		<button id="elsBtn" class="textBtn" onclick="toggleELS()"><img src="img/els.png" height="16" width="14" border="0" alt="Equidistant Letter Sequence"><img src="img/invis.gif" width="4" border="0">ELS</button>
+		<button id="swapBtn" class="textBtn" onclick="toggleSwap()"><img src="img/swap.png" height="16" width="14" border="0" alt="Swap"><img src="img/invis.gif" width="4" border="0">Swap</button>
 		<button id="copyBtn" class="textBtn" onclick=""><img src="img/copy.png" height="16" width="16" border="0" alt="Copy">&#x1F4D1;<img src="img/invis.gif" width="4" border="0">Copy</button>
 		<button id="directionBtn" class="textBtn" onclick="toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><img src="img/invis.gif" width="6" border="0">Align</button>
 		<button id="wrapBtn" class="textBtn" onclick="toggleWrap()"><img src="img/wrap.png" height="16" width="20" border="0" alt="Wrap Text"><img src="img/invis.gif" width="6" border="0">Wrap</button>
@@ -2383,33 +2393,432 @@
 		textarea.innerHTML = newText;
 	  </script>
 
-<script>
+	<script>
 		function toggleCalc(){
-			/*
-			Insert a new line after each carriage return.
-			Beginning with the first line of the original text, take the first word until you run into a space, and find the gematria of those letters and append a space to it's numerical value then paste it on the blank line directly below that word.  
-			Continue this process for the next word following that word that was just worked, and do the same process appending its gematria value on the line directly below it next to the gematria value that was previously placed there as well.
-			When calculating the gematria remove any from the input text that is not a Hebrew, Greek, Latin, or English letter.
-			When you reach the end of the first line of text jump down to what use to be the next line, but is now the 3rd line and repeat the process, pasting the gematria values on the blank line directly below it, which would not be the 4th line. 
-			Continue this process until there are no more lines of text to process.
-			*/
+			// Get the textArea element
+			const textArea = document.getElementById('textArea');
+			if (!textArea) {
+				console.error('textArea element not found');
+				return;
+			}
+			
+			// Get the current text content
+			let content = textArea.textContent;
+			
+			// Insert exactly 2 new lines after each line break
+			// First normalize all line endings to \n, then add exactly 2 more \n
+			content = content.replace(/\r\n/g, '\n');  // Convert \r\n to \n
+			content = content.replace(/\r/g, '\n');    // Convert \r to \n
+			content = content.replace(/\n/g, '\n\n'); // Replace each \n with \n\n (original +  extra)
+			
+			// Function to calculate gematria for a word based on current gematria method
+			function calculateWordGematria(word) {
+				let total = 0;
+				let letterCount = 0;
+				let wordCount = 1;
+				
+				// Calculate base gematria value
+				for (let char of word) {
+					const code = char.charCodeAt(0);
+					// Hebrew letters
+					if (code >= 0x05D0 && code <= 0x05EA) {
+						letterCount++;
+						switch(char) {
+							case "\u05D0": total += L01; break; // aleph
+							case "\u05D1": total += L02; break; // bet
+							case "\u05D2": total += L03; break; // gimel
+							case "\u05D3": total += L04; break; // dalet
+							case "\u05D4": total += L05; break; // hey
+							case "\u05D5": total += L06; break; // vav
+							case "\u05D6": total += L07; break; // zayin
+							case "\u05D7": total += L08; break; // chet
+							case "\u05D8": total += L09; break; // tet
+							case "\u05D9": total += L10; break; // yod
+							case "\u05DB": total += L11; break; // kaf
+							case "\u05DC": total += L12; break; // lamed
+							case "\u05DE": total += L13; break; // mem
+							case "\u05E0": total += L14; break; // nun
+							case "\u05E1": total += L15; break; // samech
+							case "\u05E2": total += L16; break; // ayin
+							case "\u05E4": total += L17; break; // pey
+							case "\u05E6": total += L18; break; // tzadi
+							case "\u05E7": total += L19; break; // kuf
+							case "\u05E8": total += L20; break; // resh
+							case "\u05E9": total += L21; break; // shin
+							case "\u05EA": total += L22; break; // tav
+						}
+					} else if (char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || char === "\u05E3" || char === "\u05E5") {
+						// Hebrew finals
+						letterCount++;
+						switch(char) {
+							case "\u05DA": total += L23; break; // kaf sofit
+							case "\u05DD": total += L24; break; // mem sofit
+							case "\u05DF": total += L25; break; // nun sofit
+							case "\u05E3": total += L26; break; // pey sofit
+							case "\u05E5": total += L27; break; // tzadi sofit
+						}
+					} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+						// English letters
+						letterCount++;
+						const upper = code >= 65 && code <= 90 ? code : code - 32;
+						total += upper - 64;
+					} else if (code >= 0x0370 && code <= 0x03FF) {
+						// Greek letters
+						letterCount++;
+						switch(char) {
+							case "\u0386": case "\u0391": case "\u03AC": case "\u03B1": total += L01; break; // alpha
+							case "\u0392": case "\u03B2": total += L02; break; // beta
+							case "\u0393": case "\u03B3": total += L03; break; // gamma
+							case "\u0394": case "\u03B4": total += L04; break; // delta
+							case "\u0388": case "\u0395": case "\u03AD": case "\u03B5": total += L05; break; // epsilon
+							case "\u0396": case "\u03B6": total += L07; break; // zeta
+							case "\u0389": case "\u0397": case "\u03AE": case "\u03B7": total += L08; break; // eta
+							case "\u0398": case "\u03B8": total += L09; break; // theta
+							case "\u038A": case "\u0399": case "\u03AF": case "\u03B9": total += L10; break; // iota
+							case "\u039A": case "\u03BA": total += L11; break; // kappa
+							case "\u039B": case "\u03BB": total += L12; break; // lambda
+							case "\u039C": case "\u03BC": total += L13; break; // mu
+							case "\u039D": case "\u03BD": total += L14; break; // nu
+							case "\u039E": case "\u03BE": total += L15; break; // xi
+							case "\u038C": case "\u039F": case "\u03CC": case "\u03BF": total += L16; break; // omicron
+							case "\u03A0": case "\u03C0": total += L17; break; // pi
+							case "\u03A1": case "\u03C1": total += L18; break; // rho
+							case "\u03A3": case "\u03C2": case "\u03C3": total += L19; break; // sigma
+							case "\u03A4": case "\u03C4": total += L20; break; // tau
+							case "\u038E": case "\u03A5": case "\u03CD": case "\u03C5": total += L21; break; // upsilon
+							case "\u03A6": case "\u03C6": total += L22; break; // phi
+							case "\u03A7": case "\u03C7": total += L23; break; // chi
+							case "\u03A8": case "\u03C8": total += L24; break; // psi
+							case "\u038F": case "\u03A9": case "\u03CE": case "\u03C9": total += L25; break; // omega
+							default: break;
+						}
+					}
+				}
+				
+				// Get current gematria method
+				const gematriaSelect = document.getElementById('gematriaSelect');
+				let gematriaMethod = gematriaSelect ? gematriaSelect.value : 'Ragil';
+				
+				// Apply gematria modifiers based on selected method
+				if(gematriaMethod == "HaKlali"){
+					total = total * total;
+				}
+				else if(gematriaMethod == "Kolel"){
+					total += letterCount;
+				}
+				else if(gematriaMethod == "Kolel+1"){
+					total += wordCount;
+				}
+				else if (gematriaMethod == "IntegralReduced"){
+					while(total >= 10){
+						let product = Math.floor(total / 10);
+						let remainder = total % 10;
+						total = remainder + product;
+					}
+				}
+				
+				return total;
+			}
+			
+			// Split content into lines
+			const lines = content.split(/\r\n|\n|\r/);
+			let processedLines = [];
+			
+			// Process each line
+			for (let i = 0; i < lines.length; i++) {
+				const line = lines[i];
+				processedLines.push(line);
+				
+				// Check if this line contains letters (not just whitespace or punctuation)
+				if (/[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(line)) {
+					// Split line into words
+					const words = line.split(/[\s\t\u00A0\u2000-\u200B\u2028\u2029\u3000]+/).filter(word => word.trim().length > 0);
+					let gematriaValues = [];
+					
+					// Calculate gematria for each word
+					for (let word of words) {
+						// Clean word of punctuation for calculation but keep original for display
+						const cleanWord = word.replace(/[.,!?\-;\*\(\)\[\]\u05C3]/g, '');
+						// Only process words that contain actual letters (exclude tab/indent characters and pure punctuation)
+						if (cleanWord.length > 0 && /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(cleanWord)) {
+							const gematriaValue = calculateWordGematria(cleanWord);
+							gematriaValues.push(gematriaValue);
+						}
+					}
+					
+					// Create the gematria values line with bright green color and Fleur-De-Lis separator
+					// Only add tab if the original line contains a tab
+					if (gematriaValues.length > 0) {
+						const gematriaLine = gematriaValues.join(' <span style="font-size: 12px;">⚜️</span> ');
+						const tabPrefix = line.includes('\t') ? '\t' : '';
+						processedLines.push(`${tabPrefix}<span style="color: #00FF00; font-weight: bold;">${gematriaLine}</span>`);
+					}
+				}
+			}
+			
+			// Update the textArea with the processed content
+			textArea.innerHTML = processedLines.join('\n');
 		}
 	</script>
 
 	<script>
 		function toggleFind(){
-			/*
-			Open a new modal called findModal with a text input field called findInput and the findBtn to the right of it.
-			WHen the findBtn is clicked take the text from findInput and convert it to its gematria value as the variable called findGematria.
-			Then start with the first letter in the textAre and assign to to the variable compareText.
-			Then calculate compareText's gematria value, and assign that value as compareGematria.
-			Compare findGematria with compareGematria and see if they are equal.
-			If so save compareText to an array named findResults.
-			If compareGematria is more than findGematria, then begin again with the next letter after that one in textArea.
-			If compareGematria does not equal findGematria, but less than findGematria, then take the next letter after compareText in textArea and append it to compareText so that it is the new compareText variable, and sum all the letters of compareText and assing that value asa the new compareGematria.
-			Do another check if compareGematra equals findGematria and repeat until compareGematra is more than findGematria or there are no more letters in textArea to be used.
-			Exit the loop and display the results in findModal below findInput and display the value of findGematria and then below findGematria have each compareText that did match findGematria listed on a new line of findModal for display purposes.
-			*/
+			const existingModal = document.getElementById('findModal');
+			if (existingModal) {
+				existingModal.remove();
+				return;
+			}
+			
+			const textArea = document.getElementById('textArea');
+			const modal = document.createElement('div');
+			modal.id = 'findModal';
+			modal.className = 'modal';
+			modal.innerHTML = `
+				<div class="modal-content" style="width: 40%; min-width: 300px; max-width: 80vw; height: auto; min-height: 300px; max-height: 90vh;">
+					<span class="close" onclick="document.getElementById('findModal').remove()">&times;</span>
+					<h2 style="text-align: center;">Find Gematria Matches</h2>
+					<div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; margin-top: 20px;">
+						<input type="text" id="findInput" placeholder="Enter gematria value" style="text-align: left; padding: 8px; border: 1px solid #ccc; border-radius: 5px; flex-grow: 1;">
+						<button id="findSearchBtn" class="textBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 8px 8px 8px; cursor: pointer; font-size: 12px; font-weight: bold; margin-right: 0px; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35); transition: background-color 0.0s;">
+							<img src="img/find.png" height="16" width="14" border="0" alt="Search"><img src="img/invis.gif" width="4" border="0">Search
+						</button>
+					</div>
+					<div id="findResults" style="margin-top: 20px; white-space: pre-wrap; max-height: 60vh; overflow-y: auto; word-wrap: break-word; overflow-wrap: break-word;"></div>
+				</div>
+			`;
+			document.body.appendChild(modal);
+			modal.style.display = 'block';
+
+			// Prepopulate findInput with the sum value
+			const findInput = document.getElementById('findInput');
+			if (findInput) {
+				findInput.value = textTotal;
+			}
+
+			function convertToGematria(str) {
+				let total = 0;
+				for (let char of str) {
+					const code = char.charCodeAt(0);
+					if (code >= 0x05D0 && code <= 0x05EA) {
+						switch(char) {
+							case "\u05D0": total += L01; break;
+							case "\u05D1": total += L02; break;
+							case "\u05D2": total += L03; break;
+							case "\u05D3": total += L04; break;
+							case "\u05D4": total += L05; break;
+							case "\u05D5": total += L06; break;
+							case "\u05D6": total += L07; break;
+							case "\u05D7": total += L08; break;
+							case "\u05D8": total += L09; break;
+							case "\u05D9": total += L10; break;
+							case "\u05DB": total += L11; break;
+							case "\u05DC": total += L12; break;
+							case "\u05DE": total += L13; break;
+							case "\u05E0": total += L14; break;
+							case "\u05E1": total += L15; break;
+							case "\u05E2": total += L16; break;
+							case "\u05E4": total += L17; break;
+							case "\u05E6": total += L18; break;
+							case "\u05E7": total += L19; break;
+							case "\u05E8": total += L20; break;
+							case "\u05E9": total += L21; break;
+							case "\u05EA": total += L22; break;
+							case "\u05DA": total += L23; break;
+							case "\u05DD": total += L24; break;
+							case "\u05DF": total += L25; break;
+							case "\u05E3": total += L26; break;
+							case "\u05E5": total += L27; break;
+						}
+					} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+						const upper = code >= 65 && code <= 90 ? code : code - 32;
+						total += upper - 64;
+					}
+				}
+				return total;
+			}
+
+			document.getElementById('findSearchBtn').addEventListener('click', () => {
+				const findInputValue = document.getElementById('findInput').value.trim();
+				if (!findInputValue) {
+					document.getElementById('findResults').textContent = 'Please enter a gematria value to find.';
+					return;
+				}
+				
+				// Parse the target gematria value
+				const targetGematria = parseInt(findInputValue);
+				if (isNaN(targetGematria)) {
+					document.getElementById('findResults').textContent = 'Please enter a valid number.';
+					return;
+				}
+				
+				// Clear any previous highlights
+				const existingHighlights = textArea.querySelectorAll('.gematria-match');
+				existingHighlights.forEach(highlight => {
+					const parent = highlight.parentNode;
+					parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+					parent.normalize();
+				});
+				
+				// Get the current gematria method
+				const gematriaSelect = document.getElementById('gematriaSelect');
+				let gematriaMethod = gematriaSelect ? gematriaSelect.value : 'Ragil';
+				// Display "Ragil" instead of "Value" for consistency
+				if (gematriaMethod === 'Value') {
+					gematriaMethod = 'Ragil';
+				}
+				
+				// Function to calculate gematria with current method and modifiers
+				function calculateWordGematria(word) {
+					let total = 0;
+					let letterCount = 0;
+					let wordCount = 1;
+					
+					// Calculate base gematria value
+					for (let char of word) {
+						const code = char.charCodeAt(0);
+						// Hebrew letters
+						if (code >= 0x05D0 && code <= 0x05EA) {
+							letterCount++;
+							switch(char) {
+								case "\u05D0": total += L01; break; // aleph
+								case "\u05D1": total += L02; break; // bet
+								case "\u05D2": total += L03; break; // gimel
+								case "\u05D3": total += L04; break; // dalet
+								case "\u05D4": total += L05; break; // hey
+								case "\u05D5": total += L06; break; // vav
+								case "\u05D6": total += L07; break; // zayin
+								case "\u05D7": total += L08; break; // chet
+								case "\u05D8": total += L09; break; // tet
+								case "\u05D9": total += L10; break; // yod
+								case "\u05DB": total += L11; break; // kaf
+								case "\u05DC": total += L12; break; // lamed
+								case "\u05DE": total += L13; break; // mem
+								case "\u05E0": total += L14; break; // nun
+								case "\u05E1": total += L15; break; // samech
+								case "\u05E2": total += L16; break; // ayin
+								case "\u05E4": total += L17; break; // pey
+								case "\u05E6": total += L18; break; // tzadi
+								case "\u05E7": total += L19; break; // kuf
+								case "\u05E8": total += L20; break; // resh
+								case "\u05E9": total += L21; break; // shin
+								case "\u05EA": total += L22; break; // tav
+							}
+						} else if (char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || char === "\u05E3" || char === "\u05E5") {
+							// Hebrew finals
+							letterCount++;
+							switch(char) {
+								case "\u05DA": total += L23; break; // kaf sofit
+								case "\u05DD": total += L24; break; // mem sofit
+								case "\u05DF": total += L25; break; // nun sofit
+								case "\u05E3": total += L26; break; // pey sofit
+								case "\u05E5": total += L27; break; // tzadi sofit
+							}
+						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+							// English letters
+							letterCount++;
+							const upper = code >= 65 && code <= 90 ? code : code - 32;
+							total += upper - 64;
+						} else if (code >= 0x0370 && code <= 0x03FF) {
+							// Greek letters
+							letterCount++;
+							switch(char) {
+								case "\u0386": case "\u0391": case "\u03AC": case "\u03B1": total += L01; break; // alpha
+								case "\u0392": case "\u03B2": total += L02; break; // beta
+								case "\u0393": case "\u03B3": total += L03; break; // gamma
+								case "\u0394": case "\u03B4": total += L04; break; // delta
+								case "\u0388": case "\u0395": case "\u03AD": case "\u03B5": total += L05; break; // epsilon
+								case "\u0396": case "\u03B6": total += L07; break; // zeta
+								case "\u0389": case "\u0397": case "\u03AE": case "\u03B7": total += L08; break; // eta
+								case "\u0398": case "\u03B8": total += L09; break; // theta
+								case "\u038A": case "\u0399": case "\u03AF": case "\u03B9": total += L10; break; // iota
+								case "\u039A": case "\u03BA": total += L11; break; // kappa
+								case "\u039B": case "\u03BB": total += L12; break; // lambda
+								case "\u039C": case "\u03BC": total += L13; break; // mu
+								case "\u039D": case "\u03BD": total += L14; break; // nu
+								case "\u039E": case "\u03BE": total += L15; break; // xi
+								case "\u038C": case "\u039F": case "\u03CC": case "\u03BF": total += L16; break; // omicron
+								case "\u03A0": case "\u03C0": total += L17; break; // pi
+								case "\u03A1": case "\u03C1": total += L18; break; // rho
+								case "\u03A3": case "\u03C2": case "\u03C3": total += L19; break; // sigma
+								case "\u03A4": case "\u03C4": total += L20; break; // tau
+								case "\u038E": case "\u03A5": case "\u03CD": case "\u03C5": total += L21; break; // upsilon
+								case "\u03A6": case "\u03C6": total += L22; break; // phi
+								case "\u03A7": case "\u03C7": total += L23; break; // chi
+								case "\u03A8": case "\u03C8": total += L24; break; // psi
+								case "\u038F": case "\u03A9": case "\u03CE": case "\u03C9": total += L25; break; // omega
+								default: break;
+							}
+						}
+					}
+					
+					// Apply gematria modifiers based on selected method
+					if(gematriaMethod == "HaKlali"){
+						total = total * total;
+					}
+					else if(gematriaMethod == "Kolel"){
+						total += letterCount;
+					}
+					else if(gematriaMethod == "Kolel+1"){
+						total += wordCount;
+					}
+					else if (gematriaMethod == "IntegralReduced"){
+						while(total >= 10){
+							let product = Math.floor(total / 10);
+							let remainder = total % 10;
+							total = remainder + product;
+						}
+					}
+					
+					return total;
+				}
+				
+				// Split text into words and process each one
+				const textContent = textArea.textContent;
+				const words = textContent.split(/[\s\n\r\t\u00A0\u2000-\u200B\u2028\u2029\u3000]+/).filter(word => word.trim().length > 0);
+				let matchingWords = [];
+				let highlightedContent = textContent;
+				
+				// Process each word from first to last
+				for (let i = 0; i < words.length; i++) {
+					const word = words[i].trim();
+					if (word.length === 0) continue;
+					
+					// Calculate gematria for this word
+					const wordGematria = calculateWordGematria(word);
+					
+					// Check if it matches target gematria
+					if (wordGematria === targetGematria) {
+						matchingWords.push({
+							word: word,
+							gematria: wordGematria,
+							position: i + 1
+						});
+						
+						// Highlight the word in the text area
+						// Escape special regex characters in the word
+						const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+						// Use a more flexible regex that works with Hebrew and other languages
+						// Look for the word surrounded by whitespace, punctuation, or start/end of string
+						const wordRegex = new RegExp(`(^|[\\s\\p{P}\\p{Z}])(${escapedWord})(?=[\\s\\p{P}\\p{Z}]|$)`, 'gu');
+						highlightedContent = highlightedContent.replace(wordRegex, `$1<span class="gematria-match">$2</span>`);
+					}
+				}
+				
+				// Update the textArea with highlighted content
+				textArea.innerHTML = highlightedContent;
+				
+				// Display results
+				let resultsText = `Target Gematria Value: ${targetGematria}\nGematria Method: ${gematriaMethod}\n\nResults:\n`;
+				if (matchingWords.length === 0) {
+					resultsText += 'No matching words found.';
+				} else {
+					resultsText += `Found ${matchingWords.length} matching word(s):\n\n`;
+					matchingWords.forEach((match, index) => {
+						resultsText += `${index + 1}. "${match.word}" (Gematria: ${match.gematria}, Position: ${match.position})\n`;
+					});
+				}
+				document.getElementById('findResults').textContent = resultsText;
+			});
 		}
 	</script>
 
@@ -2424,11 +2833,22 @@
 				const selectedText = selection.toString();
 				console.log('Selected text:', selectedText);
 				if (selectedText.trim()) {
+					// Clear any existing highlights first to get clean text for position calculation
+					const existingHighlights = textArea.querySelectorAll('.els-highlight');
+					existingHighlights.forEach(highlight => {
+						const parent = highlight.parentNode;
+						parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+						parent.normalize();
+					});
+					
+					// Get clean text content without any HTML tags
 					const fullText = textArea.textContent;
-					const endIndex = range.endOffset;
+					
+					// Find the position of the selection end in the clean text
+					const selectionEndText = fullText.substring(0, range.endOffset);
 					let count = 0;
-					for (let i = 0; i < endIndex; i++) {
-						const char = fullText[i];
+					for (let i = 0; i < selectionEndText.length; i++) {
+						const char = selectionEndText[i];
 						if (isLetter(char)) {
 							count++;
 						}
@@ -2450,20 +2870,196 @@
 				let total = 0;
 				for (let char of str) {
 					const code = char.charCodeAt(0);
+					// Hebrew letters - map each letter individually to correct L values
 					if (code >= 0x05D0 && code <= 0x05EA) {
-						const index = code - 0x05D0;
-						total += [1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900][index] || 0;
-					} else if (code >= 0x05DA && code <= 0x05DF) {
-						const finals = [500,600,700,800,900,900];
-						total += finals[code - 0x05DA];
+						switch(char) {
+							case "\u05D0": total += L01; break; // aleph א = 1
+							case "\u05D1": total += L02; break; // bet ב = 2
+							case "\u05D2": total += L03; break; // gimel ג = 3
+							case "\u05D3": total += L04; break; // dalet ד = 4
+							case "\u05D4": total += L05; break; // hey ה = 5
+							case "\u05D5": total += L06; break; // vav ו = 6
+							case "\u05D6": total += L07; break; // zayin ז = 7
+							case "\u05D7": total += L08; break; // chet ח = 8
+							case "\u05D8": total += L09; break; // tet ט = 9
+							case "\u05D9": total += L10; break; // yod י = 10
+							case "\u05DB": total += L11; break; // kaf כ = 20
+							case "\u05DC": total += L12; break; // lamed ל = 30
+							case "\u05DE": total += L13; break; // mem מ = 40
+							case "\u05E0": total += L14; break; // nun נ = 50
+							case "\u05E1": total += L15; break; // samech ס = 60
+							case "\u05E2": total += L16; break; // ayin ע = 70
+							case "\u05E4": total += L17; break; // pey פ = 80
+							case "\u05E6": total += L18; break; // tzadi צ = 90
+							case "\u05E7": total += L19; break; // kuf ק = 100
+							case "\u05E8": total += L20; break; // resh ר = 200
+							case "\u05E9": total += L21; break; // shin ש = 300
+							case "\u05EA": total += L22; break; // tav ת = 400
+						}
+					} else if (char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || char === "\u05E3" || char === "\u05E5") {
+						// Hebrew finals - handle each final letter individually
+						switch(char) {
+							case "\u05DA": total += L23; break; // kaf sofit ך = 500
+							case "\u05DD": total += L24; break; // mem sofit ם = 600  
+							case "\u05DF": total += L25; break; // nun sofit ן = 700
+							case "\u05E3": total += L26; break; // pey sofit ף = 800
+							case "\u05E5": total += L27; break; // tzadi sofit ץ = 900
+						}
 					} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+						// English letters - A=1, B=2, etc.
 						const upper = code >= 65 && code <= 90 ? code : code - 32;
-						total += upper - 64;
-					} else if (code >= 0x0391 && code <= 0x03A9) {
-						const greek = [1,2,3,4,5,7,8,9,10,20,30,40,50,60,70,80,100,200,300,400,500,600,700,800,900];
-						total += greek[code - 0x0391] || 0;
+						total += upper - 64; // A=1, B=2, C=3, etc.
+					} else if (code >= 0x0370 && code <= 0x03FF) {
+						// Greek letters with isopsephy values
+						switch(char) {
+							// Alpha variants
+							case "\u0386": case "\u0391": case "\u03AC": case "\u03B1": 
+							case "\u1F00": case "\u1F01": case "\u1F02": case "\u1F03": case "\u1F04": case "\u1F05": case "\u1F06": case "\u1F07":
+							case "\u1F08": case "\u1F09": case "\u1F0A": case "\u1F0B": case "\u1F0C": case "\u1F0D": case "\u1F0E": case "\u1F0F":
+							case "\u1F70": case "\u1F71": case "\u1F80": case "\u1F81": case "\u1F82": case "\u1F83": case "\u1F84": case "\u1F85": case "\u1F86": case "\u1F87":
+							case "\u1F88": case "\u1F89": case "\u1F8A": case "\u1F8B": case "\u1F8C": case "\u1F8D": case "\u1F8E": case "\u1F8F":
+							case "\u1FB0": case "\u1FB1": case "\u1FB2": case "\u1FB3": case "\u1FB4": case "\u1FB6": case "\u1FB7":
+							case "\u1FB8": case "\u1FB9": case "\u1FBA": case "\u1FBB": case "\u1FBC":
+								total += 1; break;
+							// Beta
+							case "\u0392": case "\u03B2": case "\u03D0":
+								total += 2; break;
+							// Gamma
+							case "\u0393": case "\u03B3":
+								total += 3; break;
+							// Delta
+							case "\u0394": case "\u03B4":
+								total += 4; break;
+							// Epsilon variants
+							case "\u0388": case "\u0395": case "\u03AD": case "\u03B5": case "\u03F5":
+							case "\u1F10": case "\u1F11": case "\u1F12": case "\u1F13": case "\u1F14": case "\u1F15":
+							case "\u1F18": case "\u1F19": case "\u1F1A": case "\u1F1B": case "\u1F1C": case "\u1F1D":
+							case "\u1F72": case "\u1F73": case "\u1FC8": case "\u1FC9":
+								total += 5; break;
+							// Digamma/Stigma
+							case "\u03DA": case "\u03DB": case "\u03DC": case "\u03DD": case "\u0376": case "\u0377":
+								total += 6; break;
+							// Zeta
+							case "\u0396": case "\u03B6":
+								total += 7; break;
+							// Eta variants
+							case "\u0389": case "\u0397": case "\u03AE": case "\u03B7":
+							case "\u1F20": case "\u1F21": case "\u1F22": case "\u1F23": case "\u1F24": case "\u1F25": case "\u1F26": case "\u1F27":
+							case "\u1F28": case "\u1F29": case "\u1F2A": case "\u1F2B": case "\u1F2C": case "\u1F2D": case "\u1F2E": case "\u1F2F":
+							case "\u1F74": case "\u1F75": case "\u1F90": case "\u1F91": case "\u1F92": case "\u1F93": case "\u1F94": case "\u1F95": case "\u1F96": case "\u1F97":
+							case "\u1F98": case "\u1F99": case "\u1F9A": case "\u1F9B": case "\u1F9C": case "\u1F9D": case "\u1F9E": case "\u1F9F":
+							case "\u1FC2": case "\u1FC3": case "\u1FC4": case "\u1FC6": case "\u1FC7": case "\u1FCA": case "\u1FCB": case "\u1FCC":
+								total += 8; break;
+							// Theta
+							case "\u0398": case "\u03B8": case "\u03D1": case "\u03F4":
+								total += 9; break;
+							// Iota variants
+							case "\u038A": case "\u0390": case "\u0399": case "\u03AA": case "\u03AF": case "\u03B9": case "\u03CA":
+							case "\u1F30": case "\u1F31": case "\u1F32": case "\u1F33": case "\u1F34": case "\u1F35": case "\u1F36": case "\u1F37":
+							case "\u1F38": case "\u1F39": case "\u1F3A": case "\u1F3B": case "\u1F3C": case "\u1F3D": case "\u1F3E": case "\u1F3F":
+							case "\u1F76": case "\u1F77": case "\u1FBE": case "\u1FD0": case "\u1FD1": case "\u1FD2": case "\u1FD3": case "\u1FD6": case "\u1FD7":
+							case "\u1FD8": case "\u1FD9": case "\u1FDA": case "\u1FDB":
+								total += 10; break;
+							// Kappa
+							case "\u039A": case "\u03BA": case "\u03CF": case "\u03D7": case "\u03F0":
+								total += 20; break;
+							// Lambda
+							case "\u039B": case "\u03BB":
+								total += 30; break;
+							// Mu
+							case "\u039C": case "\u03BC":
+								total += 40; break;
+							// Nu
+							case "\u039D": case "\u03BD":
+								total += 50; break;
+							// Xi
+							case "\u039E": case "\u03BE":
+								total += 60; break;
+							// Omicron variants
+							case "\u038C": case "\u039F": case "\u03CC": case "\u03BF":
+							case "\u1F40": case "\u1F41": case "\u1F42": case "\u1F43": case "\u1F44": case "\u1F45":
+							case "\u1F48": case "\u1F49": case "\u1F4A": case "\u1F4B": case "\u1F4C": case "\u1F4D":
+							case "\u1F78": case "\u1F79": case "\u1FF8": case "\u1FF9":
+								total += 70; break;
+							// Pi
+							case "\u03A0": case "\u03C0": case "\u03D6":
+								total += 80; break;
+							// Koppa
+							case "\u03D8": case "\u03D9": case "\u03DE": case "\u03DF":
+								total += 90; break;
+							// Rho
+							case "\u03A1": case "\u03C1": case "\u03F1": case "\u1FE4": case "\u1FE5": case "\u1FEC":
+								total += 100; break;
+							// Sigma variants
+							case "\u03A3": case "\u03C2": case "\u03C3": case "\u03F2": case "\u037B": case "\u037C": case "\u037D":
+							case "\u03F9": case "\u03FD": case "\u03FE": case "\u03FF": case "\u03FA": case "\u03FB": case "\u03F7": case "\u03F8":
+								total += 200; break;
+							// Tau
+							case "\u03A4": case "\u03C4":
+								total += 300; break;
+							// Upsilon variants
+							case "\u038E": case "\u03A5": case "\u03AB": case "\u03B0": case "\u03C5": case "\u03CB": case "\u03CD":
+							case "\u03D2": case "\u03D3": case "\u03D4":
+							case "\u1F50": case "\u1F51": case "\u1F52": case "\u1F53": case "\u1F54": case "\u1F55": case "\u1F56": case "\u1F57":
+							case "\u1F59": case "\u1F5B": case "\u1F5D": case "\u1F5F": case "\u1F7A": case "\u1F7B":
+							case "\u1FE0": case "\u1FE1": case "\u1FE2": case "\u1FE3": case "\u1FE6": case "\u1FE7":
+							case "\u1FE8": case "\u1FE9": case "\u1FEB":
+								total += 400; break;
+							// Phi
+							case "\u03A6": case "\u03C6": case "\u03D5":
+								total += 500; break;
+							// Chi
+							case "\u03A7": case "\u03C7":
+								total += 600; break;
+							// Psi
+							case "\u03A8": case "\u03C8":
+								total += 700; break;
+							// Omega variants
+							case "\u038F": case "\u03A9": case "\u03C9": case "\u03CE": case "\u2126":
+							case "\u1F60": case "\u1F61": case "\u1F62": case "\u1F63": case "\u1F64": case "\u1F65": case "\u1F66": case "\u1F67":
+							case "\u1F68": case "\u1F69": case "\u1F6A": case "\u1F6B": case "\u1F6C": case "\u1F6D": case "\u1F6E": case "\u1F6F":
+							case "\u1F7C": case "\u1F7D": case "\u1FA0": case "\u1FA1": case "\u1FA2": case "\u1FA3": case "\u1FA4": case "\u1FA5": case "\u1FA6": case "\u1FA7":
+							case "\u1FA8": case "\u1FA9": case "\u1FAA": case "\u1FAB": case "\u1FAC": case "\u1FAD": case "\u1FAE": case "\u1FAF":
+							case "\u1FF2": case "\u1FF3": case "\u1FF4": case "\u1FF6": case "\u1FF7": case "\u1FFA": case "\u1FFB": case "\u1FFC":
+								total += 800; break;
+							// Sampi
+							case "\u0372": case "\u0373": case "\u03E0": case "\u03E1":
+								total += 900; break;
+							default:
+								// For any other Greek character, try to map it to a basic value
+								if (code >= 0x0391 && code <= 0x03A9) {
+									// Greek uppercase letters
+									total += (code - 0x0390);
+								} else if (code >= 0x03B1 && code <= 0x03C9) {
+									// Greek lowercase letters
+									total += (code - 0x03B0);
+								}
+								break;
+						}
 					}
 				}
+				
+				// Apply the same gematria modifiers as the main calculation
+				const gematriaSelect = document.getElementById('gematriaSelect');
+				if (gematriaSelect) {
+					if(gematriaSelect.value == "HaKlali"){
+						total = total * total;
+					}
+					else if(gematriaSelect.value == "Kolel"){
+						total += str.replace(/\s/g, '').length; // add letter count
+					}
+					else if(gematriaSelect.value == "Kolel+1"){
+						total += str.split(/\s+/).filter(word => word.length > 0).length; // add word count
+					}
+					else if (gematriaSelect.value == "IntegralReduced"){
+						while(total >= 10){
+							let product = Math.floor(total / 10);
+							let remainder = total % 10;
+							total = remainder + product;
+						}
+					}
+				}
+				
 				return total;
 			}
 
@@ -2472,14 +3068,14 @@
 			modal.className = 'modal';
 			modal.innerHTML = `
 				<div class="modal-content">
-					<span class="close" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-					<h2>Equidistant Letter Sequence</h2>
-					<label for="startPosition">Start Position:</label>
-					<input type="text" id="startPosition" value="${guessStartPosition}">
-					<label for="sequenceNum">Sequence Number:</label>
-					<input type="text" id="sequenceNum">
-					<button id="elsSearchBtn">Search</button>
-					<div id="elsResults"></div>
+					<span class="close" onclick="document.getElementById('elsModal').remove()">&times;</span>
+					<h2 style="text-align: center;">Equidistant Letter Sequence</h2>
+					<div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; margin-top: 20px;">
+						<input type="text" id="startPosition" value="${guessStartPosition}" placeholder="Start Position" style="text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+						<input type="text" id="sequenceNum" placeholder="Sequence Number" style="text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+						<button id="elsSearchBtn" class="textBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 8px 8px 8px; cursor: pointer; font-size: 12px; font-weight: bold; margin-right: 0px; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35); transition: background-color 0.0s;"><img src="img/find.png" height="16" width="14" border="0" alt="Search"><img src="img/invis.gif" width="4" border="0">Search</button>
+					</div>
+					<div id="elsResults" style="margin-top: 20px; text-align: center;"></div>
 				</div>
 			`;
 			document.body.appendChild(modal);
@@ -2487,33 +3083,454 @@
 
 			document.getElementById('startPosition').addEventListener('input', function() {
 				const val = this.value;
-				if (/^[a-zA-Z\u0590-\u05FF\u0370-\u03FF]+$/.test(val)) {
-					this.value = convertToGematria(val);
+
+				// Debug logging for Hebrew Finals
+				console.log('startPosition input:', val);
+				for (let i = 0; i < val.length; i++) {
+					const char = val[i];
+					const code = char.charCodeAt(0);
+					console.log(`Character ${i}: "${char}" (U+${code.toString(16).toUpperCase().padStart(4, '0')})`);
 				}
+
+				// Check if the input contains both numbers and letters
+				const hasNumbers = /\d/.test(val);
+				const hasLetters = /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(val);
+				
+				console.log('hasNumbers:', hasNumbers, 'hasLetters:', hasLetters);
+				
+				if (hasNumbers && hasLetters) {
+					// Extract existing numbers and letters separately
+					const numbers = val.match(/\d+/g) || [];
+					const letters = val.match(/[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/g) || [];
+					
+					// Calculate sum of existing numbers
+					let existingSum = numbers.reduce((sum, num) => sum + parseInt(num), 0);
+					
+					// Convert letters to gematria and add to existing sum
+					let letterSum = 0;
+					for (let letter of letters) {
+						// Calculate gematria for each individual letter
+						let letterValue = 0;
+						const code = letter.charCodeAt(0);
+						
+						// Hebrew letters
+						if (code >= 0x05D0 && code <= 0x05EA) {
+							switch(letter) {
+								case "\u05D0": letterValue = L01; break; // aleph א = 1
+								case "\u05D1": letterValue = L02; break; // bet ב = 2
+								case "\u05D2": letterValue = L03; break; // gimel ג = 3
+								case "\u05D3": letterValue = L04; break; // dalet ד = 4
+								case "\u05D4": letterValue = L05; break; // hey ה = 5
+								case "\u05D5": letterValue = L06; break; // vav ו = 6
+								case "\u05D6": letterValue = L07; break; // zayin ז = 7
+								case "\u05D7": letterValue = L08; break; // chet ח = 8
+								case "\u05D8": letterValue = L09; break; // tet ט = 9
+								case "\u05D9": letterValue = L10; break; // yod י = 10
+								case "\u05DA": letterValue = L23; break; // kaf sofit ך = 500
+								case "\u05DB": letterValue = L11; break; // kaf כ = 20
+								case "\u05DC": letterValue = L12; break; // lamed ל = 30
+								case "\u05DD": letterValue = L24; break; // mem sofit ם = 600
+								case "\u05DE": letterValue = L13; break; // mem מ = 40
+								case "\u05DF": letterValue = L25; break; // nun sofit ן = 700
+								case "\u05E0": letterValue = L14; break; // nun נ = 50
+								case "\u05E1": letterValue = L15; break; // samech ס = 60
+								case "\u05E2": letterValue = L16; break; // ayin ע = 70
+								case "\u05E3": letterValue = L26; break; // pey sofit ף = 800
+								case "\u05E4": letterValue = L17; break; // pey פ = 80
+								case "\u05E5": letterValue = L27; break; // tzadi sofit ץ = 900
+								case "\u05E6": letterValue = L18; break; // tzadi צ = 90
+								case "\u05E7": letterValue = L19; break; // kuf ק = 100
+								case "\u05E8": letterValue = L20; break; // resh ר = 200
+								case "\u05E9": letterValue = L21; break; // shin ש = 300
+								case "\u05EA": letterValue = L22; break; // tav ת = 400
+							}
+						} else if (letter === "\u05DA" || letter === "\u05DD" || letter === "\u05DF" || letter === "\u05E3" || letter === "\u05E5") {
+							// Hebrew finals - handle each final letter individually
+							switch(letter) {
+								case "\u05DA": letterValue = L23; break; // kaf sofit ך = 500
+								case "\u05DD": letterValue = L24; break; // mem sofit ם = 600  
+								case "\u05DF": letterValue = L25; break; // nun sofit ן = 700
+								case "\u05E3": letterValue = L26; break; // pey sofit ף = 800
+								case "\u05E5": letterValue = L27; break; // tzadi sofit ץ = 900
+							}
+						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+							// English letters - A=1, B=2, etc.
+							const upper = code >= 65 && code <= 90 ? code : code - 32;
+							letterValue = upper - 64; // A=1, B=2, C=3, etc.
+						} else if (code >= 0x0370 && code <= 0x03FF) {
+							// Greek letters - basic mapping
+							switch(letter) {
+								case "\u0386": case "\u0391": case "\u03AC": case "\u03B1": letterValue = 1; break; // alpha
+								case "\u0392": case "\u03B2": letterValue = 2; break; // beta
+								case "\u0393": case "\u03B3": letterValue = 3; break; // gamma
+								case "\u0394": case "\u03B4": letterValue = 4; break; // delta
+								case "\u0388": case "\u0395": case "\u03AD": case "\u03B5": letterValue = 5; break; // epsilon
+								case "\u0396": case "\u03B6": letterValue = 7; break; // zeta
+								case "\u0389": case "\u0397": case "\u03AE": case "\u03B7": letterValue = 8; break; // eta
+								case "\u0398": case "\u03B8": letterValue = 9; break; // theta
+								case "\u038A": case "\u0399": case "\u03AF": case "\u03B9": letterValue = 10; break; // iota
+								case "\u039A": case "\u03BA": letterValue = 20; break; // kappa
+								case "\u039B": case "\u03BB": letterValue = 30; break; // lambda
+								case "\u039C": case "\u03BC": letterValue = 40; break; // mu
+								case "\u039D": case "\u03BD": letterValue = 50; break; // nu
+								case "\u039E": case "\u03BE": letterValue = 60; break; // xi
+								case "\u038C": case "\u039F": case "\u03CC": case "\u03BF": letterValue = 70; break; // omicron
+								case "\u03A0": case "\u03C0": letterValue = 80; break; // pi
+								case "\u03A1": case "\u03C1": letterValue = 100; break; // rho
+								case "\u03A3": case "\u03C2": case "\u03C3": letterValue = 200; break; // sigma
+								case "\u03A4": case "\u03C4": letterValue = 300; break; // tau
+								case "\u038E": case "\u03A5": case "\u03CD": case "\u03C5": letterValue = 400; break; // upsilon
+								case "\u03A6": case "\u03C6": letterValue = 500; break; // phi
+								case "\u03A7": case "\u03C7": letterValue = 600; break; // chi
+								case "\u03A8": case "\u03C8": letterValue = 700; break; // psi
+								case "\u038F": case "\u03A9": case "\u03CE": case "\u03C9": letterValue = 800; break; // omega
+								// Hebrew Finals safety net - prevent fallthrough to default case
+								case "\u05DA": letterValue = L23; break; // kaf sofit ך = 500
+								case "\u05DD": letterValue = L24; break; // mem sofit ם = 600
+								case "\u05DF": letterValue = L25; break; // nun sofit ן = 700
+								case "\u05E3": letterValue = L26; break; // pey sofit ף = 800
+								case "\u05E5": letterValue = L27; break; // tzadi sofit ץ = 900
+								default: letterValue = 0; break;
+							}
+						}
+						
+						letterSum += letterValue;
+					}
+					
+					// Debug logging for mixed branch
+					console.log('existingSum:', existingSum);
+					console.log('letterSum:', letterSum);
+					console.log('L23 value:', L23);
+					console.log('Final result:', existingSum + letterSum);
+					
+					// Replace field content with the total sum
+					this.value = existingSum + letterSum;
+				} else if (hasLetters && !hasNumbers) {
+					// Only letters, convert to gematria
+					let total = 0;
+					for (let letter of val) {
+						const code = letter.charCodeAt(0);
+						
+						// Hebrew letters
+						if (code >= 0x05D0 && code <= 0x05EA) {
+							switch(letter) {
+								case "\u05D0": total += L01; break; // aleph א = 1
+								case "\u05D1": total += L02; break; // bet ב = 2
+								case "\u05D2": total += L03; break; // gimel ג = 3
+								case "\u05D3": total += L04; break; // dalet ד = 4
+								case "\u05D4": total += L05; break; // hey ה = 5
+								case "\u05D5": total += L06; break; // vav ו = 6
+								case "\u05D6": total += L07; break; // zayin ז = 7
+								case "\u05D7": total += L08; break; // chet ח = 8
+								case "\u05D8": total += L09; break; // tet ט = 9
+								case "\u05D9": total += L10; break; // yod י = 10
+								case "\u05DB": total += L11; break; // kaf כ = 20
+								case "\u05DC": total += L12; break; // lamed ל = 30
+								case "\u05DE": total += L13; break; // mem מ = 40
+								case "\u05E0": total += L14; break; // nun נ = 50
+								case "\u05E1": total += L15; break; // samech ס = 60
+								case "\u05E2": total += L16; break; // ayin ע = 70
+								case "\u05E4": total += L17; break; // pey פ = 80
+								case "\u05E6": total += L18; break; // tzadi צ = 90
+								case "\u05E7": total += L19; break; // kuf ק = 100
+								case "\u05E8": total += L20; break; // resh ר = 200
+								case "\u05E9": total += L21; break; // shin ש = 300
+								case "\u05EA": total += L22; break; // tav ת = 400
+							}
+						} else if (letter === "\u05DA" || letter === "\u05DD" || letter === "\u05DF" || letter === "\u05E3" || letter === "\u05E5") {
+							// Hebrew finals - handle each final letter individually
+							switch(letter) {
+								case "\u05DA": total += L23; break; // kaf sofit ך = 500
+								case "\u05DD": total += L24; break; // mem sofit ם = 600  
+								case "\u05DF": total += L25; break; // nun sofit ן = 700
+								case "\u05E3": total += L26; break; // pey sofit ף = 800
+								case "\u05E5": total += L27; break; // tzadi sofit ץ = 900
+							}
+						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+							// English letters - A=1, B=2, etc.
+							const upper = code >= 65 && code <= 90 ? code : code - 32;
+							total += upper - 64; // A=1, B=2, C=3, etc.
+						} else if (code >= 0x0370 && code <= 0x03FF) {
+							// Greek letters - basic mapping
+							switch(letter) {
+								case "\u0386": case "\u0391": case "\u03AC": case "\u03B1": total += 1; break; // alpha
+								case "\u0392": case "\u03B2": total += 2; break; // beta
+								case "\u0393": case "\u03B3": total += 3; break; // gamma
+								case "\u0394": case "\u03B4": total += 4; break; // delta
+								case "\u0388": case "\u0395": case "\u03AD": case "\u03B5": total += 5; break; // epsilon
+								case "\u0396": case "\u03B6": total += 7; break; // zeta
+								case "\u0389": case "\u0397": case "\u03AE": case "\u03B7": total += 8; break; // eta
+								case "\u0398": case "\u03B8": total += 9; break; // theta
+								case "\u038A": case "\u0399": case "\u03AF": case "\u03B9": total += 10; break; // iota
+								case "\u039A": case "\u03BA": total += 20; break; // kappa
+								case "\u039B": case "\u03BB": total += 30; break; // lambda
+								case "\u039C": case "\u03BC": total += 40; break; // mu
+								case "\u039D": case "\u03BD": total += 50; break; // nu
+								case "\u039E": case "\u03BE": total += 60; break; // xi
+								case "\u038C": case "\u039F": case "\u03CC": case "\u03BF": total += 70; break; // omicron
+								case "\u03A0": case "\u03C0": total += 80; break; // pi
+								case "\u03A1": case "\u03C1": total += 100; break; // rho
+								case "\u03A3": case "\u03C2": case "\u03C3": total += 200; break; // sigma
+								case "\u03A4": case "\u03C4": total += 300; break; // tau
+								case "\u038E": case "\u03A5": case "\u03CD": case "\u03C5": total += 400; break; // upsilon
+								case "\u03A6": case "\u03C6": total += 500; break; // phi
+								case "\u03A7": case "\u03C7": total += 600; break; // chi
+								case "\u03A8": case "\u03C8": total += 700; break; // psi
+								case "\u038F": case "\u03A9": case "\u03CE": case "\u03C9": total += 800; break; // omega
+								default: break;
+							}
+						}
+					}
+					this.value = total;
+				}
+				// If only numbers, leave as is
 			});
 
 			document.getElementById('sequenceNum').addEventListener('input', function() {
 				const val = this.value;
-				if (/^[a-zA-Z\u0590-\u05FF\u0370-\u03FF]+$/.test(val)) {
-					this.value = convertToGematria(val);
+				
+				// Check if the input contains both numbers and letters
+				const hasNumbers = /\d/.test(val);
+				const hasLetters = /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(val);
+				
+				if (hasNumbers && hasLetters) {
+					// Extract existing numbers and letters separately
+					const numbers = val.match(/\d+/g) || [];
+					const letters = val.match(/[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/g) || [];
+					
+					// Calculate sum of existing numbers
+					let existingSum = numbers.reduce((sum, num) => sum + parseInt(num), 0);
+					
+					// Convert letters to gematria and add to existing sum
+					let letterSum = 0;
+					for (let letter of letters) {
+						// Calculate gematria for each individual letter
+						let letterValue = 0;
+						const code = letter.charCodeAt(0);
+						
+						// Hebrew letters
+						if (code >= 0x05D0 && code <= 0x05EA) {
+							switch(letter) {
+								case "\u05D0": letterValue = L01; break; // aleph א = 1
+								case "\u05D1": letterValue = L02; break; // bet ב = 2
+								case "\u05D2": letterValue = L03; break; // gimel ג = 3
+								case "\u05D3": letterValue = L04; break; // dalet ד = 4
+								case "\u05D4": letterValue = L05; break; // hey ה = 5
+								case "\u05D5": letterValue = L06; break; // vav ו = 6
+								case "\u05D6": letterValue = L07; break; // zayin ז = 7
+								case "\u05D7": letterValue = L08; break; // chet ח = 8
+								case "\u05D8": letterValue = L09; break; // tet ט = 9
+								case "\u05D9": letterValue = L10; break; // yod י = 10
+								case "\u05DB": letterValue = L11; break; // kaf כ = 20
+								case "\u05DC": letterValue = L12; break; // lamed ל = 30
+								case "\u05DE": letterValue = L13; break; // mem מ = 40
+								case "\u05E0": letterValue = L14; break; // nun נ = 50
+								case "\u05E1": letterValue = L15; break; // samech ס = 60
+								case "\u05E2": letterValue = L16; break; // ayin ע = 70
+								case "\u05E4": letterValue = L17; break; // pey פ = 80
+								case "\u05E6": letterValue = L18; break; // tzadi צ = 90
+								case "\u05E7": letterValue = L19; break; // kuf ק = 100
+								case "\u05E8": letterValue = L20; break; // resh ר = 200
+								case "\u05E9": letterValue = L21; break; // shin ש = 300
+								case "\u05EA": letterValue = L22; break; // tav ת = 400
+							}
+						} else if (letter === "\u05DA" || letter === "\u05DD" || letter === "\u05DF" || letter === "\u05E3" || letter === "\u05E5") {
+							// Hebrew finals - handle each final letter individually
+							switch(letter) {
+								case "\u05DA": letterValue = L23; break; // kaf sofit ך = 500
+								case "\u05DD": letterValue = L24; break; // mem sofit ם = 600  
+								case "\u05DF": letterValue = L25; break; // nun sofit ן = 700
+								case "\u05E3": letterValue = L26; break; // pey sofit ף = 800
+								case "\u05E5": letterValue = L27; break; // tzadi sofit ץ = 900
+							}
+						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+							// English letters - A=1, B=2, etc.
+							const upper = code >= 65 && code <= 90 ? code : code - 32;
+							letterValue = upper - 64; // A=1, B=2, C=3, etc.
+						} else if (code >= 0x0370 && code <= 0x03FF) {
+							// Greek letters - basic mapping
+							switch(letter) {
+								case "\u0386": case "\u0391": case "\u03AC": case "\u03B1": letterValue = 1; break; // alpha
+								case "\u0392": case "\u03B2": letterValue = 2; break; // beta
+								case "\u0393": case "\u03B3": letterValue = 3; break; // gamma
+								case "\u0394": case "\u03B4": letterValue = 4; break; // delta
+								case "\u0388": case "\u0395": case "\u03AD": case "\u03B5": letterValue = 5; break; // epsilon
+								case "\u0396": case "\u03B6": letterValue = 7; break; // zeta
+								case "\u0389": case "\u0397": case "\u03AE": case "\u03B7": letterValue = 8; break; // eta
+								case "\u0398": case "\u03B8": letterValue = 9; break; // theta
+								case "\u038A": case "\u0399": case "\u03AF": case "\u03B9": letterValue = 10; break; // iota
+								case "\u039A": case "\u03BA": letterValue = 20; break; // kappa
+								case "\u039B": case "\u03BB": letterValue = 30; break; // lambda
+								case "\u039C": case "\u03BC": letterValue = 40; break; // mu
+								case "\u039D": case "\u03BD": letterValue = 50; break; // nu
+								case "\u039E": case "\u03BE": letterValue = 60; break; // xi
+								case "\u038C": case "\u039F": case "\u03CC": case "\u03BF": letterValue = 70; break; // omicron
+								case "\u03A0": case "\u03C0": letterValue = 80; break; // pi
+								case "\u03A1": case "\u03C1": letterValue = 100; break; // rho
+								case "\u03A3": case "\u03C2": case "\u03C3": letterValue = 200; break; // sigma
+								case "\u03A4": case "\u03C4": letterValue = 300; break; // tau
+								case "\u038E": case "\u03A5": case "\u03CD": case "\u03C5": letterValue = 400; break; // upsilon
+								case "\u03A6": case "\u03C6": letterValue = 500; break; // phi
+								case "\u03A7": case "\u03C7": letterValue = 600; break; // chi
+								case "\u03A8": case "\u03C8": letterValue = 700; break; // psi
+								case "\u038F": case "\u03A9": case "\u03CE": case "\u03C9": letterValue = 800; break; // omega
+								default: break;
+							}
+						}
+						
+						letterSum += letterValue;
+					}
+					
+					// Replace field content with the total sum
+					this.value = existingSum + letterSum;
+				} else if (hasLetters && !hasNumbers) {
+					// Only letters, convert to gematria
+					let total = 0;
+					for (let letter of val) {
+						const code = letter.charCodeAt(0);
+						
+						// Hebrew letters
+						if (code >= 0x05D0 && code <= 0x05EA) {
+							switch(letter) {
+								case "\u05D0": total += L01; break; // aleph א = 1
+								case "\u05D1": total += L02; break; // bet ב = 2
+								case "\u05D2": total += L03; break; // gimel ג = 3
+								case "\u05D3": total += L04; break; // dalet ד = 4
+								case "\u05D4": total += L05; break; // hey ה = 5
+								case "\u05D5": total += L06; break; // vav ו = 6
+								case "\u05D6": total += L07; break; // zayin ז = 7
+								case "\u05D7": total += L08; break; // chet ח = 8
+								case "\u05D8": total += L09; break; // tet ט = 9
+								case "\u05D9": total += L10; break; // yod י = 10
+								case "\u05DB": total += L11; break; // kaf כ = 20
+								case "\u05DC": total += L12; break; // lamed ל = 30
+								case "\u05DE": total += L13; break; // mem מ = 40
+								case "\u05E0": total += L14; break; // nun נ = 50
+								case "\u05E1": total += L15; break; // samech ס = 60
+								case "\u05E2": total += L16; break; // ayin ע = 70
+								case "\u05E4": total += L17; break; // pey פ = 80
+								case "\u05E6": total += L18; break; // tzadi צ = 90
+								case "\u05E7": total += L19; break; // kuf ק = 100
+								case "\u05E8": total += L20; break; // resh ר = 200
+								case "\u05E9": total += L21; break; // shin ש = 300
+								case "\u05EA": total += L22; break; // tav ת = 400
+							}
+						} else if (letter === "\u05DA" || letter === "\u05DD" || letter === "\u05DF" || letter === "\u05E3" || letter === "\u05E5") {
+							// Hebrew finals - handle each final letter individually
+							switch(letter) {
+								case "\u05DA": total += L23; break; // kaf sofit ך = 500
+								case "\u05DD": total += L24; break; // mem sofit ם = 600  
+								case "\u05DF": total += L25; break; // nun sofit ן = 700
+								case "\u05E3": total += L26; break; // pey sofit ף = 800
+								case "\u05E5": total += L27; break; // tzadi sofit ץ = 900
+							}
+						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+							// English letters - A=1, B=2, etc.
+							const upper = code >= 65 && code <= 90 ? code : code - 32;
+							total += upper - 64; // A=1, B=2, C=3, etc.
+						} else if (code >= 0x0370 && code <= 0x03FF) {
+							// Greek letters - basic mapping
+							switch(letter) {
+								case "\u0386": case "\u0391": case "\u03AC": case "\u03B1": total += 1; break; // alpha
+								case "\u0392": case "\u03B2": total += 2; break; // beta
+								case "\u0393": case "\u03B3": total += 3; break; // gamma
+								case "\u0394": case "\u03B4": total += 4; break; // delta
+								case "\u0388": case "\u0395": case "\u03AD": case "\u03B5": total += 5; break; // epsilon
+								case "\u0396": case "\u03B6": total += 7; break; // zeta
+								case "\u0389": case "\u0397": case "\u03AE": case "\u03B7": total += 8; break; // eta
+								case "\u0398": case "\u03B8": total += 9; break; // theta
+								case "\u038A": case "\u0399": case "\u03AF": case "\u03B9": total += 10; break; // iota
+								case "\u039A": case "\u03BA": total += 20; break; // kappa
+								case "\u039B": case "\u03BB": total += 30; break; // lambda
+								case "\u039C": case "\u03BC": total += 40; break; // mu
+								case "\u039D": case "\u03BD": total += 50; break; // nu
+								case "\u039E": case "\u03BE": total += 60; break; // xi
+								case "\u038C": case "\u039F": case "\u03CC": case "\u03BF": total += 70; break; // omicron
+								case "\u03A0": case "\u03C0": total += 80; break; // pi
+								case "\u03A1": case "\u03C1": total += 100; break; // rho
+								case "\u03A3": case "\u03C2": case "\u03C3": total += 200; break; // sigma
+								case "\u03A4": case "\u03C4": total += 300; break; // tau
+								case "\u038E": case "\u03A5": case "\u03CD": case "\u03C5": total += 400; break; // upsilon
+								case "\u03A6": case "\u03C6": total += 500; break; // phi
+								case "\u03A7": case "\u03C7": total += 600; break; // chi
+								case "\u03A8": case "\u03C8": total += 700; break; // psi
+								case "\u038F": case "\u03A9": case "\u03CE": case "\u03C9": total += 800; break; // omega
+								default: break;
+							}
+						}
+					}
+					this.value = total;
 				}
+				// If only numbers, leave as is
 			});
 
 			document.getElementById('elsSearchBtn').addEventListener('click', function() {
 				const start = parseInt(document.getElementById('startPosition').value) || 1;
-				const seq = parseInt(document.getElementById('sequenceNum').value) || 1;
+				let seq = parseInt(document.getElementById('sequenceNum').value);
+				
+				// Default sequenceNum to 1 if no value is entered
+				if (!seq || seq === 0) {
+					seq = 1;
+					document.getElementById('sequenceNum').value = 1;
+				}
+				
+				// Clear any existing highlights first
+				const existingHighlights = textArea.querySelectorAll('.els-highlight');
+				existingHighlights.forEach(highlight => {
+					const parent = highlight.parentNode;
+					parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+					parent.normalize();
+				});
+				
 				const fullText = textArea.textContent;
 				let letters = [];
+				let letterPositions = [];
+				
+				// Build array of letters and their positions in the full text
 				for (let i = 0; i < fullText.length; i++) {
 					if (isLetter(fullText[i])) {
 						letters.push(fullText[i]);
+						letterPositions.push(i);
 					}
 				}
+				
 				let results = '';
+				let highlightPositions = [];
+				
+				// Collect ELS letters and their positions
 				for (let i = start - 1; i < letters.length; i += seq) {
 					results += letters[i];
+					highlightPositions.push(letterPositions[i]);
 				}
-				document.getElementById('elsResults').textContent = results;
+				
+				// Highlight the ELS letters in the textArea
+				if (highlightPositions.length > 0) {
+					// Sort positions in descending order to avoid offset issues when inserting spans
+					highlightPositions.sort((a, b) => b - a);
+					
+					let textContent = textArea.textContent;
+					
+					highlightPositions.forEach(pos => {
+						const char = textContent[pos];
+						const before = textContent.substring(0, pos);
+						const after = textContent.substring(pos + 1);
+						textContent = before + `<span class="els-highlight" style="background-color: yellow; color: black; font-weight: bold;">${char}</span>` + after;
+					});
+					
+					textArea.innerHTML = textContent;
+				}
+				
+				// Get text direction from textArea
+				const textAreaDirection = textArea.dir || 'rtl';
+				const textAlign = textAreaDirection === 'rtl' ? 'right' : 'left';
+				
+				// Display results in the modal
+				document.getElementById('elsResults').innerHTML = `
+					<div style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; max-width: 100%; overflow-wrap: break-word;">
+						<p style="font-size: 16px; font-weight: bold; color: #000; direction: ${textAreaDirection}; text-align: ${textAlign}; padding: 10px; border-radius: 3px; word-wrap: break-word; overflow-wrap: break-word; white-space: pre-wrap;">${results}</p>
+						<p style="font-size: 12px; color: #666; margin-bottom: 0; direction: ${textAreaDirection}; text-align: ${textAlign};">Start Position: ${start}, Sequence: ${seq}, Letters Found: ${results.length}</p>
+					</div>
+				`;
 			});
 		}
 	</script>
@@ -3539,8 +4556,8 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
         const gematriaSelect = document.getElementById('gematriaSelect');
         const encryptionSelect = document.getElementById('encryptionSelect');
         const removeSelect = document.getElementById('removeSelect');
-        const calculateBtn = document.getElementById('calculateBtn');
-        //const copyBtn = document.getElementById('copyBtn');
+        const calcBtn = document.getElementById('calcBtn');
+        const copyBtn = document.getElementById('copyBtn');
 		const directionBtn = document.getElementById('directionBtn');
 		const wrapBtn = document.getElementById('wrapBtn');
 		const lightmodeBtn = document.getElementById('lightmodeBtn');
@@ -3617,7 +4634,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    const selectedValue = removeSelect.value;
 		    if (selectedValue === 'Punctuation') {
 		        const textAreaContent = textArea.textContent;
-		        const noPunctuationContent = textAreaContent.replace(/[.,!?\-;\*\(\)\[\]\u05C3]/g, '');
+		        const noPunctuationContent = textAreaContent.replace(/[.,!?\-;\*\(\)\[\]\u05C3⚜️]/g, '');
 		        textArea.textContent = noPunctuationContent;
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
@@ -3628,7 +4645,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    if (selectedValue === 'Digits') {
 		        const textAreaContent = textArea.textContent;
 		        const noDigitsContent = textAreaContent
-					.replace(/[\d,\u003A\u05C3\t]/g, '')	// remove Digits, commas, colons, Sof Pasuq (Hebrew colon) & tabs
+					.replace(/[\d,\u003A\u05C3\t⚜️]/g, '')	// remove Digits, commas, colons, Sof Pasuq (Hebrew colon), tabs & Fleur-De-Lis
 					.replace(/\n{2,}/g, '\n') 				// removes a double or repeating New Line
 					.replace(/\r{2,}/g, '\r');				// removes a double or repeating Carriage Return
 		        textArea.textContent = noDigitsContent;
@@ -6610,26 +7627,6 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		document.body.insertAdjacentHTML('beforeend', modal);
 		}
 
-		// Modal dialog for Calculate button
-		function openModal(textHighlight, textTotal, encrypted, input, encryptedTotal, encryptedsum) {
-		var message =  `Highlighted Text = ${textHighlight}<br><br>
-						Gematria Value = ${textTotal}<br><br>
-						Encrypt to = ${encrypted}<br><br>
-						Encrypted Gematria = ${encryptedTotal}<br><br>
-						`;
-						
-		document.getElementById("modal-message").innerHTML = message;
-		document.getElementById("myModal").style.display = "block";
-		}
-		function closeModal() {
-		document.getElementById("myModal").style.display = "none";
-		}
-		window.onclick = function(event) {
-		if (event.target == document.getElementById("myModal")) {
-			document.getElementById("myModal").style.display = "none";
-		}
-		}
-
 		// Copy functionality
 		copyBtn.addEventListener('click', () => {
 		    if (textHighlight) {
@@ -6690,8 +7687,8 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
         });
 
         // The Clear button's functionality
-        clearBtn.addEventListener('click', () => {
-            textArea.textContent = '';
+		clearBtn.addEventListener('click', () => {
+			textArea.textContent = '';
 			clearBtn.textHighlight = '';
 			document.getElementById('verses').innerHTML = ``;
 			document.getElementById('words').innerHTML = ``;
@@ -6700,6 +7697,16 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			document.getElementById('encrypted').innerHTML = ``;
 			document.getElementById('encryptedsum').innerHTML = ``;
 			availableColors = [...colors];
+			// Clear ELS modal inputs and results if modal is open
+			const elsModal = document.getElementById('elsModal');
+			if (elsModal) {
+				const startInput = elsModal.querySelector('#startPosition');
+				const seqInput = elsModal.querySelector('#sequenceNum');
+				const resultsDiv = elsModal.querySelector('#elsResults');
+				if (startInput) startInput.value = '';
+				if (seqInput) seqInput.value = '';
+				if (resultsDiv) resultsDiv.innerHTML = '';
+			}
         });
     </script>
     
@@ -6723,15 +7730,17 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 	      }
 	    }
 
-	    const upArrow = document.querySelector('.up-arrow img');
-	    ['mouseup', 'touchend'].forEach(evt =>
-		upArrow.addEventListener(evt, increaseFontSize, { passive: true })
-		);
+	    // Font size controls - commented out as .up-arrow and .down-arrow elements don't exist
+	    // const upArrow = document.querySelector('.up-arrow img');
+	    // ['mouseup', 'touchend'].forEach(evt =>
+		// upArrow.addEventListener(evt, increaseFontSize, { passive: true })
+		// );
 
-	    const downArrow = document.querySelector('.down-arrow img');
-		['mouseup', 'touchend'].forEach(evt =>
-		downArrow.addEventListener(evt, decreaseFontSize, { passive: true })
-		);
+	    // const downArrow = document.querySelector('.down-arrow img');
+		// ['mouseup', 'touchend'].forEach(evt =>
+		// downArrow.addEventListener(evt, decreaseFontSize, { passive: true })
+		// );
+	});
 	</script>
 
 </body>
