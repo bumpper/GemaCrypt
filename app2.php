@@ -10,7 +10,7 @@
 	<meta name="distribution" content="Global" />
 	<meta name="robots" content="FOLLOW,INDEX" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>GemaCrypt2</title>
+    <title>GemaThesaurus - Advanced Hebrew Text Analysis & Gematria Research Tool</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
@@ -2549,7 +2549,7 @@
 					// Create the gematria values line with bright green color and Fleur-De-Lis separator
 					// Only add tab if the original line contains a tab
 					if (gematriaValues.length > 0) {
-						const gematriaLine = gematriaValues.join(' <span style="font-size: 12px;">⚜️</span> ');
+						const gematriaLine = gematriaValues.join(' <span style="font-size: 12px; text-shadow: none;">⚜️</span> ');
 						const tabPrefix = line.includes('\t') ? '\t' : '';
 						processedLines.push(`${tabPrefix}<span style="color: #00FF00; font-weight: bold;">${gematriaLine}</span>`);
 					}
