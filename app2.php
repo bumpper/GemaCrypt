@@ -2551,7 +2551,7 @@
 					if (gematriaValues.length > 0) {
 						const gematriaLine = gematriaValues.join(' <span style="font-size: 12px; text-shadow: none;">⚜️</span> ');
 						const tabPrefix = line.includes('\t') ? '\t' : '';
-						processedLines.push(`${tabPrefix}<span style="color: #00FF00; font-weight: bold;">${gematriaLine}</span>`);
+						processedLines.push(`${tabPrefix}<span style="color: #00cc00; font-weight: bold; text-shadow: none;">${gematriaLine}</span>`);
 					}
 				}
 			}
