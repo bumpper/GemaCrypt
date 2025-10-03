@@ -6455,5 +6455,127 @@ function scrollToBottom() {
 }
 </script>
 
+<script>
+// ========== localStorage for Settings ==========
+(function() {
+    // Save settings to localStorage
+    function saveSettings() {
+        const settings = {
+            niqqud: niqqudIsVisible || false,
+            cantillation: cantillationIsVisible || false,
+            theme: document.getElementById('theme-css')?.href?.split('/').pop()?.replace('.css', '') || 'cappucino',
+            cryptography: document.getElementById('cryptmenu')?.value || 'AT-BaSh',
+            gematria: document.getElementById('gemmenu')?.value || 'Ragil',
+            spelling: document.getElementById('spellmenu')?.value || 'AB'
+        };
+        localStorage.setItem('gemacryptApp1Settings', JSON.stringify(settings));
+    }
+    
+    // Load settings from localStorage
+    function loadSettings() {
+        const savedSettings = localStorage.getItem('gemacryptApp1Settings');
+        if (savedSettings) {
+            try {
+                const settings = JSON.parse(savedSettings);
+                
+                // Restore theme
+                if (settings.theme && typeof switchTheme === 'function') {
+                    switchTheme(settings.theme);
+                }
+                
+                // Restore niqqud visibility
+                if (settings.niqqud !== undefined && settings.niqqud === true) {
+                    if (typeof toggleNiqqud === 'function') {
+                        toggleNiqqud();
+                    }
+                }
+                
+                // Restore cantillation visibility
+                if (settings.cantillation !== undefined && settings.cantillation === true) {
+                    if (typeof toggleCantillation === 'function') {
+                        toggleCantillation();
+                    }
+                }
+                
+                // Restore cryptography selection
+                if (settings.cryptography) {
+                    const cryptMenu = document.getElementById('cryptmenu');
+                    if (cryptMenu) {
+                        cryptMenu.value = settings.cryptography;
+                    }
+                }
+                
+                // Restore gematria selection
+                if (settings.gematria) {
+                    const gemMenu = document.getElementById('gemmenu');
+                    if (gemMenu) {
+                        gemMenu.value = settings.gematria;
+                    }
+                }
+                
+                // Restore spelling selection
+                if (settings.spelling) {
+                    const spellMenu = document.getElementById('spellmenu');
+                    if (spellMenu) {
+                        spellMenu.value = settings.spelling;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading settings:', error);
+            }
+        }
+    }
+    
+    // Override toggleNiqqud to save settings
+    const originalToggleNiqqud = window.toggleNiqqud;
+    window.toggleNiqqud = function() {
+        if (originalToggleNiqqud) {
+            originalToggleNiqqud();
+        }
+        saveSettings();
+    };
+    
+    // Override toggleCantillation to save settings
+    const originalToggleCantillation = window.toggleCantillation;
+    window.toggleCantillation = function() {
+        if (originalToggleCantillation) {
+            originalToggleCantillation();
+        }
+        saveSettings();
+    };
+    
+    // Override switchTheme to save settings
+    const originalSwitchTheme = window.switchTheme;
+    window.switchTheme = function(themeName) {
+        if (originalSwitchTheme) {
+            originalSwitchTheme(themeName);
+        }
+        saveSettings();
+    };
+    
+    // Add change listeners to dropdowns
+    const cryptMenu = document.getElementById('cryptmenu');
+    if (cryptMenu) {
+        cryptMenu.addEventListener('change', saveSettings);
+    }
+    
+    const gemMenu = document.getElementById('gemmenu');
+    if (gemMenu) {
+        gemMenu.addEventListener('change', saveSettings);
+    }
+    
+    const spellMenu = document.getElementById('spellmenu');
+    if (spellMenu) {
+        spellMenu.addEventListener('change', saveSettings);
+    }
+    
+    // Load settings when page loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadSettings);
+    } else {
+        loadSettings();
+    }
+})();
+</script>
 </body>
 </html>

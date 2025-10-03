@@ -7743,5 +7743,114 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 	});
 	</script>
 
+<script>
+// ========== localStorage for Settings ==========
+(function() {
+    // Save settings to localStorage
+    function saveSettings() {
+        const settings = {
+            lightMode: document.getElementById('textArea')?.classList.contains('light-mode') || false,
+            wrap: document.getElementById('textArea')?.classList.contains('horizontalScroll') === false,
+            encryption: document.getElementById('encryptionSelect')?.value || 'Encryption',
+            gematria: document.getElementById('gematriaSelect')?.value || 'Value',
+            book: document.getElementById('bookSelect')?.value || 'Book'
+        };
+        localStorage.setItem('gemacryptSettings', JSON.stringify(settings));
+    }
+    
+    // Load settings from localStorage
+    function loadSettings() {
+        const savedSettings = localStorage.getItem('gemacryptSettings');
+        if (savedSettings) {
+            try {
+                const settings = JSON.parse(savedSettings);
+                
+                // Restore light mode
+                if (settings.lightMode !== undefined) {
+                    const textArea = document.getElementById('textArea');
+                    if (textArea && settings.lightMode) {
+                        textArea.classList.add('light-mode');
+                    }
+                }
+                
+                // Restore wrap setting
+                if (settings.wrap !== undefined) {
+                    const textArea = document.getElementById('textArea');
+                    if (textArea && !settings.wrap) {
+                        textArea.classList.add('horizontalScroll');
+                    }
+                }
+                
+                // Restore encryption selection
+                if (settings.encryption && settings.encryption !== 'Encryption') {
+                    const encryptionSelect = document.getElementById('encryptionSelect');
+                    if (encryptionSelect) {
+                        encryptionSelect.value = settings.encryption;
+                    }
+                }
+                
+                // Restore gematria selection
+                if (settings.gematria && settings.gematria !== 'Value') {
+                    const gematriaSelect = document.getElementById('gematriaSelect');
+                    if (gematriaSelect) {
+                        gematriaSelect.value = settings.gematria;
+                    }
+                }
+                
+                // Restore book selection
+                if (settings.book && settings.book !== 'Book') {
+                    const bookSelect = document.getElementById('bookSelect');
+                    if (bookSelect) {
+                        bookSelect.value = settings.book;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading settings:', error);
+            }
+        }
+    }
+    
+    // Override toggleLightMode to save settings
+    const originalToggleLightMode = window.toggleLightMode;
+    window.toggleLightMode = function() {
+        if (originalToggleLightMode) {
+            originalToggleLightMode();
+        }
+        saveSettings();
+    };
+    
+    // Override toggleWrap to save settings
+    const originalToggleWrap = window.toggleWrap;
+    window.toggleWrap = function() {
+        if (originalToggleWrap) {
+            originalToggleWrap();
+        }
+        saveSettings();
+    };
+    
+    // Add change listeners to dropdowns
+    const encryptionSelect = document.getElementById('encryptionSelect');
+    if (encryptionSelect) {
+        encryptionSelect.addEventListener('change', saveSettings);
+    }
+    
+    const gematriaSelect = document.getElementById('gematriaSelect');
+    if (gematriaSelect) {
+        gematriaSelect.addEventListener('change', saveSettings);
+    }
+    
+    const bookSelect = document.getElementById('bookSelect');
+    if (bookSelect) {
+        bookSelect.addEventListener('change', saveSettings);
+    }
+    
+    // Load settings when page loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadSettings);
+    } else {
+        loadSettings();
+    }
+})();
+</script>
 </body>
 </html>
