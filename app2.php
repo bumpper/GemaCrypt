@@ -2595,6 +2595,185 @@
 				findInput.value = textTotal;
 			}
 
+			// Add event listener for findInput to handle letter-to-gematria conversion
+			document.getElementById('findInput').addEventListener('input', function() {
+				const val = this.value;
+
+				// Check if the input contains both numbers and letters
+				const hasNumbers = /\d/.test(val);
+				const hasLetters = /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(val);
+
+				if (hasNumbers && hasLetters) {
+					// Extract existing numbers and letters separately
+					const numbers = val.match(/\d+/g) || [];
+					const letters = val.match(/[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/g) || [];
+
+					// Calculate sum of existing numbers
+					let existingSum = numbers.reduce((sum, num) => sum + parseInt(num), 0);
+
+					// Convert letters to gematria and add to existing sum
+					let letterSum = 0;
+					for (let letter of letters) {
+						// Calculate gematria for each individual letter
+						let letterValue = 0;
+						const code = letter.charCodeAt(0);
+
+						// Hebrew letters
+						if (code >= 0x05D0 && code <= 0x05EA) {
+							switch(letter) {
+								case "\u05D0": letterValue = L01; break; // aleph א = 1
+								case "\u05D1": letterValue = L02; break; // bet ב = 2
+								case "\u05D2": letterValue = L03; break; // gimel ג = 3
+								case "\u05D3": letterValue = L04; break; // dalet ד = 4
+								case "\u05D4": letterValue = L05; break; // hey ה = 5
+								case "\u05D5": letterValue = L06; break; // vav ו = 6
+								case "\u05D6": letterValue = L07; break; // zayin ז = 7
+								case "\u05D7": letterValue = L08; break; // chet ח = 8
+								case "\u05D8": letterValue = L09; break; // tet ט = 9
+								case "\u05D9": letterValue = L10; break; // yod י = 10
+								case "\u05DB": letterValue = L11; break; // kaf כ = 20
+								case "\u05DC": letterValue = L12; break; // lamed ל = 30
+								case "\u05DE": letterValue = L13; break; // mem מ = 40
+								case "\u05E0": letterValue = L14; break; // nun נ = 50
+								case "\u05E1": letterValue = L15; break; // samech ס = 60
+								case "\u05E2": letterValue = L16; break; // ayin ע = 70
+								case "\u05E4": letterValue = L17; break; // pey פ = 80
+								case "\u05E6": letterValue = L18; break; // tzadi צ = 90
+								case "\u05E7": letterValue = L19; break; // kuf ק = 100
+								case "\u05E8": letterValue = L20; break; // resh ר = 200
+								case "\u05E9": letterValue = L21; break; // shin ש = 300
+								case "\u05EA": letterValue = L22; break; // tav ת = 400
+							}
+						} else if (letter === "\u05DA" || letter === "\u05DD" || letter === "\u05DF" || letter === "\u05E3" || letter === "\u05E5") {
+							// Hebrew finals - handle each final letter individually
+							switch(letter) {
+								case "\u05DA": letterValue = L23; break; // kaf sofit ך = 500
+								case "\u05DD": letterValue = L24; break; // mem sofit ם = 600
+								case "\u05DF": letterValue = L25; break; // nun sofit ן = 700
+								case "\u05E3": letterValue = L26; break; // pey sofit ף = 800
+								case "\u05E5": letterValue = L27; break; // tzadi sofit ץ = 900
+							}
+						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+							// English letters - A=1, B=2, etc.
+							const upper = code >= 65 && code <= 90 ? code : code - 32;
+							letterValue = upper - 64; // A=1, B=2, C=3, etc.
+						} else if (code >= 0x0370 && code <= 0x03FF) {
+							// Greek letters - basic mapping
+							switch(letter) {
+								case "\u0386": case "\u0391": case "\u03AC": case "\u03B1": letterValue = 1; break; // alpha
+								case "\u0392": case "\u03B2": letterValue = 2; break; // beta
+								case "\u0393": case "\u03B3": letterValue = 3; break; // gamma
+								case "\u0394": case "\u03B4": letterValue = 4; break; // delta
+								case "\u0388": case "\u0395": case "\u03AD": case "\u03B5": letterValue = 5; break; // epsilon
+								case "\u0396": case "\u03B6": letterValue = 7; break; // zeta
+								case "\u0389": case "\u0397": case "\u03AE": case "\u03B7": letterValue = 8; break; // eta
+								case "\u0398": case "\u03B8": letterValue = 9; break; // theta
+								case "\u038A": case "\u0399": case "\u03AF": case "\u03B9": letterValue = 10; break; // iota
+								case "\u039A": case "\u03BA": letterValue = 20; break; // kappa
+								case "\u039B": case "\u03BB": letterValue = 30; break; // lambda
+								case "\u039C": case "\u03BC": letterValue = 40; break; // mu
+								case "\u039D": case "\u03BD": letterValue = 50; break; // nu
+								case "\u039E": case "\u03BE": letterValue = 60; break; // xi
+								case "\u038C": case "\u039F": case "\u03CC": case "\u03BF": letterValue = 70; break; // omicron
+								case "\u03A0": case "\u03C0": letterValue = 80; break; // pi
+								case "\u03A1": case "\u03C1": letterValue = 100; break; // rho
+								case "\u03A3": case "\u03C2": case "\u03C3": letterValue = 200; break; // sigma
+								case "\u03A4": case "\u03C4": letterValue = 300; break; // tau
+								case "\u038E": case "\u03A5": case "\u03CD": case "\u03C5": letterValue = 400; break; // upsilon
+								case "\u03A6": case "\u03C6": letterValue = 500; break; // phi
+								case "\u03A7": case "\u03C7": letterValue = 600; break; // chi
+								case "\u03A8": case "\u03C8": letterValue = 700; break; // psi
+								case "\u038F": case "\u03A9": case "\u03CE": case "\u03C9": letterValue = 800; break; // omega
+								default: break;
+							}
+						}
+
+						letterSum += letterValue;
+					}
+
+					// Replace field content with the total sum
+					this.value = existingSum + letterSum;
+				} else if (hasLetters && !hasNumbers) {
+					// Only letters, convert to gematria
+					let total = 0;
+					for (let letter of val) {
+						const code = letter.charCodeAt(0);
+
+						// Hebrew letters
+						if (code >= 0x05D0 && code <= 0x05EA) {
+							switch(letter) {
+								case "\u05D0": total += L01; break; // aleph א = 1
+								case "\u05D1": total += L02; break; // bet ב = 2
+								case "\u05D2": total += L03; break; // gimel ג = 3
+								case "\u05D3": total += L04; break; // dalet ד = 4
+								case "\u05D4": total += L05; break; // hey ה = 5
+								case "\u05D5": total += L06; break; // vav ו = 6
+								case "\u05D6": total += L07; break; // zayin ז = 7
+								case "\u05D7": total += L08; break; // chet ח = 8
+								case "\u05D8": total += L09; break; // tet ט = 9
+								case "\u05D9": total += L10; break; // yod י = 10
+								case "\u05DB": total += L11; break; // kaf כ = 20
+								case "\u05DC": total += L12; break; // lamed ל = 30
+								case "\u05DE": total += L13; break; // mem מ = 40
+								case "\u05E0": total += L14; break; // nun נ = 50
+								case "\u05E1": total += L15; break; // samech ס = 60
+								case "\u05E2": total += L16; break; // ayin ע = 70
+								case "\u05E4": total += L17; break; // pey פ = 80
+								case "\u05E6": total += L18; break; // tzadi צ = 90
+								case "\u05E7": total += L19; break; // kuf ק = 100
+								case "\u05E8": total += L20; break; // resh ר = 200
+								case "\u05E9": total += L21; break; // shin ש = 300
+								case "\u05EA": total += L22; break; // tav ת = 400
+							}
+						} else if (letter === "\u05DA" || letter === "\u05DD" || letter === "\u05DF" || letter === "\u05E3" || letter === "\u05E5") {
+							// Hebrew finals - handle each final letter individually
+							switch(letter) {
+								case "\u05DA": total += L23; break; // kaf sofit ך = 500
+								case "\u05DD": total += L24; break; // mem sofit ם = 600
+								case "\u05DF": total += L25; break; // nun sofit ן = 700
+								case "\u05E3": total += L26; break; // pey sofit ף = 800
+								case "\u05E5": total += L27; break; // tzadi sofit ץ = 900
+							}
+						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+							// English letters - A=1, B=2, etc.
+							const upper = code >= 65 && code <= 90 ? code : code - 32;
+							total += upper - 64; // A=1, B=2, C=3, etc.
+						} else if (code >= 0x0370 && code <= 0x03FF) {
+							// Greek letters - basic mapping
+							switch(letter) {
+								case "\u0386": case "\u0391": case "\u03AC": case "\u03B1": total += 1; break; // alpha
+								case "\u0392": case "\u03B2": total += 2; break; // beta
+								case "\u0393": case "\u03B3": total += 3; break; // gamma
+								case "\u0394": case "\u03B4": total += 4; break; // delta
+								case "\u0388": case "\u0395": case "\u03AD": case "\u03B5": total += 5; break; // epsilon
+								case "\u0396": case "\u03B6": total += 7; break; // zeta
+								case "\u0389": case "\u0397": case "\u03AE": case "\u03B7": total += 8; break; // eta
+								case "\u0398": case "\u03B8": total += 9; break; // theta
+								case "\u038A": case "\u0399": case "\u03AF": case "\u03B9": total += 10; break; // iota
+								case "\u039A": case "\u03BA": total += 20; break; // kappa
+								case "\u039B": case "\u03BB": total += 30; break; // lambda
+								case "\u039C": case "\u03BC": total += 40; break; // mu
+								case "\u039D": case "\u03BD": total += 50; break; // nu
+								case "\u039E": case "\u03BE": total += 60; break; // xi
+								case "\u038C": case "\u039F": case "\u03CC": case "\u03BF": total += 70; break; // omicron
+								case "\u03A0": case "\u03C0": total += 80; break; // pi
+								case "\u03A1": case "\u03C1": total += 100; break; // rho
+								case "\u03A3": case "\u03C2": case "\u03C3": total += 200; break; // sigma
+								case "\u03A4": case "\u03C4": total += 300; break; // tau
+								case "\u038E": case "\u03A5": case "\u03CD": case "\u03C5": total += 400; break; // upsilon
+								case "\u03A6": case "\u03C6": total += 500; break; // phi
+								case "\u03A7": case "\u03C7": total += 600; break; // chi
+								case "\u03A8": case "\u03C8": total += 700; break; // psi
+								case "\u038F": case "\u03A9": case "\u03CE": case "\u03C9": total += 800; break; // omega
+								default: break;
+							}
+						}
+					}
+					this.value = total;
+				}
+				// If only numbers, leave as is
+			});
+
 			function convertToGematria(str) {
 				let total = 0;
 				for (let char of str) {
