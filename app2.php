@@ -2293,7 +2293,9 @@
             <option value='Remove' selected="true">&#x1F6AB; Remove:</option>
 			<option value='AltWord2'>Alt Word #2 ⁕</option>
 			<option value='AltWord1'>Alt Word #1 *</option>
+		<option value='Cantillation'>Cantillation (♫ notes)</option>
 			<option value='Niqqud'>Niqqud (Vowel Points)</option>
+			<option value='Maqaf'>Maqaf (dash, hypenes)</option>
 			<option value='Punctuation'>Punctuation</option>
 			<option value='Digits'>Digits</option>
 			<option value='Spaces'>Spaces</option>
@@ -2527,29 +2529,55 @@
 			// Process each line
 			for (let i = 0; i < lines.length; i++) {
 				const line = lines[i];
-				processedLines.push(line);
+				// Replace all single spaces with tabs in the line
+				const lineWithTabs = line.replace(/ /g, '\t');
+				processedLines.push(lineWithTabs);
 				
 				// Check if this line contains letters (not just whitespace or punctuation)
 				if (/[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(line)) {
 					// Split line into words
 					const words = line.split(/[\s\t\u00A0\u2000-\u200B\u2028\u2029\u3000]+/).filter(word => word.trim().length > 0);
-					let gematriaValues = [];
+					let gematriaValuesWithTabs = [];
 					
 					// Calculate gematria for each word
 					for (let word of words) {
+						// Remove Niqqud characters from word length count (same as removeSelect "Niqqud" option)
+						// Niqqud characters: \u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF
+						// Note: Keep maqaf (\u05BE), soft hyphen (­), and regular hyphen (-) in the count
+						const wordWithoutNiqqud = word.replace(/[\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '');
+						const wordLength = wordWithoutNiqqud.length;
+						
 						// Clean word of punctuation for calculation but keep original for display
-						const cleanWord = word.replace(/[.,!?\-;\*\(\)\[\]\u05C3]/g, '');
+						const cleanWord = word.replace(/[.,!?\-;\*\(\)\[\]\u05C3⚜️⁕]/g, '');
 						// Only process words that contain actual letters (exclude tab/indent characters and pure punctuation)
 						if (cleanWord.length > 0 && /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(cleanWord)) {
 							const gematriaValue = calculateWordGematria(cleanWord);
-							gematriaValues.push(gematriaValue);
+							
+							// Determine number of tabs based on 8-character increments
+							// 1-7 chars = 1 tab, 8-15 chars = 2 tabs, 16-23 chars = 3 tabs, 24-31 chars = 4 tabs, etc.
+							let tabCount = Math.floor(wordLength / 8) + 1;
+							
+							// Store gematria value with its tab count
+							gematriaValuesWithTabs.push({
+								value: gematriaValue,
+								tabs: tabCount
+							});
 						}
 					}
 					
-					// Create the gematria values line with bright green color and Fleur-De-Lis separator
+					// Create the gematria values line with bright green color and dynamic tab separators
 					// Only add tab if the original line contains a tab
-					if (gematriaValues.length > 0) {
-						const gematriaLine = gematriaValues.join(' <span style="font-size: 12px; text-shadow: none;">⚜️</span> ');
+					if (gematriaValuesWithTabs.length > 0) {
+						// Build the gematria line with dynamic tabs after each value
+						let gematriaLine = '';
+						for (let i = 0; i < gematriaValuesWithTabs.length; i++) {
+							gematriaLine += gematriaValuesWithTabs[i].value;
+							// Add tabs after each value (except the last one gets just 1 tab)
+							if (i < gematriaValuesWithTabs.length - 1) {
+								gematriaLine += '\t'.repeat(gematriaValuesWithTabs[i].tabs);
+							}
+						}
+						
 						const tabPrefix = line.includes('\t') ? '\t' : '';
 						processedLines.push(`${tabPrefix}<span style="color: #00cc00; font-weight: bold; text-shadow: none;">${gematriaLine}</span>`);
 					}
@@ -4794,17 +4822,36 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
                 textArea.textContent += '\n\n' + resultText;
             });
         });
-
+		// Remove functionality if "Cantillation" is selected, change event listener
+		removeSelect.addEventListener('change', () => {
+			const selectedValue = removeSelect.value;
+			if (selectedValue === 'Cantillation') {
+				const textAreaContent = textArea.textContent;
+				const cantillationMarks = /[\u0591-\u05AF]/g; // Hebrew Cantillation marks (te'amim)
+				const noCantillationContent = textAreaContent.replace(cantillationMarks, '');
+				textArea.textContent = noCantillationContent;
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+			}
+		});
 		// Remove functionality if "Niqqud" is selected, change event listener
 		removeSelect.addEventListener('change', () => {
 			const selectedValue = removeSelect.value;
 			if (selectedValue === 'Niqqud') {
 				const textAreaContent = textArea.textContent;
-				const maqafDashMinus = /[\u05BE|­|-]/g; // if the maqaf dash or hyphen is used it is replaced with a space
-				const noMaqafDashMinus = textAreaContent.replace(maqafDashMinus, ' ');
-				const hebrewCharacters = /[\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g; // except for new lines &&[^\u000A-\u000D\u0085\u2028\u2029\r\n]
-				const noNiqqudContent = noMaqafDashMinus.replace(hebrewCharacters, '');
+				const hebrewCharacters = /[\u0590\u05B0-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g; // except for Cantillation and new lines &&[^\u000A-\u000D\u0085\u2028\u2029\r\n]
+				const noNiqqudContent = textAreaContent.replace(hebrewCharacters, '');
 				textArea.textContent = noNiqqudContent;
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+			}
+		});
+		// Remove functionality if "Maqaf" is selected, change event listener
+		removeSelect.addEventListener('change', () => {
+			const selectedValue = removeSelect.value;
+			if (selectedValue === 'Maqaf') {
+				const textAreaContent = textArea.textContent;
+				const maqafDashMinus = /[\u05BE|­|-]/g; // Remove maqaf, soft hyphen, and regular hyphen/dash
+				const noMaqafContent = textAreaContent.replace(maqafDashMinus, '');
+				textArea.textContent = noMaqafContent;
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 			}
 		});
