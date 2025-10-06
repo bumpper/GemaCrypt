@@ -2662,7 +2662,7 @@
 			// Prepopulate findInput with the sum value
 			const findInput = document.getElementById('findInput');
 			if (findInput) {
-				findInput.value = textTotal;
+				findInput.value = textTotal === 0 ? '' : textTotal;
 			}
 
 			// Add event listener for findInput to handle letter-to-gematria conversion
