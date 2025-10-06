@@ -2584,7 +2584,7 @@
 						const wordLength = wordWithoutNiqqud.length;
 						
 						// Clean word of punctuation for calculation but keep original for display
-						const cleanWord = word.replace(/[.,!?\-;\*\(\)\[\]\u05C3⚜️⁕]/g, '');
+						const cleanWord = word.replace(/[.,!?\-;\*\(\)\[\]\u05C3⁕]/g, '');
 						// Only process words that contain actual letters (exclude tab/indent characters and pure punctuation)
 						if (cleanWord.length > 0 && /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(cleanWord)) {
 							const gematriaValue = calculateWordGematria(cleanWord);
@@ -2641,11 +2641,14 @@
 				<div class="modal-content" style="width: 40%; min-width: 300px; max-width: 80vw; height: auto; min-height: 300px; max-height: 90vh;">
 					<span class="close" onclick="document.getElementById('findModal').remove()">&times;</span>
 					<h2 style="text-align: center;">Find Gematria Matches</h2>
-					<div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; margin-top: 20px;">
-						<input type="text" id="findInput" placeholder="Enter gematria value" style="text-align: left; padding: 8px; border: 1px solid #ccc; border-radius: 5px; flex-grow: 1;">
-						<button id="findSearchBtn" class="textBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 8px 8px 8px; cursor: pointer; font-size: 12px; font-weight: bold; margin-right: 0px; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35); transition: background-color 0.0s;">
-							<img src="img/find.png" height="16" width="14" border="0" alt="Search"><img src="img/invis.gif" width="4" border="0">Search
-						</button>
+					<div style="display: flex; flex-direction: column; gap: 5px; margin-top: 20px;">
+						<label for="findInput" style="font-size: 11px; text-align: left; margin-left: 2px;">Enter gematria value</label>
+						<div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
+							<input type="text" id="findInput" placeholder="Enter gematria value" style="text-align: left; padding: 8px; border: 1px solid #ccc; border-radius: 5px; flex-grow: 1;">
+							<button id="findSearchBtn" class="textBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 8px 8px 8px; cursor: pointer; font-size: 12px; font-weight: bold; margin-right: 0px; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35); transition: background-color 0.0s;">
+								<img src="img/find.png" height="16" width="14" border="0" alt="Search"><img src="img/invis.gif" width="4" border="0">Search
+							</button>
+						</div>
 					</div>
 					<div id="findResults" style="margin-top: 20px; white-space: pre-wrap; max-height: 60vh; overflow-y: auto; word-wrap: break-word; overflow-wrap: break-word;"></div>
 				</div>
@@ -2653,11 +2656,13 @@
 			document.body.appendChild(modal);
 			modal.style.display = 'block';
 
-			// Prepopulate findInput with the sum value
-			const findInput = document.getElementById('findInput');
-			if (findInput) {
-				findInput.value = textTotal === 0 ? '' : textTotal;
-			}
+		// Prepopulate findInput with the sum value
+		const findInput = document.getElementById('findInput');
+		if (findInput) {
+			findInput.value = textTotal === 0 ? '' : textTotal;
+			// Set focus to the findInput textbox
+			findInput.focus();
+		}
 
 			// Add event listener for findInput to handle letter-to-gematria conversion
 			document.getElementById('findInput').addEventListener('input', function() {
@@ -3313,18 +3318,32 @@
 				<div class="modal-content">
 					<span class="close" onclick="document.getElementById('elsModal').remove()">&times;</span>
 					<h2 style="text-align: center;">Equidistant Letter Sequence</h2>
-					<div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; margin-top: 20px;">
-						<input type="text" id="startPosition" value="${guessStartPosition}" placeholder="Start Position" style="text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
-						<input type="text" id="sequenceNum" placeholder="Sequence Number" style="text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
-						<button id="elsSearchBtn" class="textBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 8px 8px 8px; cursor: pointer; font-size: 12px; font-weight: bold; margin-right: 0px; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35); transition: background-color 0.0s;"><img src="img/find.png" height="16" width="14" border="0" alt="Search"><img src="img/invis.gif" width="4" border="0">Search</button>
+					<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+						<div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: center; gap: 10px;">
+							<div style="display: flex; flex-direction: column; gap: 5px;">
+								<label for="startPosition" style="font-size: 11px; text-align: center;">Start Position</label>
+								<input type="text" id="startPosition" value="${guessStartPosition}" placeholder="Start Position" style="text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+							</div>
+							<div style="display: flex; flex-direction: column; gap: 5px;">
+								<label for="sequenceNum" style="font-size: 11px; text-align: center;">Sequence Number</label>
+								<input type="text" id="sequenceNum" placeholder="Sequence Number" style="text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+							</div>
+							<button id="elsSearchBtn" class="textBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 8px 8px 8px; cursor: pointer; font-size: 12px; font-weight: bold; margin-right: 0px; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35); transition: background-color 0.0s; margin-top: 21px;"><img src="img/find.png" height="16" width="14" border="0" alt="Search"><img src="img/invis.gif" width="4" border="0">Search</button>
+						</div>
 					</div>
 					<div id="elsResults" style="margin-top: 20px; text-align: center;"></div>
 				</div>
-			`;
-			document.body.appendChild(modal);
-			modal.style.display = 'block';
+		`;
+		document.body.appendChild(modal);
+		modal.style.display = 'block';
 
-			document.getElementById('startPosition').addEventListener('input', function() {
+		// Set focus to the sequenceNum textbox
+		const sequenceNumInput = document.getElementById('sequenceNum');
+		if (sequenceNumInput) {
+			sequenceNumInput.focus();
+		}
+
+		document.getElementById('startPosition').addEventListener('input', function() {
 				const val = this.value;
 
 				// Debug logging for Hebrew Finals
@@ -4868,9 +4887,11 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		removeSelect.addEventListener('change', () => {
 		    const selectedValue = removeSelect.value;
 		    if (selectedValue === 'AltWord2') {
+		        // Get plain text content (strips HTML)
 		        const textAreaContent = textArea.textContent;
-		        const noAltWord2Content = textAreaContent.replace(new RegExp(`(?<!\\u2055)\\u2055(?!\\u2055)[^ ]* ?`, 'g'), '');	// Replaces anything inbetween a 'flower punctuation mark ⁕' and the next following space.
-				//const noAltWord2Content = textAreaContent.replace(/\u002A\u002A[^ ]* ?/g, '\u002A\u002A').replace(/\u002A\u002A/g,'');	// Replaces anything inbetween a double ** and the next following space. 
+		        // Remove Alt Word #2 content - match flower mark followed by non-space characters and optional space
+		        const noAltWord2Content = textAreaContent.replace(/⁕[^\s⁕]* ?/g, '');	// Replaces ⁕ followed by any non-whitespace/non-flower characters and optional space
+		        // Re-apply highlighting to the cleaned content
 		        textArea.innerHTML = highlightSpecialCharacters(noAltWord2Content);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
@@ -4879,12 +4900,15 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		removeSelect.addEventListener('change', () => {
 		    const selectedValue = removeSelect.value;
 		    if (selectedValue === 'AltWord1') {
+		        // Get plain text content (strips HTML)
 		        const textAreaContent = textArea.textContent;
-				const noAltWord1Content = textAreaContent.replace(new RegExp(`(?<!\\u002A)\\u002A(?!\\u002A)[^ ]* ?`, 'g'), '');	// Removes any single * and any characters that follow it until the first space it reaches, and also removes the space, then stops. 
+		        // Remove Alt Word #1 content - match single asterisk followed by non-space characters and optional space
+				const noAltWord1Content = textAreaContent.replace(/\*[^\s\*]* ?/g, '');	// Removes * followed by any non-whitespace/non-asterisk characters and optional space
+		        // Re-apply highlighting to the cleaned content
 		        textArea.innerHTML = highlightSpecialCharacters(noAltWord1Content);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
-		});	
+		});
 		// Remove functionality if "Cantillation" is selected, change event listener
 		removeSelect.addEventListener('change', () => {
 			const selectedValue = removeSelect.value;
@@ -4923,7 +4947,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    const selectedValue = removeSelect.value;
 		    if (selectedValue === 'Punctuation') {
 		        const textAreaContent = textArea.textContent;
-		        const noPunctuationContent = textAreaContent.replace(/[.,!?\-;\*\(\)\[\]\u05C3⚜️]/g, '');
+		        const noPunctuationContent = textAreaContent.replace(/[.,!?\-;\(\)\[\]\u05C3]/g, '');
 		        textArea.innerHTML = highlightSpecialCharacters(noPunctuationContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
@@ -4934,7 +4958,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    if (selectedValue === 'Digits') {
 		        const textAreaContent = textArea.textContent;
 		        const noDigitsContent = textAreaContent
-					.replace(/[\d,\u003A\u05C3\t⚜️]/g, '')	// remove Digits, commas, colons, Sof Pasuq (Hebrew colon), tabs & Fleur-De-Lis
+					.replace(/[\d,\u003A\u05C3\t]/g, '')	// remove Digits, commas, colons, Sof Pasuq (Hebrew colon), tabs & Fleur-De-Lis
 					.replace(/\n{2,}/g, '\n') 				// removes a double or repeating New Line
 					.replace(/\r{2,}/g, '\r');				// removes a double or repeating Carriage Return
 		        textArea.innerHTML = highlightSpecialCharacters(noDigitsContent);
