@@ -2289,11 +2289,31 @@
 		}
 		</script>
 
+		<style>
+		#removeSelect {  border-radius: 8px; }
+		#removeSelect option          { background:#3333aa; color:#fff; border-radius: 5px; }	/*  Fallback color for any option that does not get an override  */
+		#removeSelect option          { background:var(--opt-bg,#3333aa); border-radius: 5px; } 
+		#removeSelect option[value*="AltWord2"]					{ --opt-bg:#3333aa; }
+		#removeSelect option[value*="AltWord1"]					{ --opt-bg:#3333aa; }
+		#removeSelect option[value*="Cantillation"]				{ --opt-bg:#48bef5; }
+		#removeSelect option[value*="Niqqud"]					{ --opt-bg:#48bef5; }
+		#removeSelect option[value*="Maqaf"]					{ --opt-bg:#48bef5; }
+		#removeSelect option[value*="Punctuation"]				{ --opt-bg:#4589a8; }
+		#removeSelect option[value*="Digits"]					{ --opt-bg:#4589a8; }
+		#removeSelect option[value*="Spaces"]					{ --opt-bg:#4589a8; }
+		#removeSelect option[value*="CarriageReturns"]			{ --opt-bg:#4589a8; }
+		#removeSelect option[value*="LatinLetters"]				{ --opt-bg:#00aeff; }
+		#removeSelect option[value*="GreekLetters"]				{ --opt-bg:#00aeff; }
+		#removeSelect option[value*="HebrewLetters"]			{ --opt-bg:#00aeff; }
+		#removeSelect option[value*="ConvertFinals"]			{ --opt-bg:#546cad; }
+		#removeSelect option[value*="SplitHyphen"]				{ --opt-bg:#546cad; }
+		</style>
+
         <select id="removeSelect" tabIndex="" onChange="">
             <option value='Remove' selected="true">&#x1F6AB; Remove:</option>
 			<option value='AltWord2'>Alt Word #2 ⁕</option>
 			<option value='AltWord1'>Alt Word #1 *</option>
-		<option value='Cantillation'>Cantillation (♫ notes)</option>
+			<option value='Cantillation'>Cantillation (♫ notes)</option>
 			<option value='Niqqud'>Niqqud (Vowel Points)</option>
 			<option value='Maqaf'>Maqaf (dash, hypenes)</option>
 			<option value='Punctuation'>Punctuation</option>
@@ -2303,6 +2323,8 @@
 			<option value='LatinLetters'>Latin/English Letters</option>
 			<option value='GreekLetters'>Greek Letters</option>
 			<option value='HebrewLetters'>Hebrew Letters</option>
+			<option value='ConvertFinals'>Convert Finals</option>
+			<option value='SplitHyphen'>Split Hyphenated</option>
 
         </select>
 
@@ -4822,6 +4844,27 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
                 textArea.textContent += '\n\n' + resultText;
             });
         });
+		// Remove functionality if "Alt Word #2" are selected, change event listener.  This is the word having the same meaning, but a slightly different spelling found later in the Dead Sea Scrolls, and therefore a different Gematria value. 
+		removeSelect.addEventListener('change', () => {
+		    const selectedValue = removeSelect.value;
+		    if (selectedValue === 'AltWord2') {
+		        const textAreaContent = textArea.textContent;
+		        const noAltWord2Content = textAreaContent.replace(new RegExp(`(?<!\\u2055)\\u2055(?!\\u2055)[^ ]* ?`, 'g'), '');	// Replaces anything inbetween a 'flower punctuation mark ⁕' and the next following space.
+				//const noAltWord2Content = textAreaContent.replace(/\u002A\u002A[^ ]* ?/g, '\u002A\u002A').replace(/\u002A\u002A/g,'');	// Replaces anything inbetween a double ** and the next following space. 
+		        textArea.textContent = noAltWord2Content;
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+		    }
+		});	
+		// Remove functionality if "Alt Word #1" are selected, change event listener.  This is the original word traditionally found in the Old Testament.
+		removeSelect.addEventListener('change', () => {
+		    const selectedValue = removeSelect.value;
+		    if (selectedValue === 'AltWord1') {
+		        const textAreaContent = textArea.textContent;
+				const noAltWord1Content = textAreaContent.replace(new RegExp(`(?<!\\u002A)\\u002A(?!\\u002A)[^ ]* ?`, 'g'), '');	// Removes any single * and any characters that follow it until the first space it reaches, and also removes the space, then stops. 
+		        textArea.textContent = noAltWord1Content;
+				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+		    }
+		});	
 		// Remove functionality if "Cantillation" is selected, change event listener
 		removeSelect.addEventListener('change', () => {
 			const selectedValue = removeSelect.value;
@@ -4932,27 +4975,33 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});	
-		// Remove functionality if "Alt Word #1" are selected, change event listener.  This is the original word traditionally found in the Old Testament.
+		// Remove functionality if "ConvertFinals" is selected, change event listener
+	removeSelect.addEventListener('change', () => {
+		const selectedValue = removeSelect.value;
+		if (selectedValue === 'ConvertFinals') {
+			const textAreaContent = textArea.textContent;
+			// Replace Hebrew final forms with their regular forms
+			const convertedContent = textAreaContent
+				.replace(/ך/g, 'כ')  // Final Kaf → Kaf
+				.replace(/ם/g, 'מ')  // Final Mem → Mem
+				.replace(/ן/g, 'נ')  // Final Nun → Nun
+				.replace(/ף/g, 'פ')  // Final Peh → Peh
+				.replace(/ץ/g, 'צ'); // Final Tzadi → Tzadi
+			textArea.textContent = convertedContent;
+			//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+		}
+		});
+		// Remove functionality if "SplitHyphen" is selected, change event listener
 		removeSelect.addEventListener('change', () => {
-		    const selectedValue = removeSelect.value;
-		    if (selectedValue === 'AltWord1') {
-		        const textAreaContent = textArea.textContent;
-				const noAltWord1Content = textAreaContent.replace(new RegExp(`(?<!\\u002A)\\u002A(?!\\u002A)[^ ]* ?`, 'g'), '');	// Removes any single * and any characters that follow it until the first space it reaches, and also removes the space, then stops. 
-		        textArea.textContent = noAltWord1Content;
+			const selectedValue = removeSelect.value;
+			if (selectedValue === 'SplitHyphen') {
+				const textAreaContent = textArea.textContent;
+				// Replace Maqaf (U+05BE), soft hyphen (U+00AD), and regular hyphen/dash with a single space
+				const splitHyphenContent = textAreaContent.replace(/[\u05BE\u00AD\-]/g, ' ');
+				textArea.textContent = splitHyphenContent;
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		    }
-		});	
-		// Remove functionality if "Alt Word #2" are selected, change event listener.  This is the word having the same meaning, but a slightly different spelling found later in the Dead Sea Scrolls, and therefore a different Gematria value. 
-		removeSelect.addEventListener('change', () => {
-		    const selectedValue = removeSelect.value;
-		    if (selectedValue === 'AltWord2') {
-		        const textAreaContent = textArea.textContent;
-		        const noAltWord2Content = textAreaContent.replace(new RegExp(`(?<!\\u2055)\\u2055(?!\\u2055)[^ ]* ?`, 'g'), '');	// Replaces anything inbetween a 'flower punctuation mark ⁕' and the next following space.
-				//const noAltWord2Content = textAreaContent.replace(/\u002A\u002A[^ ]* ?/g, '\u002A\u002A').replace(/\u002A\u002A/g,'');	// Replaces anything inbetween a double ** and the next following space. 
-		        textArea.textContent = noAltWord2Content;
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		    }
-		});	
+			}
+		});				
 
 		//\S\s\r\n\d.:;,!*-|()+
         // Highlight text functionality
