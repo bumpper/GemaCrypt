@@ -2370,7 +2370,6 @@
 			<option value='ACh-BI'>ACh-BI</option>
 			<option value='AChaS-BeTA'>AChaS-BeTA</option>
 			<option value='AT-BaCh'>AT-BaCh</option>
-			<option value='AT-BaCh999'>AT-BaCh (with Finals)</option>
 			<option value='AiY-BaK'>AiY-BaK</option>
 			<option value='ATz-BaPh'>ATz-BaPh</option>
 			<option value='AL-BeTh'>AL-BeTh</option>
@@ -4337,75 +4336,6 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*nun F*/	case "\u05DF":gematria1 += L25;letter = "\u05E0";gematria2 += L14;break;	// nun
 				/*pey F*/	case "\u05E3":gematria1 += L26;letter = "\u05DB";gematria2 += L11;break;	// kaf
 				/*tzadi F*/	case "\u05E5":gematria1 += L27;letter = "\u05D9";gematria2 += L10;break;	// yod
-				default:letter = input[i]; break; // Keep original character if not found
-			}
-			textEncrypted += letter;
-			// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-			if(i+1 == input.length){
-				switch(letter){
-					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
-					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
-					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
-					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
-					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
-					default:letter = "";break;
-				}
-				textEncrypted += letter;
-			}
-		}
-		if(gematriaSelect.value == "HaKlali"){
-		gematria1 = gematria1*gematria1;
-		gematria2 = gematria2*gematria2;
-		}
-		else if(gematriaSelect.value == "Kolel"){
-		gematria1 += letterCount;
-		gematria2 += letterCount;
-		}
-		else if(gematriaSelect.value == "Kolel+1"){
-		gematria1 += wordCount;
-		gematria2 += wordCount;
-		}
-		else if (gematriaSelect.value == "IntegralReduced"){
-		while(gematria1 >= 10){
-		product1 = Math.floor(gematria1 / 10);
-		remainder1 = gematria1 % 10;
-		gematria1 = remainder1 + product1;}
-		while(gematria2 >= 10){
-		product2 = Math.floor(gematria2 / 10);
-		remainder2 = gematria2 % 10;
-		gematria2 = remainder2 + product2;}
-		}
-      break;
-	case 'AT-BaCh999':
-		for (var i=0; i < input.length; i++){
-			switch(input[i]){
-				/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05D8";gematria2 += L09;break;	// tet
-				/*bet*/		case "\u05D1":gematria1 += L02;letter = "\u05D7";gematria2 += L08;break;	// chet
-				/*gimel*/	case "\u05D2":gematria1 += L03;letter = "\u05D6";gematria2 += L07;break;	// zayin
-				/*dalet*/	case "\u05D3":gematria1 += L04;letter = "\u05D5";gematria2 += L06;break;	// vav
-				/*hey*/		case "\u05D4":gematria1 += L05;letter = "\u05D4";gematria2 += L05;break;	// hey
-				/*vav*/		case "\u05D5":gematria1 += L06;letter = "\u05D3";gematria2 += L04;break;	// dalet
-				/*zayin*/	case "\u05D6":gematria1 += L07;letter = "\u05D2";gematria2 += L03;break;	// gimel
-				/*chet*/	case "\u05D7":gematria1 += L08;letter = "\u05D1";gematria2 += L02;break;	// bet
-				/*tet*/		case "\u05D8":gematria1 += L09;letter = "\u05D0";gematria2 += L01;break;	// aleph
-				/*yod*/		case "\u05D9":gematria1 += L10;letter = "\u05E6";gematria2 += L18;break;	// tzadi
-				/*kaf*/		case "\u05DB":gematria1 += L11;letter = "\u05E4";gematria2 += L17;break;	// pey
-				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E2";gematria2 += L16;break;	// ayin
-				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E1";gematria2 += L15;break;	// samech
-				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
-				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
-				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05DC";gematria2 += L12;break;	// lamed
-				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
-				/*tzadi*/	case "\u05E6":gematria1 += L18;letter = "\u05D9";gematria2 += L10;break;	// yod
-				/*kuf*/		case "\u05E7":gematria1 += L19;letter = "\u05EA";gematria2 += L22;break;	// tav
-				/*resh*/	case "\u05E8":gematria1 += L20;letter = "\u05E9";gematria2 += L21;break;	// shin
-				/*shin*/	case "\u05E9":gematria1 += L21;letter = "\u05E8";gematria2 += L20;break;	// resh
-				/*tav*/		case "\u05EA":gematria1 += L22;letter = "\u05E7";gematria2 += L19;break;	// kuf
-				/*kaf F*/	case "\u05DA":gematria1 += L23;letter = "\u05DD";gematria2 += L24;break;	// mem F
-				/*mem F*/	case "\u05DD":gematria1 += L24;letter = "\u05DA";gematria2 += L23;break;	// kaf F
-				/*nun F*/	case "\u05DF":gematria1 += L25;letter = "\u05DF";gematria2 += L25;break;	// nun F
-				/*pey F*/	case "\u05E3":gematria1 += L26;letter = "\u05E5";gematria2 += L27;break;	// tzadi F
-				/*tzadi F*/	case "\u05E5":gematria1 += L27;letter = "\u05E3";gematria2 += L26;break;	// pey F
 				default:letter = input[i]; break; // Keep original character if not found
 			}
 			textEncrypted += letter;
@@ -7522,57 +7452,76 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				let words = textHighlight.trim().split(/\s+/).filter(word => word.length > 0).length;
 				let letters = textHighlight.replace(/[.,&!$%#~*|><}^{/)(-=:;\d\s\r\n_'"`\]\[\+\\\u05C3?\u05BE\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '').length;
 
-				// Calculate encryption by default (AT-BaSh) for statusBar display
-				input = textHighlight.replace(/[a-z\t"'·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, '');
+				// Calculate encryption based on selected encryption method for statusBar display
+				input = textHighlight.replace(/[a-z\t"'·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140—\u1018F\u1D200—\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, '');
 				textEncrypted = '';
-				
-				// Perform AT-BaSh encryption by default
-				for (var i = 0; i < input.length; i++) {
-					var letter = '';
-					switch(input[i]) {
-						/*aleph*/	case "\u05D0": letter = "\u05EA"; break;	// tav
-						/*bet*/		case "\u05D1": letter = "\u05E9"; break;	// shin
-						/*gimel*/	case "\u05D2": letter = "\u05E8"; break;	// resh
-						/*dalet*/	case "\u05D3": letter = "\u05E7"; break;	// kuf
-						/*hey*/		case "\u05D4": letter = "\u05E6"; break;	// tzadi
-						/*vav*/		case "\u05D5": letter = "\u05E4"; break;	// pey
-						/*zayin*/	case "\u05D6": letter = "\u05E2"; break;	// ayin
-						/*chet*/	case "\u05D7": letter = "\u05E1"; break;	// samech
-						/*tet*/		case "\u05D8": letter = "\u05E0"; break;	// nun
-						/*yod*/		case "\u05D9": letter = "\u05DE"; break;	// mem
-						/*kaf*/		case "\u05DB": letter = "\u05DC"; break;	// lamed
-						/*lamed*/	case "\u05DC": letter = "\u05DB"; break;	// kaf
-						/*mem*/		case "\u05DE": letter = "\u05D9"; break;	// yod
-						/*nun*/		case "\u05E0": letter = "\u05D8"; break;	// tet
-						/*samech*/	case "\u05E1": letter = "\u05D7"; break;	// chet
-						/*ayin*/	case "\u05E2": letter = "\u05D6"; break;	// zayin
-						/*pey*/		case "\u05E4": letter = "\u05D5"; break;	// vav
-						/*tzadi*/	case "\u05E6": letter = "\u05D4"; break;	// hey
-						/*kuf*/		case "\u05E7": letter = "\u05D3"; break;	// dalet
-						/*resh*/	case "\u05E8": letter = "\u05D2"; break;	// gimel
-						/*shin*/	case "\u05E9": letter = "\u05D1"; break;	// bet
-						/*tav*/		case "\u05EA": letter = "\u05D0"; break;	// aleph
-						/*kaf F*/	case "\u05DA": letter = "\u05DC"; break;	// lamed
-						/*mem F*/	case "\u05DD": letter = "\u05D9"; break;	// yod
-						/*nun F*/	case "\u05DF": letter = "\u05D8"; break;	// tet
-						/*pey F*/	case "\u05E3": letter = "\u05D5"; break;	// vav
-						/*tzadi F*/	case "\u05E5": letter = "\u05D4"; break;	// hey
-						default: letter = input[i]; break; // Keep non-Hebrew characters as-is
-					}
-					textEncrypted += letter;
-					
-					// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-					if(i+1 == input.length) {
-						switch(letter) {
-							/*kaf*/		case "\u05DB": letter = "\u05DA"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// kaf F
-							/*mem*/		case "\u05DE": letter = "\u05DD"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// mem F
-							/*nun*/		case "\u05E0": letter = "\u05DF"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// nun F
-							/*pey*/		case "\u05E4": letter = "\u05E3"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// pey F
-							/*tzadi*/	case "\u05E6": letter = "\u05E5"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// tzadi F
-							default: letter = ""; break;
+
+				// Get the currently selected encryption method
+				const encryptionSelect = document.getElementById('encryptionSelect');
+				let selectedEncryption = encryptionSelect ? encryptionSelect.value : 'Encryption';
+
+				// Perform encryption based on selected method (default to AT-BaSh if "Encryption" is selected)
+				if (selectedEncryption === 'Encryption' || selectedEncryption === 'AT-BaSh') {
+					// AT-BaSh encryption
+					for (var i = 0; i < input.length; i++) {
+						var letter = '';
+						switch(input[i]) {
+							/*aleph*/	case "\u05D0": letter = "\u05EA"; break;	// tav
+							/*bet*/		case "\u05D1": letter = "\u05E9"; break;	// shin
+							/*gimel*/	case "\u05D2": letter = "\u05E8"; break;	// resh
+							/*dalet*/	case "\u05D3": letter = "\u05E7"; break;	// kuf
+							/*hey*/		case "\u05D4": letter = "\u05E6"; break;	// tzadi
+							/*vav*/		case "\u05D5": letter = "\u05E4"; break;	// pey
+							/*zayin*/	case "\u05D6": letter = "\u05E2"; break;	// ayin
+							/*chet*/	case "\u05D7": letter = "\u05E1"; break;	// samech
+							/*tet*/		case "\u05D8": letter = "\u05E0"; break;	// nun
+							/*yod*/		case "\u05D9": letter = "\u05DE"; break;	// mem
+							/*kaf*/		case "\u05DB": letter = "\u05DC"; break;	// lamed
+							/*lamed*/	case "\u05DC": letter = "\u05DB"; break;	// kaf
+							/*mem*/		case "\u05DE": letter = "\u05D9"; break;	// yod
+							/*nun*/		case "\u05E0": letter = "\u05D8"; break;	// tet
+							/*samech*/	case "\u05E1": letter = "\u05D7"; break;	// chet
+							/*ayin*/	case "\u05E2": letter = "\u05D6"; break;	// zayin
+							/*pey*/		case "\u05E4": letter = "\u05D5"; break;	// vav
+							/*tzadi*/	case "\u05E6": letter = "\u05D4"; break;	// hey
+							/*kuf*/		case "\u05E7": letter = "\u05D3"; break;	// dalet
+							/*resh*/	case "\u05E8": letter = "\u05D2"; break;	// gimel
+							/*shin*/	case "\u05E9": letter = "\u05D1"; break;	// bet
+							/*tav*/		case "\u05EA": letter = "\u05D0"; break;	// aleph
+							/*kaf F*/	case "\u05DA": letter = "\u05DC"; break;	// lamed
+							/*mem F*/	case "\u05DD": letter = "\u05D9"; break;	// yod
+							/*nun F*/	case "\u05DF": letter = "\u05D8"; break;	// tet
+							/*pey F*/	case "\u05E3": letter = "\u05D5"; break;	// vav
+							/*tzadi F*/	case "\u05E5": letter = "\u05D4"; break;	// hey
+							default: letter = input[i]; break; // Keep non-Hebrew characters as-is
 						}
 						textEncrypted += letter;
+
+						// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
+						if(i+1 == input.length) {
+							switch(letter) {
+								/*kaf*/		case "\u05DB": letter = "\u05DA"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// kaf F
+								/*mem*/		case "\u05DE": letter = "\u05DD"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// mem F
+								/*nun*/		case "\u05E0": letter = "\u05DF"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// nun F
+								/*pey*/		case "\u05E4": letter = "\u05E3"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// pey F
+								/*tzadi*/	case "\u05E6": letter = "\u05E5"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// tzadi F
+								default: letter = ""; break;
+							}
+							textEncrypted += letter;
+						}
 					}
+				} else {
+					// For other encryption methods, call the existing encryption handler
+					// Store original values
+					const originalTextHighlight = textHighlight;
+					
+					// Call the encryption handler which will populate textEncrypted
+					if (encryptionSelect && encryptionSelect.onchange) {
+						encryptionSelect.onchange();
+					}
+					
+					// Restore textHighlight in case it was modified
+					textHighlight = originalTextHighlight;
 				}
 				
 				// Calculate encrypted total and display encrypted text and sum
