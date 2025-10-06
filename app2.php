@@ -2249,6 +2249,8 @@
 						const text = await response.text();
 						const textArea = document.getElementById("textArea");
 						textArea.textContent = text;
+						// Highlight special characters after loading
+						highlightSpecialCharacters();
 					} else {
 						console.error(`Error loading file from primary CORS proxy: ${response.status} - ${response.statusText}`);
 						corsProxy = 'http://radius.center/';
@@ -2257,6 +2259,8 @@
 							const text = await response.text();
 							const textArea = document.getElementById('textArea');
 							textArea.textContent = text;
+							// Highlight special characters after loading
+							highlightSpecialCharacters();
 						} else {
 							console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
 						}
@@ -2269,6 +2273,8 @@
 						const text = await response.text();
 						const textArea = document.getElementById('textArea');
 						textArea.textContent = text;
+						// Highlight special characters after loading
+						highlightSpecialCharacters();
 					} else {
 						console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
 					}
@@ -2278,6 +2284,7 @@
 			//Load a default file upon page load
 			window.onload = function () {
 				loadFile('gemacrypt/files/books/default.txt');
+				// Note: highlightSpecialCharacters() is called within loadFile()
 			};
 
 			// When the page is about to be unloaded (e.g., when the refresh button is clicked), set the menus back to their default option
@@ -2410,12 +2417,23 @@
     <input type="file" id="fileInput" multiple style="display: none;">
 
 	<script>
-		// Replace * with a red colored *, but this does not work in an editable text field
-		const textarea = document.getElementById("textArea");
-		const text = textarea.textContent;
-		const newText = text.replace(/\*/g, "<font color='#FF0000'>*</font>");
-		textarea.innerHTML = newText;
-	  </script>
+		// Function to highlight asterisks and flower symbols in red
+		function highlightSpecialCharacters() {
+			const textArea = document.getElementById("textArea");
+			if (!textArea) return;
+			
+			// Get the current content
+			let content = textArea.textContent;
+			
+			// Replace asterisks (*) and flower symbols (⁕) with red-colored versions
+			// Use span elements with inline style for better compatibility
+			content = content.replace(/\*/g, '<span style="color: #FF0000;">*</span>');
+			content = content.replace(/⁕/g, '<span style="color: #FF0000;">⁕</span>');
+			
+			// Update the textArea with highlighted content
+			textArea.innerHTML = content;
+		}
+	</script>
 
 	<script>
 		function toggleCalc(){
@@ -2444,8 +2462,20 @@
 				// Calculate base gematria value
 				for (let char of word) {
 					const code = char.charCodeAt(0);
-					// Hebrew letters
-					if (code >= 0x05D0 && code <= 0x05EA) {
+					// Check for Hebrew finals FIRST (before regular Hebrew letters)
+					// This prevents finals ך (0x05DA), ם (0x05DD), ן (0x05DF) from being caught by the regular Hebrew range
+					if (char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || char === "\u05E3" || char === "\u05E5") {
+						// Hebrew finals
+						letterCount++;
+						switch(char) {
+							case "\u05DA": total += L23; break; // kaf sofit ך = 500
+							case "\u05DD": total += L24; break; // mem sofit ם = 600
+							case "\u05DF": total += L25; break; // nun sofit ן = 700
+							case "\u05E3": total += L26; break; // pey sofit ף = 800
+							case "\u05E5": total += L27; break; // tzadi sofit ץ = 900
+						}
+					} else if (code >= 0x05D0 && code <= 0x05EA) {
+						// Regular Hebrew letters (excluding finals)
 						letterCount++;
 						switch(char) {
 							case "\u05D0": total += L01; break; // aleph
@@ -2467,21 +2497,11 @@
 							case "\u05E4": total += L17; break; // pey
 							case "\u05E6": total += L18; break; // tzadi
 							case "\u05E7": total += L19; break; // kuf
-							case "\u05E8": total += L20; break; // resh
-							case "\u05E9": total += L21; break; // shin
-							case "\u05EA": total += L22; break; // tav
-						}
-					} else if (char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || char === "\u05E3" || char === "\u05E5") {
-						// Hebrew finals
-						letterCount++;
-						switch(char) {
-							case "\u05DA": total += L23; break; // kaf sofit
-							case "\u05DD": total += L24; break; // mem sofit
-							case "\u05DF": total += L25; break; // nun sofit
-							case "\u05E3": total += L26; break; // pey sofit
-							case "\u05E5": total += L27; break; // tzadi sofit
-						}
-					} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+						case "\u05E8": total += L20; break; // resh
+						case "\u05E9": total += L21; break; // shin
+						case "\u05EA": total += L22; break; // tav
+					}
+				} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
 						// English letters
 						letterCount++;
 						const upper = code >= 65 && code <= 90 ? code : code - 32;
@@ -4818,11 +4838,17 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
         fileInput.addEventListener('change', () => {
             const files = fileInput.files;
             let fileText = '';
+            let filesProcessed = 0;
             for (let file of files) {
                 const reader = new FileReader();
                 reader.onload = () => {
                     fileText += reader.result + '\n\n';
                     textArea.textContent += reader.result;
+                    filesProcessed++;
+                    // After all files are loaded, highlight special characters
+                    if (filesProcessed === files.length) {
+                        highlightSpecialCharacters();
+                    }
                 };
                 reader.readAsText(file);
             }
