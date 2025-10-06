@@ -2687,42 +2687,38 @@
 						let letterValue = 0;
 						const code = letter.charCodeAt(0);
 
-						// Hebrew letters
-						if (code >= 0x05D0 && code <= 0x05EA) {
-							switch(letter) {
-								case "\u05D0": letterValue = L01; break; // aleph א = 1
-								case "\u05D1": letterValue = L02; break; // bet ב = 2
-								case "\u05D2": letterValue = L03; break; // gimel ג = 3
-								case "\u05D3": letterValue = L04; break; // dalet ד = 4
-								case "\u05D4": letterValue = L05; break; // hey ה = 5
-								case "\u05D5": letterValue = L06; break; // vav ו = 6
-								case "\u05D6": letterValue = L07; break; // zayin ז = 7
-								case "\u05D7": letterValue = L08; break; // chet ח = 8
-								case "\u05D8": letterValue = L09; break; // tet ט = 9
-								case "\u05D9": letterValue = L10; break; // yod י = 10
-								case "\u05DB": letterValue = L11; break; // kaf כ = 20
-								case "\u05DC": letterValue = L12; break; // lamed ל = 30
-								case "\u05DE": letterValue = L13; break; // mem מ = 40
-								case "\u05E0": letterValue = L14; break; // nun נ = 50
-								case "\u05E1": letterValue = L15; break; // samech ס = 60
-								case "\u05E2": letterValue = L16; break; // ayin ע = 70
-								case "\u05E4": letterValue = L17; break; // pey פ = 80
-								case "\u05E6": letterValue = L18; break; // tzadi צ = 90
-								case "\u05E7": letterValue = L19; break; // kuf ק = 100
-								case "\u05E8": letterValue = L20; break; // resh ר = 200
-								case "\u05E9": letterValue = L21; break; // shin ש = 300
-								case "\u05EA": letterValue = L22; break; // tav ת = 400
-							}
-						} else if (letter === "\u05DA" || letter === "\u05DD" || letter === "\u05DF" || letter === "\u05E3" || letter === "\u05E5") {
-							// Hebrew finals - handle each final letter individually
-							switch(letter) {
-								case "\u05DA": letterValue = L23; break; // kaf sofit ך = 500
-								case "\u05DD": letterValue = L24; break; // mem sofit ם = 600
-								case "\u05DF": letterValue = L25; break; // nun sofit ן = 700
-								case "\u05E3": letterValue = L26; break; // pey sofit ף = 800
-								case "\u05E5": letterValue = L27; break; // tzadi sofit ץ = 900
-							}
-						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+					// Hebrew letters
+					if (code >= 0x05D0 && code <= 0x05EA) {
+						switch(letter) {
+							case "\u05D0": letterValue = L01; break; // aleph × = 1
+							case "\u05D1": letterValue = L02; break; // bet ×' = 2
+							case "\u05D2": letterValue = L03; break; // gimel ×' = 3
+							case "\u05D3": letterValue = L04; break; // dalet ×" = 4
+							case "\u05D4": letterValue = L05; break; // hey ×" = 5
+							case "\u05D5": letterValue = L06; break; // vav ×• = 6
+							case "\u05D6": letterValue = L07; break; // zayin ×– = 7
+							case "\u05D7": letterValue = L08; break; // chet ×— = 8
+							case "\u05D8": letterValue = L09; break; // tet ×˜ = 9
+							case "\u05D9": letterValue = L10; break; // yod ×™ = 10
+							case "\u05DA": letterValue = L23; break; // kaf sofit ×š = 500
+							case "\u05DB": letterValue = L11; break; // kaf ×› = 20
+							case "\u05DC": letterValue = L12; break; // lamed ×œ = 30
+							case "\u05DD": letterValue = L24; break; // mem sofit × = 600
+							case "\u05DE": letterValue = L13; break; // mem ×ž = 40
+							case "\u05DF": letterValue = L25; break; // nun sofit ×Ÿ = 700
+							case "\u05E0": letterValue = L14; break; // nun ×  = 50
+							case "\u05E1": letterValue = L15; break; // samech ×¡ = 60
+							case "\u05E2": letterValue = L16; break; // ayin ×¢ = 70
+							case "\u05E3": letterValue = L26; break; // pey sofit ×£ = 800
+							case "\u05E4": letterValue = L17; break; // pey ×¤ = 80
+							case "\u05E5": letterValue = L27; break; // tzadi sofit ×¥ = 900
+							case "\u05E6": letterValue = L18; break; // tzadi ×¦ = 90
+							case "\u05E7": letterValue = L19; break; // kuf ×§ = 100
+							case "\u05E8": letterValue = L20; break; // resh ×¨ = 200
+							case "\u05E9": letterValue = L21; break; // shin ×© = 300
+							case "\u05EA": letterValue = L22; break; // tav ×ª = 400
+						}
+					} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
 							// English letters - A=1, B=2, etc.
 							const upper = code >= 65 && code <= 90 ? code : code - 32;
 							letterValue = upper - 64; // A=1, B=2, C=3, etc.
@@ -2768,42 +2764,38 @@
 					for (let letter of val) {
 						const code = letter.charCodeAt(0);
 
-						// Hebrew letters
-						if (code >= 0x05D0 && code <= 0x05EA) {
-							switch(letter) {
-								case "\u05D0": total += L01; break; // aleph א = 1
-								case "\u05D1": total += L02; break; // bet ב = 2
-								case "\u05D2": total += L03; break; // gimel ג = 3
-								case "\u05D3": total += L04; break; // dalet ד = 4
-								case "\u05D4": total += L05; break; // hey ה = 5
-								case "\u05D5": total += L06; break; // vav ו = 6
-								case "\u05D6": total += L07; break; // zayin ז = 7
-								case "\u05D7": total += L08; break; // chet ח = 8
-								case "\u05D8": total += L09; break; // tet ט = 9
-								case "\u05D9": total += L10; break; // yod י = 10
-								case "\u05DB": total += L11; break; // kaf כ = 20
-								case "\u05DC": total += L12; break; // lamed ל = 30
-								case "\u05DE": total += L13; break; // mem מ = 40
-								case "\u05E0": total += L14; break; // nun נ = 50
-								case "\u05E1": total += L15; break; // samech ס = 60
-								case "\u05E2": total += L16; break; // ayin ע = 70
-								case "\u05E4": total += L17; break; // pey פ = 80
-								case "\u05E6": total += L18; break; // tzadi צ = 90
-								case "\u05E7": total += L19; break; // kuf ק = 100
-								case "\u05E8": total += L20; break; // resh ר = 200
-								case "\u05E9": total += L21; break; // shin ש = 300
-								case "\u05EA": total += L22; break; // tav ת = 400
-							}
-						} else if (letter === "\u05DA" || letter === "\u05DD" || letter === "\u05DF" || letter === "\u05E3" || letter === "\u05E5") {
-							// Hebrew finals - handle each final letter individually
-							switch(letter) {
-								case "\u05DA": total += L23; break; // kaf sofit ך = 500
-								case "\u05DD": total += L24; break; // mem sofit ם = 600
-								case "\u05DF": total += L25; break; // nun sofit ן = 700
-								case "\u05E3": total += L26; break; // pey sofit ף = 800
-								case "\u05E5": total += L27; break; // tzadi sofit ץ = 900
-							}
-						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+					// Hebrew letters
+					if (code >= 0x05D0 && code <= 0x05EA) {
+						switch(letter) {
+							case "\u05D0": total += L01; break; // aleph × = 1
+							case "\u05D1": total += L02; break; // bet ×' = 2
+							case "\u05D2": total += L03; break; // gimel ×' = 3
+							case "\u05D3": total += L04; break; // dalet ×" = 4
+							case "\u05D4": total += L05; break; // hey ×" = 5
+							case "\u05D5": total += L06; break; // vav ×• = 6
+							case "\u05D6": total += L07; break; // zayin ×– = 7
+							case "\u05D7": total += L08; break; // chet ×— = 8
+							case "\u05D8": total += L09; break; // tet ×˜ = 9
+							case "\u05D9": total += L10; break; // yod ×™ = 10
+							case "\u05DA": total += L23; break; // kaf sofit ×š = 500
+							case "\u05DB": total += L11; break; // kaf ×› = 20
+							case "\u05DC": total += L12; break; // lamed ×œ = 30
+							case "\u05DD": total += L24; break; // mem sofit × = 600
+							case "\u05DE": total += L13; break; // mem ×ž = 40
+							case "\u05DF": total += L25; break; // nun sofit ×Ÿ = 700
+							case "\u05E0": total += L14; break; // nun ×  = 50
+							case "\u05E1": total += L15; break; // samech ×¡ = 60
+							case "\u05E2": total += L16; break; // ayin ×¢ = 70
+							case "\u05E3": total += L26; break; // pey sofit ×£ = 800
+							case "\u05E4": total += L17; break; // pey ×¤ = 80
+							case "\u05E5": total += L27; break; // tzadi sofit ×¥ = 900
+							case "\u05E6": total += L18; break; // tzadi ×¦ = 90
+							case "\u05E7": total += L19; break; // kuf ×§ = 100
+							case "\u05E8": total += L20; break; // resh ×¨ = 200
+							case "\u05E9": total += L21; break; // shin ×© = 300
+							case "\u05EA": total += L22; break; // tav ×ª = 400
+						}
+					} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
 							// English letters - A=1, B=2, etc.
 							const upper = code >= 65 && code <= 90 ? code : code - 32;
 							total += upper - 64; // A=1, B=2, C=3, etc.
@@ -3570,42 +3562,38 @@
 						let letterValue = 0;
 						const code = letter.charCodeAt(0);
 						
-						// Hebrew letters
-						if (code >= 0x05D0 && code <= 0x05EA) {
-							switch(letter) {
-								case "\u05D0": letterValue = L01; break; // aleph א = 1
-								case "\u05D1": letterValue = L02; break; // bet ב = 2
-								case "\u05D2": letterValue = L03; break; // gimel ג = 3
-								case "\u05D3": letterValue = L04; break; // dalet ד = 4
-								case "\u05D4": letterValue = L05; break; // hey ה = 5
-								case "\u05D5": letterValue = L06; break; // vav ו = 6
-								case "\u05D6": letterValue = L07; break; // zayin ז = 7
-								case "\u05D7": letterValue = L08; break; // chet ח = 8
-								case "\u05D8": letterValue = L09; break; // tet ט = 9
-								case "\u05D9": letterValue = L10; break; // yod י = 10
-								case "\u05DB": letterValue = L11; break; // kaf כ = 20
-								case "\u05DC": letterValue = L12; break; // lamed ל = 30
-								case "\u05DE": letterValue = L13; break; // mem מ = 40
-								case "\u05E0": letterValue = L14; break; // nun נ = 50
-								case "\u05E1": letterValue = L15; break; // samech ס = 60
-								case "\u05E2": letterValue = L16; break; // ayin ע = 70
-								case "\u05E4": letterValue = L17; break; // pey פ = 80
-								case "\u05E6": letterValue = L18; break; // tzadi צ = 90
-								case "\u05E7": letterValue = L19; break; // kuf ק = 100
-								case "\u05E8": letterValue = L20; break; // resh ר = 200
-								case "\u05E9": letterValue = L21; break; // shin ש = 300
-								case "\u05EA": letterValue = L22; break; // tav ת = 400
-							}
-						} else if (letter === "\u05DA" || letter === "\u05DD" || letter === "\u05DF" || letter === "\u05E3" || letter === "\u05E5") {
-							// Hebrew finals - handle each final letter individually
-							switch(letter) {
-								case "\u05DA": letterValue = L23; break; // kaf sofit ך = 500
-								case "\u05DD": letterValue = L24; break; // mem sofit ם = 600  
-								case "\u05DF": letterValue = L25; break; // nun sofit ן = 700
-								case "\u05E3": letterValue = L26; break; // pey sofit ף = 800
-								case "\u05E5": letterValue = L27; break; // tzadi sofit ץ = 900
-							}
-						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+					// Hebrew letters
+					if (code >= 0x05D0 && code <= 0x05EA) {
+						switch(letter) {
+							case "\u05D0": letterValue = L01; break; // aleph × = 1
+							case "\u05D1": letterValue = L02; break; // bet ×' = 2
+							case "\u05D2": letterValue = L03; break; // gimel ×' = 3
+							case "\u05D3": letterValue = L04; break; // dalet ×" = 4
+							case "\u05D4": letterValue = L05; break; // hey ×" = 5
+							case "\u05D5": letterValue = L06; break; // vav ×• = 6
+							case "\u05D6": letterValue = L07; break; // zayin ×– = 7
+							case "\u05D7": letterValue = L08; break; // chet ×— = 8
+							case "\u05D8": letterValue = L09; break; // tet ×˜ = 9
+							case "\u05D9": letterValue = L10; break; // yod ×™ = 10
+							case "\u05DA": letterValue = L23; break; // kaf sofit ×š = 500
+							case "\u05DB": letterValue = L11; break; // kaf ×› = 20
+							case "\u05DC": letterValue = L12; break; // lamed ×œ = 30
+							case "\u05DD": letterValue = L24; break; // mem sofit × = 600
+							case "\u05DE": letterValue = L13; break; // mem ×ž = 40
+							case "\u05DF": letterValue = L25; break; // nun sofit ×Ÿ = 700
+							case "\u05E0": letterValue = L14; break; // nun ×  = 50
+							case "\u05E1": letterValue = L15; break; // samech ×¡ = 60
+							case "\u05E2": letterValue = L16; break; // ayin ×¢ = 70
+							case "\u05E3": letterValue = L26; break; // pey sofit ×£ = 800
+							case "\u05E4": letterValue = L17; break; // pey ×¤ = 80
+							case "\u05E5": letterValue = L27; break; // tzadi sofit ×¥ = 900
+							case "\u05E6": letterValue = L18; break; // tzadi ×¦ = 90
+							case "\u05E7": letterValue = L19; break; // kuf ×§ = 100
+							case "\u05E8": letterValue = L20; break; // resh ×¨ = 200
+							case "\u05E9": letterValue = L21; break; // shin ×© = 300
+							case "\u05EA": letterValue = L22; break; // tav ×ª = 400
+						}
+					} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
 							// English letters - A=1, B=2, etc.
 							const upper = code >= 65 && code <= 90 ? code : code - 32;
 							letterValue = upper - 64; // A=1, B=2, C=3, etc.
@@ -3651,42 +3639,38 @@
 					for (let letter of val) {
 						const code = letter.charCodeAt(0);
 						
-						// Hebrew letters
-						if (code >= 0x05D0 && code <= 0x05EA) {
-							switch(letter) {
-								case "\u05D0": total += L01; break; // aleph א = 1
-								case "\u05D1": total += L02; break; // bet ב = 2
-								case "\u05D2": total += L03; break; // gimel ג = 3
-								case "\u05D3": total += L04; break; // dalet ד = 4
-								case "\u05D4": total += L05; break; // hey ה = 5
-								case "\u05D5": total += L06; break; // vav ו = 6
-								case "\u05D6": total += L07; break; // zayin ז = 7
-								case "\u05D7": total += L08; break; // chet ח = 8
-								case "\u05D8": total += L09; break; // tet ט = 9
-								case "\u05D9": total += L10; break; // yod י = 10
-								case "\u05DB": total += L11; break; // kaf כ = 20
-								case "\u05DC": total += L12; break; // lamed ל = 30
-								case "\u05DE": total += L13; break; // mem מ = 40
-								case "\u05E0": total += L14; break; // nun נ = 50
-								case "\u05E1": total += L15; break; // samech ס = 60
-								case "\u05E2": total += L16; break; // ayin ע = 70
-								case "\u05E4": total += L17; break; // pey פ = 80
-								case "\u05E6": total += L18; break; // tzadi צ = 90
-								case "\u05E7": total += L19; break; // kuf ק = 100
-								case "\u05E8": total += L20; break; // resh ר = 200
-								case "\u05E9": total += L21; break; // shin ש = 300
-								case "\u05EA": total += L22; break; // tav ת = 400
-							}
-						} else if (letter === "\u05DA" || letter === "\u05DD" || letter === "\u05DF" || letter === "\u05E3" || letter === "\u05E5") {
-							// Hebrew finals - handle each final letter individually
-							switch(letter) {
-								case "\u05DA": total += L23; break; // kaf sofit ך = 500
-								case "\u05DD": total += L24; break; // mem sofit ם = 600  
-								case "\u05DF": total += L25; break; // nun sofit ן = 700
-								case "\u05E3": total += L26; break; // pey sofit ף = 800
-								case "\u05E5": total += L27; break; // tzadi sofit ץ = 900
-							}
-						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+					// Hebrew letters
+					if (code >= 0x05D0 && code <= 0x05EA) {
+						switch(letter) {
+							case "\u05D0": total += L01; break; // aleph × = 1
+							case "\u05D1": total += L02; break; // bet ×' = 2
+							case "\u05D2": total += L03; break; // gimel ×' = 3
+							case "\u05D3": total += L04; break; // dalet ×" = 4
+							case "\u05D4": total += L05; break; // hey ×" = 5
+							case "\u05D5": total += L06; break; // vav ×• = 6
+							case "\u05D6": total += L07; break; // zayin ×– = 7
+							case "\u05D7": total += L08; break; // chet ×— = 8
+							case "\u05D8": total += L09; break; // tet ×˜ = 9
+							case "\u05D9": total += L10; break; // yod ×™ = 10
+							case "\u05DA": total += L23; break; // kaf sofit ×š = 500
+							case "\u05DB": total += L11; break; // kaf ×› = 20
+							case "\u05DC": total += L12; break; // lamed ×œ = 30
+							case "\u05DD": total += L24; break; // mem sofit × = 600
+							case "\u05DE": total += L13; break; // mem ×ž = 40
+							case "\u05DF": total += L25; break; // nun sofit ×Ÿ = 700
+							case "\u05E0": total += L14; break; // nun ×  = 50
+							case "\u05E1": total += L15; break; // samech ×¡ = 60
+							case "\u05E2": total += L16; break; // ayin ×¢ = 70
+							case "\u05E3": total += L26; break; // pey sofit ×£ = 800
+							case "\u05E4": total += L17; break; // pey ×¤ = 80
+							case "\u05E5": total += L27; break; // tzadi sofit ×¥ = 900
+							case "\u05E6": total += L18; break; // tzadi ×¦ = 90
+							case "\u05E7": total += L19; break; // kuf ×§ = 100
+							case "\u05E8": total += L20; break; // resh ×¨ = 200
+							case "\u05E9": total += L21; break; // shin ×© = 300
+							case "\u05EA": total += L22; break; // tav ×ª = 400
+						}
+					} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
 							// English letters - A=1, B=2, etc.
 							const upper = code >= 65 && code <= 90 ? code : code - 32;
 							total += upper - 64; // A=1, B=2, C=3, etc.
