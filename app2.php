@@ -7356,7 +7356,19 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				
 				// Calculate counts
 				wordCount = selectedText.split(/\s+/).filter(word => word.length > 0).length;
-				letterCount = selectedText.replace(/\s/g, '').length;
+				
+				// Count only actual Hebrew, Greek, and English letters (excluding niqqud, cantillation, etc.)
+				letterCount = 0;
+				for (let char of selectedText) {
+					const code = char.charCodeAt(0);
+					// Hebrew letters (0x05D0-0x05EA) or Hebrew finals or English letters or Greek letters
+					if ((code >= 0x05D0 && code <= 0x05EA) || 
+						char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || char === "\u05E3" || char === "\u05E5" ||
+						(code >= 65 && code <= 90) || (code >= 97 && code <= 122) ||
+						(code >= 0x0370 && code <= 0x03FF)) {
+						letterCount++;
+					}
+				}
 				
 				// Calculate gematria total
 				textTotal = 0;
