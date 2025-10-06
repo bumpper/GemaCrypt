@@ -2240,6 +2240,22 @@
 		
 		<!-- CORS Proxy has to be setup on the server.  See instruction command in ../files/_server setup.txt -->
 		<script>
+			// Function to highlight asterisks and flower punctuation marks in red
+			function highlightSpecialCharacters(text) {
+				// Escape HTML to prevent injection, but preserve line breaks
+				const div = document.createElement('div');
+				div.textContent = text;
+				let escapedText = div.innerHTML;
+				
+				// Replace asterisks (*) with red colored version
+				escapedText = escapedText.replace(/\*/g, '<span style="color: #FF0000;">*</span>');
+				
+				// Replace flower punctuation marks (⁕ U+2055) with red colored version
+				escapedText = escapedText.replace(/⁕/g, '<span style="color: #FF0000;">⁕</span>');
+				
+				return escapedText;
+			}
+			
 			// CORS Proxy Server - to allow the opening of txt files
 			async function loadFile(url) {
 				let corsProxy = `${window.location.protocol}//${window.location.hostname}/`; // grad whatever the current host's domain name and protocol and append a backslash /
@@ -2248,9 +2264,8 @@
 					if (response.ok) {
 						const text = await response.text();
 						const textArea = document.getElementById("textArea");
-						textArea.textContent = text;
-						// Highlight special characters after loading
-						highlightSpecialCharacters();
+						// Apply highlighting to the loaded text
+						textArea.innerHTML = highlightSpecialCharacters(text);
 					} else {
 						console.error(`Error loading file from primary CORS proxy: ${response.status} - ${response.statusText}`);
 						corsProxy = 'http://radius.center/';
@@ -2258,9 +2273,8 @@
 						if (response.ok) {
 							const text = await response.text();
 							const textArea = document.getElementById('textArea');
-							textArea.textContent = text;
-							// Highlight special characters after loading
-							highlightSpecialCharacters();
+							// Apply highlighting to the loaded text
+							textArea.innerHTML = highlightSpecialCharacters(text);
 						} else {
 							console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
 						}
@@ -2272,9 +2286,8 @@
 					if (response.ok) {
 						const text = await response.text();
 						const textArea = document.getElementById('textArea');
-						textArea.textContent = text;
-						// Highlight special characters after loading
-						highlightSpecialCharacters();
+						// Apply highlighting to the loaded text
+						textArea.innerHTML = highlightSpecialCharacters(text);
 					} else {
 						console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
 					}
@@ -2284,7 +2297,6 @@
 			//Load a default file upon page load
 			window.onload = function () {
 				loadFile('gemacrypt/files/books/default.txt');
-				// Note: highlightSpecialCharacters() is called within loadFile()
 			};
 
 			// When the page is about to be unloaded (e.g., when the refresh button is clicked), set the menus back to their default option
@@ -2416,24 +2428,6 @@
     
     <input type="file" id="fileInput" multiple style="display: none;">
 
-	<script>
-		// Function to highlight asterisks and flower symbols in red
-		function highlightSpecialCharacters() {
-			const textArea = document.getElementById("textArea");
-			if (!textArea) return;
-			
-			// Get the current content
-			let content = textArea.textContent;
-			
-			// Replace asterisks (*) and flower symbols (⁕) with red-colored versions
-			// Use span elements with inline style for better compatibility
-			content = content.replace(/\*/g, '<span style="color: #FF0000;">*</span>');
-			content = content.replace(/⁕/g, '<span style="color: #FF0000;">⁕</span>');
-			
-			// Update the textArea with highlighted content
-			textArea.innerHTML = content;
-		}
-	</script>
 
 	<script>
 		function toggleCalc(){
@@ -4877,7 +4871,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		        const textAreaContent = textArea.textContent;
 		        const noAltWord2Content = textAreaContent.replace(new RegExp(`(?<!\\u2055)\\u2055(?!\\u2055)[^ ]* ?`, 'g'), '');	// Replaces anything inbetween a 'flower punctuation mark ⁕' and the next following space.
 				//const noAltWord2Content = textAreaContent.replace(/\u002A\u002A[^ ]* ?/g, '\u002A\u002A').replace(/\u002A\u002A/g,'');	// Replaces anything inbetween a double ** and the next following space. 
-		        textArea.textContent = noAltWord2Content;
+		        textArea.innerHTML = highlightSpecialCharacters(noAltWord2Content);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});	
@@ -4887,7 +4881,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    if (selectedValue === 'AltWord1') {
 		        const textAreaContent = textArea.textContent;
 				const noAltWord1Content = textAreaContent.replace(new RegExp(`(?<!\\u002A)\\u002A(?!\\u002A)[^ ]* ?`, 'g'), '');	// Removes any single * and any characters that follow it until the first space it reaches, and also removes the space, then stops. 
-		        textArea.textContent = noAltWord1Content;
+		        textArea.innerHTML = highlightSpecialCharacters(noAltWord1Content);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});	
@@ -4898,7 +4892,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				const textAreaContent = textArea.textContent;
 				const cantillationMarks = /[\u0591-\u05AF]/g; // Hebrew Cantillation marks (te'amim)
 				const noCantillationContent = textAreaContent.replace(cantillationMarks, '');
-				textArea.textContent = noCantillationContent;
+				textArea.innerHTML = highlightSpecialCharacters(noCantillationContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 			}
 		});
@@ -4909,7 +4903,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				const textAreaContent = textArea.textContent;
 				const hebrewCharacters = /[\u0590\u05B0-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g; // except for Cantillation and new lines &&[^\u000A-\u000D\u0085\u2028\u2029\r\n]
 				const noNiqqudContent = textAreaContent.replace(hebrewCharacters, '');
-				textArea.textContent = noNiqqudContent;
+				textArea.innerHTML = highlightSpecialCharacters(noNiqqudContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 			}
 		});
@@ -4920,7 +4914,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				const textAreaContent = textArea.textContent;
 				const maqafDashMinus = /[\u05BE|­|-]/g; // Remove maqaf, soft hyphen, and regular hyphen/dash
 				const noMaqafContent = textAreaContent.replace(maqafDashMinus, '');
-				textArea.textContent = noMaqafContent;
+				textArea.innerHTML = highlightSpecialCharacters(noMaqafContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 			}
 		});
@@ -4930,7 +4924,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    if (selectedValue === 'Punctuation') {
 		        const textAreaContent = textArea.textContent;
 		        const noPunctuationContent = textAreaContent.replace(/[.,!?\-;\*\(\)\[\]\u05C3⚜️]/g, '');
-		        textArea.textContent = noPunctuationContent;
+		        textArea.innerHTML = highlightSpecialCharacters(noPunctuationContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});
@@ -4943,7 +4937,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					.replace(/[\d,\u003A\u05C3\t⚜️]/g, '')	// remove Digits, commas, colons, Sof Pasuq (Hebrew colon), tabs & Fleur-De-Lis
 					.replace(/\n{2,}/g, '\n') 				// removes a double or repeating New Line
 					.replace(/\r{2,}/g, '\r');				// removes a double or repeating Carriage Return
-		        textArea.textContent = noDigitsContent;
+		        textArea.innerHTML = highlightSpecialCharacters(noDigitsContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});
@@ -4953,7 +4947,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    if (selectedValue === 'Spaces') {
 		        const textAreaContent = textArea.textContent;
 		        const noSpacesContent = textAreaContent.replace(/[^\S\r\n]+/g, '');
-		        textArea.textContent = noSpacesContent;
+		        textArea.innerHTML = highlightSpecialCharacters(noSpacesContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});
@@ -4963,7 +4957,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			if (selectedValue === 'CarriageReturns') {
 				const textAreaContent = textArea.textContent;
 				const noCarriageReturnsContent = textAreaContent.replace(/(\r\n|\n|\r)/gm, '');
-				textArea.textContent = noCarriageReturnsContent;
+				textArea.innerHTML = highlightSpecialCharacters(noCarriageReturnsContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 
 					textArea.classList.add('horizontalScroll'); // add the class to show horizontal scrollbar for browsers that do not wrap text to the text field.
@@ -4977,7 +4971,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    if (selectedValue === 'LatinLetters') {
 		        const textAreaContent = textArea.textContent;
 		        const noLatinLettersContent = textAreaContent.replace(/[a-zA-Z\uAB30–\uAB6F\uAB65)(]/g, '');
-		        textArea.textContent = noLatinLettersContent;
+		        textArea.innerHTML = highlightSpecialCharacters(noLatinLettersContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});
@@ -4987,7 +4981,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    if (selectedValue === 'GreekLetters') {
 		        const textAreaContent = textArea.textContent;
 		        const noGreekLettersContent = textAreaContent.replace(/[\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]]/g, '');
-		        textArea.textContent = noGreekLettersContent;
+		        textArea.innerHTML = highlightSpecialCharacters(noGreekLettersContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});
@@ -4997,7 +4991,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    if (selectedValue === 'HebrewLetters') {
 		        const textAreaContent = textArea.textContent;
 		        const noHebrewLettersContent = textAreaContent.replace(/[\u0590-\u05FF]/g, '');
-		        textArea.textContent = noHebrewLettersContent;
+		        textArea.innerHTML = highlightSpecialCharacters(noHebrewLettersContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
 		});	
@@ -5013,7 +5007,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				.replace(/ן/g, 'נ')  // Final Nun → Nun
 				.replace(/ף/g, 'פ')  // Final Peh → Peh
 				.replace(/ץ/g, 'צ'); // Final Tzadi → Tzadi
-			textArea.textContent = convertedContent;
+			textArea.innerHTML = highlightSpecialCharacters(convertedContent);
 			//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		}
 		});
@@ -5024,10 +5018,10 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				const textAreaContent = textArea.textContent;
 				// Replace Maqaf (U+05BE), soft hyphen (U+00AD), and regular hyphen/dash with a single space
 				const splitHyphenContent = textAreaContent.replace(/[\u05BE\u00AD\-]/g, ' ');
-				textArea.textContent = splitHyphenContent;
+				textArea.innerHTML = highlightSpecialCharacters(splitHyphenContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 			}
-		});				
+		});
 
 		//\S\s\r\n\d.:;,!*-|()+
         // Highlight text functionality
