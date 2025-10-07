@@ -544,6 +544,48 @@
 		.light-mode *                                   { scrollbar-width: thin; scrollbar-color: #bbb #fff; }
 		.light-mode ::-webkit-scrollbar-corner          { background: #fff; 
 		}
+		
+		/* Loading Indicator Styles */
+		#loadingIndicator {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 10000;
+			background: rgba(0, 0, 0, 0.8);
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+		}
+		
+		#loadingIndicator.show {
+			display: block;
+		}
+		
+		.spinner {
+			width: 50px;
+			height: 50px;
+			border: 5px solid rgba(255, 255, 255, 0.3);
+			border-top: 5px solid #fff;
+			border-radius: 50%;
+			animation: spin 1s linear infinite;
+		}
+		
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+		
+		#loadingIndicator p {
+			color: #fff;
+			margin-top: 15px;
+			text-align: center;
+			font-size: 12px;
+			font-weight: bold;
+			font-family: Arial, sans-serif;
+		}
+		
 		/* === MOBILE ONLY (≤ 600 px) === */
 		@media (max-width: 650px) {
 		    /* 1. Vertical toolbar that can scroll */
@@ -2256,31 +2298,47 @@
 				return escapedText;
 			}
 			
-			// CORS Proxy Server - to allow the opening of txt files
-			async function loadFile(url) {
-				let corsProxy = `${window.location.protocol}//${window.location.hostname}/`; // grad whatever the current host's domain name and protocol and append a backslash /
-				try {
-					const response = await fetch(corsProxy + url);
-					if (response.ok) {
-						const text = await response.text();
-						const textArea = document.getElementById("textArea");
-						// Apply highlighting to the loaded text
-						textArea.innerHTML = highlightSpecialCharacters(text);
-					} else {
-						console.error(`Error loading file from primary CORS proxy: ${response.status} - ${response.statusText}`);
-						corsProxy = 'http://radius.center/';
-						const response = await fetch(corsProxy + url);
-						if (response.ok) {
-							const text = await response.text();
-							const textArea = document.getElementById('textArea');
-							// Apply highlighting to the loaded text
-							textArea.innerHTML = highlightSpecialCharacters(text);
-						} else {
-							console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
-						}
-					}
-				} catch (error) {
-					console.error(`Error loading file: ${error}`);
+		// Loading Indicator Management
+		let loadingTimeout = null;
+		
+		function showLoadingIndicator() {
+			const indicator = document.getElementById('loadingIndicator');
+			// Set a timeout to show the indicator after 0.2 seconds
+			loadingTimeout = setTimeout(() => {
+				if (indicator) {
+					indicator.classList.add('show');
+				}
+			}, 200); // 200ms = 0.2 seconds
+		}
+		
+		function hideLoadingIndicator() {
+			// Clear the timeout if loading completes before 0.2 seconds
+			if (loadingTimeout) {
+				clearTimeout(loadingTimeout);
+				loadingTimeout = null;
+			}
+			// Hide the indicator if it's showing
+			const indicator = document.getElementById('loadingIndicator');
+			if (indicator) {
+				indicator.classList.remove('show');
+			}
+		}
+		
+		// CORS Proxy Server - to allow the opening of txt files
+		async function loadFile(url) {
+			// Show loading indicator
+			showLoadingIndicator();
+			
+			let corsProxy = `${window.location.protocol}//${window.location.hostname}/`; // grad whatever the current host's domain name and protocol and append a backslash /
+			try {
+				const response = await fetch(corsProxy + url);
+				if (response.ok) {
+					const text = await response.text();
+					const textArea = document.getElementById("textArea");
+					// Apply highlighting to the loaded text
+					textArea.innerHTML = highlightSpecialCharacters(text);
+				} else {
+					console.error(`Error loading file from primary CORS proxy: ${response.status} - ${response.statusText}`);
 					corsProxy = 'http://radius.center/';
 					const response = await fetch(corsProxy + url);
 					if (response.ok) {
@@ -2292,7 +2350,23 @@
 						console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
 					}
 				}
+			} catch (error) {
+				console.error(`Error loading file: ${error}`);
+				corsProxy = 'http://radius.center/';
+				const response = await fetch(corsProxy + url);
+				if (response.ok) {
+					const text = await response.text();
+					const textArea = document.getElementById('textArea');
+					// Apply highlighting to the loaded text
+					textArea.innerHTML = highlightSpecialCharacters(text);
+				} else {
+					console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
+				}
+			} finally {
+				// Hide loading indicator when done
+				hideLoadingIndicator();
 			}
+		}
 			
 			//Load a default file upon page load
 			window.onload = function () {
@@ -2363,13 +2437,14 @@
         </select>
 
 		<select id="encryptionSelect" tabIndex="2" onchange="encryption = this.value" onclick="encryption = this.value">
-			<option value='Encryption' selected="true">&#x1F512; Encryption:</option>
+			<option value='Encryption' selected="true">&#x1F512; Encryption:   </option>
 			<option value='AYiK-BeCheR'>AYiK-BeCheR</option>
 			<option value='AL-BaM'>AL-BaM</option>
 			<option value='AT-BaSh'>AT-BaSh</option>
 			<option value='ACh-BI'>ACh-BI</option>
 			<option value='AChaS-BeTA'>AChaS-BeTA</option>
 			<option value='AT-BaCh'>AT-BaCh</option>
+			<option value='AT-BaCh999'>AT-BaCh (with Finals)</option>
 			<option value='AiY-BaK'>AiY-BaK</option>
 			<option value='ATz-BaPh'>ATz-BaPh</option>
 			<option value='AL-BeTh'>AL-BeTh</option>
@@ -2426,6 +2501,12 @@
 		</div>
     
     <input type="file" id="fileInput" multiple style="display: none;">
+	
+	<!-- Loading Indicator -->
+	<div id="loadingIndicator">
+		<div class="spinner"></div>
+		<p>Loading...</p>
+	</div>
 
 
 	<script>
@@ -3045,6 +3126,12 @@
 				
 				// Update the textArea with highlighted content
 				textArea.innerHTML = highlightedContent;
+				
+				// Apply red color to asterisks and flower punctuation marks
+				let finalContent = textArea.innerHTML;
+				finalContent = finalContent.replace(/\*/g, '<span style="color: #FF0000;">*</span>');
+				finalContent = finalContent.replace(/⁕/g, '<span style="color: #FF0000;">⁕</span>');
+				textArea.innerHTML = finalContent;
 				
 				// Display results
 				let resultsText = `Target Gematria Value: ${targetGematria}\nGematria Method: ${gematriaMethod}\n\nResults:\n`;
@@ -3761,8 +3848,14 @@
 						const after = textContent.substring(pos + 1);
 						textContent = before + `<span class="els-highlight" style="background-color: yellow; color: black; font-weight: bold;">${char}</span>` + after;
 					});
-					
+
 					textArea.innerHTML = textContent;
+					
+					// Apply red color to asterisks and flower punctuation marks
+					let finalContent = textArea.innerHTML;
+					finalContent = finalContent.replace(/\*/g, '<span style="color: #FF0000;">*</span>');
+					finalContent = finalContent.replace(/⁕/g, '<span style="color: #FF0000;">⁕</span>');
+					textArea.innerHTML = finalContent;
 				}
 				
 				// Get text direction from textArea
@@ -4375,6 +4468,75 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		gematria2 = remainder2 + product2;}
 		}
       break;
+	  case 'AT-BaCh999':
+		for (var i=0; i < input.length; i++){
+			switch(input[i]){
+				/*aleph*/	case "\u05D0":gematria1 += L01;letter = "\u05D8";gematria2 += L09;break;	// tet
+				/*bet*/		case "\u05D1":gematria1 += L02;letter = "\u05D7";gematria2 += L08;break;	// chet
+				/*gimel*/	case "\u05D2":gematria1 += L03;letter = "\u05D6";gematria2 += L07;break;	// zayin
+				/*dalet*/	case "\u05D3":gematria1 += L04;letter = "\u05D5";gematria2 += L06;break;	// vav
+				/*hey*/		case "\u05D4":gematria1 += L05;letter = "\u05D4";gematria2 += L05;break;	// hey
+				/*vav*/		case "\u05D5":gematria1 += L06;letter = "\u05D3";gematria2 += L04;break;	// dalet
+				/*zayin*/	case "\u05D6":gematria1 += L07;letter = "\u05D2";gematria2 += L03;break;	// gimel
+				/*chet*/	case "\u05D7":gematria1 += L08;letter = "\u05D1";gematria2 += L02;break;	// bet
+				/*tet*/		case "\u05D8":gematria1 += L09;letter = "\u05D0";gematria2 += L01;break;	// aleph
+				/*yod*/		case "\u05D9":gematria1 += L10;letter = "\u05E6";gematria2 += L18;break;	// tzadi
+				/*kaf*/		case "\u05DB":gematria1 += L11;letter = "\u05E4";gematria2 += L17;break;	// pey
+				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E2";gematria2 += L16;break;	// ayin
+				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E1";gematria2 += L15;break;	// samech
+				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
+				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05DC";gematria2 += L12;break;	// lamed
+				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
+				/*tzadi*/	case "\u05E6":gematria1 += L18;letter = "\u05D9";gematria2 += L10;break;	// yod
+				/*kuf*/		case "\u05E7":gematria1 += L19;letter = "\u05EA";gematria2 += L22;break;	// tav
+				/*resh*/	case "\u05E8":gematria1 += L20;letter = "\u05E9";gematria2 += L21;break;	// shin
+				/*shin*/	case "\u05E9":gematria1 += L21;letter = "\u05E8";gematria2 += L20;break;	// resh
+				/*tav*/		case "\u05EA":gematria1 += L22;letter = "\u05E7";gematria2 += L19;break;	// kuf
+				/*kaf F*/	case "\u05DA":gematria1 += L23;letter = "\u05E5";gematria2 += L27;break;	// tzadi F
+				/*mem F*/	case "\u05DD":gematria1 += L24;letter = "\u05E3";gematria2 += L26;break;	// pey F
+				/*nun F*/	case "\u05DF":gematria1 += L25;letter = "\u05DF";gematria2 += L25;break;	// nun F
+				/*pey F*/	case "\u05E3":gematria1 += L26;letter = "\u05DD";gematria2 += L24;break;	// mem F
+				/*tzadi F*/	case "\u05E5":gematria1 += L27;letter = "\u05DA";gematria2 += L23;break;	// kaf F
+				default:letter = input[i]; break; // Keep original character if not found
+			}
+			textEncrypted += letter;
+			// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
+			if(i+1 == input.length){
+				switch(letter){
+					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
+					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
+					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
+					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
+					default:letter = "";break;
+				}
+				textEncrypted += letter;
+			}
+		}
+		if(gematriaSelect.value == "HaKlali"){
+		gematria1 = gematria1*gematria1;
+		gematria2 = gematria2*gematria2;
+		}
+		else if(gematriaSelect.value == "Kolel"){
+		gematria1 += letterCount;
+		gematria2 += letterCount;
+		}
+		else if(gematriaSelect.value == "Kolel+1"){
+		gematria1 += wordCount;
+		gematria2 += wordCount;
+		}
+		else if (gematriaSelect.value == "IntegralReduced"){
+		while(gematria1 >= 10){
+		product1 = Math.floor(gematria1 / 10);
+		remainder1 = gematria1 % 10;
+		gematria1 = remainder1 + product1;}
+		while(gematria2 >= 10){
+		product2 = Math.floor(gematria2 / 10);
+		remainder2 = gematria2 % 10;
+		gematria2 = remainder2 + product2;}
+		}
+      break;
 	case 'AiY-BaK':
 		for (var i=0; i < input.length; i++){
 			switch(input[i]){
@@ -4761,20 +4923,25 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		openBtn.addEventListener('mouseup',  openFiles);
 		openBtn.addEventListener('touchend', openFiles);
 
-        // File input change event listener.  Allows new text to be appended to the end of current text when using the Open button
+          // File input change event listener.  Allows new text to be appended to the end of current text when using the Open button
         fileInput.addEventListener('change', () => {
             const files = fileInput.files;
+            
+            // Show loading indicator
+            showLoadingIndicator();
+            
             let fileText = '';
             let filesProcessed = 0;
             for (let file of files) {
                 const reader = new FileReader();
                 reader.onload = () => {
                     fileText += reader.result + '\n\n';
-                    textArea.textContent += reader.result;
                     filesProcessed++;
-                    // After all files are loaded, highlight special characters
+                    // After all files are loaded, apply highlighting and hide loading indicator
                     if (filesProcessed === files.length) {
-                        highlightSpecialCharacters();
+                        // Apply highlighting to the loaded text
+                        textArea.innerHTML = highlightSpecialCharacters(fileText);
+                        hideLoadingIndicator();
                     }
                 };
                 reader.readAsText(file);
@@ -6180,11 +6347,11 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*resh*/	case "\u05E8":gematria1 += L20;letter = "\u05E9";gematria2 += L21;break;	// shin
 							/*shin*/	case "\u05E9":gematria1 += L21;letter = "\u05E8";gematria2 += L20;break;	// resh
 							/*tav*/		case "\u05EA":gematria1 += L22;letter = "\u05E7";gematria2 += L19;break;	// kuf
-							/*kaf F*/	case "\u05DA":gematria1 += L23;letter = "\u05DD";gematria2 += L24;break;	// mem F
-							/*mem F*/	case "\u05DD":gematria1 += L24;letter = "\u05DA";gematria2 += L23;break;	// kaf F
+							/*kaf F*/	case "\u05DA":gematria1 += L23;letter = "\u05E5";gematria2 += L27;break;	// tzadik F
+							/*mem F*/	case "\u05DD":gematria1 += L24;letter = "\u05E3";gematria2 += L26;break;	// pey F
 							/*nun F*/	case "\u05DF":gematria1 += L25;letter = "\u05DF";gematria2 += L25;break;	// nun F
-							/*pey F*/	case "\u05E3":gematria1 += L26;letter = "\u05E5";gematria2 += L27;break;	// tzadi F
-							/*tzadi F*/	case "\u05E5":gematria1 += L27;letter = "\u05E3";gematria2 += L26;break;	// pey F
+							/*pey F*/	case "\u05E3":gematria1 += L26;letter = "\u05DD";gematria2 += L24;break;	// mem F
+							/*tzadi F*/	case "\u05E5":gematria1 += L27;letter = "\u05DA";gematria2 += L23;break;	// kaf F
 							default:letter = input[i]; break; // Keep original character if not found
 						}
 						textEncrypted += letter;

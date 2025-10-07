@@ -2809,11 +2809,11 @@ else if( cryptography == "AT-BaCh-finals" ){
 			/*resh*/	case "\u05E8":gematria1 += L20;letter = "\u05E9";gematria2 += L21;break;	// shin
 			/*shin*/	case "\u05E9":gematria1 += L21;letter = "\u05E8";gematria2 += L20;break;	// resh
 			/*tav*/		case "\u05EA":gematria1 += L22;letter = "\u05E7";gematria2 += L19;break;	// kuf
-			/*kaf F*/	case "\u05DA":gematria1 += L23;letter = "\u05DD";gematria2 += L24;break;	// mem F
-			/*mem F*/	case "\u05DD":gematria1 += L24;letter = "\u05DA";gematria2 += L23;break;	// kaf F
+			/*kaf F*/	case "\u05DA":gematria1 += L23;letter = "\u05E5";gematria2 += L27;break;	// tzadik F
+			/*mem F*/	case "\u05DD":gematria1 += L24;letter = "\u05E3";gematria2 += L26;break;	// pey F
 			/*nun F*/	case "\u05DF":gematria1 += L25;letter = "\u05DF";gematria2 += L25;break;	// nun F
-			/*pey F*/	case "\u05E3":gematria1 += L26;letter = "\u05E5";gematria2 += L27;break;	// tzadi F
-			/*tzadi F*/	case "\u05E5":gematria1 += L27;letter = "\u05E3";gematria2 += L26;break;	// pey F
+			/*pey F*/	case "\u05E3":gematria1 += L26;letter = "\u05DD";gematria2 += L24;break;	// mem F
+			/*tzadi F*/	case "\u05E5":gematria1 += L27;letter = "\u05DA";gematria2 += L23;break;	// kaf F
 			default:letter = "";break;
 		}
 		cryptography2 += letter;
