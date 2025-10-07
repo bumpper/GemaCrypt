@@ -702,9 +702,107 @@
 	var L01 = 1;L02 = 2;L03 = 3;L04 = 4;L05 = 5;L06 = 6;L07 = 7;L08 = 8;L09 = 9;L10 = 10;L11 = 20;L12 = 30;L13 = 40;L14 = 50;L15 = 60;L16 = 70;L17 = 80;L18 = 90;L19 = 100;L20 = 200;L21 = 300;L22 = 400;L23 = 500;L24 = 600;L25 = 700;L26 = 800;L27 = 900;
 	var textTotal=wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=encryptedTotal=encryptedsum=0;
 	var letter=textEncrypted=cryptography=input='';
+	
+	// Language detection variable
+	var detectedLanguage = '';
+
+	// Green flash effect function for buttons
+	function greenFlash(buttonElement) {
+		if (!buttonElement) return;
+		
+		// Store original background color and transition
+		const originalBgColor = buttonElement.style.backgroundColor || '#3333aa';
+		const originalTransition = buttonElement.style.transition;
+		
+		// Set smooth transition for fade effect
+		buttonElement.style.transition = 'background-color 0.3s ease';
+		
+		// Fade to light blue background (#48bef5)
+		buttonElement.style.backgroundColor = '#48bef5';
+		
+		// After 1 second, fade back to original color
+		setTimeout(() => {
+			buttonElement.style.backgroundColor = originalBgColor;
+			
+			// Restore original transition after fade completes
+			setTimeout(() => {
+				buttonElement.style.transition = originalTransition;
+			}, 300);
+		}, 1000);
+	}
 
 	const colors = ['red', 'purple', 'darkgrey', 'darkblue', 'lightblue', 'brown', 'orange'];
 	let availableColors = [...colors];
+	
+	// Language Detection Function
+	function detectLanguage(text) {
+		// Count characters by language
+		let hebrewCount = 0;
+		let greekCount = 0;
+		let englishCount = 0;
+		let totalLetters = 0;
+		
+		// Iterate through each character in the text
+		for (let i = 0; i < text.length; i++) {
+			const char = text[i];
+			const code = char.charCodeAt(0);
+			
+			// Check for Hebrew letters (including finals)
+			// Hebrew range: 0x05D0-0x05EA (regular) + 0x05DA-0x05E5 (finals overlap)
+			if ((code >= 0x05D0 && code <= 0x05EA) || 
+			    char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || 
+			    char === "\u05E3" || char === "\u05E5") {
+				hebrewCount++;
+				totalLetters++;
+			}
+			// Check for Greek letters (including accented variants)
+			else if (code >= 0x0370 && code <= 0x03FF) {
+				greekCount++;
+				totalLetters++;
+			}
+			// Check for English/Latin letters
+			else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+				englishCount++;
+				totalLetters++;
+			}
+		}
+		
+		// Determine primary language based on highest percentage
+		// Need at least 10 letters to make a determination
+		if (totalLetters < 10) {
+			return 'Unknown (insufficient text)';
+		}
+		
+		// Calculate percentages
+		const hebrewPercent = (hebrewCount / totalLetters) * 100;
+		const greekPercent = (greekCount / totalLetters) * 100;
+		const englishPercent = (englishCount / totalLetters) * 100;
+		
+		// Determine language (require at least 70% to be confident)
+		let language = 'Other';
+		let maxPercent = 0;
+		
+		if (hebrewPercent > maxPercent) {
+			maxPercent = hebrewPercent;
+			language = 'Hebrew';
+		}
+		if (greekPercent > maxPercent) {
+			maxPercent = greekPercent;
+			language = 'Greek';
+		}
+		if (englishPercent > maxPercent) {
+			maxPercent = englishPercent;
+			language = 'English';
+		}
+		
+		// If no language has at least 70%, mark as mixed/other
+		if (maxPercent < 70) {
+			language = 'Mixed/Other';
+		}
+		
+		// Return detailed result
+		return `${language} (${maxPercent.toFixed(1)}% - H:${hebrewPercent.toFixed(1)}% G:${greekPercent.toFixed(1)}% E:${englishPercent.toFixed(1)}%)`;
+	}
 
 	// Function to calculate encrypted total
 	function calculateEncryptedTotal() {
@@ -910,7 +1008,7 @@
 <body>
 <div class="hidden-title"><center><h1>GemaThesaurus</h1></center></p></div>
     <div class="toolbar">
-        <button id="openBtn" class="textBtn"><!--<img src="img/open.png" height="13" width="16" border="0" alt="Open">-->&#x1F4C2;<img src="img/invis.gif" width="4" border="0">Open</button>
+        <button id="openBtn" class="textBtn" onclick="greenFlash(this)"><!--<img src="img/open.png" height="13" width="16" border="0" alt="Open">-->&#x1F4C2;<img src="img/invis.gif" width="4" border="0">Open</button>
 		
         <script>
         // Collapsible Toolbar
@@ -2337,6 +2435,10 @@
 					const textArea = document.getElementById("textArea");
 					// Apply highlighting to the loaded text
 					textArea.innerHTML = highlightSpecialCharacters(text);
+					
+					// Detect language and store in global variable
+					detectedLanguage = detectLanguage(text);
+					console.log('Language detected:', detectedLanguage);
 				} else {
 					console.error(`Error loading file from primary CORS proxy: ${response.status} - ${response.statusText}`);
 					corsProxy = 'http://radius.center/';
@@ -2346,6 +2448,10 @@
 						const textArea = document.getElementById('textArea');
 						// Apply highlighting to the loaded text
 						textArea.innerHTML = highlightSpecialCharacters(text);
+						
+						// Detect language and store in global variable
+						detectedLanguage = detectLanguage(text);
+						console.log('Language detected:', detectedLanguage);
 					} else {
 						console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
 					}
@@ -2359,6 +2465,10 @@
 					const textArea = document.getElementById('textArea');
 					// Apply highlighting to the loaded text
 					textArea.innerHTML = highlightSpecialCharacters(text);
+					
+					// Detect language and store in global variable
+					detectedLanguage = detectLanguage(text);
+					console.log('Language detected:', detectedLanguage);
 				} else {
 					console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
 				}
@@ -2459,20 +2569,20 @@
 			}
 		  </script>
 
-		<button id="calcBtn" class="textBtn" onclick="toggleCalc();"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="4" border="0">Calc</button>
-		<button id="findBtn" class="textBtn" onclick="toggleFind()"><img src="img/find.png" height="16" width="14" border="0" alt="Find"><img src="img/invis.gif" width="4" border="0">Find</button>
-		<button id="elsBtn" class="textBtn" onclick="toggleELS()"><img src="img/els.png" height="16" width="14" border="0" alt="Equidistant Letter Sequence"><img src="img/invis.gif" width="4" border="0">ELS</button>
-		<button id="swapBtn" class="textBtn" onclick="toggleSwap()"><img src="img/swap.png" height="16" width="14" border="0" alt="Swap"><img src="img/invis.gif" width="4" border="0">Swap</button>
-		<button id="copyBtn" class="textBtn" onclick=""><img src="img/copy.png" height="16" width="16" border="0" alt="Copy">&#x1F4D1;<img src="img/invis.gif" width="4" border="0">Copy</button>
-		<button id="directionBtn" class="textBtn" onclick="toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><img src="img/invis.gif" width="6" border="0">Align</button>
-		<button id="wrapBtn" class="textBtn" onclick="toggleWrap()"><img src="img/wrap.png" height="16" width="20" border="0" alt="Wrap Text"><img src="img/invis.gif" width="6" border="0">Wrap</button>
-		<button id="lightmodeBtn" class="textBtn" onclick="toggleLightMode()"><img src="img/moon.png" height="16" width="16" border="0" alt="Light/Dark Mode"><img src="img/invis.gif" width="4" border="0">Mode</button>
-        <button id="translateBtn" class="textBtn" onclick=""><img src="img/translate.png" height="16" width="16" border="0" alt="Translate"><img src="img/invis.gif" width="4" border="0">Tran</button>
-        <button id="printBtn" class="textBtn" onclick=""><img src="img/print.png" height="16" width="16" border="0" alt="Print"><img src="img/invis.gif" width="6" border="0">Print</button>
-        <button id="exportBtn" class="textBtn" onclick=""><img src="img/export.png" height="16" width="16" border="0" alt="Export"><img src="img/invis.gif" width="6" border="0">Export</button>
-        <button id="clearBtn" class="textBtn" onclick=""><!--<img src="img/clear.png" height="16" width="16" border="0" alt="Clear"><img src="img/invis.gif" width="4" border="0">-->&#x274C; Clear</button>
-		<button id="app1Btn" class="textBtn" onclick="window.open('app1.php', '_blank')"><img src="img/db.png" height="16" width="16" border="0" alt="GemaCrypt DB"><img src="img/invis.gif" width="4" border="0">DB</button>
-        <button id="helpBtn" class="textBtn" onclick="window.open('help.html', '_blank')"><img src="img/help.png" height="17" width="14" border="0" alt="Help"><img src="img/invis.gif" width="4" border="0">Help</button>
+		<button id="calcBtn" class="textBtn" onclick="greenFlash(this); toggleCalc();"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="4" border="0">Calc</button>
+		<button id="findBtn" class="textBtn" onclick="greenFlash(this); toggleFind()"><img src="img/find.png" height="16" width="14" border="0" alt="Find"><img src="img/invis.gif" width="4" border="0">Find</button>
+		<button id="elsBtn" class="textBtn" onclick="greenFlash(this); toggleELS()"><img src="img/els.png" height="16" width="14" border="0" alt="Equidistant Letter Sequence"><img src="img/invis.gif" width="4" border="0">ELS</button>
+		<button id="swapBtn" class="textBtn" onclick="greenFlash(this); toggleSwap()"><img src="img/swap.png" height="16" width="14" border="0" alt="Swap"><img src="img/invis.gif" width="4" border="0">Swap</button>
+		<button id="copyBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/copy.png" height="16" width="16" border="0" alt="Copy">&#x1F4D1;<img src="img/invis.gif" width="4" border="0">Copy</button>
+		<button id="directionBtn" class="textBtn" onclick="greenFlash(this); toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><img src="img/invis.gif" width="6" border="0">Align</button>
+		<button id="wrapBtn" class="textBtn" onclick="greenFlash(this); toggleWrap()"><img src="img/wrap.png" height="16" width="20" border="0" alt="Wrap Text"><img src="img/invis.gif" width="6" border="0">Wrap</button>
+		<button id="lightmodeBtn" class="textBtn" onclick="greenFlash(this); toggleLightMode()"><img src="img/moon.png" height="16" width="16" border="0" alt="Light/Dark Mode"><img src="img/invis.gif" width="4" border="0">Mode</button>
+        <button id="translateBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/translate.png" height="16" width="16" border="0" alt="Translate"><img src="img/invis.gif" width="4" border="0">Tran</button>
+        <button id="printBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/print.png" height="16" width="16" border="0" alt="Print"><img src="img/invis.gif" width="6" border="0">Print</button>
+        <button id="exportBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/export.png" height="16" width="16" border="0" alt="Export"><img src="img/invis.gif" width="6" border="0">Export</button>
+        <button id="clearBtn" class="textBtn" onclick="greenFlash(this)"><!--<img src="img/clear.png" height="16" width="16" border="0" alt="Clear"><img src="img/invis.gif" width="4" border="0">-->&#x274C; Clear</button>
+		<button id="app1Btn" class="textBtn" onclick="greenFlash(this); window.open('app1.php', '_blank')"><img src="img/db.png" height="16" width="16" border="0" alt="GemaCrypt DB"><img src="img/invis.gif" width="4" border="0">DB</button>
+        <button id="helpBtn" class="textBtn" onclick="greenFlash(this); window.open('help.html', '_blank')"><img src="img/help.png" height="17" width="14" border="0" alt="Help"><img src="img/invis.gif" width="4" border="0">Help</button>
     </div>
 	
 		<a id="breakOutLink" href="javascript:void(0)" title="Frame Break Out"><img src="img/breakout.png" alt="Frame Break Out"></a>
@@ -2742,6 +2852,14 @@
 			findInput.value = textTotal === 0 ? '' : textTotal;
 			// Set focus to the findInput textbox
 			findInput.focus();
+			
+			// Add Enter key listener to trigger Search button
+			findInput.addEventListener('keypress', function(event) {
+				if (event.key === 'Enter') {
+					event.preventDefault();
+					document.getElementById('findSearchBtn').click();
+				}
+			});
 		}
 
 			// Add event listener for findInput to handle letter-to-gematria conversion
@@ -2957,7 +3075,8 @@
 				return total;
 			}
 
-			document.getElementById('findSearchBtn').addEventListener('click', () => {
+			document.getElementById('findSearchBtn').addEventListener('click', function() {
+				greenFlash(this);
 				const findInputValue = document.getElementById('findInput').value.trim();
 				if (!findInputValue) {
 					document.getElementById('findResults').textContent = 'Please enter a gematria value to find.';
@@ -2992,12 +3111,24 @@
 					let total = 0;
 					let letterCount = 0;
 					let wordCount = 1;
-					
+
 					// Calculate base gematria value
 					for (let char of word) {
 						const code = char.charCodeAt(0);
-						// Hebrew letters
-						if (code >= 0x05D0 && code <= 0x05EA) {
+						// Check for Hebrew finals FIRST (before regular Hebrew letters)
+						// This prevents finals ך (0x05DA), ם (0x05DD), ן (0x05DF) from being caught by the regular Hebrew range
+						if (char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || char === "\u05E3" || char === "\u05E5") {
+							// Hebrew finals
+							letterCount++;
+							switch(char) {
+								case "\u05DA": total += L23; break; // kaf sofit ך = 500
+								case "\u05DD": total += L24; break; // mem sofit ם = 600
+								case "\u05DF": total += L25; break; // nun sofit ן = 700
+								case "\u05E3": total += L26; break; // pey sofit ף = 800
+								case "\u05E5": total += L27; break; // tzadi sofit ץ = 900
+							}
+						} else if (code >= 0x05D0 && code <= 0x05EA) {
+							// Regular Hebrew letters (excluding finals)
 							letterCount++;
 							switch(char) {
 								case "\u05D0": total += L01; break; // aleph
@@ -3022,16 +3153,6 @@
 								case "\u05E8": total += L20; break; // resh
 								case "\u05E9": total += L21; break; // shin
 								case "\u05EA": total += L22; break; // tav
-							}
-						} else if (char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || char === "\u05E3" || char === "\u05E5") {
-							// Hebrew finals
-							letterCount++;
-							switch(char) {
-								case "\u05DA": total += L23; break; // kaf sofit
-								case "\u05DD": total += L24; break; // mem sofit
-								case "\u05DF": total += L25; break; // nun sofit
-								case "\u05E3": total += L26; break; // pey sofit
-								case "\u05E5": total += L27; break; // tzadi sofit
 							}
 						} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
 							// English letters
@@ -3092,26 +3213,59 @@
 					return total;
 				}
 				
+				// Function to extract verse ID from the line containing a word at a given position
+				function extractVerseId(text, wordPosition) {
+					const lines = text.split(/\r?\n/);
+					
+					// Find which line contains the word at the given position
+					let wordCount = 0;
+					for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+						const line = lines[lineIndex];
+						const lineWords = line.split(/[\s\t\u00A0\u2000-\u200B\u2028\u2029\u3000]+/).filter(word => word.trim().length > 0);
+						
+						// Check if the target word position falls within this line
+						// wordPosition is 1-based, so we check if it's in the range (wordCount + 1) to (wordCount + lineWords.length)
+						if (wordPosition > wordCount && wordPosition <= wordCount + lineWords.length) {
+							// Extract verse ID from the beginning of the line
+							// Pattern: number(s) followed by : followed by number(s)
+							// Handle optional whitespace and Unicode directional marks (like RTL mark U+202B)
+							const verseMatch = line.match(/^[\s\u200E\u200F\u202A\u202B\u202C\u202D\u202E]*(\d+:\d+)/);
+							if (verseMatch) {
+								return verseMatch[1];
+							}
+							return ''; // No verse ID found on this line
+						}
+						
+						wordCount += lineWords.length;
+					}
+					
+					return ''; // Word position not found
+				}
+
 				// Split text into words and process each one
 				const textContent = textArea.textContent;
 				const words = textContent.split(/[\s\n\r\t\u00A0\u2000-\u200B\u2028\u2029\u3000]+/).filter(word => word.trim().length > 0);
 				let matchingWords = [];
 				let highlightedContent = textContent;
-				
+
 				// Process each word from first to last
 				for (let i = 0; i < words.length; i++) {
 					const word = words[i].trim();
 					if (word.length === 0) continue;
-					
+
 					// Calculate gematria for this word
 					const wordGematria = calculateWordGematria(word);
-					
+
 					// Check if it matches target gematria
 					if (wordGematria === targetGematria) {
+						// Extract verse ID for this word
+						const verseId = extractVerseId(textContent, i + 1);
+						
 						matchingWords.push({
 							word: word,
 							gematria: wordGematria,
-							position: i + 1
+							position: i + 1,
+							verseId: verseId
 						});
 						
 						// Highlight the word in the text area
@@ -3136,11 +3290,29 @@
 				// Display results with copy buttons
 				const findResultsDiv = document.getElementById('findResults');
 				findResultsDiv.innerHTML = ''; // Clear previous results
-				
-				// Create header
+
+				// Create header with buttons on the right
 				const header = document.createElement('div');
-				header.style.cssText = 'margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #ccc;';
-				header.innerHTML = `<strong>Target Gematria Value:</strong> ${targetGematria}<br><strong>Gematria Method:</strong> ${gematriaMethod}`;
+				header.style.cssText = 'margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #ccc; display: flex; justify-content: space-between; align-items: center;';
+				
+				// Left side - labels
+				const headerLabels = document.createElement('div');
+				headerLabels.innerHTML = `<strong>Target Gematria Value:</strong> ${targetGematria}<br><strong>Gematria Method:</strong> ${gematriaMethod}`;
+				
+				// Right side - buttons
+				const headerButtons = document.createElement('div');
+				headerButtons.style.cssText = 'display: flex; gap: 10px; align-items: center;';
+				headerButtons.innerHTML = `
+					<button id="findExportBtn" class="textBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 8px; cursor: pointer; font-size: 12px; font-weight: bold; margin-right: 0px; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35); transition: background-color 0.0s; white-space: nowrap;">
+						<img src="img/export.png" height="14" width="14" border="0" alt="Export"><img src="img/invis.gif" width="4" border="0">Export
+					</button>
+					<button id="findCopyAllBtn" class="textBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 8px; cursor: pointer; font-size: 12px; font-weight: bold; margin-right: 0px; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35); transition: background-color 0.0s; white-space: nowrap;">
+						📋<img src="img/invis.gif" width="4" border="0">Copy All
+					</button>
+				`;
+				
+				header.appendChild(headerLabels);
+				header.appendChild(headerButtons);
 				findResultsDiv.appendChild(header);
 				
 				if (matchingWords.length === 0) {
@@ -3159,7 +3331,13 @@
 						resultItem.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding: 8px; margin: 5px 0; background-color: #f5f5f5; border-radius: 5px; border: 1px solid #ddd;';
 						
 						const resultText = document.createElement('span');
-						resultText.textContent = `${index + 1}. "${match.word}" (Gematria: ${match.gematria}, Position: ${match.position})`;
+						// Build the result text with verse ID if available
+						let resultString = `${index + 1}. "${match.word}" (Gematria: ${match.gematria}, Position: ${match.position}`;
+						if (match.verseId && match.verseId.trim() !== '') {
+							resultString += `, Verse: ${match.verseId}`;
+						}
+						resultString += ')';
+						resultText.textContent = resultString;
 						resultText.style.cssText = 'flex: 1; margin-right: 10px;';
 						
 						const copyBtn = document.createElement('button');
@@ -3205,6 +3383,129 @@
 						findResultsDiv.appendChild(resultItem);
 					});
 				}
+
+				// Attach event listeners to the dynamically created buttons
+				// Copy All button functionality
+				document.getElementById('findCopyAllBtn').addEventListener('click', async () => {
+				const findResultsDiv = document.getElementById('findResults');
+				
+				// Check if there are any results
+				if (!matchingWords || matchingWords.length === 0) {
+					alert('No results to copy. Please perform a search first.');
+					return;
+				}
+
+				// Build the text to copy - all words separated by newlines
+				const allWords = matchingWords.map(match => match.word).join('\n');
+
+				try {
+					await navigator.clipboard.writeText(allWords);
+					const copyAllBtn = document.getElementById('findCopyAllBtn');
+					const originalHTML = copyAllBtn.innerHTML;
+					copyAllBtn.innerHTML = '✓ Copied All!';
+					copyAllBtn.style.backgroundColor = '#28a745';
+					setTimeout(() => {
+						copyAllBtn.innerHTML = originalHTML;
+						copyAllBtn.style.backgroundColor = '#3333aa';
+					}, 2000);
+				} catch (err) {
+					console.error('Failed to copy all:', err);
+					const copyAllBtn = document.getElementById('findCopyAllBtn');
+					const originalHTML = copyAllBtn.innerHTML;
+					copyAllBtn.innerHTML = '✗ Failed';
+					copyAllBtn.style.backgroundColor = '#dc3545';
+					setTimeout(() => {
+						copyAllBtn.innerHTML = originalHTML;
+						copyAllBtn.style.backgroundColor = '#3333aa';
+					}, 2000);
+				}
+			});
+
+			// Export button functionality
+			document.getElementById('findExportBtn').addEventListener('click', () => {
+				// Check if there are any results
+				if (!matchingWords || matchingWords.length === 0) {
+					alert('No results to export. Please perform a search first.');
+					return;
+				}
+
+				// Get the target gematria and method for the header
+				const findInputValue = document.getElementById('findInput').value.trim();
+				const targetGematria = parseInt(findInputValue);
+				const gematriaSelect = document.getElementById('gematriaSelect');
+				let gematriaMethod = gematriaSelect ? gematriaSelect.value : 'Ragil';
+				if (gematriaMethod === 'Value') {
+					gematriaMethod = 'Ragil';
+				}
+
+				// Build the export content
+				let exportContent = `Gematria Search Results\n`;
+				exportContent += `Target Gematria Value: ${targetGematria}\n`;
+				exportContent += `Gematria Method: ${gematriaMethod}\n`;
+				exportContent += `Total Matches: ${matchingWords.length}\n`;
+				exportContent += `\n${'='.repeat(60)}\n\n`;
+
+				// Add each result
+				matchingWords.forEach((match, index) => {
+					let resultString = `${index + 1}. "${match.word}" (Gematria: ${match.gematria}, Position: ${match.position}`;
+					if (match.verseId && match.verseId.trim() !== '') {
+						resultString += `, Verse: ${match.verseId}`;
+					}
+					resultString += ')\n';
+					exportContent += resultString;
+				});
+
+				// Create a blob and download
+				const blob = new Blob([exportContent], { type: 'text/plain;charset=utf-8' });
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				
+				// Generate filename with timestamp
+				const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+				a.download = `gematria_results_${targetGematria}_${timestamp}.txt`;
+				
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+				URL.revokeObjectURL(url);
+
+				// Visual feedback
+				const exportBtn = document.getElementById('findExportBtn');
+				const originalHTML = exportBtn.innerHTML;
+				exportBtn.innerHTML = '✓ Exported!';
+				exportBtn.style.backgroundColor = '#28a745';
+				setTimeout(() => {
+					exportBtn.innerHTML = originalHTML;
+					exportBtn.style.backgroundColor = '#3333aa';
+				}, 2000);
+			});
+
+			// Add hover effects for Copy All button
+			document.getElementById('findCopyAllBtn').addEventListener('mouseenter', function() {
+				if (this.innerHTML.includes('Copy All')) {
+					this.style.backgroundColor = '#3333ee';
+				}
+			});
+
+			document.getElementById('findCopyAllBtn').addEventListener('mouseleave', function() {
+				if (this.innerHTML.includes('Copy All')) {
+					this.style.backgroundColor = '#3333aa';
+				}
+			});
+
+			// Add hover effects for Export button
+			document.getElementById('findExportBtn').addEventListener('mouseenter', function() {
+				if (this.innerHTML.includes('Export')) {
+					this.style.backgroundColor = '#3333ee';
+				}
+			});
+
+				document.getElementById('findExportBtn').addEventListener('mouseleave', function() {
+					if (this.innerHTML.includes('Export')) {
+						this.style.backgroundColor = '#3333aa';
+					}
+				});
 			});
 		}
 	</script>
@@ -3215,6 +3516,37 @@
 			const textArea = document.getElementById('textArea');
 			const selection = window.getSelection();
 			let guessStartPosition = 1;
+			
+			// Helper function to check if a character belongs to a specific language
+			function isLanguageLetter(char, language) {
+				const code = char.charCodeAt(0);
+				
+				// Check for Hebrew letters (including finals)
+				if (language.includes('Hebrew')) {
+					if ((code >= 0x05D0 && code <= 0x05EA) || 
+					    char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || 
+					    char === "\u05E3" || char === "\u05E5") {
+						return true;
+					}
+				}
+				
+				// Check for Greek letters
+				if (language.includes('Greek')) {
+					if (code >= 0x0370 && code <= 0x03FF) {
+						return true;
+					}
+				}
+				
+				// Check for English/Latin letters
+				if (language.includes('English')) {
+					if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+						return true;
+					}
+				}
+				
+				return false;
+			}
+			
 			if (selection.rangeCount > 0) {
 				const range = selection.getRangeAt(0);
 				const selectedText = selection.toString();
@@ -3227,10 +3559,10 @@
 						parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
 						parent.normalize();
 					});
-					
+
 					// Get clean text content without any HTML tags
 					const fullText = textArea.textContent;
-					
+
 					// Find the position of the selection end in the clean text
 					const selectionEndText = fullText.substring(0, range.endOffset);
 					let count = 0;
@@ -3243,9 +3575,59 @@
 					guessStartPosition = count;
 					if (guessStartPosition === 0) guessStartPosition = 1;
 					console.log('guessStartPosition:', guessStartPosition);
+				} else {
+					// No text selected - find first letter matching detectedLanguage
+					console.log('No text selected, finding first letter of detected language');
+					const fullText = textArea.textContent;
+					let count = 0;
+					let foundFirst = false;
+					
+					for (let i = 0; i < fullText.length; i++) {
+						const char = fullText[i];
+						if (isLetter(char)) {
+							count++;
+							// Check if this letter matches the detected language
+							if (!foundFirst && detectedLanguage && isLanguageLetter(char, detectedLanguage)) {
+								guessStartPosition = count;
+								foundFirst = true;
+								console.log('Found first letter of detected language at position:', guessStartPosition);
+								break;
+							}
+						}
+					}
+					
+					// If no matching letter found, default to 1
+					if (!foundFirst) {
+						guessStartPosition = 1;
+						console.log('No matching letter found, defaulting to position 1');
+					}
 				}
 			} else {
-				console.log('No selection range');
+				// No selection range - find first letter matching detectedLanguage
+				console.log('No selection range, finding first letter of detected language');
+				const fullText = textArea.textContent;
+				let count = 0;
+				let foundFirst = false;
+				
+				for (let i = 0; i < fullText.length; i++) {
+					const char = fullText[i];
+					if (isLetter(char)) {
+						count++;
+						// Check if this letter matches the detected language
+						if (!foundFirst && detectedLanguage && isLanguageLetter(char, detectedLanguage)) {
+							guessStartPosition = count;
+							foundFirst = true;
+							console.log('Found first letter of detected language at position:', guessStartPosition);
+							break;
+						}
+					}
+				}
+				
+				// If no matching letter found, default to 1
+				if (!foundFirst) {
+					guessStartPosition = 1;
+					console.log('No matching letter found, defaulting to position 1');
+				}
 			}
 
 			function isLetter(char) {
@@ -3454,9 +3836,9 @@
 			modal.id = 'elsModal';
 			modal.className = 'modal';
 			modal.innerHTML = `
-				<div class="modal-content">
-					<span class="close" onclick="document.getElementById('elsModal').remove()">&times;</span>
-					<h2 style="text-align: center;">Equidistant Letter Sequence</h2>
+				<div class="modal-content" style="width: 40%; min-width: 300px; max-width: 80vw; height: auto; min-height: 300px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; position: relative;">
+					<span class="close" style="position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; color: #aaa; cursor: pointer; z-index: 10;" onclick="document.getElementById('elsModal').remove()">&times;</span>
+					<h2 style="text-align: center; margin-top: 0;">Equidistant Letter Sequence</h2>
 					<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
 						<div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: center; gap: 10px;">
 							<div style="display: flex; flex-direction: column; gap: 5px;">
@@ -3470,7 +3852,7 @@
 							<button id="elsSearchBtn" class="textBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 8px 8px 8px; cursor: pointer; font-size: 12px; font-weight: bold; margin-right: 0px; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35); transition: background-color 0.0s; margin-top: 21px;"><img src="img/find.png" height="16" width="14" border="0" alt="Search"><img src="img/invis.gif" width="4" border="0">Search</button>
 						</div>
 					</div>
-					<div id="elsResults" style="margin-top: 20px; text-align: center;"></div>
+					<div id="elsResults" style="margin-top: 20px; text-align: center; overflow-y: auto; overflow-x: hidden; flex: 1 1 auto; min-height: 0;"></div>
 				</div>
 		`;
 		document.body.appendChild(modal);
@@ -3480,6 +3862,30 @@
 		const sequenceNumInput = document.getElementById('sequenceNum');
 		if (sequenceNumInput) {
 			sequenceNumInput.focus();
+		}
+
+		// Add Enter key functionality for both input fields
+		const startPositionInput = document.getElementById('startPosition');
+		const sequenceNumberInput = document.getElementById('sequenceNum');
+		
+		function triggerSearchIfBothFilled(event) {
+			if (event.key === 'Enter') {
+				const startValue = startPositionInput.value.trim();
+				const seqValue = sequenceNumberInput.value.trim();
+				
+				// Only trigger search if both fields have values
+				if (startValue && seqValue) {
+					document.getElementById('elsSearchBtn').click();
+				}
+			}
+		}
+		
+		if (startPositionInput) {
+			startPositionInput.addEventListener('keydown', triggerSearchIfBothFilled);
+		}
+		
+		if (sequenceNumberInput) {
+			sequenceNumberInput.addEventListener('keydown', triggerSearchIfBothFilled);
 		}
 
 		document.getElementById('startPosition').addEventListener('input', function() {
@@ -3858,6 +4264,7 @@
 			});
 
 			document.getElementById('elsSearchBtn').addEventListener('click', function() {
+				greenFlash(this);
 				const start = parseInt(document.getElementById('startPosition').value) || 1;
 				let seq = parseInt(document.getElementById('sequenceNum').value);
 				
@@ -3925,13 +4332,12 @@
 
 				// Display results in the modal with copy button
 				document.getElementById('elsResults').innerHTML = `
-					<div style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; max-width: 100%; overflow-wrap: break-word;">
+					<div style="padding: 15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; word-wrap: break-word; overflow-wrap: break-word;">
 						<p style="font-size: 16px; font-weight: bold; color: #000; direction: ${textAreaDirection}; text-align: ${textAlign}; padding: 10px; border-radius: 3px; word-wrap: break-word; overflow-wrap: break-word; white-space: pre-wrap;">${results}</p>
 						<p style="font-size: 12px; color: #666; margin-bottom: 10px; direction: ${textAreaDirection}; text-align: ${textAlign};">Start Position: ${start}, Sequence: ${seq}, Letters Found: ${results.length}</p>
-						<div style="text-align: center; margin-top: 15px;">
-							<button id="elsCopyBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 16px; cursor: pointer; font-size: 12px; font-weight: bold; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35);">
-								📋 Copy Result
-							</button>
+						<div style="text-align: center; margin-top: 15px; display: flex; gap: 10px; justify-content: center; align-items: center;">
+							${detectedLanguage.includes('Hebrew') ? '<button id="elsConvertFinalsBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 16px; cursor: pointer; font-size: 12px; font-weight: bold; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35); transition: background-color 0.0s;">🔄 Convert Finals</button>' : ''}
+							<button id="elsCopyBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 16px; cursor: pointer; font-size: 12px; font-weight: bold; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35); transition: background-color 0.0s;">📋 Copy Result</button>
 						</div>
 					</div>
 				`;
@@ -3959,16 +4365,82 @@
 							}, 2000);
 						}
 					});
-					
+
 					elsCopyBtn.addEventListener('mouseenter', () => {
 						if (elsCopyBtn.textContent === '📋 Copy Result') {
 							elsCopyBtn.style.backgroundColor = '#3333ee';
 						}
 					});
-					
+
 					elsCopyBtn.addEventListener('mouseleave', () => {
 						if (elsCopyBtn.textContent === '📋 Copy Result') {
 							elsCopyBtn.style.backgroundColor = '#3333aa';
+						}
+					});
+				}
+
+				// Add event listener for the Convert Finals button (only if Hebrew)
+				const elsConvertFinalsBtn = document.getElementById('elsConvertFinalsBtn');
+				if (elsConvertFinalsBtn) {
+					elsConvertFinalsBtn.addEventListener('click', () => {
+						// Convert finals to regular forms, except for the last letter
+						let convertedResult = '';
+						
+						for (let i = 0; i < results.length; i++) {
+							const char = results[i];
+							const isLastChar = (i === results.length - 1);
+							
+							if (isLastChar) {
+								// For the last letter: keep final if already final, or convert to final if it's כ מ נ פ צ
+								switch(char) {
+									case '\u05DB': convertedResult += '\u05DA'; break; // כ → ך
+									case '\u05DE': convertedResult += '\u05DD'; break; // מ → ם
+									case '\u05E0': convertedResult += '\u05DF'; break; // נ → ן
+									case '\u05E4': convertedResult += '\u05E3'; break; // פ → ף
+									case '\u05E6': convertedResult += '\u05E5'; break; // צ → ץ
+									default: convertedResult += char; break; // Keep as is (including existing finals)
+								}
+							} else {
+								// For all other letters: convert finals to regular forms
+								switch(char) {
+									case '\u05DA': convertedResult += '\u05DB'; break; // ך → כ
+									case '\u05DD': convertedResult += '\u05DE'; break; // ם → מ
+									case '\u05DF': convertedResult += '\u05E0'; break; // ן → נ
+									case '\u05E3': convertedResult += '\u05E4'; break; // ף → פ
+									case '\u05E5': convertedResult += '\u05E6'; break; // ץ → צ
+									default: convertedResult += char; break; // Keep as is
+								}
+							}
+						}
+						
+						// Update the results display
+						const resultParagraph = document.querySelector('#elsResults p');
+						if (resultParagraph) {
+							resultParagraph.textContent = convertedResult;
+						}
+						
+						// Update the results variable for copying
+						results = convertedResult;
+						
+						// Visual feedback
+						const originalText = elsConvertFinalsBtn.textContent;
+						elsConvertFinalsBtn.textContent = '✓ Converted!';
+						elsConvertFinalsBtn.style.backgroundColor = '#28a745';
+						setTimeout(() => {
+							elsConvertFinalsBtn.textContent = originalText;
+							elsConvertFinalsBtn.style.backgroundColor = '#3333aa';
+						}, 2000);
+					});
+
+					elsConvertFinalsBtn.addEventListener('mouseenter', () => {
+						if (elsConvertFinalsBtn.textContent === '🔄 Convert Finals') {
+							elsConvertFinalsBtn.style.backgroundColor = '#3333ee';
+						}
+					});
+
+					elsConvertFinalsBtn.addEventListener('mouseleave', () => {
+						if (elsConvertFinalsBtn.textContent === '🔄 Convert Finals') {
+							elsConvertFinalsBtn.style.backgroundColor = '#3333aa';
 						}
 					});
 				}
@@ -5029,10 +5501,10 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
           // File input change event listener.  Allows new text to be appended to the end of current text when using the Open button
         fileInput.addEventListener('change', () => {
             const files = fileInput.files;
-            
+
             // Show loading indicator
             showLoadingIndicator();
-            
+
             let fileText = '';
             let filesProcessed = 0;
             for (let file of files) {
@@ -5044,6 +5516,11 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
                     if (filesProcessed === files.length) {
                         // Apply highlighting to the loaded text
                         textArea.innerHTML = highlightSpecialCharacters(fileText);
+                        
+                        // Detect language and store in global variable
+                        detectedLanguage = detectLanguage(fileText);
+                        console.log('Language detected:', detectedLanguage);
+                        
                         hideLoadingIndicator();
                     }
                 };
