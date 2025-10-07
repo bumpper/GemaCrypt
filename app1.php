@@ -217,7 +217,7 @@ body { background-color: #000;}
 }
 .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.4); }
 .modal-content { background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; font-family: Arial, sans-serif; background-image: url(""); background-repeat: repeat; background-position: top left; padding-top: 10px; padding-left: 30px; padding-right: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 10px; outline: 2px solid black; }
-.close { position: absolute; top: 10px; right: 20px; font-size: 30px; font-weight: bold; color: #000; text-decoration: none; }
+.close { position: absolute; top: 10px; right: 20px; font-size: 30px; font-weight: bold; color: #000; text-decoration: none; cursor: pointer; }
 .modal-content p { color: #000; 
 }
 /* --- Responsive layout for the 4 control buttons --- */
@@ -6576,6 +6576,139 @@ function scrollToBottom() {
         loadSettings();
     }
 })();
+</script>
+
+<script>
+// ============================================
+// DRAGGABLE MODAL FUNCTIONALITY
+// ============================================
+// Makes modals movable by clicking and dragging on the modal header area
+// Full top area is draggable (no close button to avoid)
+
+function makeModalDraggable(modalElement) {
+    const modalContent = modalElement.querySelector('.modal-content');
+    if (!modalContent) return;
+
+    let isDragging = false;
+    let startX, startY;
+
+    // Create invisible drag handle at the top of modal (top 50px)
+    // Excludes the upper right corner (60px from right) for the close button
+    const dragHandle = document.createElement('div');
+    dragHandle.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 60px;
+        height: 50px;
+        cursor: move;
+        z-index: 10;
+        user-select: none;
+    `;
+    
+    // Ensure modal-content has position set
+    if (getComputedStyle(modalContent).position === 'static') {
+        modalContent.style.position = 'relative';
+    }
+    
+    modalContent.insertBefore(dragHandle, modalContent.firstChild);
+
+    // Mouse events
+    dragHandle.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDrag);
+
+    // Touch events for mobile
+    dragHandle.addEventListener('touchstart', startDrag, { passive: false });
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('touchend', stopDrag);
+
+    function startDrag(e) {
+        // Don't drag if clicking on close button or its parent elements
+        if (e.target.classList.contains('close') || e.target.closest('.close')) return;
+        
+        isDragging = true;
+        
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        
+        const rect = modalContent.getBoundingClientRect();
+        startX = clientX - rect.left;
+        startY = clientY - rect.top;
+        
+        modalContent.style.margin = '0';
+        modalContent.style.position = 'fixed';
+        
+        e.preventDefault();
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+        
+        e.preventDefault();
+        
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        
+        let newLeft = clientX - startX;
+        let newTop = clientY - startY;
+        
+        // Keep modal within viewport bounds
+        const rect = modalContent.getBoundingClientRect();
+        const maxLeft = window.innerWidth - rect.width;
+        const maxTop = window.innerHeight - rect.height;
+        
+        newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+        newTop = Math.max(0, Math.min(newTop, maxTop));
+        
+        modalContent.style.left = newLeft + 'px';
+        modalContent.style.top = newTop + 'px';
+    }
+
+    function stopDrag() {
+        isDragging = false;
+    }
+}
+
+// Auto-initialize: Make all existing modals draggable
+document.addEventListener('DOMContentLoaded', function() {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => makeModalDraggable(modal));
+    if (modals.length > 0) {
+        console.log('✅ Made ' + modals.length + ' modal(s) draggable in app1.php');
+    }
+});
+
+// Watch for dynamically created modals
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        mutation.addedNodes.forEach(function(node) {
+            if (node.nodeType === 1) { // Element node
+                // Check if the added node is a modal
+                if (node.classList && node.classList.contains('modal')) {
+                    makeModalDraggable(node);
+                    console.log('✅ Made dynamically created modal draggable:', node.id || 'unnamed');
+                }
+                // Check if any child nodes are modals
+                const childModals = node.querySelectorAll && node.querySelectorAll('.modal');
+                if (childModals) {
+                    childModals.forEach(modal => {
+                        makeModalDraggable(modal);
+                        console.log('✅ Made dynamically created modal draggable:', modal.id || 'unnamed');
+                    });
+                }
+            }
+        });
+    });
+});
+
+// Start observing the document body for modal additions
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
+
+console.log('🎯 Draggable modal system initialized for app1.php - modals can be moved by dragging the top area');
 </script>
 </body>
 </html>

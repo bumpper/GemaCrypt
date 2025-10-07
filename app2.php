@@ -703,7 +703,7 @@
 	var textTotal=wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=encryptedTotal=encryptedsum=0;
 	var letter=textEncrypted=cryptography=input='';
 
-	const colors = ['red', 'purple', 'green', 'darkblue', 'lightblue', 'brown', 'orange'];
+	const colors = ['red', 'purple', 'darkgrey', 'darkblue', 'lightblue', 'brown', 'orange'];
 	let availableColors = [...colors];
 
 	// Function to calculate encrypted total
@@ -3133,17 +3133,78 @@
 				finalContent = finalContent.replace(/⁕/g, '<span style="color: #FF0000;">⁕</span>');
 				textArea.innerHTML = finalContent;
 				
-				// Display results
-				let resultsText = `Target Gematria Value: ${targetGematria}\nGematria Method: ${gematriaMethod}\n\nResults:\n`;
+				// Display results with copy buttons
+				const findResultsDiv = document.getElementById('findResults');
+				findResultsDiv.innerHTML = ''; // Clear previous results
+				
+				// Create header
+				const header = document.createElement('div');
+				header.style.cssText = 'margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #ccc;';
+				header.innerHTML = `<strong>Target Gematria Value:</strong> ${targetGematria}<br><strong>Gematria Method:</strong> ${gematriaMethod}`;
+				findResultsDiv.appendChild(header);
+				
 				if (matchingWords.length === 0) {
-					resultsText += 'No matching words found.';
+					const noResults = document.createElement('p');
+					noResults.textContent = 'No matching words found.';
+					noResults.style.cssText = 'color: #666; font-style: italic;';
+					findResultsDiv.appendChild(noResults);
 				} else {
-					resultsText += `Found ${matchingWords.length} matching word(s):\n\n`;
+					const resultsHeader = document.createElement('p');
+					resultsHeader.innerHTML = `<strong>Found ${matchingWords.length} matching word(s):</strong>`;
+					resultsHeader.style.cssText = 'margin-top: 15px; margin-bottom: 10px;';
+					findResultsDiv.appendChild(resultsHeader);
+					
 					matchingWords.forEach((match, index) => {
-						resultsText += `${index + 1}. "${match.word}" (Gematria: ${match.gematria}, Position: ${match.position})\n`;
+						const resultItem = document.createElement('div');
+						resultItem.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding: 8px; margin: 5px 0; background-color: #f5f5f5; border-radius: 5px; border: 1px solid #ddd;';
+						
+						const resultText = document.createElement('span');
+						resultText.textContent = `${index + 1}. "${match.word}" (Gematria: ${match.gematria}, Position: ${match.position})`;
+						resultText.style.cssText = 'flex: 1; margin-right: 10px;';
+						
+						const copyBtn = document.createElement('button');
+						copyBtn.textContent = '📋 Copy';
+						copyBtn.style.cssText = 'background-color: #3333aa; color: #fff; border: none; padding: 5px 10px; cursor: pointer; font-size: 11px; font-weight: bold; border-radius: 3px; white-space: nowrap;';
+						copyBtn.title = 'Copy this word to clipboard';
+						
+						copyBtn.addEventListener('click', async () => {
+							try {
+								await navigator.clipboard.writeText(match.word);
+								const originalText = copyBtn.textContent;
+								copyBtn.textContent = '✓ Copied!';
+								copyBtn.style.backgroundColor = '#28a745';
+								setTimeout(() => {
+									copyBtn.textContent = originalText;
+									copyBtn.style.backgroundColor = '#3333aa';
+								}, 2000);
+							} catch (err) {
+								console.error('Failed to copy:', err);
+								copyBtn.textContent = '✗ Failed';
+								copyBtn.style.backgroundColor = '#dc3545';
+								setTimeout(() => {
+									copyBtn.textContent = '📋 Copy';
+									copyBtn.style.backgroundColor = '#3333aa';
+								}, 2000);
+							}
+						});
+						
+						copyBtn.addEventListener('mouseenter', () => {
+							if (copyBtn.textContent === '📋 Copy') {
+								copyBtn.style.backgroundColor = '#3333ee';
+							}
+						});
+						
+						copyBtn.addEventListener('mouseleave', () => {
+							if (copyBtn.textContent === '📋 Copy') {
+								copyBtn.style.backgroundColor = '#3333aa';
+							}
+						});
+						
+						resultItem.appendChild(resultText);
+						resultItem.appendChild(copyBtn);
+						findResultsDiv.appendChild(resultItem);
 					});
 				}
-				document.getElementById('findResults').textContent = resultsText;
 			});
 		}
 	</script>
@@ -3861,14 +3922,56 @@
 				// Get text direction from textArea
 				const textAreaDirection = textArea.dir || 'rtl';
 				const textAlign = textAreaDirection === 'rtl' ? 'right' : 'left';
-				
-				// Display results in the modal
+
+				// Display results in the modal with copy button
 				document.getElementById('elsResults').innerHTML = `
 					<div style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; max-width: 100%; overflow-wrap: break-word;">
 						<p style="font-size: 16px; font-weight: bold; color: #000; direction: ${textAreaDirection}; text-align: ${textAlign}; padding: 10px; border-radius: 3px; word-wrap: break-word; overflow-wrap: break-word; white-space: pre-wrap;">${results}</p>
-						<p style="font-size: 12px; color: #666; margin-bottom: 0; direction: ${textAreaDirection}; text-align: ${textAlign};">Start Position: ${start}, Sequence: ${seq}, Letters Found: ${results.length}</p>
+						<p style="font-size: 12px; color: #666; margin-bottom: 10px; direction: ${textAreaDirection}; text-align: ${textAlign};">Start Position: ${start}, Sequence: ${seq}, Letters Found: ${results.length}</p>
+						<div style="text-align: center; margin-top: 15px;">
+							<button id="elsCopyBtn" style="background-color: #3333aa; color: #fff; border: none; padding: 8px 16px; cursor: pointer; font-size: 12px; font-weight: bold; border-radius: 5px; box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35);">
+								📋 Copy Result
+							</button>
+						</div>
 					</div>
 				`;
+				
+				// Add event listener for the copy button
+				const elsCopyBtn = document.getElementById('elsCopyBtn');
+				if (elsCopyBtn) {
+					elsCopyBtn.addEventListener('click', async () => {
+						try {
+							await navigator.clipboard.writeText(results);
+							const originalText = elsCopyBtn.textContent;
+							elsCopyBtn.textContent = '✓ Copied!';
+							elsCopyBtn.style.backgroundColor = '#28a745';
+							setTimeout(() => {
+								elsCopyBtn.textContent = originalText;
+								elsCopyBtn.style.backgroundColor = '#3333aa';
+							}, 2000);
+						} catch (err) {
+							console.error('Failed to copy:', err);
+							elsCopyBtn.textContent = '✗ Failed';
+							elsCopyBtn.style.backgroundColor = '#dc3545';
+							setTimeout(() => {
+								elsCopyBtn.textContent = '📋 Copy Result';
+								elsCopyBtn.style.backgroundColor = '#3333aa';
+							}, 2000);
+						}
+					});
+					
+					elsCopyBtn.addEventListener('mouseenter', () => {
+						if (elsCopyBtn.textContent === '📋 Copy Result') {
+							elsCopyBtn.style.backgroundColor = '#3333ee';
+						}
+					});
+					
+					elsCopyBtn.addEventListener('mouseleave', () => {
+						if (elsCopyBtn.textContent === '📋 Copy Result') {
+							elsCopyBtn.style.backgroundColor = '#3333aa';
+						}
+					});
+				}
 			});
 		}
 	</script>
@@ -8282,6 +8385,138 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
         loadSettings();
     }
 })();
+</script>
+
+<script>
+// ============================================
+// DRAGGABLE MODAL FUNCTIONALITY
+// ============================================
+// Makes modals movable by clicking and dragging on the modal header area
+
+function makeModalDraggable(modalElement) {
+    const modalContent = modalElement.querySelector('.modal-content');
+    if (!modalContent) return;
+
+    let isDragging = false;
+    let startX, startY;
+
+    // Create invisible drag handle at the top of modal (top 50px)
+    // Excludes the upper right corner (60px from right) for the close button
+    const dragHandle = document.createElement('div');
+    dragHandle.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 60px;
+        height: 50px;
+        cursor: move;
+        z-index: 10;
+        user-select: none;
+    `;
+    
+    // Ensure modal-content has position set
+    if (getComputedStyle(modalContent).position === 'static') {
+        modalContent.style.position = 'relative';
+    }
+    
+    modalContent.insertBefore(dragHandle, modalContent.firstChild);
+
+    // Mouse events
+    dragHandle.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDrag);
+
+    // Touch events for mobile
+    dragHandle.addEventListener('touchstart', startDrag, { passive: false });
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('touchend', stopDrag);
+
+    function startDrag(e) {
+        // Don't drag if clicking on close button or its parent elements
+        if (e.target.classList.contains('close') || e.target.closest('.close')) return;
+        
+        isDragging = true;
+        
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        
+        const rect = modalContent.getBoundingClientRect();
+        startX = clientX - rect.left;
+        startY = clientY - rect.top;
+        
+        modalContent.style.margin = '0';
+        modalContent.style.position = 'fixed';
+        
+        e.preventDefault();
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+        
+        e.preventDefault();
+        
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        
+        let newLeft = clientX - startX;
+        let newTop = clientY - startY;
+        
+        // Keep modal within viewport bounds
+        const rect = modalContent.getBoundingClientRect();
+        const maxLeft = window.innerWidth - rect.width;
+        const maxTop = window.innerHeight - rect.height;
+        
+        newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+        newTop = Math.max(0, Math.min(newTop, maxTop));
+        
+        modalContent.style.left = newLeft + 'px';
+        modalContent.style.top = newTop + 'px';
+    }
+
+    function stopDrag() {
+        isDragging = false;
+    }
+}
+
+// Auto-initialize: Make all existing modals draggable
+document.addEventListener('DOMContentLoaded', function() {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => makeModalDraggable(modal));
+    if (modals.length > 0) {
+        console.log('✅ Made ' + modals.length + ' modal(s) draggable');
+    }
+});
+
+// Watch for dynamically created modals (like findModal and elsModal)
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        mutation.addedNodes.forEach(function(node) {
+            if (node.nodeType === 1) { // Element node
+                // Check if the added node is a modal
+                if (node.classList && node.classList.contains('modal')) {
+                    makeModalDraggable(node);
+                    console.log('✅ Made dynamically created modal draggable:', node.id || 'unnamed');
+                }
+                // Check if any child nodes are modals
+                const childModals = node.querySelectorAll && node.querySelectorAll('.modal');
+                if (childModals) {
+                    childModals.forEach(modal => {
+                        makeModalDraggable(modal);
+                        console.log('✅ Made dynamically created modal draggable:', modal.id || 'unnamed');
+                    });
+                }
+            }
+        });
+    });
+});
+
+// Start observing the document body for modal additions
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
+
+console.log('🎯 Draggable modal system initialized - modals can be moved by dragging the top area');
 </script>
 </body>
 </html>
