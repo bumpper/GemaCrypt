@@ -586,6 +586,16 @@
 			font-family: Arial, sans-serif;
 		}
 		
+		#loadingCounter {
+			color: #fff;
+			margin-top: 10px;
+			text-align: center;
+			font-size: 16px;
+			font-weight: bold;
+			font-family: 'Courier New', monospace;
+			letter-spacing: 2px;
+		}
+		
 		/* === MOBILE ONLY (≤ 600 px) === */
 		@media (max-width: 650px) {
 		    /* 1. Vertical toolbar that can scroll */
@@ -2398,13 +2408,31 @@
 			
 		// Loading Indicator Management
 		let loadingTimeout = null;
+		let loadingCounterInterval = null;
+		let loadingStartTime = 0;
 		
 		function showLoadingIndicator() {
 			const indicator = document.getElementById('loadingIndicator');
+			const counter = document.getElementById('loadingCounter');
+			
+			// Reset counter
+			loadingStartTime = Date.now();
+			if (counter) {
+				counter.textContent = '0.00';
+			}
+			
 			// Set a timeout to show the indicator after 0.2 seconds
 			loadingTimeout = setTimeout(() => {
 				if (indicator) {
 					indicator.classList.add('show');
+					
+					// Start the counter
+					loadingCounterInterval = setInterval(() => {
+						if (counter) {
+							const elapsed = (Date.now() - loadingStartTime) / 1000; // Convert to seconds
+							counter.textContent = elapsed.toFixed(2); // Format as X.XX
+						}
+					}, 10); // Update every 10ms (hundredths of a second)
 				}
 			}, 200); // 200ms = 0.2 seconds
 		}
@@ -2415,6 +2443,13 @@
 				clearTimeout(loadingTimeout);
 				loadingTimeout = null;
 			}
+			
+			// Stop the counter
+			if (loadingCounterInterval) {
+				clearInterval(loadingCounterInterval);
+				loadingCounterInterval = null;
+			}
+			
 			// Hide the indicator if it's showing
 			const indicator = document.getElementById('loadingIndicator');
 			if (indicator) {
@@ -2616,6 +2651,7 @@
 	<div id="loadingIndicator">
 		<div class="spinner"></div>
 		<p>Loading...</p>
+		<p id="loadingCounter">0.00</p>
 	</div>
 
 
@@ -8281,25 +8317,33 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${letters.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('sum').innerHTML = `Gematria: <span style="color: #FF0000; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				
-				// Display encrypted text with new structure
-				if (/[\u05D0-\u05E5]/.test(textEncrypted)) { 
+				// Show 'Not Applicable' if no Hebrew letters were selected; otherwise show encrypted text and numeric sum
+				const hasHebrew = /[\u05D0-\u05EA]/.test(textHighlight) || /[\u05D0-\u05EA]/.test(textEncrypted);
+				if (!hasHebrew) {
 					document.getElementById('encrypted').innerHTML = `
 						<div class="encrypted-label">Encrypted:</div>
 						<div class="encrypted-content">
-							<a style="text-decoration: none; direction: rtl;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank">
-								<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
-							</a>
+							<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">—</span>
 						</div>`;
+					document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">—</span>`;
 				} else {
-					document.getElementById('encrypted').innerHTML = `
-						<div class="encrypted-label">Encrypted:</div>
-						<div class="encrypted-content">
-							<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
-						</div>`;
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { 
+						document.getElementById('encrypted').innerHTML = `
+							<div class="encrypted-label">Encrypted:</div>
+							<div class="encrypted-content">
+								<a style="text-decoration: none; direction: rtl;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank">
+									<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
+								</a>
+							</div>`;
+					} else {
+						document.getElementById('encrypted').innerHTML = `
+							<div class="encrypted-label">Encrypted:</div>
+							<div class="encrypted-content">
+								<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
+							</div>`;
+					}
+					document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				}
-				
-				// Display encrypted sum
-				document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				
 				// Call adjustStatusBarHeight to show the statusbar after content is populated
 				adjustStatusBarHeight();
@@ -8320,8 +8364,12 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				document.getElementById('words').innerHTML = '';
 				document.getElementById('letters').innerHTML = '';
 				document.getElementById('sum').innerHTML = '';
-				document.getElementById('encrypted').innerHTML = '';
-				document.getElementById('encryptedsum').innerHTML = '';
+				document.getElementById('encrypted').innerHTML = `
+					<div class="encrypted-label">Encrypted:</div>
+					<div class="encrypted-content">
+						<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">—</span>
+					</div>`;
+				document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">—</span>`;
 				
 				// Force statusbar to hide
 				const statusBar = document.getElementById('statusBar');
@@ -8452,7 +8500,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				let words = textHighlight.trim().split(/\s+/).length;
 				let letters = textHighlight.replace(/[.,&!$%#~*|><}^{/)(-=:;\d\s\r\n_'"`\]\[\+\\\u05C3?\u05BE\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '').length;
 
-				if (letters == 0) { words = 0; verses = 0; encryptedTotal = ""; document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${encryptedTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`; }
+				if (letters == 0) { words = 0; verses = 0; encryptedTotal = ""; document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">Not Applicable</span>`; }
 				document.getElementById('verses').innerHTML = `Verses: ~<span style="color: #35ab47; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${verses.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('words').innerHTML = `Words: <span style="color: #025be0; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${words.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${letters.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;

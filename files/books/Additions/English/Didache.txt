@@ -1,4 +1,4 @@
-﻿ 
+﻿Didache 
 The Didache or Teaching of the Apostles
 1:1	There are two ways, one of life and one of death, and there is a great difference between the two ways.
 1:2	(The way of life) is this.
@@ -188,4 +188,3 @@ The Didache or Teaching of the Apostles
 16:15	yet not of all, but as it was said:
 16:16	(The Lord shall come and all His saints with Him.
 16:17	Then shall) the world (see the Lord coming upon the clouds of heaven.)
- 

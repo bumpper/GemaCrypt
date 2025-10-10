@@ -1,4 +1,4 @@
-﻿ 
+﻿Additions to Esther 
 10:1	And Mordecai said, "These things have come from God. 
 10:2	For I remember the dream that I had concerning these matters, and none of them has failed to be fulfilled. 
 10:3	The tiny spring which became a river, and there was light and the sun and abundant water -- the river is Esther, whom the king married and made queen. 
@@ -103,4 +103,3 @@
 16:22	"Therefore you shall observe this with all good cheer as a notable day among your commemorative festivals, 
 16:23	so that both now and hereafter it may mean salvation for us and the loyal Persians, but that for those who plot against us it may be a reminder of destruction. 
 16:24	"Every city and country, without exception, which does not act accordingly, shall be destroyed in wrath with spear and fire. It shall be made not only impassable for men, but also most hateful for all time to beasts and birds."
- 

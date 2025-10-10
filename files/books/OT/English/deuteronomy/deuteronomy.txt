@@ -1,4 +1,3 @@
- 
 Deuteronomy 
 1:1	These are the words which Moses hath spoken unto all Israel, beyond the Jordan, in the wilderness, in the plain over-against Suph, between Paran and Tophel, and Laban, and Hazeroth, and Di-Zahab; 
 1:2	eleven days' from Horeb, the way of mount Seir, unto Kadesh-Barnea. 
@@ -959,4 +958,3 @@ Deuteronomy
 34:10	And there hath not arisen a prophet any more in Israel like Moses, whom Jehovah hath known face unto face, 
 34:11	in reference to all the signs and the wonders which Jehovah sent him to do in the land of Egypt, to Pharaoh, and to all his servants, and to all his land, 
 34:12	and in reference to all the strong hand, and to all the great fear which Moses did before the eyes of all Israel. 
- 

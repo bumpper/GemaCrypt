@@ -1,5 +1,4 @@
-﻿ 
-Philemon 
+﻿Philemon 
 1:1	Paul, a prisoner of Christ Jesus, and Timotheus the brother, to Philemon our beloved and fellow-worker, 
 1:2	and Apphia the beloved, and Archippus our fellow-soldier, and the assembly in thy house: 
 1:3	Grace to you, and peace, from God our Father, and the Lord Jesus Christ! 
@@ -25,4 +24,3 @@ Philemon
 1:23	Salute thee doth Epaphras, (my fellow-captive in Christ Jesus,) 
 1:24	Markus, Aristarchus, Demas, Lukas, my fellow-workmen! 
 1:25	The grace of our Lord Jesus Christ is with your spirit! Amen. 
- 

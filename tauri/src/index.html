@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GemaCrypt (Tauri wrapper)</title>
+</head>
+<body>
+  <h2>GemaCrypt — launching PHP app</h2>
+  <div id="php-banner" style="display:none; background:#ffecb3; padding:12px; border:1px solid #f0c36d; margin:12px;">
+    <strong>PHP not found</strong> — PHP is required to run the embedded server. Install PHP or place a portable PHP runtime in the app bundle.
+    <button id="php-banner-close" style="margin-left:12px;">Dismiss</button>
+  </div>
+
+  <p>If the PHP server is running at <code>http://127.0.0.1:8000</code> you should be redirected shortly.</p>
+  <script>
+    const showBanner = () => {
+      document.getElementById('php-banner').style.display = 'block';
+    };
+
+    // Try Tauri event listener first
+    try {
+      if (window.__TAURI__ && window.__TAURI__.event && window.__TAURI__.event.listen) {
+        window.__TAURI__.event.listen('php-missing', () => {
+          showBanner();
+        });
+      } else {
+        // fallback: try global flag
+        if (window.__php_missing) showBanner();
+      }
+    } catch (e) {
+      if (window.__php_missing) showBanner();
+    }
+
+    // Default behavior: redirect after a short delay if banner not shown
+    setTimeout(() => {
+      if (document.getElementById('php-banner').style.display === 'none') {
+        window.location.replace('http://127.0.0.1:8000/');
+      }
+    }, 250);
+
+    document.getElementById('php-banner-close').addEventListener('click', () => {
+      document.getElementById('php-banner').style.display = 'none';
+    });
+  </script>
+</body>
+</html>

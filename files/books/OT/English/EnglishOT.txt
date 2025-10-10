@@ -1,5 +1,4 @@
-﻿ 
-Genesis 
+﻿Genesis 
 1:1	In the beginning of God's preparing the heavens and the earth -- 
 1:2	the earth hath existed waste and void, and darkness is on the face of the deep, and the Spirit of God fluttering on the face of the waters, 
 1:3	and God saith, 'Let light be;' and light is. 
@@ -1533,7 +1532,7 @@ Genesis
 50:24	And Joseph saith unto his brethren, 'I am dying, and God doth certainly inspect you, and hath caused you to go up from this land, unto the land which He hath sworn to Abraham, to Isaac, and to Jacob.' 
 50:25	And Joseph causeth the sons of Israel to swear, saying, 'God doth certainly inspect you, and ye have brought up my bones from this place.' 
 50:26	And Joseph dieth, a son of an hundred and ten years, and they embalm him, and he is put into a coffin in Egypt. 
-  
+
 Exodus 
 1:1	And these are the names of the sons of Israel who are coming into Egypt with Jacob; a man and his household have they come; 
 1:2	Reuben, Simeon, Levi, and Judah, 
@@ -2748,7 +2747,7 @@ Exodus
 40:36	And in the going up of the cloud from off the tabernacle the sons of Israel journey in all their journeys; 
 40:37	and if the cloud go not up then they journey not, until the day of its going up: 
 40:38	for the cloud of Jehovah is on the tabernacle by day, and fire is in it by night, before the eyes of all the house of Israel in all their journeys. 
-  
+
 Leviticus 
 1:1	And Jehovah calleth unto Moses, and speaketh unto him out of the tent of meeting, saying, 
 1:2	'Speak unto the sons of Israel, and thou hast said unto them, Any man of you when he doth bring near an offering to Jehovah, out of the cattle -- out of the herd, or out of the flock -- ye do bring near your offering. 
@@ -3609,7 +3608,7 @@ Leviticus
 27:32	'And all the tithe of the herd and of the flock -- all that passeth by under the rod -- the tenth is holy to Jehovah; 
 27:33	he enquireth not between good and bad, nor doth he change it; and if he really change it -- then it hath been -- it and its exchange is holy; it is not redeemed.' 
 27:34	These are the commands which Jehovah hath commanded Moses for the sons of Israel, in mount Sinai. 
-  
+
 Numbers 
 1:1	And Jehovah speaketh unto Moses in the wilderness of Sinai, in the tent of meeting, on the first of the second month, in the second year of their going out of the land of Egypt, saying: 
 1:2	'Take ye up the sum of all the company of the sons of Israel by their families, by the house of their fathers, in the number of names -- every male by their polls; 
@@ -4899,7 +4898,7 @@ Numbers
 36:11	and Mahlah, Tirzah, and Hoglah, and Milcah, and Noah, daughters of Zelophehad, are to the sons of their fathers' brethren for wives; 
 36:12	to men of the families of the sons of Manasseh, son of Joseph, they have been for wives, and their inheritance is with the tribe of the family of their father. 
 36:13	These are the commands and the judgments which Jehovah hath commanded, by the hand of Moses, concerning the sons of Israel, in the plains of Moab, by Jordan, near Jericho. 
-  
+
 Deuteronomy 
 1:1	These are the words which Moses hath spoken unto all Israel, beyond the Jordan, in the wilderness, in the plain over-against Suph, between Paran and Tophel, and Laban, and Hazeroth, and Di-Zahab; 
 1:2	eleven days' from Horeb, the way of mount Seir, unto Kadesh-Barnea. 
@@ -5860,7 +5859,7 @@ Deuteronomy
 34:10	And there hath not arisen a prophet any more in Israel like Moses, whom Jehovah hath known face unto face, 
 34:11	in reference to all the signs and the wonders which Jehovah sent him to do in the land of Egypt, to Pharaoh, and to all his servants, and to all his land, 
 34:12	and in reference to all the strong hand, and to all the great fear which Moses did before the eyes of all Israel. 
-  
+
 Joshua 
 1:1	And it cometh to pass after the death of Moses, servant of Jehovah, that Jehovah speaketh unto Joshua son of Nun, minister of Moses, saying, 
 1:2	'Moses my servant is dead, and now, rise, pass over this Jordan, thou, and all this people, unto the land which I am giving to them, to the sons of Israel. 
@@ -6520,7 +6519,7 @@ Joshua
 24:31	And Israel serveth Jehovah all the days of Joshua, and all the days of the elders who prolonged days after Joshua, and who knew all the work of Jehovah which He did to Israel. 
 24:32	And the bones of Joseph, which the sons of Israel brought up out of Egypt, they buried in Shechem, in the portion of the field which Jacob bought from the sons of Hamor father of Shechem, with a hundred kesitah; and they are to the sons of Joseph for an inheritance. 
 24:33	And Eleazar son of Aaron died, and they bury him in the hill of Phinehas his son, which was given to him in the hill-country of Ephraim. 
-  
+
 Judges 
 1:1	And it cometh to pass, after the death of Joshua, that the sons of Israel ask at Jehovah, saying, 'Who doth go up for us unto the Canaanite, at the commencement, to fight against it?' 
 1:2	And Jehovah saith, 'Judah doth go up; lo, I have given the land into his hand.' 
@@ -7140,7 +7139,7 @@ Judges
 21:23	And the sons of Benjamin do so, and take women according to their number, out of the dancers whom they have taken violently away; and they go, and turn back unto their inheritance, and build the cities, and dwell in them. 
 21:24	And the sons of Israel go up and down thence at that time, each to his tribe, and to his family; and they go out thence each to his inheritance. 
 21:25	In those days there is no king in Israel; each doth that which is right in his own eyes. 
-  
+
 Ruth 
 1:1	And it cometh to pass, in the days of the judging of the judges, that there is a famine in the land, and there goes a man from Beth-Lehem-Judah to sojourn in the fields of Moab, he, and his wife, and his two sons. 
 1:2	And the name of the man is Elimelech, and the name of his wife Naomi, and the name of his two sons Mahlon and Chilion, Ephrathites from Beth-Lehem-Judah; and they come into the fields of Moab, and are there. 
@@ -7227,7 +7226,7 @@ Ruth
 4:20	and Amminidab begat Nahshon, and Nahshon begat Salmon, 
 4:21	and Salmon begat Boaz, and Boaz begat Obed, 
 4:22	and Obed begat Jesse, and Jesse begat David. 
-  
+
 I Samuel 
 1:1	And there is a certain man of Ramathaim-Zophim, of the hill-country of Ephraim, and his name is Elkanah, son of Jeroham, son of Elihu, son of Tohu, son of Zuph, and Ephrathite, 
 1:2	and he hath two wives, the name of the one is Hannah, and the name of the second Peninnah, and Peninnah hath children, and Hannah hath no children. 
@@ -8039,7 +8038,7 @@ I Samuel
 31:11	And they hear regarding it -- the inhabitants of Jabesh-Gilead -- that which the Philistines have done to Saul, 
 31:12	and all the men of valour arise, and go all the night, and take the body of Saul, and the bodies of his sons, from the wall of Beth-Shan, and come in to Jabesh, and burn them there, 
 31:13	and they take their bones, and bury them under the tamarisk in Jabesh, and fast seven days. 
-  
+
 II Samuel 
 1:1	And it cometh to pass, after the death of Saul, that David hath returned from smiting the Amalekite, and David dwelleth in Ziklag two days, 
 1:2	and it cometh to pass, on the third day, that lo, a man hath come in out of the camp from Saul, and his garments are rent, and earth on his head; and it cometh to pass, in his coming in unto David, that he falleth to the earth, and doth obeisance. 
@@ -8736,7 +8735,7 @@ II Samuel
 24:23	the whole hath Araunah given, as a king to a king; and Araunah saith unto the king, 'Jehovah thy God doth accept thee.' 
 24:24	And the king saith unto Araunah, 'Nay, for I do surely buy from thee for a price, and I do not cause to ascend to Jehovah my God burnt-offerings for nought;' and David buyeth the threshing-floor and the oxen for fifty shekels of silver, 
 24:25	and David buildeth there an altar to Jehovah, and causeth to ascend burnt-offerings and peace-offerings, and Jehovah is entreated for the land, and the plague is restrained from Israel. 
-  
+
 I Kings 
 1:1	And king David is old, entering into days, and they cover him with garments, and he hath no heat, 
 1:2	and his servants say to him, 'Let them seek for my lord the king a young woman, a virgin, and she hath stood before the king, and is to him a companion, and hath lain in thy bosom, and my lord the king hath heat.' 
@@ -9554,7 +9553,7 @@ I Kings
 22:51	Ahaziah son of Ahab hath reigned over Israel in Samaria in the seventeenth year of Jehoshaphat king of Judah, and reigneth over Israel two years, 
 22:52	and doth the evil thing in the eyes of Jehovah, and walketh in the way of his father, and in the way of his mother, and in the way of Jeroboam son of Nebat who caused Israel to sin, 
 22:53	and serveth the Baal, and boweth himself to it, and provoketh Jehovah, God of Israel, according to all that his father had done. 
-  
+
 II Kings 
 1:1	And Moab transgresseth against Israel after the death of Ahab, 
 1:2	and Ahaziah falleth through the lattice in his upper chamber that is in Samaria, and is sick, and sendeth messengers, and saith unto them, 'Go ye, inquire of Baal-Zebub god of Ekron if I recover from this sickness.' 
@@ -10275,7 +10274,7 @@ II Kings
 25:28	and speaketh with him good things and putteth his throne above the throne of the kings who are with him in Babylon, 
 25:29	and hath changed the garments of his restraint, and he hath eaten bread continually before him all days of his life, 
 25:30	and his allowance -- a continual allowance -- hath been given to him from the king, the matter of a day in its day, all days of his life. 
-  
+
 I Chronicles 
 1:1	Adam, Sheth, Enosh, 
 1:2	Kenan, Mahalaleel, Jered, 
@@ -11219,7 +11218,7 @@ I Chronicles
 29:28	and he dieth in a good old age, satisfied with days, riches, and honor, and reign doth Solomon his son in his stead. 
 29:29	And the matters of David the king, the first and the last, lo, they are written beside the matters of Samuel the seer, and beside the matters of Nathan the prophet, and beside the matters of Gad the seer, 
 29:30	with all his reign, and his might, and the times that went over him, and over Israel, and over all kingdoms of the lands. 
-  
+
 II Chronicles 
 1:1	And strengthen himself doth Solomon son of David over his kingdom, and Jehovah his God is with him, and maketh him exceedingly great. 
 1:2	And Solomon saith to all Israel, to heads of the thousands, and of the hundreds, and to judges, and to every honourable one of all Israel, heads of the fathers, 
@@ -12043,7 +12042,7 @@ II Chronicles
 36:21	to fulfil the word of Jehovah in the mouth of Jeremiah, till the land hath enjoyed its sabbaths; all the days of the desolation it kept sabbath -- to the fulness of seventy years. 
 36:22	And in the first year of Cyrus king of Persia, at the completion of the word of Jehovah in the mouth of Jeremiah, hath Jehovah waked up the spirit of Cyrus king of Persia, and he causeth an intimation to pass over into all his kingdom, and also in writing, saying, 
 36:23	'Thus said Cyrus king of Persia, All kingdoms of the earth hath Jehovah, God of the heavens, given to me, and He hath laid a charge on me to build to Him a house in Jerusalem, that is in Judah; who is among you of all His people? Jehovah his God is with him, and he doth go up.' 
-  
+
 Ezra 
 1:1	And in the first year of Cyrus king of Persia, at the completion of the word of Jehovah from the mouth of Jeremiah, hath Jehovah waked up the spirit of Cyrus king of Persia, and he causeth an intimation to pass over into all his kingdom, and also in writing, saying, 
 1:2	'Thus said Cyrus king of Persia, All kingdoms of the earth hath Jehovah, God of the heavens, given to me, and He hath laid a charge on me to build to Him a house in Jerusalem, that is in Judah; 
@@ -12325,7 +12324,7 @@ Ezra
 10:42	Shallum, Amariah, Joseph. 
 10:43	Of the sons of Nebo: Jeiel, Mattithiah, Zabad, Zebina, Jadau, and Joel, Benaiah; 
 10:44	all these have taken strange women, and there are of them women -- who adopt sons. 
-  
+
 Nehemiah 
 1:1	Words of Nehemiah son of Hachaliah. And it cometh to pass, in the month of Chisleu, the twentieth year, and I have been in Shushan the palace, 
 1:2	and come in doth Hanani, one of my brethren, he and men of Judah, and I ask them concerning the Jews, the escaped part that have been left of the captivity, and concerning Jerusalem; 
@@ -12733,7 +12732,7 @@ Nehemiah
 13:29	Be mindful of them, O my God, for the redeemed of the priesthood, and the covenant of the priesthood, and of the Levites. 
 13:30	And I have cleansed them from every stranger, and appoint charges to priests and to Levites, each in his work, 
 13:31	and for the wood-offering at appointed times, and for first-fruits. Be mindful of me, O my God, for good. 
-  
+
 Esther 
 1:1	And it cometh to pass, in the days of Ahasuerus -- he is Ahasuerus who is reigning from Hodu even unto Cush, seven and twenty and a hundred provinces -- 
 1:2	in those days, at the sitting of the king Ahasuerus on the throne of his kingdom, that is in Shushan the palace, 
@@ -12902,7 +12901,7 @@ Esther
 10:1	And the king Ahasuerus setteth a tribute on the land and the isles of the sea; 
 10:2	and all the work of his strength, and his might, and the explanation of the greatness of Mordecai with which the king made him great, are they not written on the book of the Chronicles of Media and Persia? 
 10:3	For Mordecai the Jew is second to king Ahasuerus, and a great man of the Jews, and accepted of the multitude of his brethren, seeking good for his people, and speaking peace to all his seed. 
-  
+
 Job 
 1:1	A man there hath been in the land of Uz -- Job his name -- and that man hath been perfect and upright -- both fearing God, and turning aside from evil. 
 1:2	And there are borne to him seven sons and three daughters, 
@@ -13974,7 +13973,7 @@ Job
 42:15	And there have not been found women fair as the daughters of Job in all the land, and their father doth give to them an inheritance in the midst of their brethren. 
 42:16	And Job liveth after this a hundred and forty years, and seeth his sons, and his sons' sons, four generations; 
 42:17	and Job dieth, aged and satisfied with days. 
-  
+
 Psalms 
 1:1	O the happiness of that one, who Hath not walked in the counsel of the wicked. And in the way of sinners hath not stood, And in the seat of scorners hath not sat; 
 1:2	But -- in the law of Jehovah is his delight, And in His law he doth meditate by day and by night: 
@@ -16437,7 +16436,7 @@ Psalms
 150:4	Praise Him with timbrel and dance, Praise Him with stringed instruments and organ. 
 150:5	Praise Him with cymbals of sounding, Praise Him with cymbals of shouting. 
 150:6	All that doth breathe doth praise Jah! Praise ye Jah! 
-  
+
 Proverbs 
 1:1	Proverbs of Solomon, son of David, king of Israel: 
 1:2	For knowing wisdom and instruction, For understanding sayings of intelligence, 
@@ -17354,7 +17353,7 @@ Proverbs
 31:29	'Many are the daughters who have done worthily, Thou hast gone up above them all.' 
 31:30	The grace is false, and the beauty is vain, A woman fearing Jehovah, she may boast herself. 
 31:31	Give ye to her of the fruit of her hands, And her works do praise her in the gates! 
-  
+
 Ecclesiastes 
 1:1	Words of a preacher, son of David, king in Jerusalem: 
 1:2	Vanity of vanities, said the Preacher, Vanity of vanities: the whole is vanity. 
@@ -17578,7 +17577,7 @@ Ecclesiastes
 12:12	And further, from these, my son, be warned; the making of many books hath no end, and much study is a weariness of the flesh. 
 12:13	The end of the whole matter let us hear: -- 'Fear God, and keep His commands, for this is the whole of man. 
 12:14	For every work doth God bring into judgment, with every hidden thing, whether good or bad.' 
-  
+
 Song of Solomon 
 1:1	The Song of Songs, that is Solomon's. 
 1:2	Let him kiss me with kisses of his mouth, For better are thy loves than wine. 
@@ -17697,7 +17696,7 @@ Song of Solomon
 8:12	My vineyard -- my own -- is before me, The thousand is for thee, O Solomon. And the two hundred for those keeping its fruit. O dweller in gardens! 
 8:13	The companions are attending to thy voice, Cause me to hear. Flee, my beloved, and be like to a roe, 
 8:14	Or to a young one of the harts on mountains of spices! 
-  
+
 Isaiah 
 1:1	The Visions of Isaiah son of Amoz, that he hath seen concerning Judah and Jerusalem, in the days of Uzziah, Jotham, Ahaz, Hezekiah, kings of Judah. 
 1:2	Hear, O heavens, and give ear, O earth, For Jehovah hath spoken: Sons I have nourished and brought up, And they -- they transgressed against Me. 
@@ -18991,7 +18990,7 @@ Isaiah
 66:22	For, as the new heavens and the new earth that I am making, Are standing before Me, An affirmation of Jehovah! So remain doth your seed and your name. 
 66:23	And it hath been from month to month, And from sabbath to sabbath, Come do all flesh to bow themselves before Me, Said Jehovah. 
 66:24	And they have gone forth, And looked on the carcases of the men Who are transgressing against me, For their worm dieth not, And their fire is not quenched, And they have been an abhorrence to all flesh! 
-  
+
 Jeremiah 
 1:1	Words of Jeremiah son of Hilkiah, of the priests who are in Anathoth, in the land of Benjamin, 
 1:2	unto whom the word of Jehovah hath been in the days of Josiah son of Amon, king of Judah, in the thirteenth year of his reign, 
@@ -20357,7 +20356,7 @@ Jeremiah
 52:32	and speaketh with him good things, and setteth his throne above the throne of the kings who are with him in Babylon, 
 52:33	and he hath changed his prison garments, and he hath eaten bread before him continually, all the days of his life. 
 52:34	And his allowance -- a continual allowance -- hath been given to him by the king of Babylon, the matter of a day in its day, till the day of his death -- all days of his life. 
-  
+
 Lamentations 
 1:1	How hath she sat alone, The city abounding with people! She hath been as a widow, The mighty among nations! Princes among provinces, She hath become tributary! 
 1:2	She weepeth sore in the night, And her tear is on her cheeks, There is no comforter for her out of all her lovers, All her friends dealt treacherously by her, They have been to her for enemies. 
@@ -20513,7 +20512,7 @@ Lamentations
 5:20	Why forever dost Thou forget us? Thou forsakest us for length of days! 
 5:21	Turn us back, O Jehovah, unto Thee, And we turn back, renew our days as of old. 
 5:22	For hast Thou utterly rejected us? Thou hast been wroth against us -- exceedingly? 
-  
+
 Ezekiel 
 1:1	And it cometh to pass, in the thirtieth year, in the fourth month, in the fifth of the month, and I am in the midst of the Removed by the river Chebar, the heavens have been opened, and I see visions of God. 
 1:2	In the fifth of the month -- it is the fifth year of the removal of the king Jehoiachin -- 
@@ -21788,7 +21787,7 @@ Ezekiel
 48:33	And the south side five hundred, and four thousand measures, and three gates: the gate of Simeon one, the gate of Issachar one, the gate of Zebulun one. 
 48:34	The west side five hundred, and four thousand, their gates three: the gate of Gad one, the gate of Asher one, the gate of Naphtali one. 
 48:35	Round about is eighteen thousand, and the renown of the city is from the day Jehovah is there.' 
-  
+
 Daniel 
 1:1	In the third year of the reign of Jehoiakim king of Judah, come hath Nebuchadnezzar king of Babylon to Jerusalem, and layeth siege against it; 
 1:2	and the Lord giveth into his hand Jehoiakim king of Judah, and some of the vessels of the house of God, and he bringeth them in to the land of Shinar, to the house of his god, and the vessels he hath brought in to the treasure-house of his god. 
@@ -22147,7 +22146,7 @@ Daniel
 12:11	and from the time of the turning aside of the perpetual sacrifice, and to the giving out of the desolating abomination, are days a thousand, two hundred, and ninety. 
 12:12	O the blessedness of him who is waiting earnestly, and doth come to the days, a thousand, three hundred, thirty and five. 
 12:13	And thou, go on to the end, then thou dost rest, and dost stand in thy lot at the end of the days.' 
-  
+
 Hosea 
 1:1	A word of Jehovah that hath been unto Hosea, son of Beeri, in the days of Uzziah, Jotham, Ahaz, Hezekiah, kings of Judah, and in the days of Jeroboam son of Joash, king of Israel: 
 1:2	The commencement of Jehovah's speaking by Hosea. And Jehovah saith unto Hosea, 'Go, take to thee a woman of whoredoms, and children of whoredoms, for utterly go a-whoring doth the land from after Jehovah.' 
@@ -22346,7 +22345,7 @@ Hosea
 14:7	Return do the dwellers under his shadow, They revive as corn, and flourish as a vine, His memorial is as wine of Lebanon. 
 14:8	O Ephraim, what to Me any more with idols? I -- I afflicted, and I cause him to sing: 'I am as a green fir-tree,' From Me is thy fruit found. 
 14:9	Who is wise, and doth understand these? Prudent, and knoweth them? For upright are the ways of Jehovah, And the righteous go on in them, And the transgressors stumble therein! 
-  
+
 Joel 
 1:1	A word of Jehovah that hath been unto Joel, son of Pethuel: 
 1:2	Hear this, ye aged ones, And give ear, all ye inhabitants of the land, Hath this been in your days? Or in the days of your fathers? 
@@ -22421,7 +22420,7 @@ Joel
 3:19	Egypt a desolation becometh, And Edom a desolation, a wilderness, becometh, For violence to sons of Judah, Whose innocent blood they shed in their land. 
 3:20	And Judah to the age doth dwell, And Jerusalem to generation and generation. 
 3:21	And I have declared their blood innocent, That I did not declare innocent, And Jehovah is dwelling in Zion! 
-  
+
 Amos 
 1:1	Words of Amos -- who hath been among herdsmen of Tekoa -- that he hath seen concerning Israel, in the days of Uzziah king of Judah, and in the days of Jeroboam son of Joash king of Israel, two years before the shaking; 
 1:2	and he saith: Jehovah from Zion doth roar, And from Jerusalem giveth forth His voice, And mourned have pastures of the shepherds, And withered hath the top of Carmel! 
@@ -22569,7 +22568,7 @@ Amos
 9:13	Lo, days are coming -- an affirmation of Jehovah, And come nigh hath the ploughman to the reaper, And the treader of grapes to the scatterer of seed, And the mountains have dropt juice, And all the hills do melt. 
 9:14	And I have turned back to the captivity of My people Israel, And they have built desolate cities, and inhabited, And have planted vineyards, and drunk their wine, And made gardens, and eaten their fruit. 
 9:15	And I have planted them on their own ground, And they are not plucked up any more from off their own ground, That I have given to them, said Jehovah thy God! 
-  
+
 Obadiah 
 1:1	Thus said the Lord Jehovah to Edom, A report we have heard from Jehovah, And an ambassador among nations was sent, 'Rise, yea, let us rise against her for battle.' 
 1:2	Lo, little I have made thee among nations, Despised art thou exceedingly. 
@@ -22592,7 +22591,7 @@ Obadiah
 1:19	And they have possessed the south with the mount of Esau, And the low country with the Philistines, And they have possessed the field of Ephraim, And the field of Samaria, And Benjamin with Gilead. 
 1:20	And the removed of this force of the sons of Israel, That is with the Canaanites unto Zarephat, And the removed of Jerusalem that is with the Sepharad, Possess the cities of the south. 
 1:21	And gone up have saviours on mount Zion, To judge the mount of Esau, And the kingdom hath been to Jehovah!' 
-  
+
 Jonah 
 1:1	And there is a word of Jehovah unto Jonah son of Amittai, saying: 
 1:2	'Rise, go unto Nineveh, the great city, and proclaim against it that their wickedness hath come up before Me.' 
@@ -22642,7 +22641,7 @@ Jonah
 4:9	And God saith unto Jonah: 'Is doing good displeasing to thee, because of the gourd?' and he saith, 'To do good is displeasing to me -- unto death.' 
 4:10	And Jehovah saith, 'Thou hast had pity on the gourd, for which thou didst not labour, neither didst thou nourish it, which a son of a night was, and a son of a night perished, 
 4:11	and I -- have not I pity on Nineveh, the great city, in which there are more than twelve myriads of human beings, who have not known between their right hand and their left -- and much cattle!' 
-  
+
 Micah 
 1:1	A word of Jehovah that hath been unto Micah the Morashite in the days of Jotham, Ahaz, Hezekiah, kings of Judah, that he hath seen concerning Samaria and Jerusalem: 
 1:2	Hear, O peoples, all of them! Attend, O earth, and its fulness, And the Lord Jehovah is against you for a witness, The Lord from His holy temple. 
@@ -22749,7 +22748,7 @@ Micah
 7:18	Who is a God like Thee? taking away iniquity, And passing by the transgression of the remnant of His inheritance, He hath not retained forever His anger, Because He -- He delighteth in kindness. 
 7:19	He doth turn back, He pitieth us, He doth subdue our iniquities, And Thou castest into the depths of the sea all their sins. 
 7:20	Thou givest truth to Jacob, kindness to Abraham, That thou hast sworn to our fathers, from the days of antiquity! 
-  
+
 Nahum 
 1:1	Burden of Nineveh. The Book of the Vision of Nahum the Elkoshite. 
 1:2	A God zealous and avenging is Jehovah, An avenger is Jehovah, and possessing fury. An avenger is Jehovah on His adversaries, And He is watching for His enemies. 
@@ -22798,7 +22797,7 @@ Nahum
 3:17	Thy crowned ones are as a locust, And thy princes as great grasshoppers, That encamp in hedges in a day of cold, The sun hath risen, and it doth flee away, And not known is its place where they are. 
 3:18	Slumbered have thy friends, king of Asshur, Rest do thine honourable ones, Scattered have been thy people on the mountains, And there is none gathering. 
 3:19	There is no weakening of thy destruction, Grievous is thy smiting, All hearing thy fame have clapped the hand at thee, For over whom did not thy wickedness pass continually? 
-  
+
 Habakkuk 
 1:1	The burden that Habakkuk the prophet hath seen: 
 1:2	Till when, O Jehovah, have I cried, And Thou dost not hear? I cry unto Thee -- 'Violence,' and Thou dost not save. 
@@ -22856,7 +22855,7 @@ Habakkuk
 3:17	Though the fig-tree doth not flourish, And there is no produce among vines, Failed hath the work of the olive, And fields have not yielded food, Cut off from the fold hath been the flock, And there is no herd in the stalls. 
 3:18	Yet I, in Jehovah I exult, I do joy in the God of my salvation. 
 3:19	Jehovah the Lord is my strength, And He doth make my feet like hinds, And on my high-places causeth me to tread. To the overseer with my stringed instruments! 
-  
+
 Zephaniah 
 1:1	A word of Jehovah that hath been unto Zephaniah son of Cushi, son of Gedaliah, son of Amariah, son of Hezikiah, in the days of Josiah son of Amoz, king of Judah: 
 1:2	I utterly consume all from off the face of the ground, An affirmation of Jehovah. 
@@ -22911,7 +22910,7 @@ Zephaniah
 3:18	Mine afflicted from the appointed place I have gathered, from thee they have been, Bearing for her sake reproach. 
 3:19	Lo, I am dealing with all afflicting thee at that time, And I have saved the halting one, And the driven out ones I do gather, And have set them for a praise and for a name, In all the land of their shame. 
 3:20	At that time I bring you in, Even at the time of My assembling you, For I give you for a name, and for a praise, Among all peoples of the land, In My turning back to your captivity before your eyes, said Jehovah! 
-  
+
 Haggai 
 1:1	In the second year of Darius the king, in the sixth month, in the first day of the month, hath a word of Jehovah been by the hand of Haggai the prophet, unto Zerubbabel son of Shealtiel, governor of Judah, and unto Joshua son of Josedech, the high priest, saying: 
 1:2	Thus spake Jehovah of Hosts, saying: This people! -- they have said, 'The time hath not come, The time the house of Jehovah is to be built.' 
@@ -22951,7 +22950,7 @@ Haggai
 2:21	'Speak unto Zerubbabel governor of Judah, saying: I am shaking the heavens and the earth, 
 2:22	And have overturned the throne of kingdoms, And I have destroyed the strength of kingdoms of the nations, And overturned chariot and its charioteers, And come down have horses and their riders, Each by the sword of his brother. 
 2:23	In that day -- an affirmation of Jehovah of Hosts, I take thee, Zerubbabel, son of Shealtiel, My servant -- an affirmation of Jehovah, And have set thee as a signet, for on thee I have fixed, An affirmation of Jehovah of Hosts! 
-  
+
 Zechariah 
 1:1	In the eighth month, in the second year of Darius, hath a word of Jehovah been unto Zechariah, son of Berechiah, son of Iddo, the prophet, saying: 
 1:2	'Jehovah was wroth against your fathers -- wrath! 
@@ -23164,7 +23163,7 @@ Zechariah
 14:19	This is the punishment of the sin of Egypt, And the punishment of the sin of all the nations, That go not up to celebrate the feast of booths. 
 14:20	In that day there is on bells of the horse, 'Holy to Jehovah,' And the pots in the house of Jehovah Have been as bowls before the altar. 
 14:21	And every pot in Jerusalem, and in Judah, Have been holy to Jehovah of Hosts, And all those sacrificing have come in, And have taken of them, and boiled in them, And there is no merchant any more in the house of Jehovah of Hosts in that day! 
-  
+
 Malachi 
 1:1	The burden of a word of Jehovah unto Israel by the hand of Malachi: 
 1:2	I have loved you, said Jehovah, And ye have said, 'In what hast Thou loved us?' 
@@ -23221,4 +23220,3 @@ Malachi
 4:4	Remember ye the Law of Moses My servant, that I did command him in Horeb, for all Israel -- statutes and judgments. 
 4:5	Lo, I am sending to you Elijah the prophet, before the coming of the day of Jehovah, The great and the fearful. 
 4:6	And he hath turned back the heart of fathers to sons, and the heart of sons to their fathers, before I come and have utterly smitten the land! 
- 

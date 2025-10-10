@@ -1,4 +1,4 @@
-﻿ 
+﻿Gospel of the Marcion 
 4:16	And he came to Nazareth, and went into the synagogue on the Sabbath day, and sat down.
 4:21	And he began to speak to them, and all wondered at the words which proceeded out of his mouth.
 4:23	And he said unto them, Ye will surely say unto me this proverb, Physician, heal thyself: whatsoever we have heard done in Capernaum, do also here in thy country.
@@ -919,4 +919,3 @@
 24:45	These are the words which I spoke unto you, while I was yet with you,
 24:46	that thus it was necessary for the Christ to suffer, and to rise again from the dead the third day:
 24:47	And that repentance and remission of sins should be preached in his name among all nations.
- 

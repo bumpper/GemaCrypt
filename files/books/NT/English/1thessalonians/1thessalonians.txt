@@ -1,5 +1,4 @@
-﻿ 
-I Thessalonians 
+﻿I Thessalonians 
 1:1	Paul, and Silvanus, and Timotheus, to the assembly of Thessalonians in God the Father, and the Lord Jesus Christ: Grace to you, and peace, from God our Father, and the Lord Jesus Christ! 
 1:2	We give thanks to God always for you all, making mention of you in our prayers, 
 1:3	unceasingly remembering of you the work of the faith, and the labour of the love, and the endurance of the hope, of our Lord Jesus Christ, in the presence of our God and Father, 
@@ -89,4 +88,3 @@ I Thessalonians
 5:26	salute all the brethren in an holy kiss; 
 5:27	I charge you by the Lord, that the letter be read to all the holy brethren; 
 5:28	the grace of our Lord Jesus Christ is with you! Amen. 
- 

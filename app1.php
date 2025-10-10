@@ -6,6 +6,10 @@
 <link id="theme-css" href="files/resources/lib/theme/jqm/jqm.css" rel="stylesheet" />
 <link href="files/resources/lib/jquerymobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	// Keep a reference to the newer CDN jQuery so we can restore it if older jQuery overwrites window.jQuery
+	try { if (window.jQuery) { window._jQueryPlaceholder = window.jQuery; } } catch (e) { console.error('store CDN jQuery failed', e); }
+</script>
 <link rel="SHORTCUT ICON" href="img/bet.png" />
 <meta name="Rating" content="general" />
 <meta name="DESCRIPTION" content="Decode Hebrew words to find hidden meanings.  With this app you can find the numerical value of a word or letter.  Words with the same numerical value are said to relate to each other.  Use different algorathims like AL-BaM, AT-BaSh, ACh-BI, Ayik-becher, AChaS-BeTA, At-bech to decode hebrew words.  Use the different gematriaot to find a words numerical value like Ragil, Katan, HaKlali, Kolel, HaKadmi, HaPerati, Miluy." />
@@ -15,22 +19,135 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
+ 
+<style>
+/* Scoped styles for anagram hits/misses to override global link rules */
+#anagram a.anagram-hit { color: #FFF !important; }
+#anagram a.anagram-miss { color: #ccc !important; }
+#anagram li.anagram-hit { color: #FFF !important; }
+#anagram li.anagram-miss { color: #ccc !important; }
+</style>
 <noscript><span class="span-red">Warning! JavaScript is disabled, the functionality is unavailable.</span><br>
 You will need to enable JavaScript in your web browser: see the <a class="ext" href="https://www.enable-javascript.com/" target="_blank">instructions</a>.<br><br></noscript>
 
 <script>
-	// Create a separate instance of jQuery for the older version (1.8.2)
-	var jq182 = jQuery.noConflict(true);
-	
-	// Use the newer version (3.6.0) for the resizable functionality
-	$(function() {
-	  $( "#inputText" ).resizable();
-	  $( "#inputText2" ).resizable();
-	});
-	
-	// Use the older version (1.8.2) for everything else
-	jQuery = jq182;
+// Avoid altering global jQuery state before all libraries load.
+// If a resizable() plugin is available (jQuery UI), initialize it when ready.
+document.addEventListener('DOMContentLoaded', function () {
+	try {
+		if (window.jQuery && typeof window.jQuery.fn.resizable === 'function') {
+			window.jQuery('#inputText').resizable();
+			window.jQuery('#inputText2').resizable();
+		}
+	} catch (e) { console.error('resizable init error', e); }
+});
+</script>
+
+<!-- Runtime guard: if dynamic content creates a large gap between controls and results, collapse intervening margins -->
+<script>
+	(function(){
+		function collapseIntervening() {
+			try {
+				var controls = document.getElementById('controlsRow');
+				var results = document.getElementById('Results');
+				if (!controls || !results) return;
+				var c = controls.getBoundingClientRect();
+				var r = results.getBoundingClientRect();
+				var gap = Math.round(r.top - c.bottom);
+				if (gap > 50) {
+					// collapse margins/paddings on immediate siblings between controls and results
+					var node = controls.parentElement; // usually the table's parent
+					// walk siblings until we reach results
+					var sibling = node.nextElementSibling;
+					while (sibling && sibling !== results) {
+						// shrink any spacer-like elements
+						sibling.style.marginTop = '0px';
+						sibling.style.marginBottom = '0px';
+						sibling.style.paddingTop = '0px';
+						sibling.style.paddingBottom = '0px';
+						// if element is empty (no text and small height) collapse it
+						try {
+							var text = sibling.textContent.trim();
+							var h = sibling.getBoundingClientRect().height;
+							if (!text && h < 20) { sibling.style.display = 'none'; }
+						} catch (e) {}
+						sibling = sibling.nextElementSibling;
+					}
+					// ensure results sits flush
+					results.style.marginTop = '0px';
+				}
+			} catch(e) { console.error('collapseIntervening error', e); }
+		}
+
+		// run after load and on relevant changes
+		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', collapseIntervening); else collapseIntervening();
+		window.addEventListener('resize', collapseIntervening);
+		// observe mutations which may insert the large result table - guard until document.body exists
+		var obs = new MutationObserver(function(m){ collapseIntervening(); });
+		function startObservingBody() {
+			if (document.body) {
+				try { obs.observe(document.body, {childList:true, subtree:true, attributes:false}); }
+				catch(e) { console.error('MutationObserver.observe failed', e); }
+			} else {
+				// try again shortly if body not yet available
+				setTimeout(startObservingBody, 50);
+			}
+		}
+		startObservingBody();
+	})();
+</script>
+
+<!-- Debug gap inspector: enable by adding ?debugGap=1 to the URL -->
+<script>
+	(function () {
+		function initDebug() {
+			try {
+				var params = new URLSearchParams(window.location.search);
+				if (!params.get('debugGap')) return;
+				document.documentElement.classList.add('debug-gap');
+				// compute boxes
+				var controls = document.getElementById('controlsRow');
+				var results = document.getElementById('Results');
+				var overlay = document.createElement('div'); overlay.className = 'gap-overlay';
+				document.body.appendChild(overlay);
+						var gapRect = null;
+						function measure() {
+							controls = document.getElementById('controlsRow');
+							results = document.getElementById('Results');
+							var cRect = controls ? controls.getBoundingClientRect() : null;
+							var rRect = results ? results.getBoundingClientRect() : null;
+							var gap = null;
+							if (cRect && rRect) gap = Math.max(0, Math.round(rRect.top - cRect.bottom));
+							overlay.className = 'gap-overlay large';
+							overlay.innerText = 'controls bottom: ' + (cRect ? Math.round(cRect.bottom) : 'n/a') + '\nresults top: ' + (rRect ? Math.round(rRect.top) : 'n/a') + '\nvertical gap: ' + (gap === null ? 'n/a' : gap + ' px');
+							document.title = 'gap:' + (gap === null ? 'n/a' : gap + 'px') + ' - GemaCrypt';
+							console.log('DEBUG gap inspector:', {controls: cRect, results: rRect, gap: gap});
+							// draw a rect between the two elements so screenshots show the gap
+							if (gapRect === null) {
+								gapRect = document.createElement('div'); gapRect.className = 'gap-rect'; document.body.appendChild(gapRect);
+							}
+							if (cRect && rRect && gapRect) {
+								gapRect.style.top = (cRect.bottom + window.scrollY) + 'px';
+								gapRect.style.height = Math.max(1, (rRect.top - cRect.bottom)) + 'px';
+								gapRect.style.left = Math.min(cRect.left, rRect.left) + 'px';
+								gapRect.style.right = (window.innerWidth - Math.max(cRect.right, rRect.right)) + 'px';
+							}
+						}
+				measure();
+				// measure on resize/scroll as well
+				window.addEventListener('resize', measure);
+				window.addEventListener('scroll', measure);
+				// highlight currently focused element
+				document.addEventListener('click', function (ev) { console.log('Clicked element', ev.target); measure(); }, true);
+			} catch (e) { console.error('DebugGap init failed', e); }
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initDebug);
+		} else {
+			initDebug();
+		}
+	})();
 </script>
 
 <script>
@@ -152,6 +269,17 @@ You will need to enable JavaScript in your web browser: see the <a class="ext" h
 </script>
 <script type="text/javascript" src="files/resources/lib/store/json2.js"></script>
 <script type="text/javascript" src="files/resources/lib/jquery/jquery-1.8.2.js"></script>
+<!-- Preserve the old jQuery (1.8.2) in jq182 for legacy scripts (do NOT remove it from window yet) -->
+<script type="text/javascript">
+	(function(){
+		try {
+			if (window.jQuery) {
+				// keep a reference to the legacy jQuery on window.jq182 so legacy libs can access it
+				window.jq182 = window.jQuery;
+			}
+		} catch (e) { console.error('jQuery capture error', e); }
+	})();
+</script>
 <script type="text/javascript">
             $(document).bind("mobileinit", function()
     {
@@ -173,6 +301,29 @@ You will need to enable JavaScript in your web browser: see the <a class="ext" h
 <script type="text/javascript" src="files/resources/lib/base/tiggzi.js"></script>
 <link href="files/resources/css/mobilebase.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="optimized-permutations.js"></script>
+<script type="text/javascript" src="files/dictionary.precompiled.js"></script>
+
+<!-- After legacy libs (which expect the local jQuery to be available), move legacy jQuery into jq182 and restore CDN jQuery to $ -->
+<script type="text/javascript">
+	(function(){
+		try {
+			// If the legacy jQuery loaded into window.jQuery and we earlier captured it to jq182, do a noConflict now
+			if (window.jq182 && window.jq182.fn && typeof window.jq182.noConflict === 'function') {
+				try {
+					// move legacy jQuery fully into jq182 (remove it from window)
+					window.jq182 = window.jq182.noConflict(true);
+				} catch(e) {
+					console.warn('jq182 noConflict failed, leaving jq182 reference', e);
+				}
+			}
+			// Restore CDN jQuery into window.jQuery/$ if we saved it earlier
+			if (window._jQueryPlaceholder) {
+				window.jQuery = window._jQueryPlaceholder;
+				window.$ = window._jQueryPlaceholder;
+			}
+		} catch (e) { console.error('restore jQuery error', e); }
+	})();
+</script>
 
 <script language="JavaScript">
 function stopError() {
@@ -220,22 +371,65 @@ body { background-color: #000;}
 .close { position: absolute; top: 10px; right: 20px; font-size: 30px; font-weight: bold; color: #000; text-decoration: none; cursor: pointer; }
 .modal-content p { color: #000; 
 }
-/* --- Responsive layout for the 4 control buttons --- */
-@media (max-width: 600px) {
-  /* The row that contains the four <td> cells */
-  #controlsRow {
-    display: block;            /* force the <tr> to act like a block */
-  }
-  #controlsRow td {
-    display: block;            /* each <td> becomes a full-width block */
-    width: 100%;
-    margin-bottom: .6em;       /* small spacer between stacked buttons */
-  }
+/* --- Controls layout: use flexbox for predictable wrapping and stack on small screens --- */
+/* Default: use flex layout so the 4 controls sit horizontally and stay centered. */
+#controlsRow {
+	display: flex;            /* make the <tr> act like a flex container */
+	flex-wrap: wrap;         /* allow wrapping when space is constrained */
+	justify-content: center; /* center the items */
+	align-items: center;
+	gap: 0.5rem;             /* small gap between controls */
 }
+#controlsRow td {
+	display: block; /* each cell will be a block-level item inside the flex container */
+	vertical-align: middle;
+	padding: 0.25rem;
+	margin: 0;
+}
+
+/* Small screens: stack controls vertically (mobile-like) */
+@media (max-width: 600px) {
+	#controlsRow {
+		flex-direction: column; /* stack the controls */
+		align-items: stretch;   /* make them fill the available width */
+	}
+	#controlsRow td {
+		width: 100%;
+		margin-bottom: .6em;    /* small spacer between stacked buttons */
+	}
+}
+
 /* (optional) keep the labels centered on the tiny stack */
 #controlsRow td span[title] {
-  text-align: center;
-  display: block;
+	text-align: center;
+	display: block;
+}
+/* reset paragraph margins inside main mobile container to avoid stray gaps */
+.mobileContent p { margin: 0; padding: 0; }
+
+#controlsRow { margin-bottom: 0; }
+
+/* Debug helpers: enable by appending ?debugGap=1 to the URL */
+.debug-gap #controlsRow { outline: 3px solid rgba(255,0,0,0.9); background: rgba(255,0,0,0.03); }
+.debug-gap #Results { outline: 3px solid rgba(0,255,0,0.9); background: rgba(0,255,0,0.03); }
+.debug-gap table[align="center"] { outline: 2px dashed rgba(0,0,255,0.4); }
+.debug-gap .mobileContent { outline: 2px dotted rgba(255,165,0,0.6); }
+.debug-gap .gap-overlay {
+	position: fixed; right: 12px; top: 12px; z-index: 1000000; background: rgba(0,0,0,0.75); color: #fff; padding: 6px 8px; border-radius: 6px; font-family: Arial, sans-serif; font-size: 13px; pointer-events: none;
+}
+
+.debug-gap .gap-overlay.large { font-size: 18px; padding: 10px 12px; right: 14px; top: 14px; }
+.debug-gap .gap-rect { position: absolute; left: 0; right: 0; background: rgba(255,0,0,0.12); border-top: 2px solid rgba(255,0,0,0.45); border-bottom: 2px solid rgba(255,0,0,0.45); z-index: 999999; pointer-events: none; }
+
+/* Defensive fixes: collapse any extra spacing immediately after the controls row inside mobile content */
+.mobileContent > table[width="100%"] + * { margin-top: 0 !important; padding-top: 0 !important; }
+.mobileContent #controlsRow { margin-bottom: 0 !important; }
+.mobileContent #controlsRow + * { margin-top: 0 !important; padding-top: 0 !important; }
+.mobileContent table[width="100%"] { border-collapse: collapse; }
+/* Permanent narrow fix: ensure results containers don't receive large top spacing */
+#Results, .mobileContent #gematriaMatches, .mobileContent #result, .mobileContent div.result {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
 }
 /* ----------  Mobile: keep tables in view and center them  ---------- */
 @media (max-width: 600px) {
@@ -393,7 +587,7 @@ async function copyText2() {
   }
 }
 </script>
-<div class="hidden-title"><center><h1>GemaCrypt</h1></center></p></div>
+<div class="hidden-title"><center><h1>GemaCrypt</h1></center></div>
 <div data-role="page" style="min-height:480px;" dsid="startScreen" id="j_0" class="type-interior" data-theme="a" data-add-back-btn="false" data-back-btn-text="Back">
 <div id="header" data-role="header" data-position="" data-theme="d" name="mobileheader1" id="j_2" class='mobileHeader mobileheader1'><h1 dsid="mobileheader1">
 <a href="#" style="text-decoration: none; float: left;" onclick="toggleKeyboard()"><img src="img/invis.gif" width="10" border="0"><img src="img/kboard.png" alt="Hebrew Keyboard" height="16" width="30" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
@@ -516,7 +710,7 @@ function autoLoginPhpMyAdmin() {
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Cantillation"><span id="C32Amount" title="Merkha Kefula"><a data-role="button" name="Merkha Kefula" dsid="" class='' id='Merkha Kefula' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF;" onclick="appendToInputField('inputText', '')"/><font size="+4">֦</font></a></span><span style="font-size: 28px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="C32Text"></p></span></div></div></td>
 	<td width="3.7%" class="KeyCell" valign="bottom"><div class="Cantillation"><span id="C33Amount" title=""><!--<a data-role="button" name="" dsid="" class='' id='' data-corners='true' data-icon='' data-iconpos='' data-mini='false' data-theme='b' tabIndex='' style="background-color: #EEFFFF;" onclick="appendToInputField('inputText', '₪')"/>--><font size="+4"></font></a></span><span style="font-size: 28px; display: inline-block; margin: 0 auto; vertical-align: top;"><p id="C33Text"></p></span></div></td>
 </tr></table>
-<table><tr><td></td></tr></table><!-- Empty Row for aesthetic purposes -->
+	<!-- spacer table removed to avoid unexpected vertical gaps -->
 </div>
 </div>
 
@@ -633,20 +827,22 @@ function autoLoginPhpMyAdmin() {
 		
 	<td width="25%">
 	<!-- transposeButton --><span title="Begin the process."><center>Calculate</center>
-	<a data-role="button" name="transposeButton" dsid="transposeButton" class='transposeButton mobilebutton1' id='transpose' data-corners='true' data-icon='search' data-iconpos='right' data-mini='false' data-theme='a' tabIndex='1' style="background-color: #EEFFFF;" onclick="Transpose(); randomString(6, 'A');"/><span title="Begin the process.">Transpose</span></a>
-	</span></td></tr></table><p></div>
+	<a data-role="button" name="transposeButton" dsid="transposeButton" class='transposeButton mobilebutton1' id='transpose' data-corners='true' data-icon='search' data-iconpos='right' data-mini='false' data-theme='a' tabIndex='1' style="background-color: #EEFFFF;" onclick="Transpose(); randomString(6, 'A');">
+	  <span title="Begin the process.">Transpose</span>
+	</a>
+	</span></td></tr></table></div>
 
 <div id="Results" class="hidden">
 <table width="100%" cellpadding="10" cellspacing="10" border="0" align="center">
 <!-- Input Phrase Gematria -->
 <tr><td width="33%" valign="top"><p align='left' valign='top'><b><u><span title="The numerical value of all the letters from the original word."><a href="/gemacrypt/help.html#Gematria" target="_blank" style="text-decoration: none;">Input Phrase Gematria:</a></span></b></u></p>
-<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="gem1"></div></p></td>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="gem1"></div></td>
 <!-- Encrypted Pharse -->
 <td width="33%" valign="top"><p align='center' valign='top'><b><u><a href="" border="0" style="text-decoration: none;" onclick="SendCryptography2()"><span title="The new word once it has been transposed used the methods below.">Encrypted Phrase:</span></a></u></b></p>
-<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="crypt2"></div></p></td>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="crypt2"></div></td>
 <!-- Encrypted Phrase Gematria -->
 <td width="33%" valign="top"><p align='right' valign='top'><b><u><span title="The numerical value of the transposed new word."><a href="/gemacrypt/help.html#Cyphers" target="_blank" style="text-decoration: none;">Encrypted Phrase Gematria:</a></span></b></u></p>
-<div align="right" data-role="fieldcontain" class="mobiletextinput4" id="gem2"></div></p></td></tr>
+<div align="right" data-role="fieldcontain" class="mobiletextinput4" id="gem2"></div></td></tr>
 
 <!-- Original Word -->
 <tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="The original word entered in the first text box."><a href="/gemacrypt/help.html#Hebrew" target="_blank" style="text-decoration: none;">Original Input Phrase:</a></span></u></b></p>
@@ -793,24 +989,37 @@ function autoLoginPhpMyAdmin() {
 <div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="Ordinal"></div></div></td></tr>
 
 <!-- HaKadmi -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="" border="0" style="text-decoration: none;"><span title="Ragil value plus the value of the preceding letters (triangular value), which uses each letter as the sum of all the standard gematria letter values preceding it."><a href="" target="_blank" style="text-decoration: none;">HaKadmi:</a></span></a></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="" style="text-decoration: none;"><span title="Ragil value plus the value of the preceding letters (triangular value), which uses each letter as the sum of all the standard gematria letter values preceding it."><a href="" target="_blank" style="text-decoration: none;">HaKadmi:</a></span></a></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="HaKadmi"></div></td>
-<!-- HaPerati -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Each letter squared and added together."><a href="" target="_blank" style="text-decoration: none;">HaPerati:</a></span></a></u></b></p>
-<div align="center" data-role="fieldcontain" class="mobiletextinput4" id="HaPerati"></div></td>
-<!-- Ananagrams -->
-<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><a href="#" style="text-decoration: none;" onclick="toggleAnagramResults()"><img src="img/expand.png" id="AnagramResultsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>    <a onclick="selectText('anagram')" border="0" style="text-decoration: none;"><span title="A list of all the possible varations of spellings by permutating the original word.  Also called Tserufim.  "><a href='' target='_blank' style='font-weight: bold;'>Ananagrams</span>:</a></u></b></p>
-<div id="anagramResults"><ol type="1" style="text-align:right; float:right; clear:both;"><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="anagram"></div></div></td></tr>
-
-<!-- Random Word -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="javascript:location.reload();" border="0" style="text-decoration: none;" onclick="randomString(6, 'A')"><span title=""><!--Angel:--></span><!--/Random Word--></a></u></b></p>
-<!--<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="randword"></div>--></td>
-<!-- Google Input Tools -->
-<tr><td width="33%" valign="top"><p align="center" valign="baseline"><b><u><!--<a href="http://www.google.com/inputtools/"><img src="../img/inputtools.jpg" border="0" alt="Google Input Tools"></a>--></u></b></p>
-<!--<div align="center" data-role="fieldcontain" class="mobiletextinput4" id=""></div>--></td>
 <!--  -->
-<td width="33%" valign="top"><!--<p align="right" valign="top"><b><u><a onclick="" border="0" style="text-decoration: none;"><a href="#" style="text-decoration: none;" onclick=""><img src="img/expand.png" id="GematriaMatchesExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>    <span title="List of all other words from the database having the same Gematria value."><a href='' target='_blank' style='color: white; font-weight: bold;'>Matches</span>:</a></u></b></p>-->
-<div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id=""></div></div></td>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title=""><a href="" target="_blank" style="text-decoration: none;"><!--Something:--></a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id=""></div></td>
+<!-- HaPerati -->
+<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><span title="Each letter squared and added together."><a href="" target="_blank" style="text-decoration: none;">HaPerati:</a></span></a></u></b></p>
+<div align="right" data-role="fieldcontain" class="mobiletextinput4" id="HaPerati"></div></div></td></tr>
+
+<!-- Crowns -->
+<td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="#" style="text-decoration: none;"><span title="The number of tagin (crowns) on the letters.  This number is not agreed upon by all and tends to very between different groups. "><a href="" target="_blank" style="text-decoration: none;">Crowns (tagin):</a></span></a></u></b></p>
+<div align="left" data-role="fieldcontain" class="mobiletextinput4" id="Crowns"></div></td>
+<!--  -->
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title=""><a href="" target="_blank" style="text-decoration: none;"><!--Something:--></a></span></a></u></b></p>
+<div align="center" data-role="fieldcontain" class="mobiletextinput4" id=""></div></td>
+<!-- Ananagrams -->
+<td width="33%" valign="top" rowspan="*">
+	<p align="right" valign="top"><b><u>
+		<a href="#" style="text-decoration: none;" onclick="toggleAnagramResults()"><img src="img/expand.png" id="AnagramResultsExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"></a>
+		<style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style>
+		&nbsp;
+				<a onclick="selectText('anagram')" border="0" style="text-decoration: none;"><span title="A list of all the possible varations of spellings by permutating the original word.  Also called Tserufim.  " style="font-weight: bold;">Ananagrams</span></a>:
+							<!-- Clipboard button: copies the generated ananagrams under #anagram to the OS clipboard -->
+							<span id="copyAnagramsBtn" title="Copy ananagrams to clipboard" onclick="copyAnagramsToClipboard()" role="button" tabindex="0" aria-label="Copy ananagrams to clipboard" style="cursor:pointer; margin-left:8px; vertical-align:middle; font-size:18px;">📋</span>
+	</u></b></p>
+	<div id="anagramResults">
+		<ol type="1" style="text-align:right; float:right; clear:both;">
+			<div align="right" data-role="fieldcontain" class="mobiletextinput4" id="anagram"></div>
+		</ol>
+	</div>
+</td><!--</tr>-->
 </table>
 
 <!-- Gematria Matches -->
@@ -1197,7 +1406,7 @@ function Transpose(){
 var original=alphas=array=array2=backexch=BE=cryptography2=div=FE=forexch=letter=morph=word=pictogram=word1=word2=zeros="";
 var space = "  ";
 var gematria1=gematria2=gematriaMiluy=gematriaAvgadBE=gematriaAvgadFE=gematriaReversed=gematriaAcronym=gematriaSofit=gematriaElision=gematriaLeap=gematriaSkip=gematriaSum=gematriaKnit=gematriaWord2=remainder1=product1=remainder2=product2=i=letterCount=letterCount2=wordCount=L01=L02=L03=L04=L05=L06=L07=L08=L09=L10=L11=L12=L13=L14=L15=L16=L17=L18=L19=L20=L21=L22=L23=L24=L25=L26=L27=0;
-var RagilValue=KolelValue=Kolel1Value=HaKlaliValue=KatanValue=ReducedlValue=IntegralReducedlValue=OrdinalValue=HaKadmiValue=HaPeratiValue=MiluyValue= 0;
+var RagilValue=KolelValue=Kolel1Value=HaKlaliValue=KatanValue=ReducedlValue=IntegralReducedlValue=OrdinalValue=HaKadmiValue=HaPeratiValue=MiluyValue=CrownValue= 0;
 
 var wordAB=textAB=wordSaG=textSaG=wordMaH=textMaH=wordBaN=textBaN="";
 var gematriaAB=gematriaSaG=gematriaMaH=gematriaBaN=0;
@@ -1224,6 +1433,40 @@ var inputText2 = document.getElementById('inputText2').value;
 var cryptography = document.getElementById('cryptmenu').value;
 var gematria = document.getElementById('gemmenu').value;
 var spelling = document.getElementById('spellmenu').value;
+
+	// Language detection based on characters typed in inputText and inputText2
+	// Combine both inputs for detection
+	var combinedTextForDetection = (inputText || '') + ' ' + (inputText2 || '');
+	// Minimal detectLanguage implementation adapted from app2.php
+	function detectLanguage(text) {
+		let hebrewCount = 0, greekCount = 0, englishCount = 0, totalLetters = 0;
+		for (let i = 0; i < text.length; i++) {
+			const ch = text[i];
+			const code = ch.charCodeAt(0);
+			if ((code >= 0x05D0 && code <= 0x05EA) || ch === '\u05DA' || ch === '\u05DD' || ch === '\u05DF' || ch === '\u05E3' || ch === '\u05E5') {
+				hebrewCount++; totalLetters++;
+			} else if (code >= 0x0370 && code <= 0x03FF) {
+				greekCount++; totalLetters++;
+			} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+				englishCount++; totalLetters++;
+			}
+		}
+		if (totalLetters < 1) return 'Unknown';
+		const hebPercent = (hebrewCount/totalLetters)*100;
+		const grPercent = (greekCount/totalLetters)*100;
+		const enPercent = (englishCount/totalLetters)*100;
+		let lang = 'Other'; let maxP = 0;
+		if (hebPercent > maxP) { maxP = hebPercent; lang = 'Hebrew'; }
+		if (grPercent > maxP)  { maxP = grPercent;  lang = 'Greek'; }
+		if (enPercent > maxP)  { maxP = enPercent;  lang = 'English'; }
+		if (maxP < 70) return `Mixed/Other (${hebPercent.toFixed(1)}% H, ${grPercent.toFixed(1)}% G, ${enPercent.toFixed(1)}% E)`;
+		return `${lang} (${maxP.toFixed(1)}%)`;
+	}
+
+	// Expose detectedLanguage variable in this scope
+	var detectedLanguage = detectLanguage(combinedTextForDetection);
+	// Optionally show detected language in console for debugging
+	console.log('detectedLanguage:', detectedLanguage);
 
 // Count the number of words within inputText to be add to the Gematria method of Kolel+1
 var inputText = document.getElementById('inputText').value;
@@ -3294,68 +3537,204 @@ for (var i=0; i < summation.length; i++){
 document.getElementById("summation").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${gematria1}); Transpose(); return false;" target='_blank'><b>${summation}</b></a><br />`;
 
 // Optimized Permutation Generation - No More Browser Freezing!
-document.getElementById('anagram').innerHTML = '';	// Clear any old string value
+document.getElementById('anagram').innerHTML = ''; // Clear any old string value
 
-// Use the new optimized permutation manager
-if (typeof permutationManager !== 'undefined' && permutationManager.generatePermutations) {
-    console.log('Using optimized permutation system for:', inputText);
-    permutationManager.generatePermutations(inputText);
-} else {
-    console.log('Permutation manager not available, using fallback');
-    // Enhanced fallback permutation generation
-    if (inputText.length <= 5) {
-        var anagram = document.getElementById("anagram");
-        var permutations = simplePermute(inputText);
-        var unique = [...new Set(permutations)];
-        unique.forEach(function(result) {
-            anagram.innerHTML += "<li><a href='http://translate.google.com/#auto/en/"+encodeURIComponent(result)+"' target='_blank'><b>" + result + "</b></a></li>";
-        });
-        console.log('Generated ' + unique.length + ' unique permutations');
-    } else {
-        // For longer words, use async processing even in fallback
-        document.getElementById('anagram').innerHTML = '<li style="color: yellow;">Processing ' + inputText.length + '-letter word asynchronously...</li>';
-        setTimeout(function() {
-            generateLargePermutationsAsync(inputText);
-        }, 100);
-    }
+// Shared normalization helper: strip diacritics, punctuation/separators, and lowercase for Latin/Greek
+function normalizeForLookup(s) {
+	if (!s) return '';
+	try { s = s.normalize('NFKC'); } catch (e) {}
+	// remove combining marks (diacritics)
+	s = s.replace(/\p{M}/gu, '');
+	// remove punctuation, symbols, separators
+	s = s.replace(/\p{P}|\p{S}|\p{Z}/gu, '');
+	try { s = s.toLowerCase(); } catch (e) {}
+	return s.trim();
 }
 
-// Async fallback for larger words
+// Loads files/dictionary.txt once and stores a Set for O(1) lookups
+async function ensureDictionaryLoaded() {
+	if (window._dictionarySet) return window._dictionarySet;
+	window._dictionarySet = new Set();
+
+	const normalizeWordForLookup = normalizeForLookup;
+
+	// 1) If a precompiled JS dictionary is present (loads window.__PRECOMPILED_DICT), use it synchronously
+	if (window.__PRECOMPILED_DICT && Array.isArray(window.__PRECOMPILED_DICT)) {
+		window.__PRECOMPILED_DICT.forEach(function(item) {
+			const k = normalizeWordForLookup(item);
+			if (k) window._dictionarySet.add(k);
+		});
+		console.log('Used in-page precompiled dictionary, entries:', window._dictionarySet.size);
+		return window._dictionarySet;
+	}
+
+	// 2) If localStorage cache exists from previous runtime, use it (fast)
+	try {
+		const cached = localStorage.getItem('dictionary_precompiled');
+		if (cached) {
+			const arr = JSON.parse(cached);
+			if (Array.isArray(arr) && arr.length) {
+				arr.forEach(function(item) {
+					const k = normalizeWordForLookup(item);
+					if (k) window._dictionarySet.add(k);
+				});
+				console.log('Loaded dictionary from localStorage cache, entries:', window._dictionarySet.size);
+				return window._dictionarySet;
+			}
+		}
+	} catch (e) { console.warn('localStorage dictionary parse error', e); }
+
+	// 3) Fallback: fetch raw dictionary.txt, preprocess, store into localStorage for fast future loads
+	try {
+		const resp = await fetch('files/dictionary.txt');
+		if (!resp.ok) {
+			console.warn('Failed to fetch dictionary.txt', resp.status);
+			return window._dictionarySet;
+		}
+		const txt = await resp.text();
+		const arr = [];
+		txt.split(/\r?\n/).forEach(function(line) {
+			const raw = line.trim();
+			if (!raw) return;
+			const k = normalizeWordForLookup(raw);
+			if (!k) return;
+			if (!window._dictionarySet.has(k)) {
+				window._dictionarySet.add(k);
+				arr.push(raw);
+			}
+		});
+		try { localStorage.setItem('dictionary_precompiled', JSON.stringify(arr)); } catch (e) { /* ignore localStorage failures */ }
+		console.log('Fetched and precompiled dictionary.txt, entries:', window._dictionarySet.size);
+	} catch (e) {
+		console.warn('Error loading dictionary:', e);
+	}
+	return window._dictionarySet;
+}
+
+// Colorize all <li> children of the anagram container using the dictionary set
+function colorizeAnagramItems(container) {
+	// ensure dictionary load started (fire-and-forget) and then color
+	ensureDictionaryLoaded().then(function(dict) {
+		// Query current <li> items and apply color if not already processed
+		const items = container.querySelectorAll('li');
+		items.forEach(function(li) {
+			// skip items already classified
+			if (li.classList.contains('anagram-hit') || li.classList.contains('anagram-miss')) return;
+			// extract the visible word (handle <b> wrapper)
+			let word = li.querySelector('b') ? li.querySelector('b').textContent : li.textContent;
+			word = normalizeForLookup(String(word || ''));
+			var anchor = li.querySelector('a');
+			var isHit = Boolean(dict && dict.size > 0 && dict.has(word));
+			// Debug info: log the word and anchor presence
+			try { console.debug('anagram-check', { word: word, isHit: isHit, anchorExists: !!anchor, liHTML: li.innerHTML.slice(0,120) }); } catch (e) {}
+			if (isHit) {
+				// mark as hit
+				if (anchor) {
+					anchor.classList.add('anagram-hit');
+					anchor.classList.remove('anagram-miss');
+					try { anchor.style.setProperty('color', '#FFF', 'important'); } catch (e) {}
+					try { anchor.style.cssText += 'color: #FFF !important;'; } catch (e) {}
+				}
+				li.classList.add('anagram-hit');
+				li.classList.remove('anagram-miss');
+				try { li.style.setProperty('color', '#FFF', 'important'); } catch (e) {}
+				try { li.style.cssText += 'color: #FFF !important;'; } catch (e) {}
+			} else {
+				// mark as miss
+				if (anchor) {
+					anchor.classList.add('anagram-miss');
+					anchor.classList.remove('anagram-hit');
+					try { anchor.style.setProperty('color', '#ccc', 'important'); } catch (e) {}
+					try { anchor.style.cssText += 'color: #ccc !important;'; } catch (e) {}
+				}
+				li.classList.add('anagram-miss');
+				li.classList.remove('anagram-hit');
+				try { li.style.setProperty('color', '#ccc', 'important'); } catch (e) {}
+				try { li.style.cssText += 'color: #ccc !important;'; } catch (e) {}
+			}
+		});
+	}).catch(function(e){ console.warn('colorizeAnagramItems error', e); });
+}
+
+// Attach a MutationObserver so any script (including optimized-permutations.js)
+// that appends <li> items to #anagram will be post-processed automatically.
+(function setupAnagramObserver(){
+	const anagramNode = document.getElementById('anagram');
+	if (!anagramNode) return;
+	// run once in case items already present
+	colorizeAnagramItems(anagramNode);
+	const mo = new MutationObserver(function() { colorizeAnagramItems(anagramNode); });
+	mo.observe(anagramNode, { childList: true, subtree: true });
+})();
+
+// Use the new optimized permutation manager if available, otherwise fallback
+if (typeof permutationManager !== 'undefined' && permutationManager.generatePermutations) {
+	console.log('Using optimized permutation system for:', inputText);
+	try {
+		permutationManager.generatePermutations(inputText);
+	} catch (e) {
+		console.warn('permutationManager.generatePermutations threw, falling back', e);
+		// graceful fallback to local generation
+		fallbackGenerate(inputText);
+	}
+} else {
+	console.log('Permutation manager not available, using fallback');
+	fallbackGenerate(inputText);
+}
+
+// Fallback generator (keeps existing async / batch behaviour)
+function fallbackGenerate(inputText) {
+	if (!inputText) return;
+	if (inputText.length <= 5) {
+		var anagram = document.getElementById('anagram');
+		var permutations = simplePermute(inputText);
+		var unique = [...new Set(permutations)];
+		// build HTML once for performance
+		var html = '';
+		unique.forEach(function(result) {
+			html += "<li><a href='http://translate.google.com/#auto/en/" + encodeURIComponent(result) + "' target='_blank'><b>" + result + "</b></a></li>";
+		});
+		anagram.innerHTML = html;
+		// colorization will be picked up by the observer
+		console.log('Generated ' + unique.length + ' unique permutations');
+	} else {
+		// For longer words, use async processing
+		document.getElementById('anagram').innerHTML = '<li style="color: yellow;">Processing ' + inputText.length + '-letter word asynchronously...</li>';
+		setTimeout(function() { generateLargePermutationsAsync(inputText); }, 100);
+	}
+}
+
+// Async fallback for larger words (batched append)
 function generateLargePermutationsAsync(inputText) {
-    var anagram = document.getElementById("anagram");
-    anagram.innerHTML = '<li style="color: cyan;">Generating permutations for ' + inputText.length + '-letter word...</li>';
-    
-    // Remove limitation on characters for fallback async processing
-    var processText = inputText;
-    
-    setTimeout(function() {
-        try {
-            var permutations = simplePermute(processText);
-            var unique = [...new Set(permutations)];
-            
-            anagram.innerHTML = '';
-            var batchSize = 50;
-            var index = 0;
-            
-            function displayBatch() {
-                var endIndex = Math.min(index + batchSize, unique.length);
-                for (var i = index; i < endIndex; i++) {
-                    anagram.innerHTML += "<li><a href='http://translate.google.com/#auto/en/"+encodeURIComponent(unique[i])+"' target='_blank'><b>" + unique[i] + "</b></a></li>";
-                }
-                index = endIndex;
-                
-                if (index < unique.length) {
-                    setTimeout(displayBatch, 10); // Continue with next batch
-                } else {
-                    console.log('Generated ' + unique.length + ' unique permutations');
-                }
-            }
-            
-            displayBatch();
-        } catch (error) {
-            anagram.innerHTML = '<li style="color: red;">Error generating permutations: ' + error.message + '</li>';
-        }
-    }, 50);
+	var anagram = document.getElementById('anagram');
+	anagram.innerHTML = '<li style="color: cyan;">Generating permutations for ' + inputText.length + '-letter word...</li>';
+	setTimeout(function() {
+		try {
+			var permutations = simplePermute(inputText);
+			var unique = [...new Set(permutations)];
+			anagram.innerHTML = '';
+			var batchSize = 50;
+			var index = 0;
+			function displayBatch() {
+				var endIndex = Math.min(index + batchSize, unique.length);
+				var html = '';
+				for (var i = index; i < endIndex; i++) {
+					html += "<li><a href='http://translate.google.com/#auto/en/" + encodeURIComponent(unique[i]) + "' target='_blank'><b>" + unique[i] + "</b></a></li>";
+				}
+				// append the batch in one DOM op
+				anagram.insertAdjacentHTML('beforeend', html);
+				index = endIndex;
+				if (index < unique.length) {
+					setTimeout(displayBatch, 10);
+				} else {
+					console.log('Generated ' + unique.length + ' unique permutations');
+				}
+			}
+			displayBatch();
+		} catch (error) {
+			anagram.innerHTML = '<li style="color: red;">Error generating permutations: ' + error.message + '</li>';
+		}
+	}, 50);
 }
 
 // Simple fallback permutation function
@@ -3641,36 +4020,36 @@ for (var i=0; i < knit.length; i++){
 }
 
 // Gematria systems for Word 1 of Ragil, Kolel, Kolel+1, HaKlali, Reduced, Integral Reduced, Katan, Ordinal, HaKadmi, HaPerati, and Miluy values.
-var RagilValue = KolelValue = Kolel1Value = HaKlaliValue = ReducedlValue = IntegralReducedlValue = KatanValue = OrdinalValue = HaKadmiValue = HaPeratiValue = MiluyValue = 0;
+var RagilValue = KolelValue = Kolel1Value = HaKlaliValue = ReducedlValue = IntegralReducedlValue = KatanValue = OrdinalValue = HaKadmiValue = HaPeratiValue = MiluyValue = CrownValue = 0;
 for (var i=0; i < inputText.length; i++){
 	switch(inputText[i]){
-	/*aleph*/	case "\u05D0":RagilValue += ragL01;	KolelValue += ragL01;	Kolel1Value += ragL01;	HaKlaliValue += ragL01;	ReducedlValue += redL01;	IntegralReducedlValue += redL01;	KatanValue += redL01;	OrdinalValue += ordL01;	HaKadmiValue += hakL01;	HaPeratiValue += hapL01;	MiluyValue += milL01;	break;
-	/*bet*/		case "\u05D1":RagilValue += ragL02;	KolelValue += ragL02;	Kolel1Value += ragL02;	HaKlaliValue += ragL02;	ReducedlValue += redL02;	IntegralReducedlValue += redL02;	KatanValue += redL02;	OrdinalValue += ordL02;	HaKadmiValue += hakL02;	HaPeratiValue += hapL02;	MiluyValue += milL02;	break;
-	/*gimel*/	case "\u05D2":RagilValue += ragL03;	KolelValue += ragL03;	Kolel1Value += ragL03;	HaKlaliValue += ragL03;	ReducedlValue += redL03;	IntegralReducedlValue += redL03;	KatanValue += redL03;	OrdinalValue += ordL03;	HaKadmiValue += hakL03;	HaPeratiValue += hapL03;	MiluyValue += milL03;	break;
-	/*dalet*/	case "\u05D3":RagilValue += ragL04;	KolelValue += ragL04;	Kolel1Value += ragL04;	HaKlaliValue += ragL04;	ReducedlValue += redL04;	IntegralReducedlValue += redL04;	KatanValue += redL04;	OrdinalValue += ordL04;	HaKadmiValue += hakL04;	HaPeratiValue += hapL04;	MiluyValue += milL04;	break;
-	/*hey*/		case "\u05D4":RagilValue += ragL05;	KolelValue += ragL05;	Kolel1Value += ragL05;	HaKlaliValue += ragL05;	ReducedlValue += redL05;	IntegralReducedlValue += redL05;	KatanValue += redL05;	OrdinalValue += ordL05;	HaKadmiValue += hakL05;	HaPeratiValue += hapL05;	MiluyValue += milL05;	break;
-	/*vav*/		case "\u05D5":RagilValue += ragL06;	KolelValue += ragL06;	Kolel1Value += ragL06;	HaKlaliValue += ragL06;	ReducedlValue += redL06;	IntegralReducedlValue += redL06;	KatanValue += redL06;	OrdinalValue += ordL06;	HaKadmiValue += hakL06;	HaPeratiValue += hapL06;	MiluyValue += milL06;	break;
-	/*zayin*/	case "\u05D6":RagilValue += ragL07;	KolelValue += ragL07;	Kolel1Value += ragL07;	HaKlaliValue += ragL07;	ReducedlValue += redL07;	IntegralReducedlValue += redL07;	KatanValue += redL07;	OrdinalValue += ordL07;	HaKadmiValue += hakL07;	HaPeratiValue += hapL07;	MiluyValue += milL07;	break;
-	/*chet*/	case "\u05D7":RagilValue += ragL08;	KolelValue += ragL08;	Kolel1Value += ragL08;	HaKlaliValue += ragL08;	ReducedlValue += redL08;	IntegralReducedlValue += redL08;	KatanValue += redL08;	OrdinalValue += ordL08;	HaKadmiValue += hakL08;	HaPeratiValue += hapL08;	MiluyValue += milL08;	break;
-	/*tet*/		case "\u05D8":RagilValue += ragL09;	KolelValue += ragL09;	Kolel1Value += ragL09;	HaKlaliValue += ragL09;	ReducedlValue += redL09;	IntegralReducedlValue += redL09;	KatanValue += redL09;	OrdinalValue += ordL09;	HaKadmiValue += hakL09;	HaPeratiValue += hapL09;	MiluyValue += milL09;	break;
-	/*yod*/		case "\u05D9":RagilValue += ragL10;	KolelValue += ragL10;	Kolel1Value += ragL10;	HaKlaliValue += ragL10;	ReducedlValue += redL10;	IntegralReducedlValue += redL10;	KatanValue += redL10;	OrdinalValue += ordL10;	HaKadmiValue += hakL10;	HaPeratiValue += hapL10;	MiluyValue += milL10;	break;
-	/*kaf*/		case "\u05DB":RagilValue += ragL11;	KolelValue += ragL11;	Kolel1Value += ragL11;	HaKlaliValue += ragL11;	ReducedlValue += redL11;	IntegralReducedlValue += redL11;	KatanValue += redL11;	OrdinalValue += ordL11;	HaKadmiValue += hakL11;	HaPeratiValue += hapL11;	MiluyValue += milL11;	break;
-	/*lamed*/	case "\u05DC":RagilValue += ragL12;	KolelValue += ragL12;	Kolel1Value += ragL12;	HaKlaliValue += ragL12;	ReducedlValue += redL12;	IntegralReducedlValue += redL12;	KatanValue += redL12;	OrdinalValue += ordL12;	HaKadmiValue += hakL12;	HaPeratiValue += hapL12;	MiluyValue += milL12;	break;
-	/*mem*/		case "\u05DE":RagilValue += ragL13;	KolelValue += ragL13;	Kolel1Value += ragL13;	HaKlaliValue += ragL13;	ReducedlValue += redL13;	IntegralReducedlValue += redL13;	KatanValue += redL13;	OrdinalValue += ordL13;	HaKadmiValue += hakL13;	HaPeratiValue += hapL13;	MiluyValue += milL13;	break;
-	/*nun*/		case "\u05E0":RagilValue += ragL14;	KolelValue += ragL14;	Kolel1Value += ragL14;	HaKlaliValue += ragL14;	ReducedlValue += redL14;	IntegralReducedlValue += redL14;	KatanValue += redL14;	OrdinalValue += ordL14;	HaKadmiValue += hakL14;	HaPeratiValue += hapL14;	MiluyValue += milL14;	break;
-	/*samech*/	case "\u05E1":RagilValue += ragL15;	KolelValue += ragL15;	Kolel1Value += ragL15;	HaKlaliValue += ragL15;	ReducedlValue += redL15;	IntegralReducedlValue += redL15;	KatanValue += redL15;	OrdinalValue += ordL15;	HaKadmiValue += hakL15;	HaPeratiValue += hapL15;	MiluyValue += milL15;	break;
-	/*ayin*/	case "\u05E2":RagilValue += ragL16;	KolelValue += ragL16;	Kolel1Value += ragL16;	HaKlaliValue += ragL16;	ReducedlValue += redL16;	IntegralReducedlValue += redL16;	KatanValue += redL16;	OrdinalValue += ordL16;	HaKadmiValue += hakL16;	HaPeratiValue += hapL16;	MiluyValue += milL16;	break;
-	/*pey*/		case "\u05E4":RagilValue += ragL17;	KolelValue += ragL17;	Kolel1Value += ragL17;	HaKlaliValue += ragL17;	ReducedlValue += redL17;	IntegralReducedlValue += redL17;	KatanValue += redL17;	OrdinalValue += ordL17;	HaKadmiValue += hakL17;	HaPeratiValue += hapL17;	MiluyValue += milL17;	break;
-	/*tzadi*/	case "\u05E6":RagilValue += ragL18;	KolelValue += ragL18;	Kolel1Value += ragL18;	HaKlaliValue += ragL18;	ReducedlValue += redL18;	IntegralReducedlValue += redL18;	KatanValue += redL18;	OrdinalValue += ordL18;	HaKadmiValue += hakL18;	HaPeratiValue += hapL18;	MiluyValue += milL18;	break;
-	/*kuf*/		case "\u05E7":RagilValue += ragL19;	KolelValue += ragL19;	Kolel1Value += ragL19;	HaKlaliValue += ragL19;	ReducedlValue += redL19;	IntegralReducedlValue += redL19;	KatanValue += redL19;	OrdinalValue += ordL19;	HaKadmiValue += hakL19;	HaPeratiValue += hapL19;	MiluyValue += milL19;	break;
-	/*resh*/	case "\u05E8":RagilValue += ragL20;	KolelValue += ragL20;	Kolel1Value += ragL20;	HaKlaliValue += ragL20;	ReducedlValue += redL20;	IntegralReducedlValue += redL20;	KatanValue += redL20;	OrdinalValue += ordL20;	HaKadmiValue += hakL20;	HaPeratiValue += hapL20;	MiluyValue += milL20;	break;
-	/*shin*/	case "\u05E9":RagilValue += ragL21;	KolelValue += ragL21;	Kolel1Value += ragL21;	HaKlaliValue += ragL21;	ReducedlValue += redL21;	IntegralReducedlValue += redL21;	KatanValue += redL21;	OrdinalValue += ordL21;	HaKadmiValue += hakL21;	HaPeratiValue += hapL21;	MiluyValue += milL21;	break;
-	/*tav*/		case "\u05EA":RagilValue += ragL22;	KolelValue += ragL22;	Kolel1Value += ragL22;	HaKlaliValue += ragL22;	ReducedlValue += redL22;	IntegralReducedlValue += redL22;	KatanValue += redL22;	OrdinalValue += ordL22;	HaKadmiValue += hakL22;	HaPeratiValue += hapL22;	MiluyValue += milL22;	break;
-	/*kaf F*/	case "\u05DA":RagilValue += ragL23;	KolelValue += ragL23;	Kolel1Value += ragL23;	HaKlaliValue += ragL23;	ReducedlValue += redL23;	IntegralReducedlValue += redL23;	KatanValue += redL23;	OrdinalValue += ordL23;	HaKadmiValue += hakL23;	HaPeratiValue += hapL23;	MiluyValue += milL23;	break;
-	/*mem F*/	case "\u05DD":RagilValue += ragL24;	KolelValue += ragL24;	Kolel1Value += ragL24;	HaKlaliValue += ragL24;	ReducedlValue += redL24;	IntegralReducedlValue += redL24;	KatanValue += redL24;	OrdinalValue += ordL24;	HaKadmiValue += hakL24;	HaPeratiValue += hapL24;	MiluyValue += milL24;	break;
-	/*nun F*/	case "\u05DF":RagilValue += ragL25;	KolelValue += ragL25;	Kolel1Value += ragL25;	HaKlaliValue += ragL25;	ReducedlValue += redL25;	IntegralReducedlValue += redL25;	KatanValue += redL25;	OrdinalValue += ordL25;	HaKadmiValue += hakL25;	HaPeratiValue += hapL25;	MiluyValue += milL25;	break;
-	/*pey F*/	case "\u05E3":RagilValue += ragL26;	KolelValue += ragL26;	Kolel1Value += ragL26;	HaKlaliValue += ragL26;	ReducedlValue += redL26;	IntegralReducedlValue += redL26;	KatanValue += redL26;	OrdinalValue += ordL26;	HaKadmiValue += hakL26;	HaPeratiValue += hapL26;	MiluyValue += milL26;	break;
-	/*tzadi F*/	case "\u05E5":RagilValue += ragL27;	KolelValue += ragL27;	Kolel1Value += ragL27;	HaKlaliValue += ragL27;	ReducedlValue += redL27;	IntegralReducedlValue += redL27;	KatanValue += redL27;	OrdinalValue += ordL27;	HaKadmiValue += hakL27;	HaPeratiValue += hapL27;	MiluyValue += milL27;	break;
+	/*aleph*/	case "\u05D0":RagilValue += ragL01;	KolelValue += ragL01;	Kolel1Value += ragL01;	HaKlaliValue += ragL01;	ReducedlValue += redL01;	IntegralReducedlValue += redL01;	KatanValue += redL01;	OrdinalValue += ordL01;	HaKadmiValue += hakL01;	HaPeratiValue += hapL01;	MiluyValue += milL01;	CrownValue += 0;	break;
+	/*bet*/		case "\u05D1":RagilValue += ragL02;	KolelValue += ragL02;	Kolel1Value += ragL02;	HaKlaliValue += ragL02;	ReducedlValue += redL02;	IntegralReducedlValue += redL02;	KatanValue += redL02;	OrdinalValue += ordL02;	HaKadmiValue += hakL02;	HaPeratiValue += hapL02;	MiluyValue += milL02;	CrownValue += 1;	break;
+	/*gimel*/	case "\u05D2":RagilValue += ragL03;	KolelValue += ragL03;	Kolel1Value += ragL03;	HaKlaliValue += ragL03;	ReducedlValue += redL03;	IntegralReducedlValue += redL03;	KatanValue += redL03;	OrdinalValue += ordL03;	HaKadmiValue += hakL03;	HaPeratiValue += hapL03;	MiluyValue += milL03;	CrownValue += 3;	break;
+	/*dalet*/	case "\u05D3":RagilValue += ragL04;	KolelValue += ragL04;	Kolel1Value += ragL04;	HaKlaliValue += ragL04;	ReducedlValue += redL04;	IntegralReducedlValue += redL04;	KatanValue += redL04;	OrdinalValue += ordL04;	HaKadmiValue += hakL04;	HaPeratiValue += hapL04;	MiluyValue += milL04;	CrownValue += 1;	break;
+	/*hey*/		case "\u05D4":RagilValue += ragL05;	KolelValue += ragL05;	Kolel1Value += ragL05;	HaKlaliValue += ragL05;	ReducedlValue += redL05;	IntegralReducedlValue += redL05;	KatanValue += redL05;	OrdinalValue += ordL05;	HaKadmiValue += hakL05;	HaPeratiValue += hapL05;	MiluyValue += milL05;	CrownValue += 1;	break;
+	/*vav*/		case "\u05D5":RagilValue += ragL06;	KolelValue += ragL06;	Kolel1Value += ragL06;	HaKlaliValue += ragL06;	ReducedlValue += redL06;	IntegralReducedlValue += redL06;	KatanValue += redL06;	OrdinalValue += ordL06;	HaKadmiValue += hakL06;	HaPeratiValue += hapL06;	MiluyValue += milL06;	CrownValue += 0;	break;
+	/*zayin*/	case "\u05D6":RagilValue += ragL07;	KolelValue += ragL07;	Kolel1Value += ragL07;	HaKlaliValue += ragL07;	ReducedlValue += redL07;	IntegralReducedlValue += redL07;	KatanValue += redL07;	OrdinalValue += ordL07;	HaKadmiValue += hakL07;	HaPeratiValue += hapL07;	MiluyValue += milL07;	CrownValue += 3;	break;
+	/*chet*/	case "\u05D7":RagilValue += ragL08;	KolelValue += ragL08;	Kolel1Value += ragL08;	HaKlaliValue += ragL08;	ReducedlValue += redL08;	IntegralReducedlValue += redL08;	KatanValue += redL08;	OrdinalValue += ordL08;	HaKadmiValue += hakL08;	HaPeratiValue += hapL08;	MiluyValue += milL08;	CrownValue += 1;	break;
+	/*tet*/		case "\u05D8":RagilValue += ragL09;	KolelValue += ragL09;	Kolel1Value += ragL09;	HaKlaliValue += ragL09;	ReducedlValue += redL09;	IntegralReducedlValue += redL09;	KatanValue += redL09;	OrdinalValue += ordL09;	HaKadmiValue += hakL09;	HaPeratiValue += hapL09;	MiluyValue += milL09;	CrownValue += 7;	break;
+	/*yod*/		case "\u05D9":RagilValue += ragL10;	KolelValue += ragL10;	Kolel1Value += ragL10;	HaKlaliValue += ragL10;	ReducedlValue += redL10;	IntegralReducedlValue += redL10;	KatanValue += redL10;	OrdinalValue += ordL10;	HaKadmiValue += hakL10;	HaPeratiValue += hapL10;	MiluyValue += milL10;	CrownValue += 1;	break;
+	/*kaf*/		case "\u05DB":RagilValue += ragL11;	KolelValue += ragL11;	Kolel1Value += ragL11;	HaKlaliValue += ragL11;	ReducedlValue += redL11;	IntegralReducedlValue += redL11;	KatanValue += redL11;	OrdinalValue += ordL11;	HaKadmiValue += hakL11;	HaPeratiValue += hapL11;	MiluyValue += milL11;	CrownValue += 3;	break;
+	/*lamed*/	case "\u05DC":RagilValue += ragL12;	KolelValue += ragL12;	Kolel1Value += ragL12;	HaKlaliValue += ragL12;	ReducedlValue += redL12;	IntegralReducedlValue += redL12;	KatanValue += redL12;	OrdinalValue += ordL12;	HaKadmiValue += hakL12;	HaPeratiValue += hapL12;	MiluyValue += milL12;	CrownValue += 0;	break;
+	/*mem*/		case "\u05DE":RagilValue += ragL13;	KolelValue += ragL13;	Kolel1Value += ragL13;	HaKlaliValue += ragL13;	ReducedlValue += redL13;	IntegralReducedlValue += redL13;	KatanValue += redL13;	OrdinalValue += ordL13;	HaKadmiValue += hakL13;	HaPeratiValue += hapL13;	MiluyValue += milL13;	CrownValue += 3;	break;
+	/*nun*/		case "\u05E0":RagilValue += ragL14;	KolelValue += ragL14;	Kolel1Value += ragL14;	HaKlaliValue += ragL14;	ReducedlValue += redL14;	IntegralReducedlValue += redL14;	KatanValue += redL14;	OrdinalValue += ordL14;	HaKadmiValue += hakL14;	HaPeratiValue += hapL14;	MiluyValue += milL14;	CrownValue += 3;	break;
+	/*samech*/	case "\u05E1":RagilValue += ragL15;	KolelValue += ragL15;	Kolel1Value += ragL15;	HaKlaliValue += ragL15;	ReducedlValue += redL15;	IntegralReducedlValue += redL15;	KatanValue += redL15;	OrdinalValue += ordL15;	HaKadmiValue += hakL15;	HaPeratiValue += hapL15;	MiluyValue += milL15;	CrownValue += 4;	break;
+	/*ayin*/	case "\u05E2":RagilValue += ragL16;	KolelValue += ragL16;	Kolel1Value += ragL16;	HaKlaliValue += ragL16;	ReducedlValue += redL16;	IntegralReducedlValue += redL16;	KatanValue += redL16;	OrdinalValue += ordL16;	HaKadmiValue += hakL16;	HaPeratiValue += hapL16;	MiluyValue += milL16;	CrownValue += 7;	break;
+	/*pey*/		case "\u05E4":RagilValue += ragL17;	KolelValue += ragL17;	Kolel1Value += ragL17;	HaKlaliValue += ragL17;	ReducedlValue += redL17;	IntegralReducedlValue += redL17;	KatanValue += redL17;	OrdinalValue += ordL17;	HaKadmiValue += hakL17;	HaPeratiValue += hapL17;	MiluyValue += milL17;	CrownValue += 1;	break;
+	/*tzadi*/	case "\u05E6":RagilValue += ragL18;	KolelValue += ragL18;	Kolel1Value += ragL18;	HaKlaliValue += ragL18;	ReducedlValue += redL18;	IntegralReducedlValue += redL18;	KatanValue += redL18;	OrdinalValue += ordL18;	HaKadmiValue += hakL18;	HaPeratiValue += hapL18;	MiluyValue += milL18;	CrownValue += 7;	break;
+	/*kuf*/		case "\u05E7":RagilValue += ragL19;	KolelValue += ragL19;	Kolel1Value += ragL19;	HaKlaliValue += ragL19;	ReducedlValue += redL19;	IntegralReducedlValue += redL19;	KatanValue += redL19;	OrdinalValue += ordL19;	HaKadmiValue += hakL19;	HaPeratiValue += hapL19;	MiluyValue += milL19;	CrownValue += 1;	break;
+	/*resh*/	case "\u05E8":RagilValue += ragL20;	KolelValue += ragL20;	Kolel1Value += ragL20;	HaKlaliValue += ragL20;	ReducedlValue += redL20;	IntegralReducedlValue += redL20;	KatanValue += redL20;	OrdinalValue += ordL20;	HaKadmiValue += hakL20;	HaPeratiValue += hapL20;	MiluyValue += milL20;	CrownValue += 1;	break;
+	/*shin*/	case "\u05E9":RagilValue += ragL21;	KolelValue += ragL21;	Kolel1Value += ragL21;	HaKlaliValue += ragL21;	ReducedlValue += redL21;	IntegralReducedlValue += redL21;	KatanValue += redL21;	OrdinalValue += ordL21;	HaKadmiValue += hakL21;	HaPeratiValue += hapL21;	MiluyValue += milL21;	CrownValue += 3;	break;
+	/*tav*/		case "\u05EA":RagilValue += ragL22;	KolelValue += ragL22;	Kolel1Value += ragL22;	HaKlaliValue += ragL22;	ReducedlValue += redL22;	IntegralReducedlValue += redL22;	KatanValue += redL22;	OrdinalValue += ordL22;	HaKadmiValue += hakL22;	HaPeratiValue += hapL22;	MiluyValue += milL22;	CrownValue += 3;	break;
+	/*kaf F*/	case "\u05DA":RagilValue += ragL23;	KolelValue += ragL23;	Kolel1Value += ragL23;	HaKlaliValue += ragL23;	ReducedlValue += redL23;	IntegralReducedlValue += redL23;	KatanValue += redL23;	OrdinalValue += ordL23;	HaKadmiValue += hakL23;	HaPeratiValue += hapL23;	MiluyValue += milL23;	CrownValue += 3;	break;
+	/*mem F*/	case "\u05DD":RagilValue += ragL24;	KolelValue += ragL24;	Kolel1Value += ragL24;	HaKlaliValue += ragL24;	ReducedlValue += redL24;	IntegralReducedlValue += redL24;	KatanValue += redL24;	OrdinalValue += ordL24;	HaKadmiValue += hakL24;	HaPeratiValue += hapL24;	MiluyValue += milL24;	CrownValue += 3;	break;
+	/*nun F*/	case "\u05DF":RagilValue += ragL25;	KolelValue += ragL25;	Kolel1Value += ragL25;	HaKlaliValue += ragL25;	ReducedlValue += redL25;	IntegralReducedlValue += redL25;	KatanValue += redL25;	OrdinalValue += ordL25;	HaKadmiValue += hakL25;	HaPeratiValue += hapL25;	MiluyValue += milL25;	CrownValue += 0;	break;
+	/*pey F*/	case "\u05E3":RagilValue += ragL26;	KolelValue += ragL26;	Kolel1Value += ragL26;	HaKlaliValue += ragL26;	ReducedlValue += redL26;	IntegralReducedlValue += redL26;	KatanValue += redL26;	OrdinalValue += ordL26;	HaKadmiValue += hakL26;	HaPeratiValue += hapL26;	MiluyValue += milL26;	CrownValue += 1;	break;
+	/*tzadi F*/	case "\u05E5":RagilValue += ragL27;	KolelValue += ragL27;	Kolel1Value += ragL27;	HaKlaliValue += ragL27;	ReducedlValue += redL27;	IntegralReducedlValue += redL27;	KatanValue += redL27;	OrdinalValue += ordL27;	HaKadmiValue += hakL27;	HaPeratiValue += hapL27;	MiluyValue += milL27;	CrownValue += 7;	break;
 	default:break;
 	}
 }
@@ -3688,6 +4067,7 @@ document.getElementById("Katan").innerHTML = `<a href='#' onclick="replaceInputF
 document.getElementById("Ordinal").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${OrdinalValue}); Transpose(); return false;" target='_blank'><b>${OrdinalValue}</b></a>`;
 document.getElementById("HaKadmi").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${HaKadmiValue}); Transpose(); return false;" target='_blank'><b>${HaKadmiValue}</b></a>`;
 document.getElementById("HaPerati").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${HaPeratiValue}); Transpose(); return false;" target='_blank'><b>${HaPeratiValue}</b></a>`;
+document.getElementById("Crowns").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${CrownValue}); Transpose(); return false;" target='_blank'><b>${CrownValue}</b></a>`;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																																													//
@@ -6445,6 +6825,95 @@ div.setStartBefore(textC);
 div.setEndAfter(textC);
 window.getSelection().addRange(div);
 }
+}
+</script>
+
+<script>
+// Ensure the copy button is keyboard-accessible and not hidden by accidental CSS
+document.addEventListener('DOMContentLoaded', function () {
+	var btn = document.getElementById('copyAnagramsBtn');
+	if (!btn) return;
+	// Ensure visible (no debug outline)
+	try { btn.style.display = btn.style.display || 'inline-block'; } catch (e) {}
+	// Key support: Enter or Space should trigger copy
+	btn.addEventListener('keydown', function (ev) {
+		if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') {
+			ev.preventDefault();
+			copyAnagramsToClipboard();
+		}
+	});
+});
+</script>
+
+<script>
+// Copy the generated ananagrams under #anagram to the OS clipboard
+function copyAnagramsToClipboard() {
+	try {
+		var container = document.getElementById('anagram');
+		if (!container) { alert('No ananagrams found to copy.'); return; }
+
+		// Prefer to collect visible text content. If child <li> items exist, use them in order.
+		var items = [];
+		// If there are list items inside, gather them
+		var lis = container.querySelectorAll('li');
+		if (lis && lis.length) {
+			lis.forEach(function(li){ var t = li.textContent.trim(); if (t) items.push(t); });
+		} else {
+			// Otherwise, take the container's text and split by newlines or semicolons
+			var raw = container.textContent || '';
+			raw = raw.replace(/\u00A0/g, ' '); // non-breaking spaces
+			raw.split(/\r?\n|;|\u2022|\u2023|\u25E6/).forEach(function(p){ var s=p.trim(); if (s) items.push(s); });
+		}
+
+		if (items.length === 0) { alert('No ananagrams found to copy.'); return; }
+
+		var toCopy = items.join('\n');
+
+		var btn = document.getElementById('copyAnagramsBtn');
+
+		// Use modern clipboard API when available
+		if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+			navigator.clipboard.writeText(toCopy).then(function(){
+				// feedback: temporarily show checkmark
+				if (btn) {
+					var prev = btn.innerHTML;
+					var prevTitle = btn.title;
+					btn.innerHTML = '✅';
+					btn.title = 'Copied!';
+					setTimeout(function(){ if (btn) { btn.innerHTML = prev; btn.title = prevTitle; } }, 1200);
+				}
+			}).catch(function(err){
+				// fallback to legacy method
+				fallbackCopy(toCopy, btn);
+			});
+		} else {
+			fallbackCopy(toCopy, btn);
+		}
+
+		function fallbackCopy(text, btnEl) {
+			try {
+				var ta = document.createElement('textarea');
+				ta.style.position = 'fixed'; ta.style.top = '-10000px'; ta.style.left = '-10000px';
+				ta.value = text;
+				document.body.appendChild(ta);
+				ta.focus(); ta.select();
+				var ok = false;
+				try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+				document.body.removeChild(ta);
+				if (ok) {
+					if (btnEl) { var prev = btnEl.innerHTML; var prevTitle = btnEl.title; btnEl.innerHTML = '✅'; btnEl.title = 'Copied!'; setTimeout(function(){ if (btnEl) { btnEl.innerHTML = prev; btnEl.title = prevTitle; } }, 1200); }
+				} else {
+					// As a last resort, show the content in a prompt so the user can copy manually
+					window.prompt('Copy the ananagrams below (Ctrl+C / Cmd+C):', text);
+				}
+			} catch (e) {
+				window.prompt('Copy the ananagrams below (Ctrl+C / Cmd+C):', text);
+			}
+		}
+	} catch (e) {
+		console.error('copyAnagramsToClipboard error', e);
+		alert('Unable to copy ananagrams to clipboard.');
+	}
 }
 </script>
 
