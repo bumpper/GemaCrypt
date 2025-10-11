@@ -5,6 +5,7 @@ class PermutationManager {
     constructor() {
         this.worker = null;
         this.isGenerating = false;
+        this.shouldStop = false;
         this.currentResults = [];
         this.totalGenerated = 0;
     }
@@ -29,6 +30,12 @@ class PermutationManager {
         this.currentResults = [];
         this.totalGenerated = 0;
         this.isGenerating = true;
+        this.shouldStop = false;
+
+        // Update button to stop mode
+        if (typeof updateAnagramButton !== 'undefined') {
+            updateAnagramButton('stop');
+        }
 
         // Show progress indicator
         this.showProgress();
@@ -37,6 +44,13 @@ class PermutationManager {
         setTimeout(() => {
             this.generatePermutationsAsync(cleanInput);
         }, 10);
+    }
+
+    // Stop generation
+    stopGeneration() {
+        this.shouldStop = true;
+        this.isGenerating = false;
+        console.log('Permutation generation stopped');
     }
 
     // Async permutation generator
@@ -66,6 +80,17 @@ class PermutationManager {
             
             // Process in chunks to avoid blocking
             for (let i = 0; i < allPerms.length; i++) {
+                // Check if we should stop
+                if (this.shouldStop) {
+                    console.log('Generation stopped at', i, 'of', allPerms.length);
+                    const partialResults = [...new Set(results)];
+                    if (partialResults.length > 0) {
+                        this.displayResults(partialResults);
+                    }
+                    this.handleStopped(partialResults.length);
+                    return;
+                }
+                
                 results.push(allPerms[i]);
                 
                 // Yield control periodically
@@ -86,6 +111,10 @@ class PermutationManager {
             console.error('Error generating permutations:', error);
             this.displayError('Failed to generate permutations: ' + error.message);
             this.isGenerating = false;
+            // Update button back to clipboard mode
+            if (typeof updateAnagramButton !== 'undefined') {
+                updateAnagramButton('clipboard');
+            }
         }
     }
 
@@ -119,12 +148,34 @@ class PermutationManager {
         this.isGenerating = false;
         this.totalGenerated = totalGenerated;
         console.log(`Generated ${totalGenerated} unique permutations`);
+        
+        // Update button back to clipboard mode
+        if (typeof updateAnagramButton !== 'undefined') {
+            updateAnagramButton('clipboard');
+        }
+    }
+
+    // Handle stopped generation
+    handleStopped(partialGenerated) {
+        this.isGenerating = false;
+        this.totalGenerated = partialGenerated;
+        console.log(`Generation stopped. Generated ${partialGenerated} partial permutations`);
+        
+        // Update button back to clipboard mode
+        if (typeof updateAnagramButton !== 'undefined') {
+            updateAnagramButton('clipboard');
+        }
     }
 
     // Display error message
     displayError(message) {
         document.getElementById('anagram').innerHTML = `<li style="color: red;">Error: ${message}</li>`;
         this.isGenerating = false;
+        
+        // Update button back to clipboard mode
+        if (typeof updateAnagramButton !== 'undefined') {
+            updateAnagramButton('clipboard');
+        }
     }
 }
 

@@ -371,65 +371,22 @@ body { background-color: #000;}
 .close { position: absolute; top: 10px; right: 20px; font-size: 30px; font-weight: bold; color: #000; text-decoration: none; cursor: pointer; }
 .modal-content p { color: #000; 
 }
-/* --- Controls layout: use flexbox for predictable wrapping and stack on small screens --- */
-/* Default: use flex layout so the 4 controls sit horizontally and stay centered. */
-#controlsRow {
-	display: flex;            /* make the <tr> act like a flex container */
-	flex-wrap: wrap;         /* allow wrapping when space is constrained */
-	justify-content: center; /* center the items */
-	align-items: center;
-	gap: 0.5rem;             /* small gap between controls */
-}
-#controlsRow td {
-	display: block; /* each cell will be a block-level item inside the flex container */
-	vertical-align: middle;
-	padding: 0.25rem;
-	margin: 0;
-}
-
-/* Small screens: stack controls vertically (mobile-like) */
+/* --- Responsive layout for the 4 control buttons --- */
 @media (max-width: 600px) {
-	#controlsRow {
-		flex-direction: column; /* stack the controls */
-		align-items: stretch;   /* make them fill the available width */
-	}
-	#controlsRow td {
-		width: 100%;
-		margin-bottom: .6em;    /* small spacer between stacked buttons */
-	}
+  /* The row that contains the four <td> cells */
+  #controlsRow {
+    display: block;            /* force the <tr> to act like a block */
+  }
+  #controlsRow td {
+    display: block;            /* each <td> becomes a full-width block */
+    width: 100%;
+    margin-bottom: .6em;       /* small spacer between stacked buttons */
+  }
 }
-
 /* (optional) keep the labels centered on the tiny stack */
 #controlsRow td span[title] {
-	text-align: center;
-	display: block;
-}
-/* reset paragraph margins inside main mobile container to avoid stray gaps */
-.mobileContent p { margin: 0; padding: 0; }
-
-#controlsRow { margin-bottom: 0; }
-
-/* Debug helpers: enable by appending ?debugGap=1 to the URL */
-.debug-gap #controlsRow { outline: 3px solid rgba(255,0,0,0.9); background: rgba(255,0,0,0.03); }
-.debug-gap #Results { outline: 3px solid rgba(0,255,0,0.9); background: rgba(0,255,0,0.03); }
-.debug-gap table[align="center"] { outline: 2px dashed rgba(0,0,255,0.4); }
-.debug-gap .mobileContent { outline: 2px dotted rgba(255,165,0,0.6); }
-.debug-gap .gap-overlay {
-	position: fixed; right: 12px; top: 12px; z-index: 1000000; background: rgba(0,0,0,0.75); color: #fff; padding: 6px 8px; border-radius: 6px; font-family: Arial, sans-serif; font-size: 13px; pointer-events: none;
-}
-
-.debug-gap .gap-overlay.large { font-size: 18px; padding: 10px 12px; right: 14px; top: 14px; }
-.debug-gap .gap-rect { position: absolute; left: 0; right: 0; background: rgba(255,0,0,0.12); border-top: 2px solid rgba(255,0,0,0.45); border-bottom: 2px solid rgba(255,0,0,0.45); z-index: 999999; pointer-events: none; }
-
-/* Defensive fixes: collapse any extra spacing immediately after the controls row inside mobile content */
-.mobileContent > table[width="100%"] + * { margin-top: 0 !important; padding-top: 0 !important; }
-.mobileContent #controlsRow { margin-bottom: 0 !important; }
-.mobileContent #controlsRow + * { margin-top: 0 !important; padding-top: 0 !important; }
-.mobileContent table[width="100%"] { border-collapse: collapse; }
-/* Permanent narrow fix: ensure results containers don't receive large top spacing */
-#Results, .mobileContent #gematriaMatches, .mobileContent #result, .mobileContent div.result {
-	margin-top: 0 !important;
-	padding-top: 0 !important;
+  text-align: center;
+  display: block;
 }
 /* ----------  Mobile: keep tables in view and center them  ---------- */
 @media (max-width: 600px) {
@@ -827,10 +784,8 @@ function autoLoginPhpMyAdmin() {
 		
 	<td width="25%">
 	<!-- transposeButton --><span title="Begin the process."><center>Calculate</center>
-	<a data-role="button" name="transposeButton" dsid="transposeButton" class='transposeButton mobilebutton1' id='transpose' data-corners='true' data-icon='search' data-iconpos='right' data-mini='false' data-theme='a' tabIndex='1' style="background-color: #EEFFFF;" onclick="Transpose(); randomString(6, 'A');">
-	  <span title="Begin the process.">Transpose</span>
-	</a>
-	</span></td></tr></table></div>
+	<a data-role="button" name="transposeButton" dsid="transposeButton" class='transposeButton mobilebutton1' id='transpose' data-corners='true' data-icon='search' data-iconpos='right' data-mini='false' data-theme='a' tabIndex='1' style="background-color: #EEFFFF;" onclick="Transpose(); randomString(6, 'A');"/>
+	<span title="Begin the process.">Transpose</span></a></span></td></tr></table><p></div>
 
 <div id="Results" class="hidden">
 <table width="100%" cellpadding="10" cellspacing="10" border="0" align="center">
@@ -903,10 +858,6 @@ function autoLoginPhpMyAdmin() {
 <!-- A"B -->
 <td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><span title="AB Spelling"><a href='' target='_blank' style='font-weight: bold;'></span>A"B:</a></u></b></p>
 <div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="AB"></div></div></td></tr>
-
-
-
-
 
 <!-- SaG -->
 <tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="SaG Spelling"><a href="" target="_blank" style="text-decoration: none;">SaG:</a></span></u></b></p>
@@ -1011,8 +962,8 @@ function autoLoginPhpMyAdmin() {
 		<style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style>
 		&nbsp;
 				<a onclick="selectText('anagram')" border="0" style="text-decoration: none;"><span title="A list of all the possible varations of spellings by permutating the original word.  Also called Tserufim.  " style="font-weight: bold;">Ananagrams</span></a>:
-							<!-- Clipboard button: copies the generated ananagrams under #anagram to the OS clipboard -->
-							<span id="copyAnagramsBtn" title="Copy ananagrams to clipboard" onclick="copyAnagramsToClipboard()" role="button" tabindex="0" aria-label="Copy ananagrams to clipboard" style="cursor:pointer; margin-left:8px; vertical-align:middle; font-size:18px;">📋</span>
+							<!-- Clipboard/Stop button: copies the generated ananagrams under #anagram to the OS clipboard, or stops generation if in progress -->
+							<span id="copyAnagramsBtn" title="Copy ananagrams to clipboard" onclick="handleAnagramAction()" role="button" tabindex="0" aria-label="Copy ananagrams to clipboard" style="cursor:pointer; margin-left:8px; vertical-align:middle; font-size:18px;">📋</span>
 	</u></b></p>
 	<div id="anagramResults">
 		<ol type="1" style="text-align:right; float:right; clear:both;">
@@ -3539,135 +3490,7 @@ document.getElementById("summation").innerHTML = `<a href='#' onclick="replaceIn
 // Optimized Permutation Generation - No More Browser Freezing!
 document.getElementById('anagram').innerHTML = ''; // Clear any old string value
 
-// Shared normalization helper: strip diacritics, punctuation/separators, and lowercase for Latin/Greek
-function normalizeForLookup(s) {
-	if (!s) return '';
-	try { s = s.normalize('NFKC'); } catch (e) {}
-	// remove combining marks (diacritics)
-	s = s.replace(/\p{M}/gu, '');
-	// remove punctuation, symbols, separators
-	s = s.replace(/\p{P}|\p{S}|\p{Z}/gu, '');
-	try { s = s.toLowerCase(); } catch (e) {}
-	return s.trim();
-}
-
-// Loads files/dictionary.txt once and stores a Set for O(1) lookups
-async function ensureDictionaryLoaded() {
-	if (window._dictionarySet) return window._dictionarySet;
-	window._dictionarySet = new Set();
-
-	const normalizeWordForLookup = normalizeForLookup;
-
-	// 1) If a precompiled JS dictionary is present (loads window.__PRECOMPILED_DICT), use it synchronously
-	if (window.__PRECOMPILED_DICT && Array.isArray(window.__PRECOMPILED_DICT)) {
-		window.__PRECOMPILED_DICT.forEach(function(item) {
-			const k = normalizeWordForLookup(item);
-			if (k) window._dictionarySet.add(k);
-		});
-		console.log('Used in-page precompiled dictionary, entries:', window._dictionarySet.size);
-		return window._dictionarySet;
-	}
-
-	// 2) If localStorage cache exists from previous runtime, use it (fast)
-	try {
-		const cached = localStorage.getItem('dictionary_precompiled');
-		if (cached) {
-			const arr = JSON.parse(cached);
-			if (Array.isArray(arr) && arr.length) {
-				arr.forEach(function(item) {
-					const k = normalizeWordForLookup(item);
-					if (k) window._dictionarySet.add(k);
-				});
-				console.log('Loaded dictionary from localStorage cache, entries:', window._dictionarySet.size);
-				return window._dictionarySet;
-			}
-		}
-	} catch (e) { console.warn('localStorage dictionary parse error', e); }
-
-	// 3) Fallback: fetch raw dictionary.txt, preprocess, store into localStorage for fast future loads
-	try {
-		const resp = await fetch('files/dictionary.txt');
-		if (!resp.ok) {
-			console.warn('Failed to fetch dictionary.txt', resp.status);
-			return window._dictionarySet;
-		}
-		const txt = await resp.text();
-		const arr = [];
-		txt.split(/\r?\n/).forEach(function(line) {
-			const raw = line.trim();
-			if (!raw) return;
-			const k = normalizeWordForLookup(raw);
-			if (!k) return;
-			if (!window._dictionarySet.has(k)) {
-				window._dictionarySet.add(k);
-				arr.push(raw);
-			}
-		});
-		try { localStorage.setItem('dictionary_precompiled', JSON.stringify(arr)); } catch (e) { /* ignore localStorage failures */ }
-		console.log('Fetched and precompiled dictionary.txt, entries:', window._dictionarySet.size);
-	} catch (e) {
-		console.warn('Error loading dictionary:', e);
-	}
-	return window._dictionarySet;
-}
-
-// Colorize all <li> children of the anagram container using the dictionary set
-function colorizeAnagramItems(container) {
-	// ensure dictionary load started (fire-and-forget) and then color
-	ensureDictionaryLoaded().then(function(dict) {
-		// Query current <li> items and apply color if not already processed
-		const items = container.querySelectorAll('li');
-		items.forEach(function(li) {
-			// skip items already classified
-			if (li.classList.contains('anagram-hit') || li.classList.contains('anagram-miss')) return;
-			// extract the visible word (handle <b> wrapper)
-			let word = li.querySelector('b') ? li.querySelector('b').textContent : li.textContent;
-			word = normalizeForLookup(String(word || ''));
-			var anchor = li.querySelector('a');
-			var isHit = Boolean(dict && dict.size > 0 && dict.has(word));
-			// Debug info: log the word and anchor presence
-			try { console.debug('anagram-check', { word: word, isHit: isHit, anchorExists: !!anchor, liHTML: li.innerHTML.slice(0,120) }); } catch (e) {}
-			if (isHit) {
-				// mark as hit
-				if (anchor) {
-					anchor.classList.add('anagram-hit');
-					anchor.classList.remove('anagram-miss');
-					try { anchor.style.setProperty('color', '#FFF', 'important'); } catch (e) {}
-					try { anchor.style.cssText += 'color: #FFF !important;'; } catch (e) {}
-				}
-				li.classList.add('anagram-hit');
-				li.classList.remove('anagram-miss');
-				try { li.style.setProperty('color', '#FFF', 'important'); } catch (e) {}
-				try { li.style.cssText += 'color: #FFF !important;'; } catch (e) {}
-			} else {
-				// mark as miss
-				if (anchor) {
-					anchor.classList.add('anagram-miss');
-					anchor.classList.remove('anagram-hit');
-					try { anchor.style.setProperty('color', '#ccc', 'important'); } catch (e) {}
-					try { anchor.style.cssText += 'color: #ccc !important;'; } catch (e) {}
-				}
-				li.classList.add('anagram-miss');
-				li.classList.remove('anagram-hit');
-				try { li.style.setProperty('color', '#ccc', 'important'); } catch (e) {}
-				try { li.style.cssText += 'color: #ccc !important;'; } catch (e) {}
-			}
-		});
-	}).catch(function(e){ console.warn('colorizeAnagramItems error', e); });
-}
-
-// Attach a MutationObserver so any script (including optimized-permutations.js)
-// that appends <li> items to #anagram will be post-processed automatically.
-(function setupAnagramObserver(){
-	const anagramNode = document.getElementById('anagram');
-	if (!anagramNode) return;
-	// run once in case items already present
-	colorizeAnagramItems(anagramNode);
-	const mo = new MutationObserver(function() { colorizeAnagramItems(anagramNode); });
-	mo.observe(anagramNode, { childList: true, subtree: true });
-})();
-
-// Use the new optimized permutation manager if available, otherwise fallback
+// Use the new optimized permutation manager
 if (typeof permutationManager !== 'undefined' && permutationManager.generatePermutations) {
 	console.log('Using optimized permutation system for:', inputText);
 	try {
@@ -3685,6 +3508,15 @@ if (typeof permutationManager !== 'undefined' && permutationManager.generatePerm
 // Fallback generator (keeps existing async / batch behaviour)
 function fallbackGenerate(inputText) {
 	if (!inputText) return;
+	
+	// Initialize stop flag
+	window.anagramGenerationStopped = false;
+	
+	// Update button to stop mode
+	if (typeof updateAnagramButton !== 'undefined') {
+		updateAnagramButton('stop');
+	}
+	
 	if (inputText.length <= 5) {
 		var anagram = document.getElementById('anagram');
 		var permutations = simplePermute(inputText);
@@ -3697,6 +3529,11 @@ function fallbackGenerate(inputText) {
 		anagram.innerHTML = html;
 		// colorization will be picked up by the observer
 		console.log('Generated ' + unique.length + ' unique permutations');
+		
+		// Update button back to clipboard mode
+		if (typeof updateAnagramButton !== 'undefined') {
+			updateAnagramButton('clipboard');
+		}
 	} else {
 		// For longer words, use async processing
 		document.getElementById('anagram').innerHTML = '<li style="color: yellow;">Processing ' + inputText.length + '-letter word asynchronously...</li>';
@@ -3704,37 +3541,63 @@ function fallbackGenerate(inputText) {
 	}
 }
 
-// Async fallback for larger words (batched append)
+// Async fallback for larger words
 function generateLargePermutationsAsync(inputText) {
-	var anagram = document.getElementById('anagram');
-	anagram.innerHTML = '<li style="color: cyan;">Generating permutations for ' + inputText.length + '-letter word...</li>';
-	setTimeout(function() {
-		try {
-			var permutations = simplePermute(inputText);
-			var unique = [...new Set(permutations)];
-			anagram.innerHTML = '';
-			var batchSize = 50;
-			var index = 0;
-			function displayBatch() {
-				var endIndex = Math.min(index + batchSize, unique.length);
-				var html = '';
-				for (var i = index; i < endIndex; i++) {
-					html += "<li><a href='http://translate.google.com/#auto/en/" + encodeURIComponent(unique[i]) + "' target='_blank'><b>" + unique[i] + "</b></a></li>";
-				}
-				// append the batch in one DOM op
-				anagram.insertAdjacentHTML('beforeend', html);
-				index = endIndex;
-				if (index < unique.length) {
-					setTimeout(displayBatch, 10);
-				} else {
-					console.log('Generated ' + unique.length + ' unique permutations');
-				}
-			}
-			displayBatch();
-		} catch (error) {
-			anagram.innerHTML = '<li style="color: red;">Error generating permutations: ' + error.message + '</li>';
-		}
-	}, 50);
+    var anagram = document.getElementById("anagram");
+    anagram.innerHTML = '<li style="color: cyan;">Generating permutations for ' + inputText.length + '-letter word...</li>';
+    
+    // Remove limitation on characters for fallback async processing
+    var processText = inputText;
+    
+    setTimeout(function() {
+        try {
+            var permutations = simplePermute(processText);
+            var unique = [...new Set(permutations)];
+            
+            anagram.innerHTML = '';
+            var batchSize = 50;
+            var index = 0;
+            
+            function displayBatch() {
+                // Check if generation was stopped
+                if (window.anagramGenerationStopped) {
+                    console.log('Fallback generation stopped at', index, 'of', unique.length);
+                    if (index > 0) {
+                        anagram.innerHTML += '<li style="color: orange;">Generation stopped by user. ' + index + ' of ' + unique.length + ' results shown.</li>';
+                    }
+                    // Update button back to clipboard mode
+                    if (typeof updateAnagramButton !== 'undefined') {
+                        updateAnagramButton('clipboard');
+                    }
+                    return;
+                }
+                
+                var endIndex = Math.min(index + batchSize, unique.length);
+                for (var i = index; i < endIndex; i++) {
+                    anagram.innerHTML += "<li><a href='http://translate.google.com/#auto/en/"+encodeURIComponent(unique[i])+"' target='_blank'><b>" + unique[i] + "</b></a></li>";
+                }
+                index = endIndex;
+                
+                if (index < unique.length) {
+                    setTimeout(displayBatch, 10); // Continue with next batch
+                } else {
+                    console.log('Generated ' + unique.length + ' unique permutations');
+                    // Update button back to clipboard mode
+                    if (typeof updateAnagramButton !== 'undefined') {
+                        updateAnagramButton('clipboard');
+                    }
+                }
+            }
+            
+            displayBatch();
+        } catch (error) {
+            anagram.innerHTML = '<li style="color: red;">Error generating permutations: ' + error.message + '</li>';
+            // Update button back to clipboard mode
+            if (typeof updateAnagramButton !== 'undefined') {
+                updateAnagramButton('clipboard');
+            }
+        }
+    }, 50);
 }
 
 // Simple fallback permutation function
@@ -4405,11 +4268,11 @@ for (var i=0; i < alphas.length; i++){
 			/*resh*/	case "\u05E8":letter = "\u05E9";gematria2ATBaCh999 += L21;break;	// shin
 			/*shin*/	case "\u05E9":letter = "\u05E8";gematria2ATBaCh999 += L20;break;	// resh
 			/*tav*/		case "\u05EA":letter = "\u05E7";gematria2ATBaCh999 += L19;break;	// kuf
-			/*kaf F*/	case "\u05DA":letter = "\u05DD";gematria2ATBaCh999 += L24;break;	// mem F
-			/*mem F*/	case "\u05DD":letter = "\u05DA";gematria2ATBaCh999 += L23;break;	// kaf F
+			/*kaf F*/	case "\u05DA":letter = "\u05E5";gematria2ATBaCh999 += L27;break;	// tzadi F
+			/*mem F*/	case "\u05DD":letter = "\u05E3";gematria2ATBaCh999 += L26;break;	// pey F
 			/*nun F*/	case "\u05DF":letter = "\u05DF";gematria2ATBaCh999 += L25;break;	// nun F
-			/*pey F*/	case "\u05E3":letter = "\u05E5";gematria2ATBaCh999 += L27;break;	// tzadi F
-			/*tzadi F*/	case "\u05E5":letter = "\u05E3";gematria2ATBaCh999 += L26;break;	// pey F
+			/*pey F*/	case "\u05E3":letter = "\u05DD";gematria2ATBaCh999 += L24;break;	// mem F
+			/*tzadi F*/	case "\u05E5":letter = "\u05DA";gematria2ATBaCh999 += L23;break;	// kaf F
 			default:letter = "";break;
 		}
 		ATBaCh999 += letter;
@@ -6846,6 +6709,62 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <script>
+// Handle anagram button click - either stop generation or copy to clipboard
+function handleAnagramAction() {
+	// Check if anagrams are currently being generated
+	if (typeof permutationManager !== 'undefined' && permutationManager.isGenerating) {
+		// Stop the generation
+		stopAnagramGeneration();
+	} else {
+		// Copy to clipboard
+		copyAnagramsToClipboard();
+	}
+}
+
+// Stop anagram generation
+function stopAnagramGeneration() {
+	try {
+		if (typeof permutationManager !== 'undefined') {
+			permutationManager.stopGeneration();
+		}
+		
+		// Also stop any fallback async generation
+		if (window.anagramGenerationStopped !== undefined) {
+			window.anagramGenerationStopped = true;
+		}
+		
+		// Update button to clipboard mode
+		updateAnagramButton('clipboard');
+		
+		// Add a message indicating generation was stopped
+		var anagramDiv = document.getElementById('anagram');
+		var currentContent = anagramDiv.innerHTML;
+		if (currentContent.includes('Generating') || currentContent.includes('Please wait')) {
+			anagramDiv.innerHTML = '<li style="color: orange;">Generation stopped by user. Partial results may be shown above.</li>';
+		}
+		
+		console.log('Anagram generation stopped by user');
+	} catch (e) {
+		console.error('Error stopping anagram generation:', e);
+	}
+}
+
+// Update the anagram button appearance and functionality
+function updateAnagramButton(mode) {
+	var btn = document.getElementById('copyAnagramsBtn');
+	if (!btn) return;
+	
+	if (mode === 'stop') {
+		btn.innerHTML = '🛑';
+		btn.title = 'Stop generating ananagrams';
+		btn.setAttribute('aria-label', 'Stop generating ananagrams');
+	} else { // clipboard mode
+		btn.innerHTML = '📋';
+		btn.title = 'Copy ananagrams to clipboard';
+		btn.setAttribute('aria-label', 'Copy ananagrams to clipboard');
+	}
+}
+
 // Copy the generated ananagrams under #anagram to the OS clipboard
 function copyAnagramsToClipboard() {
 	try {
