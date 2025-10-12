@@ -123,9 +123,29 @@ class PermutationManager {
         const anagramDiv = document.getElementById('anagram');
         anagramDiv.innerHTML = ''; // Clear loading message
         
+        // Get dictionary for checking
+        const dictionary = window.__PRECOMPILED_DICT || [];
+        const dictSet = new Set(dictionary.map(word => word.toLowerCase()));
+        
+        console.log('Dictionary loaded:', dictionary.length > 0 ? `${dictionary.length} words` : 'No dictionary found');
+        console.log('First few dictionary words:', dictionary.slice(0, 5));
+        
         permutations.forEach(perm => {
             const listItem = document.createElement('li');
-            listItem.innerHTML = `<a href='http://translate.google.com/#auto/en/${encodeURIComponent(perm)}' target='_blank'><b>${perm}</b></a>`;
+            const normalizedPerm = perm.toLowerCase();
+            const isInDictionary = dictSet.has(normalizedPerm);
+            
+            console.log(`Checking "${perm}" (normalized: "${normalizedPerm}") - In dictionary: ${isInDictionary}`);
+            
+            // Only apply class to non-dictionary words (misses)
+            if (!isInDictionary) {
+                listItem.className = 'anagram-miss';
+                listItem.innerHTML = `<a href='http://translate.google.com/#auto/en/${encodeURIComponent(perm)}' target='_blank' class='anagram-miss'><b>${perm}</b></a>`;
+            } else {
+                // Dictionary words keep default styling (no class)
+                listItem.innerHTML = `<a href='http://translate.google.com/#auto/en/${encodeURIComponent(perm)}' target='_blank'><b>${perm}</b></a>`;
+            }
+            
             anagramDiv.appendChild(listItem);
         });
     }

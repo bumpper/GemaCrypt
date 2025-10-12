@@ -22,9 +22,7 @@
  
 <style>
 /* Scoped styles for anagram hits/misses to override global link rules */
-#anagram a.anagram-hit { color: #FFF !important; }
 #anagram a.anagram-miss { color: #ccc !important; }
-#anagram li.anagram-hit { color: #FFF !important; }
 #anagram li.anagram-miss { color: #ccc !important; }
 </style>
 <noscript><span class="span-red">Warning! JavaScript is disabled, the functionality is unavailable.</span><br>
@@ -3490,7 +3488,133 @@ document.getElementById("summation").innerHTML = `<a href='#' onclick="replaceIn
 // Optimized Permutation Generation - No More Browser Freezing!
 document.getElementById('anagram').innerHTML = ''; // Clear any old string value
 
-// Use the new optimized permutation manager
+// Shared normalization helper: strip diacritics, punctuation/separators, and lowercase for Latin/Greek
+function normalizeForLookup(s) {
+	if (!s) return '';
+	try { s = s.normalize('NFKC'); } catch (e) {}
+	// remove combining marks (diacritics)
+	s = s.replace(/\p{M}/gu, '');
+	// remove punctuation, symbols, separators
+	s = s.replace(/\p{P}|\p{S}|\p{Z}/gu, '');
+	try { s = s.toLowerCase(); } catch (e) {}
+	return s.trim();
+}
+
+// Loads files/dictionary.txt once and stores a Set for O(1) lookups
+async function ensureDictionaryLoaded() {
+	if (window._dictionarySet) return window._dictionarySet;
+	window._dictionarySet = new Set();
+
+	const normalizeWordForLookup = normalizeForLookup;
+
+	// 1) If a precompiled JS dictionary is present (loads window.__PRECOMPILED_DICT), use it synchronously
+	if (window.__PRECOMPILED_DICT && Array.isArray(window.__PRECOMPILED_DICT)) {
+		window.__PRECOMPILED_DICT.forEach(function(item) {
+			const k = normalizeWordForLookup(item);
+			if (k) window._dictionarySet.add(k);
+		});
+		console.log('Used in-page precompiled dictionary, entries:', window._dictionarySet.size);
+		return window._dictionarySet;
+	}
+
+	// 2) If localStorage cache exists from previous runtime, use it (fast)
+	try {
+		const cached = localStorage.getItem('dictionary_precompiled');
+		if (cached) {
+			const arr = JSON.parse(cached);
+			if (Array.isArray(arr) && arr.length) {
+				arr.forEach(function(item) {
+					const k = normalizeWordForLookup(item);
+					if (k) window._dictionarySet.add(k);
+				});
+				console.log('Loaded dictionary from localStorage cache, entries:', window._dictionarySet.size);
+				return window._dictionarySet;
+			}
+		}
+	} catch (e) { console.warn('localStorage dictionary parse error', e); }
+
+	// 3) Fallback: fetch raw dictionary.txt, preprocess, store into localStorage for fast future loads
+	try {
+		const resp = await fetch('files/dictionary.txt');
+		if (!resp.ok) {
+			console.warn('Failed to fetch dictionary.txt', resp.status);
+			return window._dictionarySet;
+		}
+		const txt = await resp.text();
+		const arr = [];
+		txt.split(/\r?\n/).forEach(function(line) {
+			const raw = line.trim();
+			if (!raw) return;
+			const k = normalizeWordForLookup(raw);
+			if (!k) return;
+			if (!window._dictionarySet.has(k)) {
+				window._dictionarySet.add(k);
+				arr.push(raw);
+			}
+		});
+		try { localStorage.setItem('dictionary_precompiled', JSON.stringify(arr)); } catch (e) { /* ignore localStorage failures */ }
+		console.log('Fetched and precompiled dictionary.txt, entries:', window._dictionarySet.size);
+	} catch (e) {
+		console.warn('Error loading dictionary:', e);
+	}
+	return window._dictionarySet;
+}
+
+// Colorize all <li> children of the anagram container using the dictionary set
+function colorizeAnagramItems(container) {
+	// ensure dictionary load started (fire-and-forget) and then color
+	ensureDictionaryLoaded().then(function(dict) {
+		// Query current <li> items and apply color if not already processed
+		const items = container.querySelectorAll('li');
+		items.forEach(function(li) {
+			// skip items already classified
+			if (li.classList.contains('anagram-hit') || li.classList.contains('anagram-miss')) return;
+			// skip items with inline color styles (status/processing messages)
+			if (li.style.color) return;
+			// extract the visible word (handle <b> wrapper)
+			let word = li.querySelector('b') ? li.querySelector('b').textContent : li.textContent;
+			word = normalizeForLookup(String(word || ''));
+			var anchor = li.querySelector('a');
+			var isHit = Boolean(dict && dict.size > 0 && dict.has(word));
+			// Debug info: log the word and anchor presence
+			try { console.debug('anagram-check', { word: word, isHit: isHit, anchorExists: !!anchor, liHTML: li.innerHTML.slice(0,120) }); } catch (e) {}
+			if (isHit) {
+				// mark as hit but don't apply any color (use default)
+				if (anchor) {
+					anchor.classList.add('anagram-hit');
+					anchor.classList.remove('anagram-miss');
+				}
+				li.classList.add('anagram-hit');
+				li.classList.remove('anagram-miss');
+			} else {
+				// mark as miss and apply #ccc color
+				if (anchor) {
+					anchor.classList.add('anagram-miss');
+					anchor.classList.remove('anagram-hit');
+					try { anchor.style.setProperty('color', '#ccc', 'important'); } catch (e) {}
+					try { anchor.style.cssText += 'color: #ccc !important;'; } catch (e) {}
+				}
+				li.classList.add('anagram-miss');
+				li.classList.remove('anagram-hit');
+				try { li.style.setProperty('color', '#ccc', 'important'); } catch (e) {}
+				try { li.style.cssText += 'color: #ccc !important;'; } catch (e) {}
+			}
+		});
+	}).catch(function(e){ console.warn('colorizeAnagramItems error', e); });
+}
+
+// Attach a MutationObserver so any script (including optimized-permutations.js)
+// that appends <li> items to #anagram will be post-processed automatically.
+(function setupAnagramObserver(){
+	const anagramNode = document.getElementById('anagram');
+	if (!anagramNode) return;
+	// run once in case items already present
+	colorizeAnagramItems(anagramNode);
+	const mo = new MutationObserver(function() { colorizeAnagramItems(anagramNode); });
+	mo.observe(anagramNode, { childList: true, subtree: true });
+})();
+
+// Use the new optimized permutation manager if available, otherwise fallback
 if (typeof permutationManager !== 'undefined' && permutationManager.generatePermutations) {
 	console.log('Using optimized permutation system for:', inputText);
 	try {
@@ -3521,10 +3645,27 @@ function fallbackGenerate(inputText) {
 		var anagram = document.getElementById('anagram');
 		var permutations = simplePermute(inputText);
 		var unique = [...new Set(permutations)];
+		
+		// Get dictionary for checking
+		var dictionary = window.__PRECOMPILED_DICT || [];
+		var dictSet = new Set(dictionary.map(function(word) { return word.toLowerCase(); }));
+		
+		console.log('Fallback: Dictionary loaded:', dictionary.length > 0 ? dictionary.length + ' words' : 'No dictionary found');
+		
 		// build HTML once for performance
 		var html = '';
 		unique.forEach(function(result) {
-			html += "<li><a href='http://translate.google.com/#auto/en/" + encodeURIComponent(result) + "' target='_blank'><b>" + result + "</b></a></li>";
+			var normalizedResult = result.toLowerCase();
+			var isInDictionary = dictSet.has(normalizedResult);
+			console.log('Fallback: Checking "' + result + '" (normalized: "' + normalizedResult + '") - In dictionary: ' + isInDictionary);
+			
+			if (!isInDictionary) {
+				// Only apply class to non-dictionary words
+				html += "<li class='anagram-miss'><a href='http://translate.google.com/#auto/en/" + encodeURIComponent(result) + "' target='_blank' class='anagram-miss'><b>" + result + "</b></a></li>";
+			} else {
+				// Dictionary words keep default styling
+				html += "<li><a href='http://translate.google.com/#auto/en/" + encodeURIComponent(result) + "' target='_blank'><b>" + result + "</b></a></li>";
+			}
 		});
 		anagram.innerHTML = html;
 		// colorization will be picked up by the observer
@@ -3554,6 +3695,10 @@ function generateLargePermutationsAsync(inputText) {
             var permutations = simplePermute(processText);
             var unique = [...new Set(permutations)];
             
+            // Get dictionary for checking
+            var dictionary = window.__PRECOMPILED_DICT || [];
+            var dictSet = new Set(dictionary.map(function(word) { return word.toLowerCase(); }));
+            
             anagram.innerHTML = '';
             var batchSize = 50;
             var index = 0;
@@ -3574,7 +3719,16 @@ function generateLargePermutationsAsync(inputText) {
                 
                 var endIndex = Math.min(index + batchSize, unique.length);
                 for (var i = index; i < endIndex; i++) {
-                    anagram.innerHTML += "<li><a href='http://translate.google.com/#auto/en/"+encodeURIComponent(unique[i])+"' target='_blank'><b>" + unique[i] + "</b></a></li>";
+                    var normalizedResult = unique[i].toLowerCase();
+                    var isInDictionary = dictSet.has(normalizedResult);
+                    
+                    if (!isInDictionary) {
+                        // Only apply class to non-dictionary words
+                        anagram.innerHTML += "<li class='anagram-miss'><a href='http://translate.google.com/#auto/en/"+encodeURIComponent(unique[i])+"' target='_blank' class='anagram-miss'><b>" + unique[i] + "</b></a></li>";
+                    } else {
+                        // Dictionary words keep default styling
+                        anagram.innerHTML += "<li><a href='http://translate.google.com/#auto/en/"+encodeURIComponent(unique[i])+"' target='_blank'><b>" + unique[i] + "</b></a></li>";
+                    }
                 }
                 index = endIndex;
                 
