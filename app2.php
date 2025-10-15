@@ -746,6 +746,9 @@
 	
 	// Language detection variable
 	var detectedLanguage = '';
+	
+	// Variable to store the current book path
+	var currentBook = '/gemacrypt/files/books/default.txt';
 
 	// Green flash effect function for buttons
 	function greenFlash(buttonElement) {
@@ -2493,8 +2496,19 @@
 		
 		// CORS Proxy Server - to allow the opening of txt files
 		async function loadFile(url) {
+			// Check if it's a valid file path before proceeding
+			if (!url || url === 'Book' || url === '---' || url.trim() === '') {
+				return;
+			}
+			
 			// Show loading indicator
 			showLoadingIndicator();
+			
+			// Set currentBook variable when a book is loaded from bookSelect
+			currentBook = url;
+			
+			// Clear any cached file content since we're loading a new book from the menu
+			localStorage.removeItem('gemacrypt_cached_file_content');
 			
 			let corsProxy = `${window.location.protocol}//${window.location.hostname}/`; // grad whatever the current host's domain name and protocol and append a backslash /
 			try {
@@ -7395,6 +7409,9 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 
             // Show loading indicator
             showLoadingIndicator();
+            
+            // Set currentBook to empty.txt when files are loaded via openBtn
+            currentBook = '/gemacrypt/files/books/empty.txt';
 
             let fileText = '';
             let filesProcessed = 0;
@@ -7405,6 +7422,9 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
                     filesProcessed++;
                     // After all files are loaded, apply highlighting and hide loading indicator
                     if (filesProcessed === files.length) {
+                        // Store the loaded file content in localStorage for clearBtn functionality
+                        localStorage.setItem('gemacrypt_cached_file_content', fileText);
+                        
                         // Apply highlighting to the loaded text
                         textArea.innerHTML = highlightSpecialCharacters(fileText);
                         
@@ -10600,26 +10620,95 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
             a.click();
         });
 
+        // Variables for clear button double-click tracking
+        let clearBtnLastClickTime = 0;
+        const clearBtnDoubleClickDelay = 5000; // 5 seconds
+
         // The Clear button's functionality
-		clearBtn.addEventListener('click', () => {
-			textArea.textContent = '';
-			clearBtn.textHighlight = '';
-			document.getElementById('verses').innerHTML = ``;
-			document.getElementById('words').innerHTML = ``;
-			document.getElementById('letters').innerHTML = ``;
-			document.getElementById('sum').innerHTML = ``;
-			document.getElementById('encrypted').innerHTML = ``;
-			document.getElementById('encryptedsum').innerHTML = ``;
-			availableColors = [...colors];
-			// Clear ELS modal inputs and results if modal is open
-			const elsModal = document.getElementById('elsModal');
-			if (elsModal) {
-				const startInput = elsModal.querySelector('#startPosition');
-				const seqInput = elsModal.querySelector('#sequenceNum');
-				const resultsDiv = elsModal.querySelector('#elsResults');
-				if (startInput) startInput.value = '';
-				if (seqInput) seqInput.value = '';
-				if (resultsDiv) resultsDiv.innerHTML = '';
+		clearBtn.addEventListener('click', async () => {
+			const currentTime = Date.now();
+			const timeSinceLastClick = currentTime - clearBtnLastClickTime;
+			
+			// If clicked within 5 seconds of previous click, clear the text area completely
+			if (timeSinceLastClick < clearBtnDoubleClickDelay && clearBtnLastClickTime > 0) {
+				textArea.textContent = '';
+				clearBtn.textHighlight = '';
+				document.getElementById('verses').innerHTML = ``;
+				document.getElementById('words').innerHTML = ``;
+				document.getElementById('letters').innerHTML = ``;
+				document.getElementById('sum').innerHTML = ``;
+				document.getElementById('encrypted').innerHTML = ``;
+				document.getElementById('encryptedsum').innerHTML = ``;
+				availableColors = [...colors];
+				
+				// Clear cached file content when completely clearing the text area
+				localStorage.removeItem('gemacrypt_cached_file_content');
+				
+				// Clear ELS modal inputs and results if modal is open
+				const elsModal = document.getElementById('elsModal');
+				if (elsModal) {
+					const startInput = elsModal.querySelector('#startPosition');
+					const seqInput = elsModal.querySelector('#sequenceNum');
+					const resultsDiv = elsModal.querySelector('#elsResults');
+					if (startInput) startInput.value = '';
+					if (seqInput) seqInput.value = '';
+					if (resultsDiv) resultsDiv.innerHTML = '';
+				}
+				clearBtnLastClickTime = 0; // Reset the timer
+			} else {
+				// First click within 5-second window - load the book file
+				clearBtnLastClickTime = currentTime;
+				
+				// Check if currentBook is empty.txt and we have cached content
+				if (currentBook === '/gemacrypt/files/books/empty.txt') {
+					const cachedContent = localStorage.getItem('gemacrypt_cached_file_content');
+					if (cachedContent) {
+						// Load from cache instead of empty.txt
+						showLoadingIndicator();
+						try {
+							// Apply highlighting to the cached text
+							textArea.innerHTML = highlightSpecialCharacters(cachedContent);
+							
+							// Detect language and store in global variable
+							detectedLanguage = detectLanguage(cachedContent);
+							console.log('Language detected from cached content:', detectedLanguage);
+						} finally {
+							hideLoadingIndicator();
+						}
+						return; // Exit early since we used cached content
+					}
+				}
+				
+				// Load the book file from currentBook path
+				try {
+					showLoadingIndicator();
+					let corsProxy = `${window.location.protocol}//${window.location.hostname}/`;
+					let response;
+					
+					try {
+						response = await fetch(corsProxy + currentBook);
+					} catch (error) {
+						console.error('Primary CORS proxy failed, trying backup:', error);
+						corsProxy = 'http://radius.center/';
+						response = await fetch(corsProxy + currentBook);
+					}
+					
+					if (response.ok) {
+						const text = await response.text();
+						// Apply highlighting to the loaded text
+						textArea.innerHTML = highlightSpecialCharacters(text);
+						
+						// Detect language and store in global variable
+						detectedLanguage = detectLanguage(text);
+						console.log('Language detected:', detectedLanguage);
+					} else {
+						console.error(`Error loading book file: ${response.status} - ${response.statusText}`);
+					}
+				} catch (error) {
+					console.error('Error loading book file:', error);
+				} finally {
+					hideLoadingIndicator();
+				}
 			}
         });
     </script>
