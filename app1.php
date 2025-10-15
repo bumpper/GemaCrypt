@@ -10,7 +10,7 @@
 	// Keep a reference to the newer CDN jQuery so we can restore it if older jQuery overwrites window.jQuery
 	try { if (window.jQuery) { window._jQueryPlaceholder = window.jQuery; } } catch (e) { console.error('store CDN jQuery failed', e); }
 </script>
-<link rel="SHORTCUT ICON" href="img/bet.png" />
+<link rel="SHORTCUT ICON" href="img/tav.png" />
 <meta name="Rating" content="general" />
 <meta name="DESCRIPTION" content="Decode Hebrew words to find hidden meanings.  With this app you can find the numerical value of a word or letter.  Words with the same numerical value are said to relate to each other.  Use different algorathims like AL-BaM, AT-BaSh, ACh-BI, Ayik-becher, AChaS-BeTA, At-bech to decode hebrew words.  Use the different gematriaot to find a words numerical value like Ragil, Katan, HaKlali, Kolel, HaKadmi, HaPerati, Miluy." />
 <meta name="KEYWORDS" content="Absolute, Ordinal, Reduced, Integral Reduced, Spelling, Pictograms, Meaning, Symbols, Miluy, Miluim, Gematriaot, Gematria, Cryptography, Encrypt, Decrypt, Encode, Decode, BibleCode, Bible, Code, ALBaM, ATBaSh, AChBI, AYiKBeCheR, AChaSBeTA, ATBeCh, ATzBaPh, ALBeTh, AL-BaM, AT-BaSh, ACh-BI, AYiK-BeCheR, AChaS-BeTA, AT-BeCh, ATz-BaPh, AL-BeTh, AL BaM, AT BaSh, ACh BI, AYiK BeCheR, AChaS BeTA, AT BeCh, ATz BaPh, ALBeTh, Ofanim, Sofit, Finals, Initials, Greek, Hebrew, Aramaic, Letter, Sequence, Ananagram, Matrix, Mystery, Word, Value, Verse, Calculate, Calculator, Ragil, Katan, HaKlali, Kolel, HaKadmi, HaPerati, Miluy, Spelling, Torah, Skip, Leap, Elision, A''B, AB, SaG, MaH, BaN, Cantillation, Niqqud, Vowels, Knit, AV-GaD, AVGaD, Forward Exchange, AT-BA, ATBA, Backward Exchange, Acronym, Paths, Gates, Sum, ThShRQ, Reversed" />
@@ -446,37 +446,6 @@ body { background-color: #000;}
     background: #444;
 }
 
-/* Horizontal scrollbar for Gematria Matches table */
-.result::-webkit-scrollbar {
-    height: 16px;
-}
-
-.result::-webkit-scrollbar-track {
-    background: #444;
-}
-
-.result::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
-}
-
-.result::-webkit-scrollbar-thumb:hover {
-    background: #bbb;
-}
-
-.result::-webkit-scrollbar-button {
-    background: #ccc;
-    border-radius: 2px;
-}
-
-.result::-webkit-scrollbar-button:hover {
-    background: #bbb;
-}
-
-.result::-webkit-scrollbar-corner {
-    background: #444;
-}
-
 /* Firefox scrollbar styling */
 html {
     scrollbar-width: auto;
@@ -486,6 +455,70 @@ html {
 .result {
     scrollbar-width: auto;
     scrollbar-color: #ccc #444;
+}
+
+/* Sticky horizontal scrollbar for Gematria Matches */
+.sticky-scrollbar {
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background-color: #444;
+    border-top: 1px solid #666;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+    display: none;
+    left: 0;
+}
+
+.sticky-scrollbar-content {
+    height: 20px;
+    background: transparent;
+}
+
+.sticky-scrollbar::-webkit-scrollbar {
+    height: 20px;
+}
+
+.sticky-scrollbar::-webkit-scrollbar-track {
+    background: #444;
+}
+
+.sticky-scrollbar::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.sticky-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
+}
+
+.sticky-scrollbar::-webkit-scrollbar-button {
+    background: #ccc;
+    border-radius: 2px;
+}
+
+.sticky-scrollbar::-webkit-scrollbar-button:hover {
+    background: #bbb;
+}
+
+/* Make gematria matches container relative for absolute positioning of scrollbar */
+#gematriaMatches {
+    position: relative;
+}
+
+/* Make result div scrollable horizontally and remove width constraint from table */
+#result {
+    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Allow table to be its natural width instead of forcing 100% */
+#result table {
+    width: auto !important;
+    min-width: 100%;
 }
 </style>
 
@@ -973,12 +1006,41 @@ function autoLoginPhpMyAdmin() {
 
 <!-- Gematria Matches -->
 <table width="100%" cellpadding="10" cellspacing="10" border="0" align="center"><tr><td>
-<p align="left" valign="top"><b><u><a herf="" border="0" style="text-decoration: none;"><span title="List of all other words from the database having the same Gematria value."><a href="files/gematriaDB.xlsx" target="_blank" style="text-decoration: none;">Gematria Matches:</a></span></u></b>    
+<p align="left" valign="top">
+<a href="javascript:void(0)" onclick="openGematriaMatches()" target="_blank" style="text-decoration: none; margin-right: 3px;" title="Open Gematria Matches in new tab"><img src="img/breakout.png" alt="Open in new tab" width="16" height="16" border="0" style="vertical-align: middle; filter: drop-shadow(0 0 3px #FFFFFF);"></a>
+<a href="files/gematriaDB.xlsx" target="_blank" style="text-decoration: none;">📥</a><b><u><a herf="" border="0" style="text-decoration: none;"><span title="List of all other words from the database having the same Gematria value."><a href="files/gematriaDB.xlsx" target="_blank" style="text-decoration: none;">Gematria Matches:</a></span></u></b>    
 <a href="#bottom" style="text-decoration: none;" onclick="toggleGematriaMatches(); scrollToBottom()"><img src="img/expand.png" id="GematriaMatchesExpandCollapseImg" alt="Expand/Collapse" heigth="16" width="20" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a></p>
-</td></tr></table><div id="gematriaMatches"><div id="result" class="result"><table width="100%" cellpadding="10" cellspacing="10" border="0" align="center"><tr><td width="33%" valign="top"><div class="loading">Loading</div></td></tr></div></div>
+</td></tr></table><div id="gematriaMatches"><div id="result" class="result"><table width="100%" cellpadding="10" cellspacing="10" border="0" align="center"><tr><td width="33%" valign="top"><div class="loading">Loading</div></td></tr></div>
+<!-- Floating horizontal scrollbar for Gematria Matches table -->
+<div id="stickyScrollbar" class="sticky-scrollbar">
+    <div id="stickyScrollbarContent" class="sticky-scrollbar-content"></div>
+</div>
+</div>
 </div>
 
 <script>
+// Global variable to store the current word for gematria matches
+var currentWord1 = '';
+var currentGematria1 = '';
+
+// Function to open Gematria Matches with current word1 value
+function openGematriaMatches() {
+    // Use the global current word1 value
+    var wordToUse = currentWord1 || document.getElementById('inputText').value || '';
+    var gematriaToUse = currentGematria1 || '';
+    
+    // Open gematriamatches.php with the word and gematria parameters
+    var url = 'gematriamatches.php';
+    if (wordToUse || gematriaToUse) {
+        url += '?word=' + encodeURIComponent(wordToUse);
+        if (gematriaToUse) {
+            url += '&gematria=' + encodeURIComponent(gematriaToUse);
+        }
+    }
+    
+    window.open(url, '_blank');
+}
+
 /* ----------  Hide keyboard by default on mobile  ---------- */
 document.addEventListener('DOMContentLoaded', function () {
   const isMobile = window.matchMedia('(max-width: 600px)').matches;
@@ -6764,6 +6826,10 @@ for (var i=0; i < inputText.length; i++){
 		}
 	}
 
+// Update global variables for gematria matches
+currentWord1 = word1;
+currentGematria1 = gematria1;
+
 // Send an AJAX request to the server to execute the insert.php script
 $.ajax({
     url: 'insert.php',
@@ -6773,6 +6839,13 @@ $.ajax({
         console.log(response);
         // Display the HTML table structure returned from the server
         $("#result").html(response);
+        
+        // Setup the horizontal scrollbar after content is loaded
+        setTimeout(function() {
+            if (window.setupGematriaHorizontalScrollSync) {
+                window.setupGematriaHorizontalScrollSync();
+            }
+        }, 500);
     },
     error: function(jqXHR, textStatus, errorThrown) {
         console.log(textStatus, errorThrown);
@@ -7252,5 +7325,245 @@ observer.observe(document.body, {
 
 console.log('🎯 Draggable modal system initialized for app1.php - modals can be moved by dragging the top area');
 </script>
+
+<script>
+// Floating horizontal scrollbar for Gematria Matches functionality - simplified approach
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Function to check if an element is visible in viewport
+    function isElementInViewport(element) {
+        if (!element) return false;
+        
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        
+        // Element is considered visible if any part of it is in the viewport
+        return rect.bottom > 0 && rect.top < windowHeight;
+    }
+    
+    // Function to manage scrollbar visibility based on gematria matches visibility
+    function updateScrollbarVisibility() {
+        const gematriaMatchesDiv = document.getElementById('gematriaMatches');
+        const stickyScrollbar = document.getElementById('stickyScrollbar');
+        
+        if (!gematriaMatchesDiv || !stickyScrollbar) {
+            return;
+        }
+        
+        const isGematriaInView = isElementInViewport(gematriaMatchesDiv);
+        const style = window.getComputedStyle(gematriaMatchesDiv);
+        const isGematriaVisible = style.display !== 'none';
+        
+        // Only show scrollbar if gematria section is both visible and in viewport
+        if (isGematriaVisible && isGematriaInView) {
+            // Check if there's actually a wide table that needs scrolling
+            const resultDiv = document.getElementById('result');
+            const table = resultDiv ? resultDiv.querySelector('table') : null;
+            
+            if (table && table.scrollWidth > window.innerWidth) {
+                stickyScrollbar.style.display = 'block';
+            } else {
+                stickyScrollbar.style.display = 'none';
+            }
+        } else {
+            stickyScrollbar.style.display = 'none';
+        }
+    }
+    
+    // Function to setup horizontal scroll synchronization for gematria matches
+    function setupGematriaHorizontalScrollSync() {
+        const gematriaMatchesDiv = document.getElementById('gematriaMatches');
+        const resultDiv = document.getElementById('result');
+        let stickyScrollbar = document.getElementById('stickyScrollbar');
+        let stickyScrollbarContent = document.getElementById('stickyScrollbarContent');
+        
+        if (!gematriaMatchesDiv || !resultDiv) {
+            return;
+        }
+        
+        // If scrollbar elements are missing, create them
+        if (!stickyScrollbar || !stickyScrollbarContent) {
+            
+            // Remove any existing scrollbar first
+            const existingScrollbar = document.getElementById('stickyScrollbar');
+            if (existingScrollbar) {
+                existingScrollbar.remove();
+            }
+            
+            // Create the floating scrollbar
+            stickyScrollbar = document.createElement('div');
+            stickyScrollbar.id = 'stickyScrollbar';
+            stickyScrollbar.style.cssText = `
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 17px;
+                background-color: rgba(0, 0, 0, 0.1);
+                overflow-x: auto;
+                overflow-y: hidden;
+                z-index: 1000;
+                display: none;
+            `;
+            
+            // Create the content div that determines the scroll width
+            stickyScrollbarContent = document.createElement('div');
+            stickyScrollbarContent.id = 'stickyScrollbarContent';
+            stickyScrollbarContent.style.cssText = `
+                height: 1px;
+                background-color: transparent;
+            `;
+            
+            stickyScrollbar.appendChild(stickyScrollbarContent);
+            document.body.appendChild(stickyScrollbar);
+        }
+        
+        // Check if gematria matches section is visible (not collapsed)
+        const style = window.getComputedStyle(gematriaMatchesDiv);
+        const isGematriaVisible = style.display !== 'none';
+        
+        if (!isGematriaVisible) {
+            stickyScrollbar.style.display = 'none';
+            return;
+        }
+        
+        // Look for a table within the result div
+        const table = resultDiv.querySelector('table');
+        if (!table) {
+            stickyScrollbar.style.display = 'none';
+            return;
+        }
+        
+        if (table) {
+            // Wait for the table to fully render
+            setTimeout(function() {
+                // Force remove width="100%" from table and set CSS directly
+                table.removeAttribute('width');
+                table.style.width = 'auto';
+                table.style.minWidth = '100%';
+                
+                // Create a scrollable wrapper around the table
+                if (!table.parentElement.classList.contains('table-scroll-wrapper')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'table-scroll-wrapper';
+                    wrapper.style.overflowX = 'auto';
+                    wrapper.style.width = '100%';
+                    wrapper.style.maxWidth = '100%';
+                    
+                    // Insert wrapper before table and move table into it
+                    table.parentElement.insertBefore(wrapper, table);
+                    wrapper.appendChild(table);
+                }
+                
+                const scrollableElement = document.querySelector('.table-scroll-wrapper');
+                
+                // Wait a bit for the changes to take effect
+                setTimeout(function() {
+                    // Create sync functions with proper scope
+                    const syncFromSticky = function() {
+                        if (scrollableElement && stickyScrollbar) {
+                            scrollableElement.scrollLeft = stickyScrollbar.scrollLeft;
+                        }
+                    };
+                    
+                    const syncToSticky = function() {
+                        if (scrollableElement && stickyScrollbar) {
+                            stickyScrollbar.scrollLeft = scrollableElement.scrollLeft;
+                        }
+                    };
+                    
+                    // Wait a bit more for the table to fully render
+                    setTimeout(function() {
+                        // Set the width of the scroll content to match the table width
+                        stickyScrollbarContent.style.width = table.scrollWidth + 'px';
+                        
+                        // Show the floating scrollbar if table is wider than the viewport
+                        if (table.scrollWidth > window.innerWidth) {
+                            // Use the visibility update function instead of directly showing
+                            updateScrollbarVisibility();
+                            
+                            // Remove any existing event listeners to prevent duplicates
+                            stickyScrollbar.removeEventListener('scroll', syncFromSticky);
+                            scrollableElement.removeEventListener('scroll', syncToSticky);
+                            
+                            // Add event listeners
+                            stickyScrollbar.addEventListener('scroll', syncFromSticky);
+                            scrollableElement.addEventListener('scroll', syncToSticky);
+                            
+                            // Initial sync
+                            stickyScrollbar.scrollLeft = scrollableElement.scrollLeft;
+                        } else {
+                            stickyScrollbar.style.display = 'none';
+                        }
+                    }, 200);
+                }, 100);
+            }, 100);
+        } else {
+            stickyScrollbar.style.display = 'none';
+        }
+    }
+    
+    // Make function available globally for AJAX callback
+    window.setupGematriaHorizontalScrollSync = setupGematriaHorizontalScrollSync;
+    
+    // Add scroll listener to manage scrollbar visibility based on viewport
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        // Debounce scroll events for better performance
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(updateScrollbarVisibility, 50);
+    });
+    
+    // Also check on window resize
+    window.addEventListener('resize', function() {
+        setTimeout(updateScrollbarVisibility, 100);
+    });
+    
+    // Monitor for changes to the gematria matches content and visibility
+    const observer = new MutationObserver(function(mutations) {
+        let shouldUpdate = false;
+        
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                shouldUpdate = true;
+            }
+            if (mutation.type === 'childList') {
+                shouldUpdate = true;
+            }
+        });
+        
+        if (shouldUpdate) {
+            setTimeout(setupGematriaHorizontalScrollSync, 100);
+        }
+    });
+    
+    // Observe the gematria matches container for visibility changes
+    const gematriaMatchesDiv = document.getElementById('gematriaMatches');
+    if (gematriaMatchesDiv) {
+        observer.observe(gematriaMatchesDiv, { 
+            attributes: true, 
+            attributeFilter: ['style'],
+            childList: true, 
+            subtree: true 
+        });
+    }
+    
+    // Observe the result div for content changes
+    const resultDiv = document.getElementById('result');
+    if (resultDiv) {
+        observer.observe(resultDiv, { 
+            childList: true, 
+            subtree: true 
+        });
+    }
+    
+    // Update on resize
+    window.addEventListener('resize', setupGematriaHorizontalScrollSync);
+    
+    // Initial setup
+    setTimeout(setupGematriaHorizontalScrollSync, 200);
+});
+</script>
+
 </body>
 </html>

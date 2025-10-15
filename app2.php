@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="SHORTCUT ICON" href="img/bet.png" />
+	<link rel="SHORTCUT ICON" href="img/tav.png" />
 	<meta name="Rating" content="general" />
 	<meta name="DESCRIPTION" content="Decode Hebrew words to find hidden meanings using Gematria. With this app you can find the numerical values of words. Words with the same numerical value are said to spiritual synonyms. Also use the different Hebrew encryption algorithms to find hidden meanings such as AL-bam, At-BaSh, ACh-BI, AYiK-BeCheR, AChaS-BeTA, AT-BeCh to decode hebrew words.  Use the different gematriaot to find a words numerical value like Ragil, Katan, HaKlali, Kolel, HaKadmi, HaPerati, Miluy." />
 	<meta name="KEYWORDS" content="Absolute, Ordinal, Reduced, Integral Reduced, Spelling, Pictograms, Meaning, Symbols, Miluy, Miluim, Gematriaot, Gematria, Cryptography, Encrypt, Decrypt, Encode, Decode, BibleCode, Bible, Code, ALBaM, ATBaSh, AChBI, AYiKBeCheR, AChaSBeTA, ATBeCh, ATzBaPh, ALBeTh, AL-BaM, AT-BaSh, ACh-BI, AYiK-BeCheR, AChaS-BeTA, AT-BeCh, ATz-BaPh, AL-BeTh, AL BaM, AT BaSh, ACh BI, AYiK BeCheR, AChaS BeTA, AT BeCh, ATz BaPh, ALBeTh, Ofanim, Sofit, Finals, Initials, Greek, Hebrew, Aramaic, Letter, Sequence, Ananagram, Matrix, Mystery, Word, Value, Verse, Calculate, Calculator, Ragil, Katan, HaKlali, Kolel, HaKadmi, HaPerati, Miluy, Spelling, Torah, 1 Chronicles, 1 Kings, 1 Samuel, 2 Chronicles, 2 Kings, 2 Samuel, Amos, Daniel, Deuteronomy, Ecclesiastes, Esther, Exodus, Ezekiel, Ezra, Genesis, Habakkuk, Haggai, Hosea, Isaiah, Jeremiah, Job, Joel, Jonah, Joshua, Judges, Lamentations, Leviticus, Malachi, Micah, Nahum, Nehemiah, Numbers, Obadiah, Proverbs, Psalms, Ruth, Song of Songs, Song of Solomon, Zechariah, Zephaniah, Tanach, Tanakh, Old Testament, New Testament, Bible, Pseudepigrapha, Apocrypha" />
@@ -257,7 +257,7 @@
         }
         .gematria-match {
             background-color: #00FF00 !important; /* Bright green background */
-            color: #000000 !important; /* Black text for contrast */
+            /*color: #000000 !important;  Black text for contrast */
             font-weight: bold !important;
             padding: 1px 2px !important;
             border-radius: 2px !important;
@@ -509,6 +509,37 @@
 				max-height: 98vh;
 			}
 		}
+		
+		/* ELS Modal responsive controls */
+		#elsModal .els-controls {
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: center;
+			gap: 10px;
+		}
+		
+		/* When modal is narrow, stack vertically */
+		#elsModal.narrow-modal .els-controls {
+			flex-direction: column;
+			align-items: center;
+			gap: 15px;
+		}
+		
+		#elsModal.narrow-modal .els-controls .els-input-group {
+			width: 100%;
+			max-width: 250px;
+		}
+		
+		#elsModal.narrow-modal .els-controls .els-input-group input {
+			width: 100%;
+			box-sizing: border-box;
+		}
+		
+		#elsModal.narrow-modal .els-controls #elsSearchBtn {
+			margin-top: 0 !important;
+			align-self: center;
+		}
 		.close {
 		color: #aaa;
 		float: right;
@@ -730,15 +761,18 @@
 		// Fade to light blue background (#48bef5)
 		buttonElement.style.backgroundColor = '#48bef5';
 		
-		// After 1 second, fade back to original color
+		// After a brief flash, fade back to original color and remove focus
 		setTimeout(() => {
 			buttonElement.style.backgroundColor = originalBgColor;
+			
+			// Remove focus to prevent the button from staying in focus state
+			buttonElement.blur();
 			
 			// Restore original transition after fade completes
 			setTimeout(() => {
 				buttonElement.style.transition = originalTransition;
 			}, 300);
-		}, 1000);
+		}, 200); // Reduced from 1000ms to 200ms for a quick flash effect
 	}
 
 	const colors = ['red', 'purple', 'darkgrey', 'darkblue', 'lightblue', 'brown', 'orange'];
@@ -2657,6 +2691,8 @@
 
 	<script>
 		function toggleCalc(){
+			console.log('toggleCalc function called'); // Debug log
+			
 			// Get the textArea element
 			const textArea = document.getElementById('textArea');
 			if (!textArea) {
@@ -2664,14 +2700,23 @@
 				return;
 			}
 			
-			// Get the current text content
-			let content = textArea.textContent;
+			console.log('textArea found, innerHTML length:', textArea.innerHTML.length); // Debug log
 			
-			// Insert exactly 2 new lines after each line break
-			// First normalize all line endings to \n, then add exactly 2 more \n
-			content = content.replace(/\r\n/g, '\n');  // Convert \r\n to \n
-			content = content.replace(/\r/g, '\n');    // Convert \r to \n
-			content = content.replace(/\n/g, '\n\n'); // Replace each \n with \n\n (original +  extra)
+			// Remove " ׀" (space followed by ׀) from the textArea content before processing
+			let currentContent = textArea.textContent;
+			if (currentContent.includes(' \u05C0')) {
+				currentContent = currentContent.replace(/ \u05C0/g, '');
+				textArea.textContent = currentContent;
+				console.log('Removed " ׀" characters from textArea content'); // Debug log
+			}
+			
+			// Store the current innerHTML to preserve ELS highlights during processing
+			const originalHtml = textArea.innerHTML;
+			const hasElsHighlights = textArea.querySelectorAll('.els-highlight').length > 0;
+			
+			if (hasElsHighlights) {
+				console.log('ELS highlights detected - will preserve them during processing');
+			}
 			
 			// Function to calculate gematria for a word based on current gematria method
 			function calculateWordGematria(word) {
@@ -2683,7 +2728,6 @@
 				for (let char of word) {
 					const code = char.charCodeAt(0);
 					// Check for Hebrew finals FIRST (before regular Hebrew letters)
-					// This prevents finals ך (0x05DA), ם (0x05DD), ן (0x05DF) from being caught by the regular Hebrew range
 					if (char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || char === "\u05E3" || char === "\u05E5") {
 						// Hebrew finals
 						letterCount++;
@@ -2717,11 +2761,11 @@
 							case "\u05E4": total += L17; break; // pey
 							case "\u05E6": total += L18; break; // tzadi
 							case "\u05E7": total += L19; break; // kuf
-						case "\u05E8": total += L20; break; // resh
-						case "\u05E9": total += L21; break; // shin
-						case "\u05EA": total += L22; break; // tav
-					}
-				} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+							case "\u05E8": total += L20; break; // resh
+							case "\u05E9": total += L21; break; // shin
+							case "\u05EA": total += L22; break; // tav
+						}
+					} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
 						// English letters
 						letterCount++;
 						const upper = code >= 65 && code <= 90 ? code : code - 32;
@@ -2784,70 +2828,521 @@
 				return total;
 			}
 			
-			// Split content into lines
-			const lines = content.split(/\r\n|\n|\r/);
-			let processedLines = [];
-			
-			// Process each line
-			for (let i = 0; i < lines.length; i++) {
-				const line = lines[i];
-				// Replace all single spaces with tabs in the line
-				const lineWithTabs = line.replace(/ /g, '\t');
-				processedLines.push(lineWithTabs);
+			// Function to parse and preserve existing HTML formatting
+			function parseExistingFormatting(htmlContent) {
+				console.log('parseExistingFormatting called with content length:', htmlContent.length); // Debug log
 				
-				// Check if this line contains letters (not just whitespace or punctuation)
-				if (/[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(line)) {
-					// Split line into words
-					const words = line.split(/[\s\t\u00A0\u2000-\u200B\u2028\u2029\u3000]+/).filter(word => word.trim().length > 0);
-					let gematriaValuesWithTabs = [];
-					
-					// Calculate gematria for each word
-					for (let word of words) {
-						// Remove Niqqud characters from word length count (same as removeSelect "Niqqud" option)
-						// Niqqud characters: \u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF
-						// Note: Keep maqaf (\u05BE), soft hyphen (­), and regular hyphen (-) in the count
-						const wordWithoutNiqqud = word.replace(/[\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '');
-						const wordLength = wordWithoutNiqqud.length;
+				const tempDiv = document.createElement('div');
+				tempDiv.innerHTML = htmlContent;
+				
+				const formattingMap = new Map(); // Maps text positions to formatting info
+				let textPosition = 0;
+				
+				function traverseNode(node) {
+					if (node.nodeType === Node.TEXT_NODE) {
+						const nodeText = node.textContent;
+						// Store current position before processing this text node
+						const startPos = textPosition;
+						textPosition += nodeText.length;
+						return nodeText;
+					} else if (node.nodeType === Node.ELEMENT_NODE) {
+						const tag = node.tagName.toLowerCase();
+						const style = node.getAttribute('style');
+						const className = node.getAttribute('class');
 						
-						// Clean word of punctuation for calculation but keep original for display
-						const cleanWord = word.replace(/[.,!?\-;\*\(\)\[\]\u05C3⁕]/g, '');
-						// Only process words that contain actual letters (exclude tab/indent characters and pure punctuation)
-						if (cleanWord.length > 0 && /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(cleanWord)) {
-							const gematriaValue = calculateWordGematria(cleanWord);
-							
-							// Determine number of tabs based on 8-character increments
-							// 1-7 chars = 1 tab, 8-15 chars = 2 tabs, 16-23 chars = 3 tabs, 24-31 chars = 4 tabs, etc.
-							let tabCount = Math.floor(wordLength / 8) + 1;
-							
-							// Store gematria value with its tab count
-							gematriaValuesWithTabs.push({
-								value: gematriaValue,
-								tabs: tabCount
+						let childText = '';
+						const startPos = textPosition;
+						
+						// Process child nodes
+						for (let child of node.childNodes) {
+							childText += traverseNode(child);
+						}
+						
+						const endPos = textPosition;
+						
+						// Store formatting information for this range
+						if (childText.length > 0 && (style || className)) {
+							formattingMap.set(startPos + ':' + endPos, {
+								tag: tag,
+								style: style,
+								className: className,
+								text: childText,
+								startPos: startPos,
+								endPos: endPos
 							});
+						}
+						
+						return childText;
+					}
+					return '';
+				}
+				
+				const plainText = traverseNode(tempDiv);
+				console.log('parseExistingFormatting returning - plainText length:', plainText.length, 'formattingMap size:', formattingMap.size); // Debug log
+				return { plainText, formattingMap };
+			}
+			
+			// Function to reapply existing formatting to processed text line by line
+			function reapplyFormattingPerLine(processedLines, formattingMap, originalPlainText) {
+				// Define swap colors that should be preserved
+				const swapColors = ['red', 'purple', 'darkgrey', 'darkblue', 'lightblue', 'brown', 'orange'];
+				
+				// Get the original lines to match with processed lines
+				const originalLines = originalPlainText.split(/\r\n|\n|\r/);
+				const sortedFormatting = Array.from(formattingMap.values()).sort((a, b) => a.startPos - b.startPos);
+				
+				// Create a map of original line content to formatting
+				const lineFormattingMap = new Map();
+				
+				let currentPos = 0;
+				for (let lineIdx = 0; lineIdx < originalLines.length; lineIdx++) {
+					const lineText = originalLines[lineIdx];
+					const lineStart = currentPos;
+					const lineEnd = currentPos + lineText.length;
+					
+					// Find all formatting that applies to this line
+					const lineFormatting = [];
+					for (const format of sortedFormatting) {
+						// Skip gematria calculation lines
+						if (format.style && format.style.includes('color: #00cc00')) {
+							continue;
+						}
+						
+						// Skip ELS highlights (handled separately)
+						if (format.className === 'els-highlight') {
+							continue;
+						}
+						
+						// Check if formatting overlaps with this line
+						if (format.startPos < lineEnd && format.endPos > lineStart) {
+							lineFormatting.push(format);
 						}
 					}
 					
-					// Create the gematria values line with bright green color and dynamic tab separators
-					// Only add tab if the original line contains a tab
-					if (gematriaValuesWithTabs.length > 0) {
-						// Build the gematria line with dynamic tabs after each value
-						let gematriaLine = '';
-						for (let i = 0; i < gematriaValuesWithTabs.length; i++) {
-							gematriaLine += gematriaValuesWithTabs[i].value;
-							// Add tabs after each value (except the last one gets just 1 tab)
-							if (i < gematriaValuesWithTabs.length - 1) {
-								gematriaLine += '\t'.repeat(gematriaValuesWithTabs[i].tabs);
+					if (lineFormatting.length > 0) {
+						lineFormattingMap.set(lineText.trim(), lineFormatting);
+					}
+					
+					currentPos = lineEnd + 1; // +1 for newline character
+				}
+				
+				// Apply formatting to processed lines
+				const formattedLines = [];
+				for (let i = 0; i < processedLines.length; i++) {
+					let line = processedLines[i];
+					
+					// Skip gematria lines (they're already formatted)
+					if (line.includes('color: #00cc00')) {
+						formattedLines.push(line);
+						continue;
+					}
+					
+					// Find matching original line
+					const plainLine = line.replace(/<[^>]*>/g, '').trim();
+					const lineFormatting = lineFormattingMap.get(plainLine);
+					
+					if (lineFormatting) {
+						// Apply formatting from this line
+						for (const format of lineFormatting) {
+							const searchText = format.text.trim();
+							if (searchText && line.includes(searchText)) {
+								const escapedText = searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+								const regex = new RegExp(escapedText, 'g');
+								
+								if (format.style) {
+									line = line.replace(regex, `<span style="${format.style}">${searchText}</span>`);
+								} else if (format.className) {
+									line = line.replace(regex, `<span class="${format.className}">${searchText}</span>`);
+								}
+							}
+						}
+					}
+					
+					formattedLines.push(line);
+				}
+				
+				return formattedLines.join('\n');
+			}
+			
+			// Function to preserve ELS highlights by reprocessing the original HTML with ELS intact
+			function preserveElsHighlights(originalHtml, processedContent) {
+				if (!hasElsHighlights) {
+					return processedContent;
+				}
+				
+				console.log('Preserving ELS highlights by reprocessing original HTML');
+				
+				// Create a temporary div with the original HTML
+				const tempDiv = document.createElement('div');
+				tempDiv.innerHTML = originalHtml;
+				
+				// Get all text nodes and ELS highlights in order
+				const elements = [];
+				
+				function collectElements(node) {
+					if (node.nodeType === Node.TEXT_NODE) {
+						if (node.textContent.trim()) { // Only collect non-empty text nodes
+							// Check if this text node is inside an ELS highlight or swap color
+							let currentParent = node.parentNode;
+							let isInsideElsHighlight = false;
+							let isInsideSwapColor = false;
+							let elsHighlightInfo = null;
+							let swapColorInfo = null;
+							
+							// Define swap colors to detect
+							const swapColors = ['red', 'purple', 'darkgrey', 'darkblue', 'lightblue', 'brown', 'orange'];
+							
+							while (currentParent && currentParent !== tempDiv) {
+								if (currentParent.classList && currentParent.classList.contains('els-highlight')) {
+									isInsideElsHighlight = true;
+									elsHighlightInfo = {
+										className: currentParent.className,
+										style: currentParent.getAttribute('style')
+									};
+									break; // ELS highlights take priority
+								} else if (currentParent.tagName && currentParent.tagName.toLowerCase() === 'span') {
+									const style = currentParent.getAttribute('style');
+									if (style && style.includes('color:')) {
+										// Check if this is a swap color
+										for (const swapColor of swapColors) {
+											if (style.includes(`color: ${swapColor}`) || style.includes(`color:${swapColor}`)) {
+												isInsideSwapColor = true;
+												swapColorInfo = {
+													style: style
+												};
+												break;
+											}
+										}
+									}
+								}
+								currentParent = currentParent.parentNode;
+							}
+							
+							if (isInsideElsHighlight) {
+								elements.push({
+									type: 'els-highlight',
+									content: node.textContent,
+									className: elsHighlightInfo.className,
+									style: elsHighlightInfo.style
+								});
+							} else if (isInsideSwapColor) {
+								elements.push({
+									type: 'swap-color',
+									content: node.textContent,
+									style: swapColorInfo.style
+								});
+							} else {
+								elements.push({
+									type: 'text',
+									content: node.textContent
+								});
+							}
+						}
+					} else if (node.nodeType === Node.ELEMENT_NODE) {
+						// Don't process els-highlight elements directly since we handle them at the text node level
+						if (!node.classList || !node.classList.contains('els-highlight')) {
+							// Process child nodes for non-els-highlight elements
+							for (let child of node.childNodes) {
+								collectElements(child);
+							}
+						} else {
+							// For els-highlight elements, still process children to capture text
+							for (let child of node.childNodes) {
+								collectElements(child);
+							}
+						}
+					}
+				}
+				
+				collectElements(tempDiv);
+				
+				// Now reconstruct the text with ELS highlights and swap colors preserved
+				let reconstructed = '';
+				for (const element of elements) {
+					if (element.type === 'text') {
+						reconstructed += element.content;
+					} else if (element.type === 'els-highlight') {
+						reconstructed += `<span class="${element.className}" style="${element.style}">${element.content}</span>`;
+					} else if (element.type === 'swap-color') {
+						reconstructed += `<span style="${element.style}">${element.content}</span>`;
+					}
+				}
+				
+				console.log('Reconstructed text with ELS highlights and swap colors preserved, length:', reconstructed.length);
+				
+				// Now process this reconstructed text the same way as the regular processing
+				let content = reconstructed;
+				
+				// Insert exactly 2 new lines after each line break
+				content = content.replace(/\r\n/g, '\n');
+				content = content.replace(/\r/g, '\n');
+				content = content.replace(/\n/g, '\n\n');
+				
+				// Split content into lines and process each line
+				const lines = content.split(/\r\n|\n|\r/);
+				let processedLines = [];
+				
+				for (let i = 0; i < lines.length; i++) {
+					const line = lines[i];
+					// Replace spaces with tabs, but preserve HTML structure
+					let lineWithTabs = '';
+					let insideTag = false;
+					
+					for (let j = 0; j < line.length; j++) {
+						const char = line[j];
+						if (char === '<') {
+							insideTag = true;
+							lineWithTabs += char;
+						} else if (char === '>') {
+							insideTag = false;
+							lineWithTabs += char;
+						} else if (char === ' ' && !insideTag) {
+							lineWithTabs += '\t';
+						} else {
+							lineWithTabs += char;
+						}
+					}
+					
+					processedLines.push(lineWithTabs);
+					
+					// Check if this line contains letters (not just whitespace or punctuation)
+					// Extract plain text from the line for letter detection
+					const plainLineText = line.replace(/<[^>]*>/g, '');
+					if (/[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(plainLineText)) {
+						// Split line into words (preserving HTML tags)
+						const words = plainLineText.split(/[\s\t\u00A0\u2000-\u200B\u2028\u2029\u3000]+/).filter(word => word.trim().length > 0);
+						let gematriaValuesWithTabs = [];
+						
+						// Calculate gematria for each word
+						for (let word of words) {
+							// Remove Niqqud characters and HTML tags for calculation
+							const wordWithoutNiqqud = word.replace(/[\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '');
+							const wordLength = wordWithoutNiqqud.length;
+							
+							const cleanWord = word.replace(/[.,!?\-;\*\(\)\[\]\u05C3\u05C0⁕]/g, '');
+							if (cleanWord.length > 0 && /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(cleanWord)) {
+								const gematriaValue = calculateWordGematria(cleanWord);
+								let tabCount = Math.floor(wordLength / 8) + 1;
+								
+								gematriaValuesWithTabs.push({
+									value: gematriaValue,
+									tabs: tabCount
+								});
 							}
 						}
 						
-						const tabPrefix = line.includes('\t') ? '\t' : '';
-						processedLines.push(`${tabPrefix}<span style="color: #00cc00; font-weight: bold; text-shadow: none;">${gematriaLine}</span>`);
+						// Create the gematria values line
+						if (gematriaValuesWithTabs.length > 0) {
+							let gematriaLine = '';
+							for (let i = 0; i < gematriaValuesWithTabs.length; i++) {
+								gematriaLine += gematriaValuesWithTabs[i].value;
+								if (i < gematriaValuesWithTabs.length - 1) {
+									gematriaLine += '\t'.repeat(gematriaValuesWithTabs[i].tabs);
+								}
+							}
+							
+							const tabPrefix = line.includes('\t') ? '\t' : '';
+							processedLines.push(`${tabPrefix}<span style="color: #00cc00; font-weight: bold; text-shadow: none;">${gematriaLine}</span>`);
+						}
 					}
 				}
+				
+				return processedLines.join('\n');
 			}
 			
-			// Update the textArea with the processed content
-			textArea.innerHTML = processedLines.join('\n');
+			// If we have ELS highlights, use the special preservation method
+			let finalContent;
+			if (hasElsHighlights) {
+				console.log('Using ELS-preserving processing method');
+				finalContent = preserveElsHighlights(originalHtml, '');
+			} else {
+				console.log('Using enhanced processing method with formatting preservation');
+				// Parse existing formatting before processing, similar to ELS method
+				const tempDiv = document.createElement('div');
+				tempDiv.innerHTML = textArea.innerHTML;
+				
+				// Get all text nodes and formatting in order
+				const elements = [];
+				
+				function collectAllElements(node) {
+					if (node.nodeType === Node.TEXT_NODE) {
+						if (node.textContent.trim()) {
+							// Check if this text node has any formatting
+							let currentParent = node.parentNode;
+							let formatInfo = null;
+							
+							// Define swap colors to detect
+							const swapColors = ['red', 'purple', 'darkgrey', 'darkblue', 'lightblue', 'brown', 'orange'];
+							
+							while (currentParent && currentParent !== tempDiv) {
+								if (currentParent.tagName && currentParent.tagName.toLowerCase() === 'span') {
+									const style = currentParent.getAttribute('style');
+									const className = currentParent.getAttribute('class');
+									
+									// Check for swap colors
+									if (style && style.includes('color:')) {
+										for (const swapColor of swapColors) {
+											if (style.includes(`color: ${swapColor}`) || style.includes(`color:${swapColor}`)) {
+												formatInfo = {
+													type: 'swap-color',
+													style: style
+												};
+												break;
+											}
+										}
+									}
+									
+									// Check for other formatting if not a swap color
+									if (!formatInfo && (style || className)) {
+										// Skip gematria lines
+										if (style && style.includes('color: #00cc00')) {
+											break;
+										}
+										
+										formatInfo = {
+											type: 'other-format',
+											style: style,
+											className: className
+										};
+									}
+									
+									if (formatInfo) break;
+								}
+								currentParent = currentParent.parentNode;
+							}
+							
+							if (formatInfo) {
+								elements.push({
+									type: formatInfo.type,
+									content: node.textContent,
+									style: formatInfo.style,
+									className: formatInfo.className
+								});
+							} else {
+								elements.push({
+									type: 'text',
+									content: node.textContent
+								});
+							}
+						}
+					} else if (node.nodeType === Node.ELEMENT_NODE) {
+						// Process child nodes
+						for (let child of node.childNodes) {
+							collectAllElements(child);
+						}
+					}
+				}
+				
+				collectAllElements(tempDiv);
+				
+				// Reconstruct the text with all formatting preserved
+				let reconstructed = '';
+				for (const element of elements) {
+					if (element.type === 'text') {
+						reconstructed += element.content;
+					} else if (element.type === 'swap-color') {
+						reconstructed += `<span style="${element.style}">${element.content}</span>`;
+					} else if (element.type === 'other-format') {
+						if (element.style) {
+							reconstructed += `<span style="${element.style}"${element.className ? ` class="${element.className}"` : ''}>${element.content}</span>`;
+						} else if (element.className) {
+							reconstructed += `<span class="${element.className}">${element.content}</span>`;
+						}
+					}
+				}
+				
+				console.log('Reconstructed text with all formatting preserved, length:', reconstructed.length);
+				
+				// Now process this reconstructed text the same way as the ELS processing
+				let content = reconstructed;
+				
+				// Insert exactly 2 new lines after each line break
+				content = content.replace(/\r\n/g, '\n');
+				content = content.replace(/\r/g, '\n');
+				content = content.replace(/\n/g, '\n\n');
+				
+				// Split content into lines and process each line
+				const lines = content.split(/\r\n|\n|\r/);
+				let processedLines = [];
+				
+				for (let i = 0; i < lines.length; i++) {
+					const line = lines[i];
+					// Replace spaces with tabs, but preserve HTML structure
+					let lineWithTabs = '';
+					let insideTag = false;
+					
+					for (let j = 0; j < line.length; j++) {
+						const char = line[j];
+						if (char === '<') {
+							insideTag = true;
+							lineWithTabs += char;
+						} else if (char === '>') {
+							insideTag = false;
+							lineWithTabs += char;
+						} else if (char === ' ' && !insideTag) {
+							lineWithTabs += '\t';
+						} else {
+							lineWithTabs += char;
+						}
+					}
+					
+					processedLines.push(lineWithTabs);
+					
+					// Check if this line contains letters (not just whitespace or punctuation)
+					// Extract plain text from the line for letter detection
+					const plainLineText = line.replace(/<[^>]*>/g, '');
+					if (/[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(plainLineText)) {
+						// Split line into words (preserving HTML tags)
+						const words = plainLineText.split(/[\s\t\u00A0\u2000-\u200B\u2028\u2029\u3000]+/).filter(word => word.trim().length > 0);
+						let gematriaValuesWithTabs = [];
+						
+						// Calculate gematria for each word
+						for (let word of words) {
+							// Remove Niqqud characters and HTML tags for calculation
+							const wordWithoutNiqqud = word.replace(/[\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '');
+							const wordLength = wordWithoutNiqqud.length;
+							
+							const cleanWord = word.replace(/[.,!?\-;\*\(\)\[\]\u05C3\u05C0⁕]/g, '');
+							if (cleanWord.length > 0 && /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(cleanWord)) {
+								const gematriaValue = calculateWordGematria(cleanWord);
+								let tabCount = Math.floor(wordLength / 8) + 1;
+								
+								gematriaValuesWithTabs.push({
+									value: gematriaValue,
+									tabs: tabCount
+								});
+							}
+						}
+						
+						// Create the gematria values line
+						if (gematriaValuesWithTabs.length > 0) {
+							let gematriaLine = '';
+							for (let i = 0; i < gematriaValuesWithTabs.length; i++) {
+								gematriaLine += gematriaValuesWithTabs[i].value;
+								if (i < gematriaValuesWithTabs.length - 1) {
+									gematriaLine += '\t'.repeat(gematriaValuesWithTabs[i].tabs);
+								}
+							}
+							
+							const tabPrefix = line.includes('\t') ? '\t' : '';
+							processedLines.push(`${tabPrefix}<span style="color: #00cc00; font-weight: bold; text-shadow: none;">${gematriaLine}</span>`);
+						}
+					}
+				}
+				
+				finalContent = processedLines.join('\n');
+			}
+			
+			console.log('Final content length:', finalContent.length); // Debug log
+			
+			// Finally, ensure special characters (asterisks and flower marks) are highlighted in red
+			finalContent = finalContent.replace(/\*/g, '<span style="color: #FF0000;">*</span>');
+			finalContent = finalContent.replace(/⁕/g, '<span style="color: #FF0000;">⁕</span>');
+			
+			// Update the textArea with the final formatted content
+			console.log('Setting textArea.innerHTML with final formatted content'); // Debug log
+			textArea.innerHTML = finalContent;
+			console.log('toggleCalc completed successfully'); // Debug log
 		}
 	</script>
 
@@ -3126,11 +3621,35 @@
 					return;
 				}
 				
-				// Clear any previous highlights
+				// Clear any previous highlights while preserving original formatting
 				const existingHighlights = textArea.querySelectorAll('.gematria-match');
 				existingHighlights.forEach(highlight => {
 					const parent = highlight.parentNode;
-					parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+					
+					// Create a span to preserve any original formatting that was there before the highlight
+					const preservedSpan = document.createElement('span');
+					preservedSpan.textContent = highlight.textContent;
+					
+					// Check if the highlight has any preserved styling from before it was highlighted
+					const originalColor = highlight.getAttribute('data-original-color');
+					const originalWeight = highlight.getAttribute('data-original-weight');
+					const originalShadow = highlight.getAttribute('data-original-shadow');
+					const originalBg = highlight.getAttribute('data-original-bg');
+					
+					if (originalColor) {
+						preservedSpan.style.setProperty('color', originalColor, 'important');
+					}
+					if (originalWeight) {
+						preservedSpan.style.setProperty('font-weight', originalWeight, 'important');
+					}
+					if (originalShadow) {
+						preservedSpan.style.setProperty('text-shadow', originalShadow, 'important');
+					}
+					if (originalBg) {
+						preservedSpan.style.setProperty('background-color', originalBg, 'important');
+					}
+					
+					parent.replaceChild(preservedSpan, highlight);
 					parent.normalize();
 				});
 				
@@ -3278,11 +3797,202 @@
 					return ''; // Word position not found
 				}
 
+				// Function to apply gematria search highlights while preserving existing formatting
+				function applySearchHighlights(textContent, matchingWords) {
+					// Create a character map to preserve existing formatting
+					let characterMap = [];
+					let tempDiv = document.createElement('div');
+					tempDiv.innerHTML = textArea.innerHTML;
+					
+					// Walk through the DOM and build character map
+					function walkNode(node, charIndex) {
+						if (node.nodeType === 3) { // Text node
+							let text = node.textContent;
+							for (let i = 0; i < text.length; i++) {
+								if (charIndex[0] < textContent.length) {
+									// Find formatting from parent elements
+									let currentNode = node.parentNode;
+									let styles = {};
+									let hasYellowBg = false;
+									let fontColor = null;
+									let fontWeight = null;
+									let textShadow = null;
+									
+									// Check for existing yellow background, font color, font weight, and text shadow
+									while (currentNode && currentNode !== tempDiv) {
+										if (currentNode.style) {
+											if (currentNode.style.backgroundColor === 'yellow' || 
+												currentNode.style.backgroundColor === '#FFFF00' ||
+												currentNode.style.backgroundColor === 'rgb(255, 255, 0)') {
+												hasYellowBg = true;
+											}
+											if (currentNode.style.color && !fontColor) {
+												fontColor = currentNode.style.color;
+											}
+											if (currentNode.style.fontWeight && !fontWeight) {
+												fontWeight = currentNode.style.fontWeight;
+											}
+											if (currentNode.style.textShadow !== undefined && textShadow === null) {
+												textShadow = currentNode.style.textShadow;
+											}
+										}
+										currentNode = currentNode.parentNode;
+									}
+									
+									characterMap[charIndex[0]] = {
+										char: text[i],
+										hasYellowBg: hasYellowBg,
+										fontColor: fontColor,
+										fontWeight: fontWeight,
+										textShadow: textShadow
+									};
+									charIndex[0]++;
+								}
+							}
+						} else if (node.nodeType === 1) { // Element node
+							for (let child of node.childNodes) {
+								walkNode(child, charIndex);
+							}
+						}
+					}
+					
+					walkNode(tempDiv, [0]);
+					
+					// Find all positions where search matches should be highlighted
+					let searchHighlights = [];
+					for (let match of matchingWords) {
+						const word = match.word;
+						const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+						const wordRegex = new RegExp(`(^|[\\s\\p{P}\\p{Z}])(${escapedWord})(?=[\\s\\p{P}\\p{Z}]|$)`, 'gu');
+						
+						let regexMatch;
+						while ((regexMatch = wordRegex.exec(textContent)) !== null) {
+							const wordStart = regexMatch.index + regexMatch[1].length;
+							const wordEnd = wordStart + word.length;
+							
+							for (let pos = wordStart; pos < wordEnd; pos++) {
+								searchHighlights[pos] = true;
+							}
+						}
+					}
+					
+					// Build the final HTML with preserved formatting
+					let result = '';
+					let i = 0;
+					
+					while (i < characterMap.length) {
+						let char = characterMap[i];
+						if (!char) {
+							i++;
+							continue;
+						}
+						
+						// Check if this character needs search highlighting
+						let needsSearchHighlight = searchHighlights[i];
+						
+						if (needsSearchHighlight) {
+							// Start search highlight span
+							let searchSpanStyle = 'background-color: #00FF00; font-weight: bold; padding: 1px 2px; border-radius: 2px;';
+							
+							// Preserve font color if it exists, otherwise use black
+							if (char.fontColor) {
+								searchSpanStyle += ` color: ${char.fontColor};`;
+							} else {
+								searchSpanStyle += ' color: #000000;';
+							}
+							
+							// Preserve font weight if it exists (e.g., for gematria values)
+							if (char.fontWeight) {
+								searchSpanStyle += ` font-weight: ${char.fontWeight};`;
+							}
+							
+							// Preserve text shadow if it exists (e.g., for gematria non-glow effect)
+							if (char.textShadow !== null) {
+								searchSpanStyle += ` text-shadow: ${char.textShadow};`;
+							}
+							
+							// Build data attributes to preserve original formatting
+							let dataAttributes = '';
+							if (char.fontColor) {
+								dataAttributes += ` data-original-color="${char.fontColor}"`;
+							}
+							if (char.fontWeight) {
+								dataAttributes += ` data-original-weight="${char.fontWeight}"`;
+							}
+							if (char.textShadow !== null) {
+								dataAttributes += ` data-original-shadow="${char.textShadow}"`;
+							}
+							if (char.hasYellowBg) {
+								dataAttributes += ` data-original-bg="yellow"`;
+							}
+							
+							result += `<span class="gematria-match" style="${searchSpanStyle}"${dataAttributes}>`;
+							
+							// Add characters until search highlight ends
+							while (i < characterMap.length && searchHighlights[i]) {
+								char = characterMap[i];
+								if (char) {
+									result += char.char;
+								}
+								i++;
+							}
+							
+							result += '</span>';
+						} else {
+							// Character doesn't need search highlighting, preserve existing formatting
+							if (char.hasYellowBg) {
+								// Preserve yellow background
+								let yellowSpanStyle = 'background-color: yellow;';
+								if (char.fontColor) {
+									yellowSpanStyle += ` color: ${char.fontColor};`;
+								}
+								if (char.fontWeight) {
+									yellowSpanStyle += ` font-weight: ${char.fontWeight};`;
+								}
+								if (char.textShadow !== null) {
+									yellowSpanStyle += ` text-shadow: ${char.textShadow};`;
+								}
+								
+								result += `<span style="${yellowSpanStyle}">`;
+								
+								// Add characters while yellow background continues
+								while (i < characterMap.length && characterMap[i] && 
+									   characterMap[i].hasYellowBg && !searchHighlights[i]) {
+									result += characterMap[i].char;
+									i++;
+								}
+								
+								result += '</span>';
+							} else {
+								// No special formatting, add character as-is
+								let charStyle = '';
+								if (char.fontColor) {
+									charStyle += `color: ${char.fontColor};`;
+								}
+								if (char.fontWeight) {
+									charStyle += ` font-weight: ${char.fontWeight};`;
+								}
+								if (char.textShadow !== null) {
+									charStyle += ` text-shadow: ${char.textShadow};`;
+								}
+								
+								if (charStyle) {
+									result += `<span style="${charStyle}">${char.char}</span>`;
+								} else {
+									result += char.char;
+								}
+								i++;
+							}
+						}
+					}
+					
+					return result;
+				}
+
 				// Split text into words and process each one
-				const textContent = textArea.textContent;
+				let textContent = textArea.textContent;
 				const words = textContent.split(/[\s\n\r\t\u00A0\u2000-\u200B\u2028\u2029\u3000]+/).filter(word => word.trim().length > 0);
 				let matchingWords = [];
-				let highlightedContent = textContent;
 
 				// Process each word from first to last
 				for (let i = 0; i < words.length; i++) {
@@ -3303,16 +4013,11 @@
 							position: i + 1,
 							verseId: verseId
 						});
-						
-						// Highlight the word in the text area
-						// Escape special regex characters in the word
-						const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-						// Use a more flexible regex that works with Hebrew and other languages
-						// Look for the word surrounded by whitespace, punctuation, or start/end of string
-						const wordRegex = new RegExp(`(^|[\\s\\p{P}\\p{Z}])(${escapedWord})(?=[\\s\\p{P}\\p{Z}]|$)`, 'gu');
-						highlightedContent = highlightedContent.replace(wordRegex, `$1<span class="gematria-match">$2</span>`);
 					}
 				}
+				
+				// Apply search highlights while preserving existing formatting
+				const highlightedContent = applySearchHighlights(textContent, matchingWords);
 				
 				// Update the textArea with highlighted content
 				textArea.innerHTML = highlightedContent;
@@ -3367,13 +4072,20 @@
 						resultItem.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding: 8px; margin: 5px 0; background-color: #f5f5f5; border-radius: 5px; border: 1px solid #ddd;';
 						
 						const resultText = document.createElement('span');
-						// Build the result text with verse ID if available
-						let resultString = `${index + 1}. "${match.word}" (Gematria: ${match.gematria}, Position: ${match.position}`;
+						// Build the result text with verse ID if available and Google Translate link
+						let resultString = `${index + 1}. `;
+						
+						// Create Google Translate link for the word
+						// Google Translate auto-detects source language and translates to user's OS default language
+						const googleTranslateUrl = `https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(match.word)}&op=translate`;
+						resultString += `<a href="${googleTranslateUrl}" target="_blank" style="color: #1a73e8; text-decoration: none; font-weight: bold;" title="Translate '${match.word}' with Google Translate">${match.word}</a>`;
+						
+						resultString += ` (Gematria: ${match.gematria}, Position: ${match.position}`;
 						if (match.verseId && match.verseId.trim() !== '') {
 							resultString += `, Verse: ${match.verseId}`;
 						}
 						resultString += ')';
-						resultText.textContent = resultString;
+						resultText.innerHTML = resultString; // Use innerHTML instead of textContent to render the link
 						resultText.style.cssText = 'flex: 1; margin-right: 10px;';
 						
 						const copyBtn = document.createElement('button');
@@ -3588,11 +4300,50 @@
 				const selectedText = selection.toString();
 				console.log('Selected text:', selectedText);
 				if (selectedText.trim()) {
-					// Clear any existing highlights first to get clean text for position calculation
+					// Clear any existing highlights first while preserving original formatting
 					const existingHighlights = textArea.querySelectorAll('.els-highlight');
 					existingHighlights.forEach(highlight => {
 						const parent = highlight.parentNode;
-						parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+						
+						// Create a span to preserve any original formatting that was there before the highlight
+						const preservedSpan = document.createElement('span');
+						preservedSpan.textContent = highlight.textContent;
+						
+						// Check if the highlight has any preserved styling from before it was highlighted
+						const originalColor = highlight.getAttribute('data-original-color');
+						const originalWeight = highlight.getAttribute('data-original-weight');
+						const originalShadow = highlight.getAttribute('data-original-shadow');
+						const hasYellowBg = highlight.getAttribute('data-original-yellow-bg');
+						const hasGreenBg = highlight.getAttribute('data-original-green-bg');
+						const hasGematria = highlight.getAttribute('data-original-gematria');
+						const gematriaStyle = highlight.getAttribute('data-gematria-style');
+						
+						if (hasGematria && gematriaStyle) {
+							// Restore full gematria styling
+							preservedSpan.setAttribute('style', gematriaStyle);
+						} else {
+							// Apply individual preserved styles
+							if (originalColor) {
+								preservedSpan.style.setProperty('color', originalColor, 'important');
+							}
+							if (originalWeight) {
+								preservedSpan.style.setProperty('font-weight', originalWeight, 'important');
+							}
+							if (originalShadow) {
+								preservedSpan.style.setProperty('text-shadow', originalShadow, 'important');
+							}
+							if (hasYellowBg) {
+								preservedSpan.style.setProperty('background-color', 'yellow', 'important');
+							}
+							if (hasGreenBg) {
+								preservedSpan.style.setProperty('background-color', '#00FF00', 'important');
+								preservedSpan.style.setProperty('font-weight', 'bold', 'important');
+								preservedSpan.style.setProperty('padding', '1px 2px', 'important');
+								preservedSpan.style.setProperty('border-radius', '2px', 'important');
+							}
+						}
+						
+						parent.replaceChild(preservedSpan, highlight);
 						parent.normalize();
 					});
 
@@ -3876,12 +4627,12 @@
 					<span class="close" style="position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; color: #aaa; cursor: pointer; z-index: 10;" onclick="document.getElementById('elsModal').remove()">&times;</span>
 					<h2 style="text-align: center; margin-top: 0;">Equidistant Letter Sequence</h2>
 					<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-						<div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: center; gap: 10px;">
-							<div style="display: flex; flex-direction: column; gap: 5px;">
+						<div class="els-controls">
+							<div class="els-input-group" style="display: flex; flex-direction: column; gap: 5px;">
 								<label for="startPosition" style="font-size: 11px; text-align: center;">Start Position</label>
 								<input type="text" id="startPosition" value="${guessStartPosition}" placeholder="Start Position" style="text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
 							</div>
-							<div style="display: flex; flex-direction: column; gap: 5px;">
+							<div class="els-input-group" style="display: flex; flex-direction: column; gap: 5px;">
 								<label for="sequenceNum" style="font-size: 11px; text-align: center;">Sequence Number</label>
 								<input type="text" id="sequenceNum" placeholder="Sequence Number" style="text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
 							</div>
@@ -3893,6 +4644,24 @@
 		`;
 		document.body.appendChild(modal);
 		modal.style.display = 'block';
+
+		// Function to check modal width and apply responsive class
+		function checkModalWidth() {
+			const modalContent = modal.querySelector('.modal-content');
+			if (modalContent) {
+				const modalWidth = modalContent.offsetWidth;
+				// If modal width is 510px or less, use vertical layout
+				if (modalWidth <= 510) {
+					modal.classList.add('narrow-modal');
+				} else {
+					modal.classList.remove('narrow-modal');
+				}
+			}
+		}
+
+		// Check width initially and on window resize
+		setTimeout(checkModalWidth, 0); // Use setTimeout to ensure DOM is fully rendered
+		window.addEventListener('resize', checkModalWidth);
 
 		// Set focus to the sequenceNum textbox
 		const sequenceNumInput = document.getElementById('sequenceNum');
@@ -4310,14 +5079,55 @@
 					document.getElementById('sequenceNum').value = 1;
 				}
 				
-				// Clear any existing highlights first
+				// Clear any existing ELS highlights first while preserving original formatting
 				const existingHighlights = textArea.querySelectorAll('.els-highlight');
 				existingHighlights.forEach(highlight => {
 					const parent = highlight.parentNode;
-					parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+					
+					// Create a span to preserve any original formatting that was there before the highlight
+					const preservedSpan = document.createElement('span');
+					preservedSpan.textContent = highlight.textContent;
+					
+					// Check if the highlight has any preserved styling from before it was highlighted
+					const originalColor = highlight.getAttribute('data-original-color');
+					const originalWeight = highlight.getAttribute('data-original-weight');
+					const originalShadow = highlight.getAttribute('data-original-shadow');
+					const hasYellowBg = highlight.getAttribute('data-original-yellow-bg');
+					const hasGreenBg = highlight.getAttribute('data-original-green-bg');
+					const hasGematria = highlight.getAttribute('data-original-gematria');
+					const gematriaStyle = highlight.getAttribute('data-gematria-style');
+					
+					if (hasGematria && gematriaStyle) {
+						// Restore full gematria styling
+						preservedSpan.setAttribute('style', gematriaStyle);
+					} else {
+						// Apply individual preserved styles
+						if (originalColor) {
+							preservedSpan.style.setProperty('color', originalColor, 'important');
+						}
+						if (originalWeight) {
+							preservedSpan.style.setProperty('font-weight', originalWeight, 'important');
+						}
+						if (originalShadow) {
+							preservedSpan.style.setProperty('text-shadow', originalShadow, 'important');
+						}
+						if (hasYellowBg) {
+							preservedSpan.style.setProperty('background-color', 'yellow', 'important');
+						}
+						if (hasGreenBg) {
+							preservedSpan.style.setProperty('background-color', '#00FF00', 'important');
+							preservedSpan.style.setProperty('font-weight', 'bold', 'important');
+							preservedSpan.style.setProperty('padding', '1px 2px', 'important');
+							preservedSpan.style.setProperty('border-radius', '2px', 'important');
+						}
+					}
+					
+					parent.replaceChild(preservedSpan, highlight);
 					parent.normalize();
 				});
 				
+				// Store original HTML to preserve gematria and other formatting
+				const originalHtml = textArea.innerHTML;
 				const fullText = textArea.textContent;
 				let letters = [];
 				let letterPositions = [];
@@ -4339,21 +5149,262 @@
 					highlightPositions.push(letterPositions[i]);
 				}
 				
-				// Highlight the ELS letters in the textArea
+				// Function to apply ELS highlights while preserving existing formatting
+				function applyElsHighlights(htmlContent, positions) {
+					// Create a character map to preserve existing formatting
+					let characterMap = [];
+					let tempDiv = document.createElement('div');
+					tempDiv.innerHTML = htmlContent;
+					
+					// Walk through the DOM and build character map
+					function walkNode(node, charIndex) {
+						if (node.nodeType === 3) { // Text node
+							let text = node.textContent;
+							for (let i = 0; i < text.length; i++) {
+								if (charIndex[0] < fullText.length) {
+									// Find formatting from parent elements
+									let currentNode = node.parentNode;
+									let hasGematriaFormat = false;
+									let gematriaStyle = '';
+									let fontColor = null;
+									let fontWeight = null;
+									let textShadow = null;
+									let hasYellowBg = false;
+									let hasGreenBg = false;
+									
+									// Check for existing gematria formatting (green color + bold) and other formatting
+									while (currentNode && currentNode !== tempDiv) {
+										if (currentNode.style) {
+											if (currentNode.style.color && 
+												(currentNode.style.color.includes('#00cc00') || 
+												 currentNode.style.color.includes('#00CC00') ||
+												 currentNode.style.color.includes('rgb(0, 204, 0)')) &&
+												currentNode.style.fontWeight && currentNode.style.fontWeight.includes('bold')) {
+												hasGematriaFormat = true;
+												gematriaStyle = currentNode.getAttribute('style');
+											}
+											
+											// Preserve general font color
+											if (currentNode.style.color && !fontColor) {
+												fontColor = currentNode.style.color;
+											}
+											
+											// Preserve font weight
+											if (currentNode.style.fontWeight && !fontWeight) {
+												fontWeight = currentNode.style.fontWeight;
+											}
+											
+											// Preserve text shadow
+											if (currentNode.style.textShadow !== undefined && textShadow === null) {
+												textShadow = currentNode.style.textShadow;
+											}
+											
+											// Check for yellow background
+											if (currentNode.style.backgroundColor === 'yellow' || 
+												currentNode.style.backgroundColor === '#FFFF00' ||
+												currentNode.style.backgroundColor === 'rgb(255, 255, 0)') {
+												hasYellowBg = true;
+											}
+											
+											// Check for green background (gematria-match highlights)
+											if (currentNode.style.backgroundColor === '#00FF00' || 
+												currentNode.style.backgroundColor === '#00ff00' ||
+												currentNode.style.backgroundColor === 'rgb(0, 255, 0)' ||
+												(currentNode.classList && currentNode.classList.contains('gematria-match'))) {
+												hasGreenBg = true;
+											}
+										}
+										currentNode = currentNode.parentNode;
+									}
+									
+									characterMap[charIndex[0]] = {
+										char: text[i],
+										hasGematriaFormat: hasGematriaFormat,
+										gematriaStyle: gematriaStyle,
+										fontColor: fontColor,
+										fontWeight: fontWeight,
+										textShadow: textShadow,
+										hasYellowBg: hasYellowBg,
+										hasGreenBg: hasGreenBg
+									};
+									charIndex[0]++;
+								}
+							}
+						} else if (node.nodeType === 1) { // Element node
+							for (let child of node.childNodes) {
+								walkNode(child, charIndex);
+							}
+						}
+					}
+					
+					walkNode(tempDiv, [0]);
+					
+					// Build the final HTML with ELS highlights and preserved gematria formatting
+					let result = '';
+					let i = 0;
+					
+					while (i < characterMap.length) {
+						let char = characterMap[i];
+						if (!char) {
+							i++;
+							continue;
+						}
+						
+						// Check if this position needs ELS highlighting
+						let needsElsHighlight = positions.includes(i);
+						
+						if (needsElsHighlight) {
+							// Apply ELS highlight while preserving original font color
+							let elsSpanStyle = 'background-color: yellow; font-weight: bold;';
+							
+							// Build data attributes to preserve original formatting
+							let dataAttributes = '';
+							
+							// Preserve font color if it exists, otherwise use black
+							if (char.fontColor) {
+								elsSpanStyle += ` color: ${char.fontColor};`;
+								dataAttributes += ` data-original-color="${char.fontColor}"`;
+							} else {
+								elsSpanStyle += ' color: black;';
+							}
+							
+							// Preserve other formatting attributes
+							if (char.fontWeight) {
+								dataAttributes += ` data-original-weight="${char.fontWeight}"`;
+							}
+							if (char.textShadow !== null) {
+								dataAttributes += ` data-original-shadow="${char.textShadow}"`;
+							}
+							if (char.hasYellowBg) {
+								dataAttributes += ` data-original-yellow-bg="true"`;
+							}
+							if (char.hasGreenBg) {
+								dataAttributes += ` data-original-green-bg="true"`;
+							}
+							if (char.hasGematriaFormat) {
+								dataAttributes += ` data-original-gematria="true"`;
+								dataAttributes += ` data-gematria-style="${char.gematriaStyle}"`;
+							}
+							
+							result += `<span class="els-highlight" style="${elsSpanStyle}"${dataAttributes}>${char.char}</span>`;
+							i++;
+						} else if (char.hasGematriaFormat) {
+							// Preserve gematria formatting - group consecutive gematria characters
+							let gematriaText = '';
+							let currentGematriaStyle = char.gematriaStyle;
+							
+							// Collect all consecutive characters with the same gematria style
+							while (i < characterMap.length && 
+								   characterMap[i] && 
+								   characterMap[i].hasGematriaFormat && 
+								   characterMap[i].gematriaStyle === currentGematriaStyle &&
+								   !positions.includes(i)) {
+								gematriaText += characterMap[i].char;
+								i++;
+							}
+							
+							result += `<span style="${currentGematriaStyle}">${gematriaText}</span>`;
+						} else {
+							// Regular character - preserve any existing formatting and group consecutive similar characters
+							let hasAnyFormatting = char.fontColor || char.fontWeight || char.textShadow || char.hasYellowBg || char.hasGreenBg;
+							
+							if (hasAnyFormatting) {
+								// Build style string for preserved formatting
+								let preservedStyle = '';
+								
+								if (char.fontColor) {
+									preservedStyle += `color: ${char.fontColor}; `;
+								}
+								if (char.fontWeight) {
+									preservedStyle += `font-weight: ${char.fontWeight}; `;
+								}
+								if (char.textShadow !== null && char.textShadow !== undefined) {
+									preservedStyle += `text-shadow: ${char.textShadow}; `;
+								}
+								if (char.hasYellowBg) {
+									preservedStyle += `background-color: yellow; `;
+								}
+								if (char.hasGreenBg) {
+									preservedStyle += `background-color: #00FF00; font-weight: bold; padding: 1px 2px; border-radius: 2px; `;
+								}
+								
+								preservedStyle = preservedStyle.trim();
+								
+								// Group consecutive characters with identical formatting
+								let groupedText = char.char;
+								let j = i + 1;
+								
+								while (j < characterMap.length && characterMap[j] && !positions.includes(j)) {
+									let nextChar = characterMap[j];
+									
+									// Check if next character has identical formatting
+									let nextHasFormatting = nextChar.fontColor || nextChar.fontWeight || nextChar.textShadow || nextChar.hasYellowBg || nextChar.hasGreenBg;
+									
+									if (nextHasFormatting && !nextChar.hasGematriaFormat) {
+										let nextPreservedStyle = '';
+										
+										if (nextChar.fontColor) {
+											nextPreservedStyle += `color: ${nextChar.fontColor}; `;
+										}
+										if (nextChar.fontWeight) {
+											nextPreservedStyle += `font-weight: ${nextChar.fontWeight}; `;
+										}
+										if (nextChar.textShadow !== null && nextChar.textShadow !== undefined) {
+											nextPreservedStyle += `text-shadow: ${nextChar.textShadow}; `;
+										}
+										if (nextChar.hasYellowBg) {
+											nextPreservedStyle += `background-color: yellow; `;
+										}
+										if (nextChar.hasGreenBg) {
+											nextPreservedStyle += `background-color: #00FF00; font-weight: bold; padding: 1px 2px; border-radius: 2px; `;
+										}
+										
+										nextPreservedStyle = nextPreservedStyle.trim();
+										
+										// If styles match exactly, group them
+										if (nextPreservedStyle === preservedStyle) {
+											groupedText += nextChar.char;
+											j++;
+										} else {
+											break;
+										}
+									} else {
+										break;
+									}
+								}
+								
+								result += `<span style="${preservedStyle}">${groupedText}</span>`;
+								i = j;
+							} else {
+								// Truly plain character with no formatting - group consecutive plain characters
+								let plainText = char.char;
+								let j = i + 1;
+								
+								while (j < characterMap.length && characterMap[j] && !positions.includes(j)) {
+									let nextChar = characterMap[j];
+									let nextHasFormatting = nextChar.fontColor || nextChar.fontWeight || nextChar.textShadow || nextChar.hasYellowBg || nextChar.hasGreenBg || nextChar.hasGematriaFormat;
+									
+									if (!nextHasFormatting) {
+										plainText += nextChar.char;
+										j++;
+									} else {
+										break;
+									}
+								}
+								
+								result += plainText;
+								i = j;
+							}
+						}
+					}
+					
+					return result;
+				}
+				
+				// Apply ELS highlights while preserving gematria formatting
 				if (highlightPositions.length > 0) {
-					// Sort positions in descending order to avoid offset issues when inserting spans
-					highlightPositions.sort((a, b) => b - a);
-					
-					let textContent = textArea.textContent;
-					
-					highlightPositions.forEach(pos => {
-						const char = textContent[pos];
-						const before = textContent.substring(0, pos);
-						const after = textContent.substring(pos + 1);
-						textContent = before + `<span class="els-highlight" style="background-color: yellow; color: black; font-weight: bold;">${char}</span>` + after;
-					});
-
-					textArea.innerHTML = textContent;
+					const highlightedContent = applyElsHighlights(originalHtml, highlightPositions);
+					textArea.innerHTML = highlightedContent;
 					
 					// Apply red color to asterisks and flower punctuation marks
 					let finalContent = textArea.innerHTML;
@@ -4486,7 +5537,14 @@
 
 	<script>
 		function toggleSwap(){
+			console.log('toggleSwap function called'); // Debug log
+			
 			const textArea = document.getElementById('textArea');
+			if (!textArea) {
+				console.error('textArea element not found');
+				return;
+			}
+			
 			if (availableColors.length === 0) {
 				availableColors = [...colors];
 			}
@@ -4499,19 +5557,816 @@
 			if (!selectedText) {
 				return; // Empty selection, do nothing
 			}
-			// Escape special regex characters in selectedText for use in RegExp
-			const escapedSelectedText = selectedText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-			// Create a case-insensitive regex to match all instances of selectedText
-			const regex = new RegExp(escapedSelectedText, 'gi');
-			// Replace all instances of selectedText in textArea's textContent with colored textEncrypted
-			// We will replace innerHTML carefully to avoid breaking other HTML tags
-			// So we replace in innerHTML but only the text nodes matching selectedText
-			// For simplicity, replace in innerHTML with regex and wrap replaced text in span with color
-			const coloredText = `<span style="color: ${chosenColor};">${textEncrypted}</span>`;
-			// Replace all instances case-insensitively
-			textArea.innerHTML = textArea.innerHTML.replace(regex, coloredText);
+			
+			console.log('Selected text:', selectedText, 'Color:', chosenColor); // Debug log
+			
+			// Function to encrypt only Hebrew letters while preserving digits and tabs
+			function encryptSelectedText(text) {
+				const encryptionSelect = document.getElementById('encryptionSelect');
+				let selectedOption = encryptionSelect ? encryptionSelect.value : 'Encryption';
+				if (selectedOption === 'Encryption') selectedOption = 'AT-BaSh'; // Default
+				
+				let encryptedText = '';
+				
+				// Process each character individually
+				for (let i = 0; i < text.length; i++) {
+					const char = text[i];
+					
+					// Check if character is a digit or tab - preserve these
+					if (/[\d\t]/.test(char)) {
+						encryptedText += char;
+						continue;
+					}
+					
+					let letter = char;
+					
+					// Apply encryption based on selected method (only to Hebrew letters)
+					switch (selectedOption) {
+						case 'AT-BaSh':
+						case 'Encryption':
+							switch(char){
+								/*aleph*/	case "\u05D0":letter = "\u05EA";break;	// tav
+								/*bet*/		case "\u05D1":letter = "\u05E9";break;	// shin
+								/*gimel*/	case "\u05D2":letter = "\u05E8";break;	// resh
+								/*dalet*/	case "\u05D3":letter = "\u05E7";break;	// kuf
+								/*hey*/		case "\u05D4":letter = "\u05E6";break;	// tzadi
+								/*vav*/		case "\u05D5":letter = "\u05E4";break;	// pey
+								/*zayin*/	case "\u05D6":letter = "\u05E2";break;	// ayin
+								/*chet*/	case "\u05D7":letter = "\u05E1";break;	// samech
+								/*tet*/		case "\u05D8":letter = "\u05E0";break;	// nun
+								/*yod*/		case "\u05D9":letter = "\u05DE";break;	// mem
+								/*kaf*/		case "\u05DB":letter = "\u05DC";break;	// lamed
+								/*lamed*/	case "\u05DC":letter = "\u05DB";break;	// kaf
+								/*mem*/		case "\u05DE":letter = "\u05D9";break;	// yod
+								/*nun*/		case "\u05E0":letter = "\u05D8";break;	// tet
+								/*samech*/	case "\u05E1":letter = "\u05D7";break;	// chet
+								/*ayin*/	case "\u05E2":letter = "\u05D6";break;	// zayin
+								/*pey*/		case "\u05E4":letter = "\u05D5";break;	// vav
+								/*tzadi*/	case "\u05E6":letter = "\u05D4";break;	// hey
+								/*kuf*/		case "\u05E7":letter = "\u05D3";break;	// dalet
+								/*resh*/	case "\u05E8":letter = "\u05D2";break;	// gimel
+								/*shin*/	case "\u05E9":letter = "\u05D1";break;	// bet
+								/*tav*/		case "\u05EA":letter = "\u05D0";break;	// aleph
+								/*kaf F*/	case "\u05DA":letter = "\u05DC";break;	// lamed
+								/*mem F*/	case "\u05DD":letter = "\u05D9";break;	// yod
+								/*nun F*/	case "\u05DF":letter = "\u05D8";break;	// tet
+								/*pey F*/	case "\u05E3":letter = "\u05D5";break;	// vav
+								/*tzadi F*/	case "\u05E5":letter = "\u05D4";break;	// hey
+								default:letter = char; break; // Keep original character if not Hebrew
+							}
+							break;
+							
+						case 'AYiK-BeCheR':
+							switch(char){
+								/*aleph*/	case "\u05D0":letter = "\u05D9";break;	// yod
+								/*bet*/		case "\u05D1":letter = "\u05DB";break;	// kaf
+								/*gimel*/	case "\u05D2":letter = "\u05DC";break;	// lamed
+								/*dalet*/	case "\u05D3":letter = "\u05DE";break;	// mem
+								/*hey*/		case "\u05D4":letter = "\u05E0";break;	// nun
+								/*vav*/		case "\u05D5":letter = "\u05E1";break;	// samech
+								/*zayin*/	case "\u05D6":letter = "\u05E2";break;	// ayin
+								/*chet*/	case "\u05D7":letter = "\u05E4";break;	// pey
+								/*tet*/		case "\u05D8":letter = "\u05E6";break;	// tzadi
+								/*yod*/		case "\u05D9":letter = "\u05E7";break;	// kuf
+								/*kaf*/		case "\u05DB":letter = "\u05E8";break;	// resh
+								/*lamed*/	case "\u05DC":letter = "\u05E9";break;	// shin
+								/*mem*/		case "\u05DE":letter = "\u05EA";break;	// tav
+								/*nun*/		case "\u05E0":letter = "\u05DB";break;	// kaf
+								/*samech*/	case "\u05E1":letter = "\u05DE";break;	// mem
+								/*ayin*/	case "\u05E2":letter = "\u05E0";break;	// nun
+								/*pey*/		case "\u05E4":letter = "\u05E4";break;	// pey
+								/*tzadi*/	case "\u05E6":letter = "\u05E6";break;	// tzadi
+								/*kuf*/		case "\u05E7":letter = "\u05D0";break;	// aleph
+								/*resh*/	case "\u05E8":letter = "\u05D1";break;	// bet
+								/*shin*/	case "\u05E9":letter = "\u05D2";break;	// gimel
+								/*tav*/		case "\u05EA":letter = "\u05D3";break;	// dalet
+								/*kaf F*/	case "\u05DA":letter = "\u05D4";break;	// hey
+								/*mem F*/	case "\u05DD":letter = "\u05D5";break;	// vav
+								/*nun F*/	case "\u05DF":letter = "\u05D6";break;	// zayin
+								/*pey F*/	case "\u05E3":letter = "\u05D7";break;	// chet
+								/*tzadi F*/	case "\u05E5":letter = "\u05D8";break;	// tet
+								default:letter = char; break; // Keep original character if not Hebrew
+							}
+							break;
+							
+						case 'AL-BaM':
+							switch(char){
+								/*aleph*/	case "\u05D0":letter = "\u05DC";break;	// lamed
+								/*bet*/		case "\u05D1":letter = "\u05DE";break;	// mem
+								/*gimel*/	case "\u05D2":letter = "\u05E0";break;	// nun
+								/*dalet*/	case "\u05D3":letter = "\u05E1";break;	// samech
+								/*hey*/		case "\u05D4":letter = "\u05E2";break;	// ayin
+								/*vav*/		case "\u05D5":letter = "\u05E4";break;	// pey
+								/*zayin*/	case "\u05D6":letter = "\u05E6";break;	// tzadi
+								/*chet*/	case "\u05D7":letter = "\u05E7";break;	// kuf
+								/*tet*/		case "\u05D8":letter = "\u05E8";break;	// resh
+								/*yod*/		case "\u05D9":letter = "\u05E9";break;	// shin
+								/*kaf*/		case "\u05DB":letter = "\u05EA";break;	// tav
+								/*lamed*/	case "\u05DC":letter = "\u05D0";break;	// aleph
+								/*mem*/		case "\u05DE":letter = "\u05D1";break;	// bet
+								/*nun*/		case "\u05E0":letter = "\u05D2";break;	// gimel
+								/*samech*/	case "\u05E1":letter = "\u05D3";break;	// dalet
+								/*ayin*/	case "\u05E2":letter = "\u05D4";break;	// hey
+								/*pey*/		case "\u05E4":letter = "\u05D5";break;	// vav
+								/*tzadi*/	case "\u05E6":letter = "\u05D6";break;	// zayin
+								/*kuf*/		case "\u05E7":letter = "\u05D7";break;	// chet
+								/*resh*/	case "\u05E8":letter = "\u05D8";break;	// tet
+								/*shin*/	case "\u05E9":letter = "\u05D9";break;	// yod
+								/*tav*/		case "\u05EA":letter = "\u05DB";break;	// kaf
+								/*kaf F*/	case "\u05DA":letter = "\u05EA";break;	// tav
+								/*mem F*/	case "\u05DD":letter = "\u05D1";break;	// bet
+								/*nun F*/	case "\u05DF":letter = "\u05D2";break;	// gimel
+								/*pey F*/	case "\u05E3":letter = "\u05D5";break;	// vav
+								/*tzadi F*/	case "\u05E5":letter = "\u05D6";break;	// zayin
+								default:letter = char; break; // Keep original character if not Hebrew
+							}
+							break;
+							
+						case 'ACh-BI':
+							switch(char){
+								/*aleph*/	case "\u05D0":letter = "\u05DB";break;	// kaf
+								/*bet*/		case "\u05D1":letter = "\u05D9";break;	// yod
+								/*gimel*/	case "\u05D2":letter = "\u05D8";break;	// tet
+								/*dalet*/	case "\u05D3":letter = "\u05D7";break;	// chet
+								/*hey*/		case "\u05D4":letter = "\u05D6";break;	// zayin
+								/*vav*/		case "\u05D5":letter = "\u05D5";break;	// vav
+								/*zayin*/	case "\u05D6":letter = "\u05D4";break;	// hey
+								/*chet*/	case "\u05D7":letter = "\u05D3";break;	// dalet
+								/*tet*/		case "\u05D8":letter = "\u05D2";break;	// gimel
+								/*yod*/		case "\u05D9":letter = "\u05D1";break;	// bet
+								/*kaf*/		case "\u05DB":letter = "\u05D0";break;	// aleph
+								/*lamed*/	case "\u05DC":letter = "\u05EA";break;	// tav
+								/*mem*/		case "\u05DE":letter = "\u05E9";break;	// shin
+								/*nun*/		case "\u05E0":letter = "\u05E8";break;	// resh
+								/*samech*/	case "\u05E1":letter = "\u05E7";break;	// kuf
+								/*ayin*/	case "\u05E2":letter = "\u05E6";break;	// tzadi
+								/*pey*/		case "\u05E4":letter = "\u05E4";break;	// pey
+								/*tzadi*/	case "\u05E6":letter = "\u05E2";break;	// ayin
+								/*kuf*/		case "\u05E7":letter = "\u05E1";break;	// samech
+								/*resh*/	case "\u05E8":letter = "\u05E0";break;	// nun
+								/*shin*/	case "\u05E9":letter = "\u05DE";break;	// mem
+								/*tav*/		case "\u05EA":letter = "\u05DC";break;	// lamed
+								/*kaf F*/	case "\u05DA":letter = "\u05D0";break;	// aleph
+								/*mem F*/	case "\u05DD":letter = "\u05E9";break;	// shin
+								/*nun F*/	case "\u05DF":letter = "\u05E8";break;	// resh
+								/*pey F*/	case "\u05E3":letter = "\u05E4";break;	// pey
+								/*tzadi F*/	case "\u05E5":letter = "\u05E2";break;	// ayin
+								default:letter = char; break; // Keep original character if not Hebrew
+							}
+							break;
+							
+						case 'AChaS-BeTA':
+							switch(char){
+								/*aleph*/	case "\u05D0":letter = "\u05D7";break;	// chet
+								/*bet*/		case "\u05D1":letter = "\u05D8";break;	// tet
+								/*gimel*/	case "\u05D2":letter = "\u05D9";break;	// yod
+								/*dalet*/	case "\u05D3":letter = "\u05DB";break;	// kaf
+								/*hey*/		case "\u05D4":letter = "\u05DC";break;	// lamed
+								/*vav*/		case "\u05D5":letter = "\u05DE";break;	// mem
+								/*zayin*/	case "\u05D6":letter = "\u05E0";break;	// nun
+								/*chet*/	case "\u05D7":letter = "\u05E1";break;	// samech
+								/*tet*/		case "\u05D8":letter = "\u05E2";break;	// ayin
+								/*yod*/		case "\u05D9":letter = "\u05E4";break;	// pey
+								/*kaf*/		case "\u05DB":letter = "\u05E6";break;	// tzadi
+								/*lamed*/	case "\u05DC":letter = "\u05E7";break;	// kuf
+								/*mem*/		case "\u05DE":letter = "\u05E8";break;	// resh
+								/*nun*/		case "\u05E0":letter = "\u05E9";break;	// shin
+								/*samech*/	case "\u05E1":letter = "\u05D0";break;	// aleph
+								/*ayin*/	case "\u05E2":letter = "\u05D1";break;	// bet
+								/*pey*/		case "\u05E4":letter = "\u05D2";break;	// gimel
+								/*tzadi*/	case "\u05E6":letter = "\u05D3";break;	// dalet
+								/*kuf*/		case "\u05E7":letter = "\u05D4";break;	// hey
+								/*resh*/	case "\u05E8":letter = "\u05D5";break;	// vav
+								/*shin*/	case "\u05E9":letter = "\u05D6";break;	// zayin
+								/*tav*/		case "\u05EA":letter = "\u05EA";break;	// tav
+								/*kaf F*/	case "\u05DA":letter = "\u05E6";break;	// tzadi
+								/*mem F*/	case "\u05DD":letter = "\u05E8";break;	// resh
+								/*nun F*/	case "\u05DF":letter = "\u05E9";break;	// shin
+								/*pey F*/	case "\u05E3":letter = "\u05D2";break;	// gimel
+								/*tzadi F*/	case "\u05E5":letter = "\u05D3";break;	// dalet
+								default:letter = char; break; // Keep original character if not Hebrew
+							}
+							break;
+							
+						case 'AT-BaCh':
+							switch(char){
+								/*aleph*/	case "\u05D0":letter = "\u05D8";break;	// tet
+								/*bet*/		case "\u05D1":letter = "\u05D7";break;	// chet
+								/*gimel*/	case "\u05D2":letter = "\u05D6";break;	// zayin
+								/*dalet*/	case "\u05D3":letter = "\u05D5";break;	// vav
+								/*hey*/		case "\u05D4":letter = "\u05D4";break;	// hey
+								/*vav*/		case "\u05D5":letter = "\u05D3";break;	// dalet
+								/*zayin*/	case "\u05D6":letter = "\u05D2";break;	// gimel
+								/*chet*/	case "\u05D7":letter = "\u05D1";break;	// bet
+								/*tet*/		case "\u05D8":letter = "\u05D0";break;	// aleph
+								/*yod*/		case "\u05D9":letter = "\u05E6";break;	// tzadi
+								/*kaf*/		case "\u05DB":letter = "\u05E4";break;	// pey
+								/*lamed*/	case "\u05DC":letter = "\u05E2";break;	// ayin
+								/*mem*/		case "\u05DE":letter = "\u05E1";break;	// samech
+								/*nun*/		case "\u05E0":letter = "\u05E0";break;	// nun
+								/*samech*/	case "\u05E1":letter = "\u05DE";break;	// mem
+								/*ayin*/	case "\u05E2":letter = "\u05DC";break;	// lamed
+								/*pey*/		case "\u05E4":letter = "\u05DB";break;	// kaf
+								/*tzadi*/	case "\u05E6":letter = "\u05D9";break;	// yod
+								/*kuf*/		case "\u05E7":letter = "\u05EA";break;	// tav
+								/*resh*/	case "\u05E8":letter = "\u05E9";break;	// shin
+								/*shin*/	case "\u05E9":letter = "\u05E8";break;	// resh
+								/*tav*/		case "\u05EA":letter = "\u05E7";break;	// kuf
+								/*kaf F*/	case "\u05DA":letter = "\u05E4";break;	// pey
+								/*mem F*/	case "\u05DD":letter = "\u05E1";break;	// samech
+								/*nun F*/	case "\u05DF":letter = "\u05E0";break;	// nun
+								/*pey F*/	case "\u05E3":letter = "\u05DB";break;	// kaf
+								/*tzadi F*/	case "\u05E5":letter = "\u05D9";break;	// yod
+								default:letter = char; break; // Keep original character if not Hebrew
+							}
+							break;
+							
+						case 'AT-BaCh999':
+							switch(char){
+								/*aleph*/	case "\u05D0":letter = "\u05D8";break;	// tet
+								/*bet*/		case "\u05D1":letter = "\u05D7";break;	// chet
+								/*gimel*/	case "\u05D2":letter = "\u05D6";break;	// zayin
+								/*dalet*/	case "\u05D3":letter = "\u05D5";break;	// vav
+								/*hey*/		case "\u05D4":letter = "\u05D4";break;	// hey
+								/*vav*/		case "\u05D5":letter = "\u05D3";break;	// dalet
+								/*zayin*/	case "\u05D6":letter = "\u05D2";break;	// gimel
+								/*chet*/	case "\u05D7":letter = "\u05D1";break;	// bet
+								/*tet*/		case "\u05D8":letter = "\u05D0";break;	// aleph
+								/*yod*/		case "\u05D9":letter = "\u05E6";break;	// tzadi
+								/*kaf*/		case "\u05DB":letter = "\u05E4";break;	// pey
+								/*lamed*/	case "\u05DC":letter = "\u05E2";break;	// ayin
+								/*mem*/		case "\u05DE":letter = "\u05E1";break;	// samech
+								/*nun*/		case "\u05E0":letter = "\u05E0";break;	// nun
+								/*samech*/	case "\u05E1":letter = "\u05DE";break;	// mem
+								/*ayin*/	case "\u05E2":letter = "\u05DC";break;	// lamed
+								/*pey*/		case "\u05E4":letter = "\u05DB";break;	// kaf
+								/*tzadi*/	case "\u05E6":letter = "\u05D9";break;	// yod
+								/*kuf*/		case "\u05E7":letter = "\u05EA";break;	// tav
+								/*resh*/	case "\u05E8":letter = "\u05E9";break;	// shin
+								/*shin*/	case "\u05E9":letter = "\u05E8";break;	// resh
+								/*tav*/		case "\u05EA":letter = "\u05E7";break;	// kuf
+								/*kaf F*/	case "\u05DA":letter = "\u05E5";break;	// tzadi F
+								/*mem F*/	case "\u05DD":letter = "\u05E3";break;	// pey F
+								/*nun F*/	case "\u05DF":letter = "\u05DF";break;	// nun F
+								/*pey F*/	case "\u05E3":letter = "\u05DD";break;	// mem F
+								/*tzadi F*/	case "\u05E5":letter = "\u05DA";break;	// kaf F
+								default:letter = char; break; // Keep original character if not Hebrew
+							}
+							break;
+							
+						case 'AiY-BaK':
+							switch(char){
+								/*aleph*/	case "\u05D0":letter = "\u05D9";break;	// yod
+								/*bet*/		case "\u05D1":letter = "\u05DB";break;	// kaf
+								/*gimel*/	case "\u05D2":letter = "\u05DC";break;	// lamed
+								/*dalet*/	case "\u05D3":letter = "\u05DE";break;	// mem
+								/*hey*/		case "\u05D4":letter = "\u05E0";break;	// nun
+								/*vav*/		case "\u05D5":letter = "\u05E1";break;	// samech
+								/*zayin*/	case "\u05D6":letter = "\u05E2";break;	// ayin
+								/*chet*/	case "\u05D7":letter = "\u05E4";break;	// pey
+								/*tet*/		case "\u05D8":letter = "\u05E6";break;	// tzadi
+								/*yod*/		case "\u05D9":letter = "\u05D0";break; 	// aleph
+								/*kaf*/		case "\u05DB":letter = "\u05D1";break;	// bet
+								/*lamed*/	case "\u05DC":letter = "\u05D2";break;	// gimel
+								/*mem*/		case "\u05DE":letter = "\u05D3";break;	// dalet
+								/*nun*/		case "\u05E0":letter = "\u05D4";break;	// hey
+								/*samech*/	case "\u05E1":letter = "\u05D5";break;	// vav
+								/*ayin*/	case "\u05E2":letter = "\u05D6";break;	// zayin
+								/*pey*/		case "\u05E4":letter = "\u05D7";break;	// chet
+								/*tzadi*/	case "\u05E6":letter = "\u05D8";break;	// tet
+								/*kuf*/		case "\u05E7":letter = "\u05E8";break;	// resh
+								/*resh*/	case "\u05E8":letter = "\u05E7";break;	// kuf
+								/*shin*/	case "\u05E9":letter = "\u05EA";break;	// tav
+								/*tav*/		case "\u05EA":letter = "\u05E9";break;	// shin
+								/*kaf F*/	case "\u05DA":letter = "\u05D1";break;	// bet
+								/*mem F*/	case "\u05DD":letter = "\u05D3";break;	// dalet
+								/*nun F*/	case "\u05DF":letter = "\u05D4";break;	// hey
+								/*pey F*/	case "\u05E3":letter = "\u05D7";break;	// chet
+								/*tzadi F*/	case "\u05E5":letter = "\u05D8";break;	// tet
+								default:letter = char; break; // Keep original character if not Hebrew
+							}
+							break;
+							
+						case 'ATz-BaPh':
+							switch(char){
+								/*aleph*/	case "\u05D0":letter = "\u05E6";break;	// tzadi
+								/*bet*/		case "\u05D1":letter = "\u05E4";break;	// pey
+								/*gimel*/	case "\u05D2":letter = "\u05E0";break;	// nun
+								/*dalet*/	case "\u05D3":letter = "\u05DE";break;	// mem
+								/*hey*/		case "\u05D4":letter = "\u05DB";break;	// kaf
+								/*vav*/		case "\u05D5":letter = "\u05EA";break;	// tav
+								/*zayin*/	case "\u05D6":letter = "\u05E9";break;	// shin
+								/*chet*/	case "\u05D7":letter = "\u05E8";break;	// resh
+								/*tet*/		case "\u05D8":letter = "\u05E7";break;	// kuf
+								/*yod*/		case "\u05D9":letter = "\u05E6";break;	// tzadi
+								/*kaf*/		case "\u05DB":letter = "\u05E4";break;	// pey
+								/*lamed*/	case "\u05DC":letter = "\u05E2";break;	// ayin
+								/*mem*/		case "\u05DE":letter = "\u05E1";break;	// samech
+								/*nun*/		case "\u05E0":letter = "\u05E0";break;	// nun
+								/*samech*/	case "\u05E1":letter = "\u05DE";break;	// mem
+								/*ayin*/	case "\u05E2":letter = "\u05DC";break;	// lamed
+								/*pey*/		case "\u05E4":letter = "\u05DB";break;	// kaf
+								/*tzadi*/	case "\u05E6":letter = "\u05D9";break;	// yod
+								/*kuf*/		case "\u05E7":letter = "\u05D8";break;	// tet
+								/*resh*/	case "\u05E8":letter = "\u05D7";break;	// chet
+								/*shin*/	case "\u05E9":letter = "\u05D6";break;	// zayin
+								/*tav*/		case "\u05EA":letter = "\u05D5";break;	// vav
+								/*kaf F*/	case "\u05DA":letter = "\u05D4";break;	// hey
+								/*mem F*/	case "\u05DD":letter = "\u05D3";break;	// dalet
+								/*nun F*/	case "\u05DF":letter = "\u05D2";break;	// gimel
+								/*pey F*/	case "\u05E3":letter = "\u05D1";break;	// bet
+								/*tzadi F*/	case "\u05E5":letter = "\u05D0";break;	// aleph
+								default:letter = char; break; // Keep original character if not Hebrew
+							}
+							break;
+							
+						case 'AL-BeTh':
+							switch(char){
+								/*aleph*/	case "\u05D0":letter = "\u05DC";break;	// lamed
+								/*bet*/		case "\u05D1":letter = "\u05EA";break;	// tav
+								/*gimel*/	case "\u05D2":letter = "\u05DE";break;	// mem
+								/*dalet*/	case "\u05D3":letter = "\u05E9";break;	// shin
+								/*hey*/		case "\u05D4":letter = "\u05E0";break;	// nun
+								/*vav*/		case "\u05D5":letter = "\u05E8";break;	// resh
+								/*zayin*/	case "\u05D6":letter = "\u05E1";break;	// samech
+								/*chet*/	case "\u05D7":letter = "\u05E7";break;	// kuf
+								/*tet*/		case "\u05D8":letter = "\u05E2";break;	// ayin
+								/*yod*/		case "\u05D9":letter = "\u05E6";break;	// tzadi
+								/*kaf*/		case "\u05DB":letter = "\u05E4";break;	// pey
+								/*lamed*/	case "\u05DC":letter = "\u05D0";break;	// aleph
+								/*mem*/		case "\u05DE":letter = "\u05D2";break;	// gimel
+								/*nun*/		case "\u05E0":letter = "\u05D4";break;	// hey
+								/*samech*/	case "\u05E1":letter = "\u05D6";break;	// zayin
+								/*ayin*/	case "\u05E2":letter = "\u05D8";break;	// tet
+								/*pey*/		case "\u05E4":letter = "\u05DB";break;	// kaf
+								/*tzadi*/	case "\u05E6":letter = "\u05D9";break;	// yod
+								/*kuf*/		case "\u05E7":letter = "\u05D7";break;	// chet
+								/*resh*/	case "\u05E8":letter = "\u05D5";break;	// vav
+								/*shin*/	case "\u05E9":letter = "\u05D3";break;	// dalet
+								/*tav*/		case "\u05EA":letter = "\u05D1";break;	// bet
+								/*kaf F*/	case "\u05DA":letter = "\u05E4";break;	// pey
+								/*mem F*/	case "\u05DD":letter = "\u05D2";break;	// gimel
+								/*nun F*/	case "\u05DF":letter = "\u05D4";break;	// hey
+								/*pey F*/	case "\u05E3":letter = "\u05DB";break;	// kaf
+								/*tzadi F*/	case "\u05E5":letter = "\u05D9";break;	// yod
+								default:letter = char; break; // Keep original character if not Hebrew
+							}
+							break;
+							
+						case 'Ofanim':
+							switch(char){
+								/*aleph*/	case "\u05D0":letter = "\u05E4";break;	// pey
+								/*bet*/		case "\u05D1":letter = "\u05EA";break;	// tav
+								/*gimel*/	case "\u05D2":letter = "\u05DC";break;	// lamed
+								/*dalet*/	case "\u05D3":letter = "\u05EA";break;	// tav
+								/*hey*/		case "\u05D4":letter = "\u05D0";break;	// aleph
+								/*vav*/		case "\u05D5":letter = "\u05D5";break;	// vav
+								/*zayin*/	case "\u05D6":letter = "\u05E0";break;	// nun
+								/*chet*/	case "\u05D7":letter = "\u05EA";break;	// tav
+								/*tet*/		case "\u05D8":letter = "\u05EA";break;	// tav
+								/*yod*/		case "\u05D9":letter = "\u05D3";break;	// dalet
+								/*kaf*/		case "\u05DB":letter = "\u05E4";break;	// pey
+								/*lamed*/	case "\u05DC":letter = "\u05D3";break;	// dalet
+								/*mem*/		case "\u05DE":letter = "\u05DE";break;	// mem
+								/*nun*/		case "\u05E0":letter = "\u05E0";break;	// nun
+								/*samech*/	case "\u05E1":letter = "\u05DB";break;	// kaf
+								/*ayin*/	case "\u05E2":letter = "\u05E0";break;	// nun
+								/*pey*/		case "\u05E4":letter = "\u05D0";break;	// aleph
+								/*tzadi*/	case "\u05E6":letter = "\u05D9";break;	// yod
+								/*kuf*/		case "\u05E7":letter = "\u05E4";break;	// pey
+								/*resh*/	case "\u05E8":letter = "\u05E9";break;	// shin
+								/*shin*/	case "\u05E9":letter = "\u05E0";break;	// nun
+								/*tav*/		case "\u05EA":letter = "\u05D5";break;	// vav
+								/*kaf F*/	case "\u05DA":letter = "\u05E4";break;	// pey
+								/*mem F*/	case "\u05DD":letter = "\u05DE";break;	// mem
+								/*nun F*/	case "\u05DF":letter = "\u05E0";break;	// nun
+								/*pey F*/	case "\u05E3":letter = "\u05D0";break;	// aleph
+								/*tzadi F*/	case "\u05E5":letter = "\u05D9";break;	// yod
+								default:letter = char; break; // Keep original character if not Hebrew
+							}
+							break;
+							
+						// Add other encryption methods as needed
+						default:
+							letter = char; // No encryption
+					}
+					
+					encryptedText += letter;
+				}
+				
+				// Handle final forms for last character if it's Hebrew
+				if (encryptedText.length > 0) {
+					const lastChar = encryptedText[encryptedText.length - 1];
+					let finalChar = lastChar;
+					switch(lastChar){
+						/*kaf*/		case "\u05DB":finalChar = "\u05DA";break;	// kaf F
+						/*mem*/		case "\u05DE":finalChar = "\u05DD";break;	// mem F
+						/*nun*/		case "\u05E0":finalChar = "\u05DF";break;	// nun F
+						/*pey*/		case "\u05E4":finalChar = "\u05E3";break;	// pey F
+						/*tzadi*/	case "\u05E6":finalChar = "\u05E5";break;	// tzadi F
+					}
+					if (finalChar !== lastChar) {
+						encryptedText = encryptedText.substring(0, encryptedText.length - 1) + finalChar;
+					}
+				}
+				
+				return encryptedText;
+			}
+			
+			// Function to parse and preserve only yellow highlights and red asterisk/flower marks
+			function parseSelectiveFormatting(htmlContent) {
+				const tempDiv = document.createElement('div');
+				tempDiv.innerHTML = htmlContent;
+				
+				const formattingMap = new Map();
+				let textPosition = 0;
+				
+				function traverseNode(node) {
+					if (node.nodeType === Node.TEXT_NODE) {
+						const nodeText = node.textContent;
+						const startPos = textPosition;
+						textPosition += nodeText.length;
+						return nodeText;
+					} else if (node.nodeType === Node.ELEMENT_NODE) {
+						const tag = node.tagName.toLowerCase();
+						const style = node.getAttribute('style');
+						const className = node.getAttribute('class');
+						
+						let childText = '';
+						const startPos = textPosition;
+						
+						for (let child of node.childNodes) {
+							childText += traverseNode(child);
+						}
+						
+						const endPos = textPosition;
+						
+						// Preserve specific formatting:
+						// 1. Yellow background highlights
+						// 2. Red color for asterisks and flower marks  
+						// 3. Gematria values (green color with bold and non-glow)
+						// 4. Any font color (including previous swap colors)
+						let shouldPreserve = false;
+						
+						if (style) {
+							// Check for yellow background (various yellow shades)
+							if (style.includes('background') && (
+								style.includes('yellow') || 
+								style.includes('#ffff00') || 
+								style.includes('#fffacd') || 
+								style.includes('rgb(255, 255, 0)') ||
+								style.includes('rgba(255, 255, 0')
+							)) {
+								shouldPreserve = true;
+							}
+							// Check for red color on asterisks or flower marks
+							else if ((childText === '*' || childText === '⁕') && (
+								style.includes('color') && (
+									style.includes('red') || 
+									style.includes('#FF0000') || 
+									style.includes('#ff0000') ||
+									style.includes('rgb(255, 0, 0)')
+								)
+							)) {
+								shouldPreserve = true;
+							}
+							// Check for gematria values (green color + bold + non-glow)
+							else if (style.includes('color') && (
+								style.includes('#00cc00') || 
+								style.includes('#00CC00') ||
+								style.includes('rgb(0, 204, 0)')
+							) && style.includes('font-weight') && style.includes('bold')) {
+								shouldPreserve = true;
+							}
+							// Check for any other font color (including previous swap colors)
+							else if (style.includes('color') && childText.length > 0) {
+								shouldPreserve = true;
+							}
+						}
+						
+						if (childText.length > 0 && shouldPreserve) {
+							formattingMap.set(startPos + ':' + endPos, {
+								tag: tag,
+								style: style,
+								className: className,
+								text: childText,
+								startPos: startPos,
+								endPos: endPos
+							});
+						}
+						
+						return childText;
+					}
+					return '';
+				}
+				
+				const plainText = traverseNode(tempDiv);
+				return { plainText, formattingMap };
+			}
+			
+			// Function to apply selective formatting to processed text
+			function applySelectiveFormatting(plainText, formattingMap, selectedText, encryptedSelectedText, chosenColor) {
+				let result = plainText;
+				
+				// Get the actual selection range from the DOM to properly identify selected characters
+				const selection = window.getSelection();
+				let selectedCharPositions = new Set();
+				
+				if (selection.rangeCount > 0) {
+					const range = selection.getRangeAt(0);
+					const tempDiv = document.createElement('div');
+					tempDiv.innerHTML = textArea.innerHTML;
+					
+					// Walk through the DOM and map character positions to determine which were actually selected
+					let globalCharIndex = 0;
+					let selectionStartIndex = -1;
+					let selectionEndIndex = -1;
+					
+					function walkForSelection(node) {
+						if (node.nodeType === Node.TEXT_NODE) {
+							const nodeText = node.textContent;
+							const nodeStartIndex = globalCharIndex;
+							const nodeEndIndex = globalCharIndex + nodeText.length;
+							
+							// Check if this text node intersects with the selection
+							try {
+								// Create a range for this text node
+								const nodeRange = document.createRange();
+								nodeRange.setStart(node, 0);
+								nodeRange.setEnd(node, nodeText.length);
+								
+								// Check if the selection intersects with this node
+								if (selection.getRangeAt(0).intersectsNode && selection.getRangeAt(0).intersectsNode(node)) {
+									// This node is part of the selection
+									for (let i = 0; i < nodeText.length; i++) {
+										selectedCharPositions.add(globalCharIndex + i);
+									}
+								}
+							} catch (e) {
+								// Fallback: if we can't determine intersection, use text matching
+								// This is less precise but safer
+							}
+							
+							globalCharIndex += nodeText.length;
+						} else if (node.nodeType === Node.ELEMENT_NODE) {
+							for (let child of node.childNodes) {
+								walkForSelection(child);
+							}
+						}
+					}
+					
+					// Try to map the actual selected characters
+					try {
+						walkForSelection(tempDiv);
+					} catch (e) {
+						console.log('DOM walking failed, using text-based fallback');
+						// Fallback to text-based approach but be more careful
+						const selectedTextStart = plainText.indexOf(selectedText);
+						if (selectedTextStart >= 0) {
+							for (let i = selectedTextStart; i < selectedTextStart + selectedText.length; i++) {
+								selectedCharPositions.add(i);
+							}
+						}
+					}
+				}
+				
+				// If we still have no selected positions, fall back to text matching
+				if (selectedCharPositions.size === 0) {
+					const selectedTextStart = plainText.indexOf(selectedText);
+					if (selectedTextStart >= 0) {
+						for (let i = selectedTextStart; i < selectedTextStart + selectedText.length; i++) {
+							selectedCharPositions.add(i);
+						}
+					}
+				}
+				
+				console.log('Selected character positions:', Array.from(selectedCharPositions)); // Debug log
+				
+				// Build the encrypted text with preserved formatting
+				const sortedFormatting = Array.from(formattingMap.values()).sort((a, b) => a.startPos - b.startPos);
+				
+				// Track which characters have formatting (yellow highlights, red asterisks, etc.)
+				let formattingMap2 = new Map(); // position -> format info
+				
+				// First pass: Map ALL formatting positions, not just selected text
+				for (let format of sortedFormatting) {
+					const formatStart = format.startPos;
+					const formatEnd = format.endPos;
+					
+					// Preserve ALL yellow highlights and red asterisks/flowers throughout the text
+					// But handle green highlights specially for selected text
+					if (format.style || format.className) {
+						// Check for yellow background highlights
+						const isYellowHighlight = format.style && format.style.includes('background') && 
+							(format.style.includes('yellow') || format.style.includes('#ffff00') || 
+							 format.style.includes('#fffacd') || format.style.includes('rgb(255, 255, 0)') ||
+							 format.style.includes('rgba(255, 255, 0'));
+						
+						// Check for green background highlights (gematria matches)
+						const isGreenHighlight = (format.className && format.className.includes('gematria-match')) ||
+							(format.style && format.style.includes('background') && 
+							 (format.style.includes('#00FF00') || format.style.includes('#00ff00') || 
+							  format.style.includes('rgb(0, 255, 0)') || format.style.includes('rgba(0, 255, 0')));
+						
+						// Check for gematria values (green color + bold + non-glow)
+						const isGematriaValue = format.style && format.style.includes('color') && (
+							format.style.includes('#00cc00') || 
+							format.style.includes('#00CC00') ||
+							format.style.includes('rgb(0, 204, 0)')
+						) && format.style.includes('font-weight') && format.style.includes('bold');
+						
+						// Check for red asterisks/flowers
+						const isRedSpecialChar = (format.text === '*' || format.text === '⁕') && 
+							format.style && format.style.includes('color') && 
+							(format.style.includes('red') || format.style.includes('#FF0000') || 
+							 format.style.includes('#ff0000') || format.style.includes('rgb(255, 0, 0)'));
+						
+						// Check for any other font color (including previous swap colors)
+						const hasOtherFontColor = format.style && format.style.includes('color') && 
+							!isGematriaValue && !isRedSpecialChar && format.text.length > 0;
+						
+						// Check for multi-character yellow highlights
+						const isMultiCharYellow = format.text.length > 1 && isYellowHighlight;
+						
+						if (isYellowHighlight || isRedSpecialChar || isMultiCharYellow || isGematriaValue || hasOtherFontColor) {
+							// Mark these character positions as having formatting (always preserve)
+							for (let pos = formatStart; pos < formatEnd; pos++) {
+								formattingMap2.set(pos, format);
+							}
+						} else if (isGreenHighlight) {
+							// Mark green highlights but with special handling flag
+							for (let pos = formatStart; pos < formatEnd; pos++) {
+								formattingMap2.set(pos, { ...format, isGreenHighlight: true });
+							}
+						}
+					}
+				}
+				
+				// Second pass: Build the result with encrypted text and preserved formatting
+				let resultChars = plainText.split('');
+				
+				// Replace the selected characters with encrypted text, character by character
+				if (selectedCharPositions.size > 0) {
+					const encryptedChars = encryptedSelectedText.split('');
+					const selectedPositionsArray = Array.from(selectedCharPositions).sort((a, b) => a - b);
+					
+					for (let i = 0; i < Math.min(selectedPositionsArray.length, encryptedChars.length); i++) {
+						const pos = selectedPositionsArray[i];
+						if (pos < resultChars.length) {
+							resultChars[pos] = encryptedChars[i];
+						}
+					}
+				}
+				
+				// Third pass: Apply formatting while preserving structure and grouping consecutive formatting
+				result = '';
+				let i = 0;
+				
+				while (i < resultChars.length) {
+					const char = resultChars[i];
+					let foundFormatting = false;
+					
+					// Check if this position has any formatting that should be preserved
+					if (formattingMap2.has(i)) {
+						const format = formattingMap2.get(i);
+						
+						// Check if it's a green highlight (gematria match)
+						if (format.isGreenHighlight) {
+							// Green highlights are removed from selected text, preserved elsewhere
+							if (selectedCharPositions.has(i)) {
+								// This character was in the selected text - remove green, apply swap color
+								// Group consecutive selected characters
+								let consecutiveText = '';
+								while (i < resultChars.length && selectedCharPositions.has(i)) {
+									consecutiveText += resultChars[i];
+									i++;
+								}
+								result += `<span style="color: ${chosenColor};">${consecutiveText}</span>`;
+							} else {
+								// This character was not selected - preserve green highlight
+								// Group consecutive characters with same green formatting
+								let consecutiveText = '';
+								const currentStyle = format.style;
+								const currentClassName = format.className;
+								
+								while (i < resultChars.length && formattingMap2.has(i) && 
+									   formattingMap2.get(i).isGreenHighlight && 
+									   !selectedCharPositions.has(i)) {
+									consecutiveText += resultChars[i];
+									i++;
+								}
+								
+								if (currentStyle) {
+									result += `<span style="${currentStyle}"${currentClassName ? ` class="${currentClassName}"` : ''}>${consecutiveText}</span>`;
+								} else if (currentClassName) {
+									result += `<span class="${currentClassName}">${consecutiveText}</span>`;
+								}
+							}
+							foundFormatting = true;
+						} else {
+							// Check if it's a yellow highlight
+							const isYellowHighlight = format.style && format.style.includes('background') && 
+								(format.style.includes('yellow') || format.style.includes('#ffff00') || 
+								 format.style.includes('#fffacd') || format.style.includes('rgb(255, 255, 0)') ||
+								 format.style.includes('rgba(255, 255, 0'));
+							
+							if (isYellowHighlight) {
+								// Group consecutive characters with yellow background
+								let consecutiveText = '';
+								const currentStyle = format.style;
+								
+								if (selectedCharPositions.has(i)) {
+									// Selected text with yellow background - combine yellow background with swap color
+									while (i < resultChars.length && formattingMap2.has(i) && 
+										   selectedCharPositions.has(i) && isYellowHighlight) {
+										consecutiveText += resultChars[i];
+										i++;
+									}
+									result += `<span style="${currentStyle}; color: ${chosenColor};">${consecutiveText}</span>`;
+								} else {
+									// Non-selected text - just apply yellow background
+									while (i < resultChars.length && formattingMap2.has(i) && 
+										   !selectedCharPositions.has(i) && 
+										   formattingMap2.get(i).style === currentStyle) {
+										consecutiveText += resultChars[i];
+										i++;
+									}
+									result += `<span style="${currentStyle}">${consecutiveText}</span>`;
+								}
+								foundFormatting = true;
+							} else {
+								// Other formatting (red asterisks, gematria values, swap colors, etc.)
+								// Group consecutive characters with same formatting
+								let consecutiveText = '';
+								const currentStyle = format.style;
+								const currentClassName = format.className;
+								
+								while (i < resultChars.length && formattingMap2.has(i) && 
+									   formattingMap2.get(i).style === currentStyle && 
+									   formattingMap2.get(i).className === currentClassName &&
+									   !formattingMap2.get(i).isGreenHighlight) {
+									consecutiveText += resultChars[i];
+									i++;
+								}
+								
+								if (currentStyle) {
+									result += `<span style="${currentStyle}">${consecutiveText}</span>`;
+								} else if (currentClassName) {
+									result += `<span class="${currentClassName}">${consecutiveText}</span>`;
+								}
+								foundFormatting = true;
+							}
+						}
+					}
+					
+					if (!foundFormatting) {
+						// Check if this character is in the selected text (should get swap color)
+						if (selectedCharPositions.has(i)) {
+							// Group consecutive selected characters
+							let consecutiveText = '';
+							while (i < resultChars.length && selectedCharPositions.has(i) && !formattingMap2.has(i)) {
+								consecutiveText += resultChars[i];
+								i++;
+							}
+							result += `<span style="color: ${chosenColor};">${consecutiveText}</span>`;
+						} else {
+							// No special formatting, group consecutive unformatted characters
+							let consecutiveText = '';
+							while (i < resultChars.length && !formattingMap2.has(i) && !selectedCharPositions.has(i)) {
+								consecutiveText += resultChars[i];
+								i++;
+							}
+							result += consecutiveText;
+						}
+					}
+				}
+				
+				// Finally, ensure special characters (asterisks and flower marks) are highlighted in red
+				// This ensures they stay red even if not previously formatted
+				result = result.replace(/(?<!<[^>]*>)\*(?![^<]*>)/g, '<span style="color: #FF0000;">*</span>');
+				result = result.replace(/(?<!<[^>]*>)⁕(?![^<]*>)/g, '<span style="color: #FF0000;">⁕</span>');
+				
+				return result;
+			}
+			
+			// Parse existing formatting before processing (only yellow highlights and red asterisk/flowers)
+			const { plainText, formattingMap } = parseSelectiveFormatting(textArea.innerHTML);
+			console.log('Parsed selective formatting - plainText length:', plainText.length, 'formattingMap size:', formattingMap.size); // Debug log
+			
+			// Encrypt only the selected text while preserving digits and tabs
+			const encryptedSelectedText = encryptSelectedText(selectedText);
+			console.log('Encrypted selected text:', encryptedSelectedText); // Debug log
+			
+			// Apply selective formatting including the new swap color
+			const finalContent = applySelectiveFormatting(plainText, formattingMap, selectedText, encryptedSelectedText, chosenColor);
+			
+			// Update the textArea with the formatted content
+			console.log('Setting textArea.innerHTML with selectively formatted content'); // Debug log
+			textArea.innerHTML = finalContent;
+			
 			// Clear selection
 			selection.removeAllRanges();
+			console.log('toggleSwap completed successfully'); // Debug log
 		}
 	</script>
 
@@ -5622,7 +7477,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			const selectedValue = removeSelect.value;
 			if (selectedValue === 'Niqqud') {
 				const textAreaContent = textArea.textContent;
-				const hebrewCharacters = /[\u0590\u05B0-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g; // except for Cantillation and new lines &&[^\u000A-\u000D\u0085\u2028\u2029\r\n]
+				const hebrewCharacters = /[\u0590\u05B0-\u05BD\u05BF\u05C1-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g; // except for Cantillation, new lines, and ׀ (U+05C0)
 				const noNiqqudContent = textAreaContent.replace(hebrewCharacters, '');
 				textArea.innerHTML = highlightSpecialCharacters(noNiqqudContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
@@ -5644,7 +7499,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		    const selectedValue = removeSelect.value;
 		    if (selectedValue === 'Punctuation') {
 		        const textAreaContent = textArea.textContent;
-		        const noPunctuationContent = textAreaContent.replace(/[.,!?\-;\(\)\[\]\u05C3]/g, '');
+		        const noPunctuationContent = textAreaContent.replace(/ \u05C0/g, '').replace(/[.,!?\-;\(\)\[\]\u05C3\u05C0]/g, '');
 		        textArea.innerHTML = highlightSpecialCharacters(noPunctuationContent);
 				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 		    }
@@ -6564,7 +8419,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						document.getElementById('encrypted').innerHTML = `
 							<div class="encrypted-label">Encrypted:</div>
 							<div class="encrypted-content">
-								<a style="text-decoration: none; direction: rtl;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank">
+								<a style="text-decoration: none; direction: rtl;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank">
 									<span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
 								</a>
 							</div>`;
@@ -6641,7 +8496,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AT-BaSh") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
@@ -6714,7 +8569,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "ACh-BI") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
@@ -6787,7 +8642,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AChaS-BeTA") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
@@ -6860,7 +8715,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AT-BaCh") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
@@ -6933,7 +8788,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AT-BaCh999") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
@@ -7006,7 +8861,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AiY-BaK") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
@@ -7079,7 +8934,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "ATz-BaPh") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
@@ -7152,7 +9007,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "AL-BeTh") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
@@ -7225,7 +9080,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "Ofanim") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
@@ -7298,20 +9153,20 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					remainder2 = gematria2 % 10;
 					gematria2 = remainder2 + product2;}
 					}
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else if (encryptionSelect.value == "Encryption") {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
 				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
-				if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+				if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 
 				} else {
 				wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=0;
 				letter=textEncrypted='';
 				input = textHighlight.replace(/[a-z\t"’·—\r\n\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF\u1F00-\u1FFF\u2C80-\u2CFF\u1F70-\u1FFF&&[^0-9]/gi, ''); // Remove all English, Niqqud, Greek, carriage returns, but keep numbers and punctuation
 					// Add Switch cases for AT-BaSh
-					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
+					if (/[\u05D0-\u05E5]/.test(textEncrypted)) { document.getElementById('encrypted').innerHTML = `<div style="display: flex; align-items: center;"><span style="direction: ltr;">Encrypted:</span><a style="text-decoration: none; direction: rtl; margin-left: 5px;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank"><span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span></a></div>`;}
 				}
 
 				var encryptedTotal = 0;
@@ -8331,7 +10186,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						document.getElementById('encrypted').innerHTML = `
 							<div class="encrypted-label">Encrypted:</div>
 							<div class="encrypted-content">
-								<a style="text-decoration: none; direction: rtl;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank">
+								<a style="text-decoration: none; direction: rtl;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank">
 									<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
 								</a>
 							</div>`;
@@ -8567,7 +10422,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					document.getElementById('encrypted').innerHTML = `
 						<div class="encrypted-label">Encrypted:</div>
 						<div class="encrypted-content">
-							<a style="text-decoration: none; direction: rtl;" href="http://translate.google.com/#auto/en/${textEncrypted}" target="_blank">
+							<a style="text-decoration: none; direction: rtl;" href="https://translate.google.com/?sl=auto&tl=auto&text=${encodeURIComponent(textEncrypted)}&op=translate" target="_blank">
 								<span style="color: #f2f542; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textEncrypted}</span>
 							</a>
 						</div>`;
@@ -9041,7 +10896,29 @@ observer.observe(document.body, {
     subtree: true
 });
 
+// Add Escape key event listener to close modals
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        // Check for findModal first
+        const findModal = document.getElementById('findModal');
+        if (findModal) {
+            findModal.remove();
+            console.log('✅ Closed findModal with Escape key');
+            return;
+        }
+        
+        // Check for elsModal
+        const elsModal = document.getElementById('elsModal');
+        if (elsModal) {
+            elsModal.remove();
+            console.log('✅ Closed elsModal with Escape key');
+            return;
+        }
+    }
+});
+
 console.log('🎯 Draggable modal system initialized - modals can be moved by dragging the top area');
+console.log('⌨️ Escape key handler initialized - press Escape to close modals');
 </script>
 </body>
 </html>
