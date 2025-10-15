@@ -330,6 +330,18 @@ function stopError() {
 window.onerror = stopError;
 </script>
 
+<!-- Simple Google Translate Widget -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,fr,de,it,pt,ru,ja,ko,zh,ar,he,el,hi,tr,pl,nl,sv,da,no,fi,cs,hu,ro,bg,hr,sk,sl,et,lv,lt',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </head>
 
 <body OnLoad="" style="background-color : #444;
@@ -591,7 +603,8 @@ async function copyText2() {
 <a href="help.html" style="color: #555; font-size: 18px; text-decoration: none;" target="_blank">GemaCrypt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 <a href="help.html" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/helpblack.png" alt="Help" height="15" width="15" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="16" border="0"></a>
 <a href="http://radius.center/gemacrypt/app2.php" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/book.png" alt="App2" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a>
-<a href="https://radius.center/phpmyadmin/db_sql.php?db=gematriaDB" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/query.png" alt="Query" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a></h1>
+<a href="https://radius.center/phpmyadmin/db_sql.php?db=gematriaDB" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/query.png" alt="Query" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a>
+<div id="google_translate_element" style="float: right; margin-right: 5px; margin-top: 1px;"></div></h1>
 <!--<a href="#" onclick="autoLoginPhpMyAdmin()" style="color: #555; font-size: 14px; text-decoration: none; float: right;"><img src="img/query.png" alt="Query" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a></h1>
 <script>
 function autoLoginPhpMyAdmin() {

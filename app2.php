@@ -540,6 +540,92 @@
 			margin-top: 0 !important;
 			align-self: center;
 		}
+		
+		/* Alt Word radio buttons styling */
+		#elsModal .alt-word-controls {
+			margin-bottom: 15px;
+			text-align: center;
+		}
+		
+		#elsModal .radio-group {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 20px;
+		}
+		
+		#elsModal .remove-label {
+			font-size: 12px;
+			font-weight: bold;
+			margin-right: 15px;
+		}
+		
+		#elsModal .radio-option {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		
+		#elsModal .radio-option input[type="radio"] {
+			margin: 0;
+		}
+		
+		#elsModal .radio-option label {
+			font-size: 12px;
+			margin: 0;
+			cursor: pointer;
+			font-weight: normal;
+		}
+		
+		#elsModal .radio-option label .asterisk {
+			color: red;
+		}
+		
+		#elsModal .radio-option label .flower {
+			color: red;
+		}
+		
+		#elsModal .radio-option input[type="radio"]:disabled + label {
+			color: #999;
+			cursor: not-allowed;
+		}
+		
+		#elsModal .radio-option input[type="radio"]:disabled {
+			cursor: not-allowed;
+		}
+		
+		#elsModal.narrow-modal .radio-group {
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+		}
+		
+		#elsModal.narrow-modal .remove-label {
+			margin-right: 0;
+			margin-bottom: 10px;
+			display: block;
+		}
+		
+		/* Checkbox container for text cleanup options */
+		.cleanup-checkbox-container {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin-top: 8px;
+			font-size: 11px;
+		}
+		
+		.cleanup-checkbox-container input[type="checkbox"] {
+			margin: 0;
+			transform: scale(1.1);
+		}
+		
+		.cleanup-checkbox-container label {
+			margin: 0;
+			cursor: pointer;
+			user-select: none;
+		}
+		
 		.close {
 		color: #aaa;
 		float: right;
@@ -591,7 +677,10 @@
 		}
 		
 		#loadingIndicator.show {
-			display: block;
+			display: flex !important;
+			flex-direction: row !important;
+			align-items: center !important;
+			gap: 25px !important;
 		}
 		
 		.spinner {
@@ -610,7 +699,7 @@
 		
 		#loadingIndicator p {
 			color: #fff;
-			margin-top: 15px;
+			margin: 0 !important; /* Remove all margins that could interfere */
 			text-align: center;
 			font-size: 12px;
 			font-weight: bold;
@@ -619,7 +708,7 @@
 		
 		#loadingCounter {
 			color: #fff;
-			margin-top: 10px;
+			margin: 0 !important; /* Remove all margins that could interfere */
 			text-align: center;
 			font-size: 16px;
 			font-weight: bold;
@@ -627,8 +716,48 @@
 			letter-spacing: 2px;
 		}
 		
+		/* Container for loading text elements */
+		#loadingIndicator .loading-text {
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+			align-items: center;
+		}
+		
 		/* === MOBILE ONLY (≤ 600 px) === */
 		@media (max-width: 650px) {
+			/* Loading indicator mobile adjustments */
+			#loadingIndicator {
+				padding: 20px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+				gap: 15px; /* Consistent spacing between spinner and text */
+			}
+			
+			#loadingIndicator.show {
+				display: flex;
+			}
+			
+			/* Reset margins for horizontal layout */
+			#loadingIndicator p {
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+			
+			#loadingCounter {
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+			
+			/* Container for text elements to maintain vertical alignment */
+			#loadingIndicator .loading-text {
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
+			}
+			
 		    /* 1. Vertical toolbar that can scroll */
 		    .toolbar {
 		        height: auto;
@@ -2443,6 +2572,21 @@
 				return escapedText;
 			}
 			
+			// Function to remove all text formatting (colors, backgrounds, etc.) and apply only red highlighting to asterisks and flower marks
+			function removeAllTextFormatting() {
+				const textArea = document.getElementById('textArea');
+				if (!textArea) return;
+				
+				// Get plain text content
+				const plainText = textArea.textContent || textArea.innerText || '';
+				
+				// Apply only red highlighting to special characters
+				const cleanedContent = highlightSpecialCharacters(plainText);
+				
+				// Update textArea with cleaned content
+				textArea.innerHTML = cleanedContent;
+			}
+			
 		// Loading Indicator Management
 		let loadingTimeout = null;
 		let loadingCounterInterval = null;
@@ -2491,7 +2635,103 @@
 			const indicator = document.getElementById('loadingIndicator');
 			if (indicator) {
 				indicator.classList.remove('show');
+				
+				// Clear any forced CSS styles that might override the class behavior
+				indicator.style.display = '';
+				indicator.style.opacity = '';
+				indicator.style.visibility = '';
 			}
+		}
+		
+		// Immediate loading indicator for calculations (no delay)
+		function showCalculationLoadingIndicator() {
+			console.log('showCalculationLoadingIndicator called'); // Debug timing
+			
+			const indicator = document.getElementById('loadingIndicator');
+			const counter = document.getElementById('loadingCounter');
+			
+			console.log('Loading indicator element found:', !!indicator); // Debug
+			console.log('Loading counter element found:', !!counter); // Debug
+			
+			// Reset counter
+			loadingStartTime = Date.now();
+			if (counter) {
+				counter.textContent = '0.00';
+			}
+			
+			// Show immediately without delay and force immediate visibility
+			if (indicator) {
+				console.log('Adding show class to indicator'); // Debug timing
+				indicator.classList.add('show');
+				
+				// Force immediate visibility and bypass any CSS transitions
+				indicator.style.display = 'flex';
+				indicator.style.opacity = '1';
+				indicator.style.visibility = 'visible';
+				
+				console.log('Show class added and visibility forced'); // Debug timing
+				
+				// Start the counter
+				loadingCounterInterval = setInterval(() => {
+					if (counter) {
+						const elapsed = (Date.now() - loadingStartTime) / 1000; // Convert to seconds
+						counter.textContent = elapsed.toFixed(2); // Format as X.XX
+					}
+				}, 10); // Update every 10ms (hundredths of a second)
+			}
+			
+			console.log('showCalculationLoadingIndicator completed'); // Debug timing
+		}
+		
+		// Function to progressively process file content for display
+		function processFileContentProgressively(textArea, content) {
+			console.log(`Loading file content progressively: ${content.length} characters`);
+			
+			// Apply highlighting to the content
+			const highlightedContent = highlightSpecialCharacters(content);
+			
+			// For smaller files, load immediately
+			if (content.length < 50000) { // Less than 50KB
+				textArea.innerHTML = highlightedContent;
+				hideLoadingIndicator();
+				return;
+			}
+			
+			// For larger files, use progressive loading
+			const lines = highlightedContent.split(/\r\n|\n|\r/);
+			let processedLines = [];
+			
+			const DISPLAY_CHUNK_SIZE = 200; // Show 200 lines at a time
+			let currentLineIndex = 0;
+			let firstDisplayShown = false;
+			
+			function processNextChunk() {
+				const chunkEnd = Math.min(currentLineIndex + DISPLAY_CHUNK_SIZE, lines.length);
+				
+				// Add lines to processed content
+				for (let i = currentLineIndex; i < chunkEnd; i++) {
+					processedLines.push(lines[i]);
+				}
+				
+				currentLineIndex = chunkEnd;
+				
+				// Update display
+				textArea.innerHTML = processedLines.join('\n');
+				
+				// Hide loading indicator after first chunk is displayed
+				if (!firstDisplayShown) {
+					firstDisplayShown = true;
+					hideLoadingIndicator();
+				}
+				
+				// Continue processing if there are more lines
+				if (currentLineIndex < lines.length) {
+					setTimeout(processNextChunk, 1);
+				}
+			}
+			
+			// Start processing
+			processNextChunk();
 		}
 		
 		// CORS Proxy Server - to allow the opening of txt files
@@ -2501,8 +2741,8 @@
 				return;
 			}
 			
-			// Show loading indicator
-			showLoadingIndicator();
+			// Show immediate loading indicator
+			showCalculationLoadingIndicator();
 			
 			// Set currentBook variable when a book is loaded from bookSelect
 			currentBook = url;
@@ -2511,54 +2751,69 @@
 			localStorage.removeItem('gemacrypt_cached_file_content');
 			
 			let corsProxy = `${window.location.protocol}//${window.location.hostname}/`; // grad whatever the current host's domain name and protocol and append a backslash /
-			try {
-				const response = await fetch(corsProxy + url);
-				if (response.ok) {
-					const text = await response.text();
-					const textArea = document.getElementById("textArea");
-					// Apply highlighting to the loaded text
-					textArea.innerHTML = highlightSpecialCharacters(text);
+			
+			// Force browser rendering before starting file load
+			requestAnimationFrame(() => {
+				requestAnimationFrame(async () => {
+					console.log('Starting file load after forced render...');
 					
-					// Detect language and store in global variable
-					detectedLanguage = detectLanguage(text);
-					console.log('Language detected:', detectedLanguage);
-				} else {
-					console.error(`Error loading file from primary CORS proxy: ${response.status} - ${response.statusText}`);
-					corsProxy = 'http://radius.center/';
-					const response = await fetch(corsProxy + url);
-					if (response.ok) {
-						const text = await response.text();
-						const textArea = document.getElementById('textArea');
-						// Apply highlighting to the loaded text
-						textArea.innerHTML = highlightSpecialCharacters(text);
-						
-						// Detect language and store in global variable
-						detectedLanguage = detectLanguage(text);
-						console.log('Language detected:', detectedLanguage);
-					} else {
-						console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
+					try {
+						const response = await fetch(corsProxy + url);
+						if (response.ok) {
+							const text = await response.text();
+							const textArea = document.getElementById("textArea");
+							
+							// Use progressive loading for large files
+							processFileContentProgressively(textArea, text);
+							
+							// Detect language and store in global variable
+							detectedLanguage = detectLanguage(text);
+							console.log('Language detected:', detectedLanguage);
+						} else {
+							console.error(`Error loading file from primary CORS proxy: ${response.status} - ${response.statusText}`);
+							corsProxy = 'http://radius.center/';
+							const response = await fetch(corsProxy + url);
+							if (response.ok) {
+								const text = await response.text();
+								const textArea = document.getElementById('textArea');
+								
+								// Use progressive loading for large files
+								processFileContentProgressively(textArea, text);
+								
+								// Detect language and store in global variable
+								detectedLanguage = detectLanguage(text);
+								console.log('Language detected:', detectedLanguage);
+							} else {
+								console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
+								hideLoadingIndicator();
+							}
+						}
+					} catch (error) {
+						console.error(`Error loading file: ${error}`);
+						corsProxy = 'http://radius.center/';
+						try {
+							const response = await fetch(corsProxy + url);
+							if (response.ok) {
+								const text = await response.text();
+								const textArea = document.getElementById('textArea');
+								
+								// Use progressive loading for large files
+								processFileContentProgressively(textArea, text);
+								
+								// Detect language and store in global variable
+								detectedLanguage = detectLanguage(text);
+								console.log('Language detected:', detectedLanguage);
+							} else {
+								console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
+								hideLoadingIndicator();
+							}
+						} catch (backupError) {
+							console.error(`Error loading file from backup: ${backupError}`);
+							hideLoadingIndicator();
+						}
 					}
-				}
-			} catch (error) {
-				console.error(`Error loading file: ${error}`);
-				corsProxy = 'http://radius.center/';
-				const response = await fetch(corsProxy + url);
-				if (response.ok) {
-					const text = await response.text();
-					const textArea = document.getElementById('textArea');
-					// Apply highlighting to the loaded text
-					textArea.innerHTML = highlightSpecialCharacters(text);
-					
-					// Detect language and store in global variable
-					detectedLanguage = detectLanguage(text);
-					console.log('Language detected:', detectedLanguage);
-				} else {
-					console.error(`Error loading file from backup CORS proxy: ${response.status} - ${response.statusText}`);
-				}
-			} finally {
-				// Hide loading indicator when done
-				hideLoadingIndicator();
-			}
+				});
+			});
 		}
 			
 			//Load a default file upon page load
@@ -2664,7 +2919,7 @@
         <button id="printBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/print.png" height="16" width="16" border="0" alt="Print"><img src="img/invis.gif" width="6" border="0">Print</button>
         <button id="exportBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/export.png" height="16" width="16" border="0" alt="Export"><img src="img/invis.gif" width="6" border="0">Export</button>
         <button id="clearBtn" class="textBtn" onclick="greenFlash(this)"><!--<img src="img/clear.png" height="16" width="16" border="0" alt="Clear"><img src="img/invis.gif" width="4" border="0">-->&#x274C; Clear</button>
-		<button id="app1Btn" class="textBtn" onclick="greenFlash(this); window.open('app1.php', '_blank')"><img src="img/db.png" height="16" width="16" border="0" alt="GemaCrypt DB"><img src="img/invis.gif" width="4" border="0">DB</button>
+		<button id="app1Btn" class="textBtn" onclick="greenFlash(this); openApp1WithSelection()"><img src="img/db.png" height="16" width="16" border="0" alt="GemaCrypt DB"><img src="img/invis.gif" width="4" border="0">DB</button>
         <button id="helpBtn" class="textBtn" onclick="greenFlash(this); window.open('help.html', '_blank')"><img src="img/help.png" height="17" width="14" border="0" alt="Help"><img src="img/invis.gif" width="4" border="0">Help</button>
     </div>
 	
@@ -2698,589 +2953,453 @@
 	<!-- Loading Indicator -->
 	<div id="loadingIndicator">
 		<div class="spinner"></div>
-		<p>Loading...</p>
-		<p id="loadingCounter">0.00</p>
+		<div class="loading-text">
+			<p>Loading...</p>
+			<p id="loadingCounter">0.00</p>
+		</div>
 	</div>
 
 
 	<script>
+		// Global variable to track if calculation is in progress
+		let isCalculating = false;
+		let calculationAborted = false;
+		
 		function toggleCalc(){
 			console.log('toggleCalc function called'); // Debug log
+			console.log('About to show loading indicator...'); // Debug timing
 			
-			// Get the textArea element
-			const textArea = document.getElementById('textArea');
-			if (!textArea) {
-				console.error('textArea element not found');
+			// If already calculating, abort the current calculation
+			if (isCalculating) {
+				calculationAborted = true;
+				hideLoadingIndicator();
 				return;
 			}
 			
-			console.log('textArea found, innerHTML length:', textArea.innerHTML.length); // Debug log
+			// Show loading indicator IMMEDIATELY
+			showCalculationLoadingIndicator();
+			console.log('Loading indicator function called'); // Debug timing
 			
-			// Remove " ׀" (space followed by ׀) from the textArea content before processing
-			let currentContent = textArea.textContent;
-			if (currentContent.includes(' \u05C0')) {
-				currentContent = currentContent.replace(/ \u05C0/g, '');
-				textArea.textContent = currentContent;
-				console.log('Removed " ׀" characters from textArea content'); // Debug log
+			// Force browser to render the loading indicator before starting heavy processing
+			// Use multiple requestAnimationFrame calls to ensure rendering completes
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					console.log('Starting processing after forced render...'); // Debug timing
+					
+					// Get the textArea element
+					const textArea = document.getElementById('textArea');
+					if (!textArea) {
+						console.error('textArea element not found');
+						hideLoadingIndicator();
+						return;
+					}
+					
+					console.log('textArea found, innerHTML length:', textArea.innerHTML.length); // Debug log
+					
+					// Remove " ׀" (space followed by ׀) from the textArea content before processing
+					let currentContent = textArea.textContent;
+					if (currentContent.includes(' \u05C0')) {
+						currentContent = currentContent.replace(/ \u05C0/g, '');
+						textArea.textContent = currentContent;
+						console.log('Removed " ׀" characters from textArea content'); // Debug log
+					}
+					
+					// Store the current innerHTML to preserve ELS highlights during processing
+					const originalHtml = textArea.innerHTML;
+					const hasElsHighlights = textArea.querySelectorAll('.els-highlight').length > 0;
+					
+					if (hasElsHighlights) {
+						console.log('ELS highlights detected - will preserve them during processing');
+					}
+					
+					// Start progressive calculation
+					startProgressiveCalculation(textArea, originalHtml, hasElsHighlights);
+				});
+			});
+		}
+		
+		// Function to abort calculation
+		function abortCalculation() {
+			calculationAborted = true;
+			isCalculating = false;
+			hideLoadingIndicator();
+		}
+		
+		// Function to calculate gematria for a word based on current gematria method
+		function calculateWordGematria(word) {
+			let total = 0;
+			let letterCount = 0;
+			let wordCount = 1;
+			
+			// Calculate base gematria value
+			for (let char of word) {
+				const code = char.charCodeAt(0);
+				// Check for Hebrew finals FIRST (before regular Hebrew letters)
+				if (char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || char === "\u05E3" || char === "\u05E5") {
+					// Hebrew finals
+					letterCount++;
+					switch(char) {
+						case "\u05DA": total += L23; break; // kaf sofit ך = 500
+						case "\u05DD": total += L24; break; // mem sofit ם = 600
+						case "\u05DF": total += L25; break; // nun sofit ן = 700
+						case "\u05E3": total += L26; break; // pey sofit ף = 800
+						case "\u05E5": total += L27; break; // tzadi sofit ץ = 900
+					}
+				} else if (code >= 0x05D0 && code <= 0x05EA) {
+					// Regular Hebrew letters (excluding finals)
+					letterCount++;
+					switch(char) {
+						case "\u05D0": total += L01; break; // aleph
+						case "\u05D1": total += L02; break; // bet
+						case "\u05D2": total += L03; break; // gimel
+						case "\u05D3": total += L04; break; // dalet
+						case "\u05D4": total += L05; break; // hey
+						case "\u05D5": total += L06; break; // vav
+						case "\u05D6": total += L07; break; // zayin
+						case "\u05D7": total += L08; break; // chet
+						case "\u05D8": total += L09; break; // tet
+						case "\u05D9": total += L10; break; // yod
+						case "\u05DB": total += L11; break; // kaf
+						case "\u05DC": total += L12; break; // lamed
+						case "\u05DE": total += L13; break; // mem
+						case "\u05E0": total += L14; break; // nun
+						case "\u05E1": total += L15; break; // samech
+						case "\u05E2": total += L16; break; // ayin
+						case "\u05E4": total += L17; break; // pey
+						case "\u05E6": total += L18; break; // tzadi
+						case "\u05E7": total += L19; break; // kuf
+						case "\u05E8": total += L20; break; // resh
+						case "\u05E9": total += L21; break; // shin
+						case "\u05EA": total += L22; break; // tav
+					}
+				} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+					// English letters
+					letterCount++;
+					const upper = code >= 65 && code <= 90 ? code : code - 32;
+					total += upper - 64;
+				} else if (code >= 0x0370 && code <= 0x03FF) {
+					// Greek letters
+					letterCount++;
+					switch(char) {
+						case "\u0386": case "\u0391": case "\u03AC": case "\u03B1": total += L01; break; // alpha
+						case "\u0392": case "\u03B2": total += L02; break; // beta
+						case "\u0393": case "\u03B3": total += L03; break; // gamma
+						case "\u0394": case "\u03B4": total += L04; break; // delta
+						case "\u0388": case "\u0395": case "\u03AD": case "\u03B5": total += L05; break; // epsilon
+						case "\u0396": case "\u03B6": total += L07; break; // zeta
+						case "\u0389": case "\u0397": case "\u03AE": case "\u03B7": total += L08; break; // eta
+						case "\u0398": case "\u03B8": total += L09; break; // theta
+						case "\u038A": case "\u0399": case "\u03AF": case "\u03B9": total += L10; break; // iota
+						case "\u039A": case "\u03BA": total += L11; break; // kappa
+						case "\u039B": case "\u03BB": total += L12; break; // lambda
+						case "\u039C": case "\u03BC": total += L13; break; // mu
+						case "\u039D": case "\u03BD": total += L14; break; // nu
+						case "\u039E": case "\u03BE": total += L15; break; // xi
+						case "\u038C": case "\u039F": case "\u03CC": case "\u03BF": total += L16; break; // omicron
+						case "\u03A0": case "\u03C0": total += L17; break; // pi
+						case "\u03A1": case "\u03C1": total += L18; break; // rho
+						case "\u03A3": case "\u03C2": case "\u03C3": total += L19; break; // sigma
+						case "\u03A4": case "\u03C4": total += L20; break; // tau
+						case "\u038E": case "\u03A5": case "\u03CD": case "\u03C5": total += L21; break; // upsilon
+						case "\u03A6": case "\u03C6": total += L22; break; // phi
+						case "\u03A7": case "\u03C7": total += L23; break; // chi
+						case "\u03A8": case "\u03C8": total += L24; break; // psi
+						case "\u038F": case "\u03A9": case "\u03CE": case "\u03C9": total += L25; break; // omega
+						default: break;
+					}
+				}
 			}
 			
-			// Store the current innerHTML to preserve ELS highlights during processing
-			const originalHtml = textArea.innerHTML;
-			const hasElsHighlights = textArea.querySelectorAll('.els-highlight').length > 0;
+			// Get current gematria method
+			const gematriaSelect = document.getElementById('gematriaSelect');
+			let gematriaMethod = gematriaSelect ? gematriaSelect.value : 'Ragil';
 			
-			if (hasElsHighlights) {
-				console.log('ELS highlights detected - will preserve them during processing');
+			// Apply gematria modifiers based on selected method
+			if(gematriaMethod == "HaKlali"){
+				total = total * total;
+			}
+			else if(gematriaMethod == "Kolel"){
+				total += letterCount;
+			}
+			else if(gematriaMethod == "Kolel+1"){
+				total += wordCount;
+			}
+			else if (gematriaMethod == "IntegralReduced"){
+				while(total >= 10){
+					let product = Math.floor(total / 10);
+					let remainder = total % 10;
+					total = remainder + product;
+				}
 			}
 			
-			// Function to calculate gematria for a word based on current gematria method
-			function calculateWordGematria(word) {
-				let total = 0;
-				let letterCount = 0;
-				let wordCount = 1;
-				
-				// Calculate base gematria value
-				for (let char of word) {
-					const code = char.charCodeAt(0);
-					// Check for Hebrew finals FIRST (before regular Hebrew letters)
-					if (char === "\u05DA" || char === "\u05DD" || char === "\u05DF" || char === "\u05E3" || char === "\u05E5") {
-						// Hebrew finals
-						letterCount++;
-						switch(char) {
-							case "\u05DA": total += L23; break; // kaf sofit ך = 500
-							case "\u05DD": total += L24; break; // mem sofit ם = 600
-							case "\u05DF": total += L25; break; // nun sofit ן = 700
-							case "\u05E3": total += L26; break; // pey sofit ף = 800
-							case "\u05E5": total += L27; break; // tzadi sofit ץ = 900
-						}
-					} else if (code >= 0x05D0 && code <= 0x05EA) {
-						// Regular Hebrew letters (excluding finals)
-						letterCount++;
-						switch(char) {
-							case "\u05D0": total += L01; break; // aleph
-							case "\u05D1": total += L02; break; // bet
-							case "\u05D2": total += L03; break; // gimel
-							case "\u05D3": total += L04; break; // dalet
-							case "\u05D4": total += L05; break; // hey
-							case "\u05D5": total += L06; break; // vav
-							case "\u05D6": total += L07; break; // zayin
-							case "\u05D7": total += L08; break; // chet
-							case "\u05D8": total += L09; break; // tet
-							case "\u05D9": total += L10; break; // yod
-							case "\u05DB": total += L11; break; // kaf
-							case "\u05DC": total += L12; break; // lamed
-							case "\u05DE": total += L13; break; // mem
-							case "\u05E0": total += L14; break; // nun
-							case "\u05E1": total += L15; break; // samech
-							case "\u05E2": total += L16; break; // ayin
-							case "\u05E4": total += L17; break; // pey
-							case "\u05E6": total += L18; break; // tzadi
-							case "\u05E7": total += L19; break; // kuf
-							case "\u05E8": total += L20; break; // resh
-							case "\u05E9": total += L21; break; // shin
-							case "\u05EA": total += L22; break; // tav
-						}
-					} else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
-						// English letters
-						letterCount++;
-						const upper = code >= 65 && code <= 90 ? code : code - 32;
-						total += upper - 64;
-					} else if (code >= 0x0370 && code <= 0x03FF) {
-						// Greek letters
-						letterCount++;
-						switch(char) {
-							case "\u0386": case "\u0391": case "\u03AC": case "\u03B1": total += L01; break; // alpha
-							case "\u0392": case "\u03B2": total += L02; break; // beta
-							case "\u0393": case "\u03B3": total += L03; break; // gamma
-							case "\u0394": case "\u03B4": total += L04; break; // delta
-							case "\u0388": case "\u0395": case "\u03AD": case "\u03B5": total += L05; break; // epsilon
-							case "\u0396": case "\u03B6": total += L07; break; // zeta
-							case "\u0389": case "\u0397": case "\u03AE": case "\u03B7": total += L08; break; // eta
-							case "\u0398": case "\u03B8": total += L09; break; // theta
-							case "\u038A": case "\u0399": case "\u03AF": case "\u03B9": total += L10; break; // iota
-							case "\u039A": case "\u03BA": total += L11; break; // kappa
-							case "\u039B": case "\u03BB": total += L12; break; // lambda
-							case "\u039C": case "\u03BC": total += L13; break; // mu
-							case "\u039D": case "\u03BD": total += L14; break; // nu
-							case "\u039E": case "\u03BE": total += L15; break; // xi
-							case "\u038C": case "\u039F": case "\u03CC": case "\u03BF": total += L16; break; // omicron
-							case "\u03A0": case "\u03C0": total += L17; break; // pi
-							case "\u03A1": case "\u03C1": total += L18; break; // rho
-							case "\u03A3": case "\u03C2": case "\u03C3": total += L19; break; // sigma
-							case "\u03A4": case "\u03C4": total += L20; break; // tau
-							case "\u038E": case "\u03A5": case "\u03CD": case "\u03C5": total += L21; break; // upsilon
-							case "\u03A6": case "\u03C6": total += L22; break; // phi
-							case "\u03A7": case "\u03C7": total += L23; break; // chi
-							case "\u03A8": case "\u03C8": total += L24; break; // psi
-							case "\u038F": case "\u03A9": case "\u03CE": case "\u03C9": total += L25; break; // omega
-							default: break;
-						}
-					}
-				}
-				
-				// Get current gematria method
-				const gematriaSelect = document.getElementById('gematriaSelect');
-				let gematriaMethod = gematriaSelect ? gematriaSelect.value : 'Ragil';
-				
-				// Apply gematria modifiers based on selected method
-				if(gematriaMethod == "HaKlali"){
-					total = total * total;
-				}
-				else if(gematriaMethod == "Kolel"){
-					total += letterCount;
-				}
-				else if(gematriaMethod == "Kolel+1"){
-					total += wordCount;
-				}
-				else if (gematriaMethod == "IntegralReduced"){
-					while(total >= 10){
-						let product = Math.floor(total / 10);
-						let remainder = total % 10;
-						total = remainder + product;
-					}
-				}
-				
-				return total;
-			}
+			return total;
+		}
+		
+		// Main progressive calculation function
+		function startProgressiveCalculation(textArea, originalHtml, hasElsHighlights) {
+			isCalculating = true;
+			calculationAborted = false;
 			
-			// Function to parse and preserve existing HTML formatting
-			function parseExistingFormatting(htmlContent) {
-				console.log('parseExistingFormatting called with content length:', htmlContent.length); // Debug log
-				
-				const tempDiv = document.createElement('div');
-				tempDiv.innerHTML = htmlContent;
-				
-				const formattingMap = new Map(); // Maps text positions to formatting info
-				let textPosition = 0;
-				
-				function traverseNode(node) {
-					if (node.nodeType === Node.TEXT_NODE) {
-						const nodeText = node.textContent;
-						// Store current position before processing this text node
-						const startPos = textPosition;
-						textPosition += nodeText.length;
-						return nodeText;
-					} else if (node.nodeType === Node.ELEMENT_NODE) {
-						const tag = node.tagName.toLowerCase();
-						const style = node.getAttribute('style');
-						const className = node.getAttribute('class');
-						
-						let childText = '';
-						const startPos = textPosition;
-						
-						// Process child nodes
-						for (let child of node.childNodes) {
-							childText += traverseNode(child);
-						}
-						
-						const endPos = textPosition;
-						
-						// Store formatting information for this range
-						if (childText.length > 0 && (style || className)) {
-							formattingMap.set(startPos + ':' + endPos, {
-								tag: tag,
-								style: style,
-								className: className,
-								text: childText,
-								startPos: startPos,
-								endPos: endPos
-							});
-						}
-						
-						return childText;
-					}
-					return '';
-				}
-				
-				const plainText = traverseNode(tempDiv);
-				console.log('parseExistingFormatting returning - plainText length:', plainText.length, 'formattingMap size:', formattingMap.size); // Debug log
-				return { plainText, formattingMap };
-			}
+			// Loading indicator is already shown in toggleCalc()
 			
-			// Function to reapply existing formatting to processed text line by line
-			function reapplyFormattingPerLine(processedLines, formattingMap, originalPlainText) {
-				// Define swap colors that should be preserved
-				const swapColors = ['red', 'purple', 'darkgrey', 'darkblue', 'lightblue', 'brown', 'orange'];
-				
-				// Get the original lines to match with processed lines
-				const originalLines = originalPlainText.split(/\r\n|\n|\r/);
-				const sortedFormatting = Array.from(formattingMap.values()).sort((a, b) => a.startPos - b.startPos);
-				
-				// Create a map of original line content to formatting
-				const lineFormattingMap = new Map();
-				
-				let currentPos = 0;
-				for (let lineIdx = 0; lineIdx < originalLines.length; lineIdx++) {
-					const lineText = originalLines[lineIdx];
-					const lineStart = currentPos;
-					const lineEnd = currentPos + lineText.length;
-					
-					// Find all formatting that applies to this line
-					const lineFormatting = [];
-					for (const format of sortedFormatting) {
-						// Skip gematria calculation lines
-						if (format.style && format.style.includes('color: #00cc00')) {
-							continue;
-						}
-						
-						// Skip ELS highlights (handled separately)
-						if (format.className === 'els-highlight') {
-							continue;
-						}
-						
-						// Check if formatting overlaps with this line
-						if (format.startPos < lineEnd && format.endPos > lineStart) {
-							lineFormatting.push(format);
-						}
-					}
-					
-					if (lineFormatting.length > 0) {
-						lineFormattingMap.set(lineText.trim(), lineFormatting);
-					}
-					
-					currentPos = lineEnd + 1; // +1 for newline character
+			// Process immediately without delay
+			try {
+				// Process the content based on whether we have ELS highlights
+				if (hasElsHighlights) {
+					processContentWithElsHighlights(textArea, originalHtml);
+				} else {
+					processContentWithFormatting(textArea, originalHtml);
 				}
-				
-				// Apply formatting to processed lines
-				const formattedLines = [];
-				for (let i = 0; i < processedLines.length; i++) {
-					let line = processedLines[i];
-					
-					// Skip gematria lines (they're already formatted)
-					if (line.includes('color: #00cc00')) {
-						formattedLines.push(line);
-						continue;
-					}
-					
-					// Find matching original line
-					const plainLine = line.replace(/<[^>]*>/g, '').trim();
-					const lineFormatting = lineFormattingMap.get(plainLine);
-					
-					if (lineFormatting) {
-						// Apply formatting from this line
-						for (const format of lineFormatting) {
-							const searchText = format.text.trim();
-							if (searchText && line.includes(searchText)) {
-								const escapedText = searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-								const regex = new RegExp(escapedText, 'g');
-								
-								if (format.style) {
-									line = line.replace(regex, `<span style="${format.style}">${searchText}</span>`);
-								} else if (format.className) {
-									line = line.replace(regex, `<span class="${format.className}">${searchText}</span>`);
-								}
-							}
-						}
-					}
-					
-					formattedLines.push(line);
-				}
-				
-				return formattedLines.join('\n');
+			} catch (error) {
+				console.error('Error during calculation:', error);
+				hideLoadingIndicator();
+				isCalculating = false;
+				alert('An error occurred during calculation. Please try again.');
 			}
+		}
+		
+		// Function to process content and preserve ELS highlights (progressive version)
+		function processContentWithElsHighlights(textArea, originalHtml) {
+			console.log('Processing content with ELS highlights preservation (progressive)');
 			
-			// Function to preserve ELS highlights by reprocessing the original HTML with ELS intact
-			function preserveElsHighlights(originalHtml, processedContent) {
-				if (!hasElsHighlights) {
-					return processedContent;
-				}
-				
-				console.log('Preserving ELS highlights by reprocessing original HTML');
-				
-				// Create a temporary div with the original HTML
-				const tempDiv = document.createElement('div');
-				tempDiv.innerHTML = originalHtml;
-				
-				// Get all text nodes and ELS highlights in order
-				const elements = [];
-				
-				function collectElements(node) {
-					if (node.nodeType === Node.TEXT_NODE) {
-						if (node.textContent.trim()) { // Only collect non-empty text nodes
-							// Check if this text node is inside an ELS highlight or swap color
-							let currentParent = node.parentNode;
-							let isInsideElsHighlight = false;
-							let isInsideSwapColor = false;
-							let elsHighlightInfo = null;
-							let swapColorInfo = null;
-							
-							// Define swap colors to detect
-							const swapColors = ['red', 'purple', 'darkgrey', 'darkblue', 'lightblue', 'brown', 'orange'];
-							
-							while (currentParent && currentParent !== tempDiv) {
-								if (currentParent.classList && currentParent.classList.contains('els-highlight')) {
-									isInsideElsHighlight = true;
-									elsHighlightInfo = {
-										className: currentParent.className,
-										style: currentParent.getAttribute('style')
-									};
-									break; // ELS highlights take priority
-								} else if (currentParent.tagName && currentParent.tagName.toLowerCase() === 'span') {
-									const style = currentParent.getAttribute('style');
-									if (style && style.includes('color:')) {
-										// Check if this is a swap color
-										for (const swapColor of swapColors) {
-											if (style.includes(`color: ${swapColor}`) || style.includes(`color:${swapColor}`)) {
-												isInsideSwapColor = true;
-												swapColorInfo = {
-													style: style
-												};
-												break;
-											}
-										}
-									}
-								}
-								currentParent = currentParent.parentNode;
-							}
-							
-							if (isInsideElsHighlight) {
-								elements.push({
-									type: 'els-highlight',
-									content: node.textContent,
-									className: elsHighlightInfo.className,
-									style: elsHighlightInfo.style
-								});
-							} else if (isInsideSwapColor) {
-								elements.push({
-									type: 'swap-color',
-									content: node.textContent,
-									style: swapColorInfo.style
-								});
-							} else {
-								elements.push({
-									type: 'text',
-									content: node.textContent
-								});
-							}
-						}
-					} else if (node.nodeType === Node.ELEMENT_NODE) {
-						// Don't process els-highlight elements directly since we handle them at the text node level
-						if (!node.classList || !node.classList.contains('els-highlight')) {
-							// Process child nodes for non-els-highlight elements
-							for (let child of node.childNodes) {
-								collectElements(child);
-							}
-						} else {
-							// For els-highlight elements, still process children to capture text
-							for (let child of node.childNodes) {
-								collectElements(child);
-							}
-						}
-					}
-				}
-				
-				collectElements(tempDiv);
-				
-				// Now reconstruct the text with ELS highlights and swap colors preserved
-				let reconstructed = '';
-				for (const element of elements) {
-					if (element.type === 'text') {
-						reconstructed += element.content;
-					} else if (element.type === 'els-highlight') {
-						reconstructed += `<span class="${element.className}" style="${element.style}">${element.content}</span>`;
-					} else if (element.type === 'swap-color') {
-						reconstructed += `<span style="${element.style}">${element.content}</span>`;
-					}
-				}
-				
-				console.log('Reconstructed text with ELS highlights and swap colors preserved, length:', reconstructed.length);
-				
-				// Now process this reconstructed text the same way as the regular processing
-				let content = reconstructed;
-				
-				// Insert exactly 2 new lines after each line break
-				content = content.replace(/\r\n/g, '\n');
-				content = content.replace(/\r/g, '\n');
-				content = content.replace(/\n/g, '\n\n');
-				
-				// Split content into lines and process each line
-				const lines = content.split(/\r\n|\n|\r/);
-				let processedLines = [];
-				
-				for (let i = 0; i < lines.length; i++) {
-					const line = lines[i];
-					// Replace spaces with tabs, but preserve HTML structure
-					let lineWithTabs = '';
-					let insideTag = false;
-					
-					for (let j = 0; j < line.length; j++) {
-						const char = line[j];
-						if (char === '<') {
-							insideTag = true;
-							lineWithTabs += char;
-						} else if (char === '>') {
-							insideTag = false;
-							lineWithTabs += char;
-						} else if (char === ' ' && !insideTag) {
-							lineWithTabs += '\t';
-						} else {
-							lineWithTabs += char;
-						}
-					}
-					
-					processedLines.push(lineWithTabs);
-					
-					// Check if this line contains letters (not just whitespace or punctuation)
-					// Extract plain text from the line for letter detection
-					const plainLineText = line.replace(/<[^>]*>/g, '');
-					if (/[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(plainLineText)) {
-						// Split line into words (preserving HTML tags)
-						const words = plainLineText.split(/[\s\t\u00A0\u2000-\u200B\u2028\u2029\u3000]+/).filter(word => word.trim().length > 0);
-						let gematriaValuesWithTabs = [];
-						
-						// Calculate gematria for each word
-						for (let word of words) {
-							// Remove Niqqud characters and HTML tags for calculation
-							const wordWithoutNiqqud = word.replace(/[\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '');
-							const wordLength = wordWithoutNiqqud.length;
-							
-							const cleanWord = word.replace(/[.,!?\-;\*\(\)\[\]\u05C3\u05C0⁕]/g, '');
-							if (cleanWord.length > 0 && /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(cleanWord)) {
-								const gematriaValue = calculateWordGematria(cleanWord);
-								let tabCount = Math.floor(wordLength / 8) + 1;
-								
-								gematriaValuesWithTabs.push({
-									value: gematriaValue,
-									tabs: tabCount
-								});
-							}
-						}
-						
-						// Create the gematria values line
-						if (gematriaValuesWithTabs.length > 0) {
-							let gematriaLine = '';
-							for (let i = 0; i < gematriaValuesWithTabs.length; i++) {
-								gematriaLine += gematriaValuesWithTabs[i].value;
-								if (i < gematriaValuesWithTabs.length - 1) {
-									gematriaLine += '\t'.repeat(gematriaValuesWithTabs[i].tabs);
-								}
-							}
-							
-							const tabPrefix = line.includes('\t') ? '\t' : '';
-							processedLines.push(`${tabPrefix}<span style="color: #00cc00; font-weight: bold; text-shadow: none;">${gematriaLine}</span>`);
-						}
-					}
-				}
-				
-				return processedLines.join('\n');
-			}
+			// Create a temporary div with the original HTML
+			const tempDiv = document.createElement('div');
+			tempDiv.innerHTML = originalHtml;
 			
-			// If we have ELS highlights, use the special preservation method
-			let finalContent;
-			if (hasElsHighlights) {
-				console.log('Using ELS-preserving processing method');
-				finalContent = preserveElsHighlights(originalHtml, '');
-			} else {
-				console.log('Using enhanced processing method with formatting preservation');
-				// Parse existing formatting before processing, similar to ELS method
-				const tempDiv = document.createElement('div');
-				tempDiv.innerHTML = textArea.innerHTML;
-				
-				// Get all text nodes and formatting in order
-				const elements = [];
-				
-				function collectAllElements(node) {
-					if (node.nodeType === Node.TEXT_NODE) {
-						if (node.textContent.trim()) {
-							// Check if this text node has any formatting
-							let currentParent = node.parentNode;
-							let formatInfo = null;
-							
-							// Define swap colors to detect
-							const swapColors = ['red', 'purple', 'darkgrey', 'darkblue', 'lightblue', 'brown', 'orange'];
-							
-							while (currentParent && currentParent !== tempDiv) {
-								if (currentParent.tagName && currentParent.tagName.toLowerCase() === 'span') {
-									const style = currentParent.getAttribute('style');
-									const className = currentParent.getAttribute('class');
-									
-									// Check for swap colors
-									if (style && style.includes('color:')) {
-										for (const swapColor of swapColors) {
-											if (style.includes(`color: ${swapColor}`) || style.includes(`color:${swapColor}`)) {
-												formatInfo = {
-													type: 'swap-color',
-													style: style
-												};
-												break;
-											}
-										}
-									}
-									
-									// Check for other formatting if not a swap color
-									if (!formatInfo && (style || className)) {
-										// Skip gematria lines
-										if (style && style.includes('color: #00cc00')) {
+			// Get all text nodes and ELS highlights in order
+			const elements = [];
+			
+			function collectElements(node) {
+				if (node.nodeType === Node.TEXT_NODE) {
+					if (node.textContent.trim()) { // Only collect non-empty text nodes
+						// Check if this text node is inside an ELS highlight or swap color
+						let currentParent = node.parentNode;
+						let isInsideElsHighlight = false;
+						let isInsideSwapColor = false;
+						let elsHighlightInfo = null;
+						let swapColorInfo = null;
+						
+						// Define swap colors to detect
+						const swapColors = ['red', 'purple', 'darkgrey', 'darkblue', 'lightblue', 'brown', 'orange'];
+						
+						while (currentParent && currentParent !== tempDiv) {
+							if (currentParent.classList && currentParent.classList.contains('els-highlight')) {
+								isInsideElsHighlight = true;
+								elsHighlightInfo = {
+									className: currentParent.className,
+									style: currentParent.getAttribute('style')
+								};
+								break; // ELS highlights take priority
+							} else if (currentParent.tagName && currentParent.tagName.toLowerCase() === 'span') {
+								const style = currentParent.getAttribute('style');
+								if (style && style.includes('color:')) {
+									// Check if this is a swap color
+									for (const swapColor of swapColors) {
+										if (style.includes(`color: ${swapColor}`) || style.includes(`color:${swapColor}`)) {
+											isInsideSwapColor = true;
+											swapColorInfo = {
+												style: style
+											};
 											break;
 										}
-										
-										formatInfo = {
-											type: 'other-format',
-											style: style,
-											className: className
-										};
+									}
+								}
+							}
+							currentParent = currentParent.parentNode;
+						}
+						
+						if (isInsideElsHighlight) {
+							elements.push({
+								type: 'els-highlight',
+								content: node.textContent,
+								className: elsHighlightInfo.className,
+								style: elsHighlightInfo.style
+							});
+						} else if (isInsideSwapColor) {
+							elements.push({
+								type: 'swap-color',
+								content: node.textContent,
+								style: swapColorInfo.style
+							});
+						} else {
+							elements.push({
+								type: 'text',
+								content: node.textContent
+							});
+						}
+					}
+				} else if (node.nodeType === Node.ELEMENT_NODE) {
+					// Don't process els-highlight elements directly since we handle them at the text node level
+					if (!node.classList || !node.classList.contains('els-highlight')) {
+						// Process child nodes for non-els-highlight elements
+						for (let child of node.childNodes) {
+							collectElements(child);
+						}
+					} else {
+						// For els-highlight elements, still process children to capture text
+						for (let child of node.childNodes) {
+							collectElements(child);
+						}
+					}
+				}
+			}
+			
+			collectElements(tempDiv);
+			
+			// Now reconstruct the text with ELS highlights and swap colors preserved
+			let reconstructed = '';
+			for (const element of elements) {
+				if (element.type === 'text') {
+					reconstructed += element.content;
+				} else if (element.type === 'els-highlight') {
+					reconstructed += `<span class="${element.className}" style="${element.style}">${element.content}</span>`;
+				} else if (element.type === 'swap-color') {
+					reconstructed += `<span style="${element.style}">${element.content}</span>`;
+				}
+			}
+			
+			console.log('Reconstructed text with ELS highlights and swap colors preserved, length:', reconstructed.length);
+			
+			// Process this reconstructed content progressively
+			processReconstructedContentProgressively(textArea, reconstructed);
+		}
+		
+		// Function to process content with general formatting (progressive version)
+		function processContentWithFormatting(textArea, originalHtml) {
+			console.log('Processing content with formatting preservation (progressive)');
+			
+			const tempDiv = document.createElement('div');
+			tempDiv.innerHTML = textArea.innerHTML;
+			
+			// Get all text nodes and formatting in order
+			const elements = [];
+			
+			function collectAllElements(node) {
+				if (node.nodeType === Node.TEXT_NODE) {
+					if (node.textContent.trim()) {
+						// Check if this text node has any formatting
+						let currentParent = node.parentNode;
+						let formatInfo = null;
+						
+						// Define swap colors to detect
+						const swapColors = ['red', 'purple', 'darkgrey', 'darkblue', 'lightblue', 'brown', 'orange'];
+						
+						while (currentParent && currentParent !== tempDiv) {
+							if (currentParent.tagName && currentParent.tagName.toLowerCase() === 'span') {
+								const style = currentParent.getAttribute('style');
+								const className = currentParent.getAttribute('class');
+								
+								// Check for swap colors
+								if (style && style.includes('color:')) {
+									for (const swapColor of swapColors) {
+										if (style.includes(`color: ${swapColor}`) || style.includes(`color:${swapColor}`)) {
+											formatInfo = {
+												type: 'swap-color',
+												style: style
+											};
+											break;
+										}
+									}
+								}
+								
+								// Check for other formatting if not a swap color
+								if (!formatInfo && (style || className)) {
+									// Skip gematria lines
+									if (style && style.includes('color: #00cc00')) {
+										break;
 									}
 									
-									if (formatInfo) break;
+									formatInfo = {
+										type: 'other-format',
+										style: style,
+										className: className
+									};
 								}
-								currentParent = currentParent.parentNode;
+								
+								if (formatInfo) break;
 							}
-							
-							if (formatInfo) {
-								elements.push({
-									type: formatInfo.type,
-									content: node.textContent,
-									style: formatInfo.style,
-									className: formatInfo.className
-								});
-							} else {
-								elements.push({
-									type: 'text',
-									content: node.textContent
-								});
-							}
+							currentParent = currentParent.parentNode;
 						}
-					} else if (node.nodeType === Node.ELEMENT_NODE) {
-						// Process child nodes
-						for (let child of node.childNodes) {
-							collectAllElements(child);
+						
+						if (formatInfo) {
+							elements.push({
+								type: formatInfo.type,
+								content: node.textContent,
+								style: formatInfo.style,
+								className: formatInfo.className
+							});
+						} else {
+							elements.push({
+								type: 'text',
+								content: node.textContent
+							});
 						}
 					}
-				}
-				
-				collectAllElements(tempDiv);
-				
-				// Reconstruct the text with all formatting preserved
-				let reconstructed = '';
-				for (const element of elements) {
-					if (element.type === 'text') {
-						reconstructed += element.content;
-					} else if (element.type === 'swap-color') {
-						reconstructed += `<span style="${element.style}">${element.content}</span>`;
-					} else if (element.type === 'other-format') {
-						if (element.style) {
-							reconstructed += `<span style="${element.style}"${element.className ? ` class="${element.className}"` : ''}>${element.content}</span>`;
-						} else if (element.className) {
-							reconstructed += `<span class="${element.className}">${element.content}</span>`;
-						}
+				} else if (node.nodeType === Node.ELEMENT_NODE) {
+					// Process child nodes
+					for (let child of node.childNodes) {
+						collectAllElements(child);
 					}
 				}
+			}
+			
+			collectAllElements(tempDiv);
+			
+			// Reconstruct the text with all formatting preserved
+			let reconstructed = '';
+			for (const element of elements) {
+				if (element.type === 'text') {
+					reconstructed += element.content;
+				} else if (element.type === 'swap-color') {
+					reconstructed += `<span style="${element.style}">${element.content}</span>`;
+				} else if (element.type === 'other-format') {
+					if (element.style) {
+						reconstructed += `<span style="${element.style}"${element.className ? ` class="${element.className}"` : ''}>${element.content}</span>`;
+					} else if (element.className) {
+						reconstructed += `<span class="${element.className}">${element.content}</span>`;
+					}
+				}
+			}
+			
+			console.log('Reconstructed text with all formatting preserved, length:', reconstructed.length);
+			
+			// Process this reconstructed content progressively
+			processReconstructedContentProgressively(textArea, reconstructed);
+		}
+		
+		// Function to progressively process the reconstructed content
+		function processReconstructedContentProgressively(textArea, content) {
+			// Insert exactly 2 new lines after each line break
+			content = content.replace(/\r\n/g, '\n');
+			content = content.replace(/\r/g, '\n');
+			content = content.replace(/\n/g, '\n\n');
+			
+			// Split content into lines
+			const lines = content.split(/\r\n|\n|\r/);
+			let processedLines = [];
+			
+			console.log(`Processing ${lines.length} lines with optimized progressive loading`);
+			
+			// Process lines in larger chunks with less frequent DOM updates
+			const PROCESSING_CHUNK_SIZE = 100; // Process more lines at once
+			const DISPLAY_CHUNK_SIZE = 500; // Update display less frequently
+			let currentLineIndex = 0;
+			let lastDisplayUpdate = 0;
+			let firstDisplayShown = false; // Track if we've shown the first chunk
+			
+			function processNextChunk() {
+				if (calculationAborted) {
+					isCalculating = false;
+					hideLoadingIndicator();
+					return;
+				}
 				
-				console.log('Reconstructed text with all formatting preserved, length:', reconstructed.length);
+				const chunkEnd = Math.min(currentLineIndex + PROCESSING_CHUNK_SIZE, lines.length);
 				
-				// Now process this reconstructed text the same way as the ELS processing
-				let content = reconstructed;
-				
-				// Insert exactly 2 new lines after each line break
-				content = content.replace(/\r\n/g, '\n');
-				content = content.replace(/\r/g, '\n');
-				content = content.replace(/\n/g, '\n\n');
-				
-				// Split content into lines and process each line
-				const lines = content.split(/\r\n|\n|\r/);
-				let processedLines = [];
-				
-				for (let i = 0; i < lines.length; i++) {
+				// Process chunk of lines
+				for (let i = currentLineIndex; i < chunkEnd; i++) {
 					const line = lines[i];
+					
 					// Replace spaces with tabs, but preserve HTML structure
 					let lineWithTabs = '';
 					let insideTag = false;
@@ -3331,10 +3450,10 @@
 						// Create the gematria values line
 						if (gematriaValuesWithTabs.length > 0) {
 							let gematriaLine = '';
-							for (let i = 0; i < gematriaValuesWithTabs.length; i++) {
-								gematriaLine += gematriaValuesWithTabs[i].value;
-								if (i < gematriaValuesWithTabs.length - 1) {
-									gematriaLine += '\t'.repeat(gematriaValuesWithTabs[i].tabs);
+							for (let j = 0; j < gematriaValuesWithTabs.length; j++) {
+								gematriaLine += gematriaValuesWithTabs[j].value;
+								if (j < gematriaValuesWithTabs.length - 1) {
+									gematriaLine += '\t'.repeat(gematriaValuesWithTabs[j].tabs);
 								}
 							}
 							
@@ -3344,19 +3463,63 @@
 					}
 				}
 				
-				finalContent = processedLines.join('\n');
+				currentLineIndex = chunkEnd;
+				
+				// Update display only periodically or when finished
+				const shouldUpdateDisplay = (currentLineIndex - lastDisplayUpdate >= DISPLAY_CHUNK_SIZE) || 
+											(currentLineIndex >= lines.length);
+				
+				if (shouldUpdateDisplay) {
+					// Update the visible content
+					let partialContent = processedLines.join('\n');
+					
+					// Ensure special characters are highlighted in red
+					partialContent = partialContent.replace(/\*/g, '<span style="color: #FF0000;">*</span>');
+					partialContent = partialContent.replace(/⁕/g, '<span style="color: #FF0000;">⁕</span>');
+					
+					textArea.innerHTML = partialContent;
+					lastDisplayUpdate = currentLineIndex;
+					
+					// Hide loading indicator after first display update
+					if (!firstDisplayShown) {
+						firstDisplayShown = true;
+						hideLoadingIndicator();
+					}
+				}
+				
+				// Continue processing if there are more lines
+				if (currentLineIndex < lines.length) {
+					// Use setTimeout with minimal delay for better performance than requestAnimationFrame
+					setTimeout(processNextChunk, 1);
+				} else {
+					// Processing complete
+					finishCalculation(textArea, processedLines.join('\n'));
+				}
 			}
 			
-			console.log('Final content length:', finalContent.length); // Debug log
+			// Start processing
+			processNextChunk();
+		}
+		
+		// Function to finish the calculation
+		function finishCalculation(textArea, finalContent) {
+			console.log('Calculation completed - finalizing...');
 			
-			// Finally, ensure special characters (asterisks and flower marks) are highlighted in red
+			// Ensure special characters are highlighted in red for final content
 			finalContent = finalContent.replace(/\*/g, '<span style="color: #FF0000;">*</span>');
 			finalContent = finalContent.replace(/⁕/g, '<span style="color: #FF0000;">⁕</span>');
 			
-			// Update the textArea with the final formatted content
-			console.log('Setting textArea.innerHTML with final formatted content'); // Debug log
+			// Ensure final content is properly set
 			textArea.innerHTML = finalContent;
-			console.log('toggleCalc completed successfully'); // Debug log
+			
+			// Hide loading indicator in case it's still showing
+			hideLoadingIndicator();
+			
+			// Reset calculation state
+			isCalculating = false;
+			calculationAborted = false;
+			
+			console.log('toggleCalc completed successfully with optimized progressive loading'); // Debug log
 		}
 	</script>
 
@@ -3384,12 +3547,30 @@
 								<img src="img/find.png" height="16" width="14" border="0" alt="Search"><img src="img/invis.gif" width="4" border="0">Search
 							</button>
 						</div>
+						<div class="cleanup-checkbox-container">
+							<input type="checkbox" id="findCleanupCheckbox" checked>
+							<label for="findCleanupCheckbox">Remove ALL previous text mark up / formatting.</label>
+						</div>
 					</div>
 					<div id="findResults" style="margin-top: 20px; white-space: pre-wrap; max-height: 60vh; overflow-y: auto; word-wrap: break-word; overflow-wrap: break-word;"></div>
 				</div>
 			`;
 			document.body.appendChild(modal);
 			modal.style.display = 'block';
+
+		// Load saved checkbox preference from localStorage, default to checked
+		const findCleanupCheckbox = document.getElementById('findCleanupCheckbox');
+		if (findCleanupCheckbox) {
+			const savedCleanupPreference = localStorage.getItem('findCleanupCheckbox');
+			if (savedCleanupPreference !== null) {
+				findCleanupCheckbox.checked = savedCleanupPreference === 'true';
+			}
+			
+			// Add event listener to save checkbox state to localStorage
+			findCleanupCheckbox.addEventListener('change', function() {
+				localStorage.setItem('findCleanupCheckbox', this.checked.toString());
+			});
+		}
 
 		// Prepopulate findInput with the sum value
 		const findInput = document.getElementById('findInput');
@@ -3622,6 +3803,13 @@
 
 			document.getElementById('findSearchBtn').addEventListener('click', function() {
 				greenFlash(this);
+				
+				// Check if text cleanup checkbox is checked
+				const cleanupCheckbox = document.getElementById('findCleanupCheckbox');
+				if (cleanupCheckbox && cleanupCheckbox.checked) {
+					removeAllTextFormatting();
+				}
+				
 				const findInputValue = document.getElementById('findInput').value.trim();
 				if (!findInputValue) {
 					document.getElementById('findResults').textContent = 'Please enter a gematria value to find.';
@@ -4641,10 +4829,27 @@
 					<span class="close" style="position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; color: #aaa; cursor: pointer; z-index: 10;" onclick="document.getElementById('elsModal').remove()">&times;</span>
 					<h2 style="text-align: center; margin-top: 0;">Equidistant Letter Sequence</h2>
 					<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+						<div class="alt-word-controls" id="altWordControls" style="display: none;">
+							<div class="radio-group">
+								<span class="remove-label">Remove:</span>
+								<div class="radio-option">
+									<input type="radio" id="altWord1Radio" name="altWordSelection" value="AltWord1">
+									<label for="altWord1Radio">Alt Word 1<span class="asterisk">*</span></label>
+								</div>
+								<div class="radio-option">
+									<input type="radio" id="altWord2Radio" name="altWordSelection" value="AltWord2">
+									<label for="altWord2Radio">Alt Word 2<span class="flower">⁕</span></label>
+								</div>
+							</div>
+						</div>
 						<div class="els-controls">
 							<div class="els-input-group" style="display: flex; flex-direction: column; gap: 5px;">
 								<label for="startPosition" style="font-size: 11px; text-align: center;">Start Position</label>
 								<input type="text" id="startPosition" value="${guessStartPosition}" placeholder="Start Position" style="text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+								<div class="cleanup-checkbox-container">
+									<input type="checkbox" id="elsCleanupCheckbox" checked>
+									<label for="elsCleanupCheckbox">Remove ALL previous text mark up / formatting.</label>
+								</div>
 							</div>
 							<div class="els-input-group" style="display: flex; flex-direction: column; gap: 5px;">
 								<label for="sequenceNum" style="font-size: 11px; text-align: center;">Sequence Number</label>
@@ -4658,6 +4863,54 @@
 		`;
 		document.body.appendChild(modal);
 		modal.style.display = 'block';
+
+		// Load saved checkbox preference from localStorage, default to checked
+		const elsCleanupCheckbox = document.getElementById('elsCleanupCheckbox');
+		if (elsCleanupCheckbox) {
+			const savedCleanupPreference = localStorage.getItem('elsCleanupCheckbox');
+			if (savedCleanupPreference !== null) {
+				elsCleanupCheckbox.checked = savedCleanupPreference === 'true';
+			}
+			
+			// Add event listener to save checkbox state to localStorage
+			elsCleanupCheckbox.addEventListener('change', function() {
+				localStorage.setItem('elsCleanupCheckbox', this.checked.toString());
+			});
+		}
+
+		// Check if textArea contains * and ⁕ characters and show/hide radio buttons accordingly
+		function checkAltWordVisibility() {
+			const textAreaContent = textArea.textContent || textArea.innerText || '';
+			const hasAsterisk = textAreaContent.includes('*');
+			const hasFlowerMark = textAreaContent.includes('⁕');
+			const altWordControls = document.getElementById('altWordControls');
+			
+			if (hasAsterisk && hasFlowerMark && altWordControls) {
+				altWordControls.style.display = 'block';
+				
+				// Load saved preference from localStorage, default to Alt Word 2⁕
+				const savedSelection = localStorage.getItem('elsAltWordSelection') || 'AltWord2';
+				const radioButton = document.querySelector(`input[name="altWordSelection"][value="${savedSelection}"]`);
+				if (radioButton) {
+					radioButton.checked = true;
+				}
+				
+				// Add event listeners to save selection to localStorage
+				const radioButtons = document.querySelectorAll('input[name="altWordSelection"]');
+				radioButtons.forEach(radio => {
+					radio.addEventListener('change', () => {
+						if (radio.checked) {
+							localStorage.setItem('elsAltWordSelection', radio.value);
+						}
+					});
+				});
+			} else if (altWordControls) {
+				altWordControls.style.display = 'none';
+			}
+		}
+		
+		// Call the visibility check function
+		checkAltWordVisibility();
 
 		// Function to check modal width and apply responsive class
 		function checkModalWidth() {
@@ -5084,6 +5337,42 @@
 
 			document.getElementById('elsSearchBtn').addEventListener('click', function() {
 				greenFlash(this);
+				
+				// Check if text cleanup checkbox is checked
+				const cleanupCheckbox = document.getElementById('elsCleanupCheckbox');
+				if (cleanupCheckbox && cleanupCheckbox.checked) {
+					removeAllTextFormatting();
+				}
+				
+				// First, check if alt word radio buttons are visible and perform removal if needed
+				const altWordControls = document.getElementById('altWordControls');
+				if (altWordControls && altWordControls.style.display !== 'none') {
+					const selectedRadio = document.querySelector('input[name="altWordSelection"]:checked');
+					if (selectedRadio) {
+						const selectedValue = selectedRadio.value;
+						// Get plain text content (strips HTML)
+						const textAreaContent = textArea.textContent;
+						
+						if (selectedValue === 'AltWord1') {
+							// Remove Alt Word #1 content - match single asterisk followed by non-space characters and optional space
+							const noAltWord1Content = textAreaContent.replace(/\*[^\s\*]* ?/g, '');
+							// Re-apply highlighting to the cleaned content
+							textArea.innerHTML = highlightSpecialCharacters(noAltWord1Content);
+						} else if (selectedValue === 'AltWord2') {
+							// Remove Alt Word #2 content - match flower mark followed by non-space characters and optional space
+							const noAltWord2Content = textAreaContent.replace(/⁕[^\s⁕]* ?/g, '');
+							// Re-apply highlighting to the cleaned content
+							textArea.innerHTML = highlightSpecialCharacters(noAltWord2Content);
+						}
+					}
+					
+					// Disable all radio buttons after search is performed
+					const radioButtons = document.querySelectorAll('input[name="altWordSelection"]');
+					radioButtons.forEach(radio => {
+						radio.disabled = true;
+					});
+				}
+				
 				const start = parseInt(document.getElementById('startPosition').value) || 1;
 				let seq = parseInt(document.getElementById('sequenceNum').value);
 				
@@ -7403,40 +7692,60 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		openBtn.addEventListener('mouseup',  openFiles);
 		openBtn.addEventListener('touchend', openFiles);
 
+        // The app1Btn functionality - opens app1.php with selected text
+        function openApp1WithSelection() {
+            const selection = window.getSelection();
+            const selectedText = selection.toString().trim();
+            
+            if (selectedText) {
+                // URL encode the selected text to handle special characters
+                const encodedText = encodeURIComponent(selectedText);
+                window.open(`app1.php?text=${encodedText}`, '_blank');
+            } else {
+                // No selection, open normally
+                window.open('app1.php', '_blank');
+            }
+        }
+
           // File input change event listener.  Allows new text to be appended to the end of current text when using the Open button
         fileInput.addEventListener('change', () => {
             const files = fileInput.files;
 
-            // Show loading indicator
-            showLoadingIndicator();
+            // Show immediate loading indicator
+            showCalculationLoadingIndicator();
             
             // Set currentBook to empty.txt when files are loaded via openBtn
             currentBook = '/gemacrypt/files/books/empty.txt';
 
-            let fileText = '';
-            let filesProcessed = 0;
-            for (let file of files) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    fileText += reader.result + '\n\n';
-                    filesProcessed++;
-                    // After all files are loaded, apply highlighting and hide loading indicator
-                    if (filesProcessed === files.length) {
-                        // Store the loaded file content in localStorage for clearBtn functionality
-                        localStorage.setItem('gemacrypt_cached_file_content', fileText);
-                        
-                        // Apply highlighting to the loaded text
-                        textArea.innerHTML = highlightSpecialCharacters(fileText);
-                        
-                        // Detect language and store in global variable
-                        detectedLanguage = detectLanguage(fileText);
-                        console.log('Language detected:', detectedLanguage);
-                        
-                        hideLoadingIndicator();
+            // Force browser rendering before starting file processing
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    console.log('Starting file processing after forced render...');
+                    
+                    let fileText = '';
+                    let filesProcessed = 0;
+                    for (let file of files) {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                            fileText += reader.result + '\n\n';
+                            filesProcessed++;
+                            // After all files are loaded, apply progressive loading
+                            if (filesProcessed === files.length) {
+                                // Store the loaded file content in localStorage for clearBtn functionality
+                                localStorage.setItem('gemacrypt_cached_file_content', fileText);
+                                
+                                // Use progressive loading for the content
+                                processFileContentProgressively(textArea, fileText);
+                                
+                                // Detect language and store in global variable
+                                detectedLanguage = detectLanguage(fileText);
+                                console.log('Language detected:', detectedLanguage);
+                            }
+                        };
+                        reader.readAsText(file);
                     }
-                };
-                reader.readAsText(file);
-            }
+                });
+            });
         });
 
         // Select change event listener.  
