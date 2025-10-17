@@ -2587,6 +2587,43 @@
 				textArea.innerHTML = cleanedContent;
 			}
 			
+			// Function to remove only yellow backgrounds while preserving other formatting
+			function removeYellowBackgrounds() {
+				const textArea = document.getElementById('textArea');
+				if (!textArea) return;
+				
+				// Find all elements with yellow backgrounds
+				const elementsWithYellowBg = textArea.querySelectorAll('*');
+				
+				elementsWithYellowBg.forEach(element => {
+					const style = element.style;
+					if (style.backgroundColor === 'yellow' || 
+						style.backgroundColor === '#FFFF00' || 
+						style.backgroundColor === '#ffff00' ||
+						style.backgroundColor === 'rgb(255, 255, 0)' ||
+						style.backgroundColor.includes('rgba(255, 255, 0')) {
+						
+						// Remove yellow background but preserve other styles
+						style.removeProperty('background-color');
+						
+						// If the element has no other styles, remove the style attribute entirely
+						if (!style.cssText.trim()) {
+							element.removeAttribute('style');
+						}
+						
+						// If the element has no attributes left and is just a span, unwrap it
+						if (element.tagName === 'SPAN' && !element.hasAttributes()) {
+							const parent = element.parentNode;
+							while (element.firstChild) {
+								parent.insertBefore(element.firstChild, element);
+							}
+							parent.removeChild(element);
+							parent.normalize();
+						}
+					}
+				});
+			}
+			
 		// Loading Indicator Management
 		let loadingTimeout = null;
 		let loadingCounterInterval = null;
@@ -5338,7 +5375,10 @@
 			document.getElementById('elsSearchBtn').addEventListener('click', function() {
 				greenFlash(this);
 				
-				// Check if text cleanup checkbox is checked
+				// Always remove yellow backgrounds to avoid confusion with previous ELS results
+				removeYellowBackgrounds();
+				
+				// Check if text cleanup checkbox is checked for removing ALL formatting
 				const cleanupCheckbox = document.getElementById('elsCleanupCheckbox');
 				if (cleanupCheckbox && cleanupCheckbox.checked) {
 					removeAllTextFormatting();
@@ -5350,20 +5390,29 @@
 					const selectedRadio = document.querySelector('input[name="altWordSelection"]:checked');
 					if (selectedRadio) {
 						const selectedValue = selectedRadio.value;
-						// Get plain text content (strips HTML)
-						const textAreaContent = textArea.textContent;
+						
+						// Preserve formatting while removing alt words by working with HTML content
+						let htmlContent = textArea.innerHTML;
 						
 						if (selectedValue === 'AltWord1') {
 							// Remove Alt Word #1 content - match single asterisk followed by non-space characters and optional space
-							const noAltWord1Content = textAreaContent.replace(/\*[^\s\*]* ?/g, '');
-							// Re-apply highlighting to the cleaned content
-							textArea.innerHTML = highlightSpecialCharacters(noAltWord1Content);
+							// Use a more careful regex that works with HTML content
+							htmlContent = htmlContent.replace(/\*[^\s\*<>]* ?/g, '');
 						} else if (selectedValue === 'AltWord2') {
 							// Remove Alt Word #2 content - match flower mark followed by non-space characters and optional space
-							const noAltWord2Content = textAreaContent.replace(/⁕[^\s⁕]* ?/g, '');
-							// Re-apply highlighting to the cleaned content
-							textArea.innerHTML = highlightSpecialCharacters(noAltWord2Content);
+							// Use a more careful regex that works with HTML content
+							htmlContent = htmlContent.replace(/⁕[^\s⁕<>]* ?/g, '');
 						}
+						
+						// Update textArea with the modified HTML content (preserves formatting)
+						textArea.innerHTML = htmlContent;
+						
+						// Ensure special characters are still highlighted properly
+						const textContent = textArea.textContent;
+						const finalContent = textArea.innerHTML
+							.replace(/(?<!<[^>]*>)\*(?![^<]*>)/g, '<span style="color: #FF0000;">*</span>')
+							.replace(/(?<!<[^>]*>)⁕(?![^<]*>)/g, '<span style="color: #FF0000;">⁕</span>');
+						textArea.innerHTML = finalContent;
 					}
 					
 					// Disable all radio buttons after search is performed
@@ -6544,7 +6593,7 @@
 									consecutiveText += resultChars[i];
 									i++;
 								}
-								result += `<span style="color: ${chosenColor};">${consecutiveText}</span>`;
+								result += `<span style="color: ${chosenColor}; font-weight: bold;">${consecutiveText}</span>`;
 							} else {
 								// This character was not selected - preserve green highlight
 								// Group consecutive characters with same green formatting
@@ -6585,7 +6634,7 @@
 										consecutiveText += resultChars[i];
 										i++;
 									}
-									result += `<span style="${currentStyle}; color: ${chosenColor};">${consecutiveText}</span>`;
+									result += `<span style="${currentStyle}; color: ${chosenColor}; font-weight: bold;">${consecutiveText}</span>`;
 								} else {
 									// Non-selected text - just apply yellow background
 									while (i < resultChars.length && formattingMap2.has(i) && 
@@ -6631,7 +6680,7 @@
 								consecutiveText += resultChars[i];
 								i++;
 							}
-							result += `<span style="color: ${chosenColor};">${consecutiveText}</span>`;
+							result += `<span style="color: ${chosenColor}; font-weight: bold;">${consecutiveText}</span>`;
 						} else {
 							// No special formatting, group consecutive unformatted characters
 							let consecutiveText = '';

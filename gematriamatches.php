@@ -1,10 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="SHORTCUT ICON" href="favicon.png" />
-    <title>Gematria Matches - GemaCrypt</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Gematria Matches - Hebrew Word Value Search | GemaCrypt</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="SHORTCUT ICON" href="favicon.png" />
+<meta name="Rating" content="general" />
+<meta name="DESCRIPTION" content="Find Hebrew and Greek words with matching gematria values. Search for words that share the same numerical value in various ancient languages. Discover meaningful connections between words through gematria value matching across Hebrew, Greek, and Aramaic texts." />
+<meta name="KEYWORDS" content="Gematria Matches, Hebrew Gematria, Greek Gematria, Aramaic Gematria, Word Value Search, Numerical Value, Bible Words, Scripture Analysis, Hebrew Numbers, Greek Numbers, Gematria Calculator, Word Connections, Sacred Geometry, Biblical Numerology, Hebrew Bible, Greek Testament, Word Values, Numeric Equivalents, GemaCrypt, Letter Values, Alphabet Numbers, Hebrew Letters, Greek Letters, Torah Values, Bible Code, Scriptural Analysis, Ancient Languages, Mystical Numbers" />
+<meta name="distribution" content="Global" />
+<meta name="robots" content="FOLLOW,INDEX" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Gematria Matches",
+  "description": "Find Hebrew and Greek words with matching gematria values. Search for words that share the same numerical value in various ancient languages.",
+  "url": "https://gemacrypt.com/gematriamatches.php",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Web Browser",
+  "creator": {
+    "@type": "Organization",
+    "name": "GemaCrypt"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "Gematria",
+    "description": "Ancient practice of assigning numerical values to letters and words"
+  },
+  "keywords": ["Gematria", "Hebrew", "Greek", "Aramaic", "Bible Study", "Numerology", "Ancient Languages"]
+}
+</script>
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:title" content="Gematria Matches - Hebrew Word Value Search | GemaCrypt" />
+<meta property="og:description" content="Find Hebrew and Greek words with matching gematria values. Discover meaningful connections between words through numerical value matching." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gemacrypt.com/gematriamatches.php" />
+<meta property="og:site_name" content="GemaCrypt" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Gematria Matches - Hebrew Word Value Search" />
+<meta name="twitter:description" content="Find Hebrew and Greek words with matching gematria values. Discover connections through ancient numerology." />
+
+<!-- Additional SEO Meta Tags -->
+<meta name="author" content="GemaCrypt" />
+<meta name="language" content="English" />
+<meta name="revisit-after" content="7 days" />
+<meta name="classification" content="Education, Religion, Ancient Languages" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -136,9 +185,14 @@
             overflow-x: auto;
         }
     </style>
+    
+    <noscript><span style="color: red;">Warning! JavaScript is disabled, the functionality is unavailable.</span><br>
+You will need to enable JavaScript in your web browser: see the <a href="https://www.enable-javascript.com/" target="_blank">instructions</a>.<br><br></noscript>
+
 </head>
 <body>
     <div class="container">
+        <div style="display: none;"><center><h1>Gematria Matches - Hebrew and Greek Word Value Search</h1></center></div>
         <h1>Gematria Matches</h1>
         
         <div class="input-section">
@@ -298,5 +352,27 @@
             }
         });
     </script>
+    
+    <!-- SEO Content for Search Engines -->
+    <div style="display: none;">
+        <h2>About Gematria Matches</h2>
+        <p>This tool helps you find Hebrew, Greek, and Aramaic words that share the same gematria value. Gematria is an ancient practice of assigning numerical values to letters and words, revealing hidden connections and meanings in sacred texts.</p>
+        
+        <h3>How Gematria Works</h3>
+        <p>Each letter in Hebrew, Greek, and Aramaic alphabets has a corresponding numerical value. By calculating the sum of letter values in a word, you can find other words with the same total value, suggesting meaningful relationships.</p>
+        
+        <h3>Features</h3>
+        <ul>
+            <li>Search Hebrew words by gematria value</li>
+            <li>Find Greek word equivalents</li>
+            <li>Discover Aramaic connections</li>
+            <li>Biblical and scriptural analysis</li>
+            <li>Ancient language study tools</li>
+        </ul>
+        
+        <h3>Related Tools</h3>
+        <p>Part of the GemaCrypt suite for Hebrew gematria calculation, Bible code analysis, and ancient language cryptography tools.</p>
+    </div>
+    
 </body>
 </html>
