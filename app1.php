@@ -600,27 +600,41 @@ async function copyText2() {
 <a href="#" style="text-decoration: none; float: left;" onclick="switchTheme('olive')"><img src="img/theme5.png" alt="Theme" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
 <a href="#" style="text-decoration: none; float: left;" onclick="switchTheme('pastel')"><img src="img/theme6.png" alt="Theme" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
 <a href="#" style="text-decoration: none; float: left;" onclick="switchTheme('winter')"><img src="img/theme7.png" alt="Theme" height="16" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><img src="img/invis.gif" width="10" border="0"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style></a>
-<a href="help.html" style="color: #555; font-size: 18px; text-decoration: none;" target="_blank">GemaCrypt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<a href="#" style="color: #555; font-size: 18px; text-decoration: none; cursor: pointer;" onclick="toggleKeyboard(); return false;">GemaCrypt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 <a href="help.html" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/helpblack.png" alt="Help" height="15" width="15" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="16" border="0"></a>
 <a href="http://radius.center/gemacrypt/app2.php" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/book.png" alt="App2" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a>
-<a href="https://radius.center/phpmyadmin/db_sql.php?db=gematriaDB" style="color: #555; font-size: 14px; text-decoration: none; float: right;" target="_blank"><img src="img/query.png" alt="Query" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a>
+<a href="#" onclick="openPhpMyAdminWithGuest(); return false;" style="color: #555; font-size: 14px; text-decoration: none; float: right;"><img src="img/query.png" alt="Query" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src='img/kboard.png'] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a>
 <div id="google_translate_element" style="float: right; margin-right: 15px; margin-top: 1px;"></div></h1>
-<!--<a href="#" onclick="autoLoginPhpMyAdmin()" style="color: #555; font-size: 14px; text-decoration: none; float: right;"><img src="img/query.png" alt="Query" height="18" width="24" border="0" style="filter: drop-shadow(0 0 5px #FFFFFF);"><style>a:hover img[src="img/kboard.png"] {filter: drop-shadow(0 0 25px #FFFFFF); box-shadow: 0 0 10px #FFFFFF; }</style><img src="img/invis.gif" width="10" border="0"></a></h1>
 <script>
-function autoLoginPhpMyAdmin() {
-    // Due to browser security restrictions, we'll open phpMyAdmin and provide instructions
-    // for the user to manually enter the credentials
-    var phpMyAdminUrl = 'https://radius.center/phpmyadmin/tbl_sql.php?db=gematriaDB&table=gematriaTable';
-    
-    // Open phpMyAdmin in a new tab
-    var newWindow = window.open(phpMyAdminUrl, '_blank');
-    
-    // Show an alert with login instructions
-    setTimeout(function() {
-        alert('phpMyAdmin opened in new tab.\n\nUsername: guest\nPassword: guest\n\nSQL queries can be ran from here against gematriaTable.');
-    }, 500);
+function openPhpMyAdminWithGuest() {
+	var win = window.open('https://radius.center/phpmyadmin/db_sql.php?db=gematriaDB', '_blank');
+	if (!win) return;
+	// Try to inject JS to set username/password after load (works if same-origin)
+	var inject = function() {
+		try {
+			var d = win.document;
+			var user = d.querySelector('input[name="pma_username"], input[name="username"]');
+			var pass = d.querySelector('input[name="pma_password"], input[name="password"]');
+			if (user) user.value = 'guest';
+			if (pass) pass.value = 'guest';
+		} catch(e) {}
+	};
+	win.onload = function() {
+		inject();
+		// Try again after a short delay in case of slow load
+		setTimeout(inject, 500);
+	};
+	// Fallback: show alert if injection fails (cross-origin)
+	setTimeout(function() {
+		try {
+			var d = win.document;
+			if (!d.querySelector('input[name="pma_username"], input[name="username"]')) throw 1;
+		} catch(e) {
+			win.alert('Username: guest\nPassword: guest');
+		}
+	}, 1500);
 }
-</script>-->
+</script>
 
 <!--Hebrew letters if no keyboard is installed-->
 <div id="keyboard" class="result">

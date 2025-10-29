@@ -1275,7 +1275,7 @@
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Hebrew/zechariah/zechariah.txt"]											{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Hebrew/malachi/malachi.txt"]												{ --opt-bg:#3333aa; }
 		/*--------NT Hebrew----------E. Magoliouth-Trans--*/
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/matthew/matthew.txt"]					{ --opt-bg:#546cad; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/matthew/matthew.txt"]				{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/mark/mark.txt"]						{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/luke/luke.txt"]						{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/john/john.txt"]						{ --opt-bg:#546cad; }
@@ -1283,23 +1283,23 @@
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/romans/romans.txt"]					{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1corinthians/1corinthians.txt"]		{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2corinthians/2corinthians.txt"]		{ --opt-bg:#546cad; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/galatians/galatians.txt"]				{ --opt-bg:#546cad; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/ephesians/ephesians.txt"]				{ --opt-bg:#546cad; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/philippians/philippians.txt"]			{ --opt-bg:#546cad; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/galatians/galatians.txt"]			{ --opt-bg:#546cad; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/ephesians/ephesians.txt"]			{ --opt-bg:#546cad; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/philippians/philippians.txt"]		{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/colossians/colossians.txt"]			{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1thessalonians/1thessalonians.txt"]	{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2thessalonians/2thessalonians.txt"]	{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1timothy/1timothy.txt"]				{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2timothy/2timothy.txt"]				{ --opt-bg:#546cad; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/titus/titus.txt"]						{ --opt-bg:#546cad; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/titus/titus.txt"]					{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/philemon/philemon.txt"]				{ --opt-bg:#546cad; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/hebrews/hebrews.txt"]					{ --opt-bg:#546cad; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/james/james.txt"]						{ --opt-bg:#546cad; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/hebrews/hebrews.txt"]				{ --opt-bg:#546cad; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/james/james.txt"]					{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1peter/1peter.txt"]					{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2peter/2peter.txt"]					{ --opt-bg:#546cad; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1john/1john.txt"]						{ --opt-bg:#546cad; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2john/2john.txt"]						{ --opt-bg:#546cad; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/3john/3john.txt"]						{ --opt-bg:#546cad; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1john/1john.txt"]					{ --opt-bg:#546cad; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2john/2john.txt"]					{ --opt-bg:#546cad; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/3john/3john.txt"]					{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/jude/jude.txt"]						{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/revelation/revelation.txt"]			{ --opt-bg:#546cad; }
 		/*--------NT Hebrew---------Delitzsch-Translation-*/
@@ -1360,74 +1360,74 @@
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/revelation/revelation.txt"]					{ --opt-bg:#00aeff; }
 		/*--------NT Hebrew---------Richmond-Translation--*/
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/matthew/matthew.txt"]							{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/mark/mark.txt"]									{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/luke/luke.txt"]									{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/john/john.txt"]									{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/acts/acts.txt"]									{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/romans/romans.txt"]								{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1corinthians/1corinthians.txt"]					{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2corinthians/2corinthians.txt"]					{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/mark/mark.txt"]								{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/luke/luke.txt"]								{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/john/john.txt"]								{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/acts/acts.txt"]								{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/romans/romans.txt"]							{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1corinthians/1corinthians.txt"]				{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2corinthians/2corinthians.txt"]				{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/galatians/galatians.txt"]						{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/ephesians/ephesians.txt"]						{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/philippians/philippians.txt"]					{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/colossians/colossians.txt"]						{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1thessalonians/1thessalonians.txt"]				{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2thessalonians/2thessalonians.txt"]				{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1timothy/1timothy.txt"]							{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2timothy/2timothy.txt"]							{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/colossians/colossians.txt"]					{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1thessalonians/1thessalonians.txt"]			{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2thessalonians/2thessalonians.txt"]			{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1timothy/1timothy.txt"]						{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2timothy/2timothy.txt"]						{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/titus/titus.txt"]								{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/philemon/philemon.txt"]							{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/philemon/philemon.txt"]						{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/hebrews/hebrews.txt"]							{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/james/james.txt"]								{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1peter/1peter.txt"]								{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2peter/2peter.txt"]								{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1peter/1peter.txt"]							{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2peter/2peter.txt"]							{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1john/1john.txt"]								{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2john/2john.txt"]								{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/3john/3john.txt"]								{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/jude/jude.txt"]									{ --opt-bg:#48bef5; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/revelation/revelation.txt"]						{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/jude/jude.txt"]								{ --opt-bg:#48bef5; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/revelation/revelation.txt"]					{ --opt-bg:#48bef5; }
 		/*--------OT Greek--------*/
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/genesis/genesis.txt"]													{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/genesis/genesis.txt"]												{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/exodus/exodus.txt"]													{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/leviticus/leviticus.txt"]												{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/numbers/numbers.txt"]													{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/deuteronomy/deuteronomy.txt"]											{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/leviticus/leviticus.txt"]											{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/numbers/numbers.txt"]												{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/deuteronomy/deuteronomy.txt"]										{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/joshua/joshua.txt"]													{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/judges/judges.txt"]													{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/ruth/ruth.txt"]														{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/1samuel/1samuel.txt"]													{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/2samuel/2samuel.txt"]													{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/1samuel/1samuel.txt"]												{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/2samuel/2samuel.txt"]												{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/1kings/1kings.txt"]													{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/2kings/2kings.txt"]													{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/1chronicles/1chronicles.txt"]											{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/2chronicles/2chronicles.txt"]											{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/1chronicles/1chronicles.txt"]										{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/2chronicles/2chronicles.txt"]										{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/ezra/ezra.txt"]														{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/nehemiah/nehemiah.txt"]												{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/esther/esther.txt"]													{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/job/job.txt"]															{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/job/job.txt"]														{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/psalms/psalms.txt"]													{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/proverbs/proverbs.txt"]												{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/ecclesiastes/ecclesiastes.txt"]										{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/songs/songs.txt"]														{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/songs/songs.txt"]													{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/isaiah/isaiah.txt"]													{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/jeremiah/jeremiah.txt"]												{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/lamentations/lamentations.txt"]										{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/ezekiel/ezekiel.txt"]													{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/ezekiel/ezekiel.txt"]												{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/daniel/daniel.txt"]													{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/hosea/hosea.txt"]														{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/hosea/hosea.txt"]													{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/joel/joel.txt"]														{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/amos/amos.txt"]														{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/obadiah/obadiah.txt"]													{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/jonah/jonah.txt"]														{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/micah/micah.txt"]														{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/nahum/nahum.txt"]														{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/obadiah/obadiah.txt"]												{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/jonah/jonah.txt"]													{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/micah/micah.txt"]													{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/nahum/nahum.txt"]													{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/habakkuk/habakkuk.txt"]												{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/zephaniah/zephaniah.txt"]												{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/zephaniah/zephaniah.txt"]											{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/haggai/haggai.txt"]													{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/zechariah/zechariah.txt"]												{ --opt-bg:#007700; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/malachi/malachi.txt"]													{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/zechariah/zechariah.txt"]											{ --opt-bg:#007700; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/malachi/malachi.txt"]												{ --opt-bg:#007700; }
 		/*--------NT Greek--------*/
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/matthew/matthew.txt"]													{ --opt-bg:#009900; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/matthew/matthew.txt"]												{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/mark/mark.txt"]														{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/luke/luke.txt"]														{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/john/john.txt"]														{ --opt-bg:#009900; }
@@ -1435,93 +1435,93 @@
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/romans/romans.txt"]													{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/1corinthians/1corinthians.txt"]										{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/2corinthians/2corinthians.txt"]										{ --opt-bg:#009900; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/galatians/galatians.txt"]												{ --opt-bg:#009900; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/ephesians/ephesians.txt"]												{ --opt-bg:#009900; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/philippians/philippians.txt"]											{ --opt-bg:#009900; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/galatians/galatians.txt"]											{ --opt-bg:#009900; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/ephesians/ephesians.txt"]											{ --opt-bg:#009900; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/philippians/philippians.txt"]										{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/colossians/colossians.txt"]											{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/1thessalonians/1thessalonians.txt"]									{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/2thessalonians/2thessalonians.txt"]									{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/1timothy/1timothy.txt"]												{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/2timothy/2timothy.txt"]												{ --opt-bg:#009900; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/titus/titus.txt"]														{ --opt-bg:#009900; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/titus/titus.txt"]													{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/philemon/philemon.txt"]												{ --opt-bg:#009900; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/hebrews/hebrews.txt"]													{ --opt-bg:#009900; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/james/james.txt"]														{ --opt-bg:#009900; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/hebrews/hebrews.txt"]												{ --opt-bg:#009900; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/james/james.txt"]													{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/1peter/1peter.txt"]													{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/2peter/2peter.txt"]													{ --opt-bg:#009900; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/1john/1john.txt"]														{ --opt-bg:#009900; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/2john/2john.txt"]														{ --opt-bg:#009900; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/3john/3john.txt"]														{ --opt-bg:#009900; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/1john/1john.txt"]													{ --opt-bg:#009900; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/2john/2john.txt"]													{ --opt-bg:#009900; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/3john/3john.txt"]													{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/jude/jude.txt"]														{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/revelation/revelation.txt"]											{ --opt-bg:#009900; }
 		/*--------OT English--------*/
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/genesis/genesis.txt"]												{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/exodus/exodus.txt"]													{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/exodus/exodus.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/leviticus/leviticus.txt"]											{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/numbers/numbers.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/deuteronomy/deuteronomy.txt"]										{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/joshua/joshua.txt"]													{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/judges/judges.txt"]													{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/ruth/ruth.txt"]														{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/joshua/joshua.txt"]												{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/judges/judges.txt"]												{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/ruth/ruth.txt"]													{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/1samuel/1samuel.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/2samuel/2samuel.txt"]												{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/1kings/1kings.txt"]													{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/2kings/2kings.txt"]													{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/1kings/1kings.txt"]												{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/2kings/2kings.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/1chronicles/1chronicles.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/2chronicles/2chronicles.txt"]										{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/ezra/ezra.txt"]														{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/nehemiah/nehemiah.txt"]												{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/esther/esther.txt"]													{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/ezra/ezra.txt"]													{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/nehemiah/nehemiah.txt"]											{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/esther/esther.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/job/job.txt"]														{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/psalms/psalms.txt"]													{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/proverbs/proverbs.txt"]												{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/ecclesiastes/ecclesiastes.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/psalms/psalms.txt"]												{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/proverbs/proverbs.txt"]											{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/ecclesiastes/ecclesiastes.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/songs/songs.txt"]													{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/isaiah/isaiah.txt"]													{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/jeremiah/jeremiah.txt"]												{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/lamentations/lamentations.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/isaiah/isaiah.txt"]												{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/jeremiah/jeremiah.txt"]											{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/lamentations/lamentations.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/ezekiel/ezekiel.txt"]												{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/daniel/daniel.txt"]													{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/daniel/daniel.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/hosea/hosea.txt"]													{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/joel/joel.txt"]														{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/amos/amos.txt"]														{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/joel/joel.txt"]													{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/amos/amos.txt"]													{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/obadiah/obadiah.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/jonah/jonah.txt"]													{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/micah/micah.txt"]													{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/nahum/nahum.txt"]													{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/habakkuk/habakkuk.txt"]												{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/habakkuk/habakkuk.txt"]											{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/zephaniah/zephaniah.txt"]											{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/OT/English/haggai/haggai.txt"]													{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/haggai/haggai.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/zechariah/zechariah.txt"]											{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/malachi/malachi.txt"]												{ --opt-bg:#cc8000; }
 		/*--------NT English--------*/
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/matthew/matthew.txt"]												{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/mark/mark.txt"]														{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/luke/luke.txt"]														{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/john/john.txt"]														{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/acts/acts.txt"]														{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/romans/romans.txt"]													{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/1corinthians/1corinthians.txt"]										{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/2corinthians/2corinthians.txt"]										{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/mark/mark.txt"]													{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/luke/luke.txt"]													{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/john/john.txt"]													{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/acts/acts.txt"]													{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/romans/romans.txt"]												{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/1corinthians/1corinthians.txt"]									{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/2corinthians/2corinthians.txt"]									{ --opt-bg:#cc5000; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/galatians/galatians.txt"]											{ --opt-bg:#cc5000; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/ephesians/ephesians.txt"]											{ --opt-bg:#cc5000; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/philippians/philippians.txt"]										{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/colossians/colossians.txt"]											{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/1thessalonians/1thessalonians.txt"]									{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/2thessalonians/2thessalonians.txt"]									{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/1timothy/1timothy.txt"]												{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/2timothy/2timothy.txt"]												{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/colossians/colossians.txt"]										{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/1thessalonians/1thessalonians.txt"]								{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/2thessalonians/2thessalonians.txt"]								{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/1timothy/1timothy.txt"]											{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/2timothy/2timothy.txt"]											{ --opt-bg:#cc5000; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/titus/titus.txt"]													{ --opt-bg:#cc5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/philemon/philemon.txt"]												{ --opt-bg:#cc5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/philemon/philemon.txt"]											{ --opt-bg:#cc5000; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/hebrews/hebrews.txt"]												{ --opt-bg:#cc5000; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/james/james.txt"]													{ --opt-bg:#CC5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/1peter/1peter.txt"]													{ --opt-bg:#CC5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/2peter/2peter.txt"]													{ --opt-bg:#CC5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/1peter/1peter.txt"]												{ --opt-bg:#CC5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/2peter/2peter.txt"]												{ --opt-bg:#CC5000; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/1john/1john.txt"]													{ --opt-bg:#CC5000; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/2john/2john.txt"]													{ --opt-bg:#CC5000; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/3john/3john.txt"]													{ --opt-bg:#CC5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/jude/jude.txt"]														{ --opt-bg:#CC5000; }
-		#bookSelect option[value*="/gemacrypt/files/books/NT/English/revelation/revelation.txt"]											{ --opt-bg:#CC5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/jude/jude.txt"]													{ --opt-bg:#CC5000; }
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/revelation/revelation.txt"]										{ --opt-bg:#CC5000; }
 		/*--------Additions in Hebrew--------*/
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/Hebrew/Apocalypse of Adam.txt"]										{ --opt-bg:#546cad; }
 		/*--------Additions in Greek--------*/
@@ -1530,10 +1530,10 @@
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/Greek/Gospel of Peter.txt"]											{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/Greek/Psalms of Solomon.txt"]										{ --opt-bg:#009900; }
 		/*--------Additions in Latin--------*/
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/Latin/Apocalypse of Golias.txt"]										{ --opt-bg:#7b1fa2; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/Latin/Apocalypse of Golias.txt"]									{ --opt-bg:#7b1fa2; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/Latin/Epistle to the Laodiceans.txt"]								{ --opt-bg:#7b1fa2; }
 		/*--------Additions in English--------*/
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/1 Adam and Eve.txt"]											{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/1 Adam and Eve.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/1 Apocalypse of James.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/2 Apocalypse of James.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/1 Clement.txt"]												{ --opt-bg:#cc8000; }
@@ -1547,61 +1547,61 @@
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/2 Maccabees.txt"]											{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/3 Maccabees.txt"]											{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/4 Maccabees.txt"]											{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Andrew.txt"]											{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Andrew.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Paul.txt"]											{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Apollonius.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Apollonius.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of John.txt"]											{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Perpetua and Felicitas.txt"]							{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Perpetua and Felicitas.txt"]						{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Peter.txt"]											{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Peter and the Twelve.txt"]							{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Pilate.txt"]											{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Thomas.txt"]											{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Pilate.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Acts of Thomas.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Adam.txt"]													{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Adam and Eve.txt"]											{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Additions to Esther.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Abraham.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Adam.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Adam.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Bartholomew.txt"]								{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Baruch 2.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Baruch 3.txt"]									{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Baruch 2.txt"]								{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Baruch 3.txt"]								{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Daniel.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Elijah.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Esdras.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Ezra.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Ezra.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Golias.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Lamech.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Moses.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Paul.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Paul.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Peter.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Pseduo-Methodius.txt"]							{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Pseduo-Methodius.txt"]						{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Sedrach.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Stephen.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of the Virgin.txt"]								{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Thomas.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Zephaniah.txt"]								{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocalypse of Zerubbabel.txt"]								{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocryphon of John.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apocryphon of John.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Apology of Aristides.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Ascension of Isaiah.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Baruch.txt"]													{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Bel and the Dragon.txt"]										{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Dialogue of the Savior.txt"]									{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Baruch.txt"]												{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Bel and the Dragon.txt"]									{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Dialogue of the Savior.txt"]								{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Didache.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Diognetus.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Dionysius of Corinth.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epiphanes.txt"]												{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Apostolorum.txt"]									{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Apostolorum.txt"]								{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Aristeas.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Barnabas.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Enoch.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Jeremiah.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Peter to Philip.txt"]								{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Peter to Philip.txt"]							{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Polycarp.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Ptolemy.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Ptolemy.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle of Vienna and Lyons.txt"]							{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Epistle to the Laodiceans.txt"]								{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Eugnostos the Blessed.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gnostic Antithesis.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gnostic Antithesis.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gnostic Basilides.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gnostic Naassene.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Ebionites.txt"]									{ --opt-bg:#cc8000; }
@@ -1612,20 +1612,20 @@
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of James.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Judas.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of the Marcion.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Mary.txt"]											{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Mary.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Nazoreans.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Nicodemus.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Oxyrhynchus 840.txt"]								{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Oxyrhynchus 1224.txt"]								{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Oxyrhynchus 1224.txt"]							{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Peter.txt"]										{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of the Lord.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of the Lord.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Thomas.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Gospel of Truth.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Heracleon.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Ignatius to Polycarp.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Jasher.txt"]													{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Jasher.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Jubilees.txt"]												{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Judith.txt"]													{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Judith.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Life of Apollonius of Tyana.txt"]							{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Martyrdom of Isaiah.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Martydom of Polycarp.txt"]									{ --opt-bg:#cc8000; }
@@ -1634,28 +1634,28 @@
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Ophite Diagrams.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Passion Narrative.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Prayer of Azariah.txt"]										{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Prayer of Manassas.txt"]										{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Prayer of Paul.txt"]											{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Preaching of Peter.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Prayer of Manassas.txt"]									{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Prayer of Paul.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Preaching of Peter.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Psalms of Solomon.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Secret Book of James.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Secret Book of Mark.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Shem.txt"]													{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Shepherd of Hermas.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Shepherd of Hermas.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Sophia of Jesus.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Susanna.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Testament of Abraham.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Testament of Moses.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Testament of Moses.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Testament of Solomon.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Testament of the 12 Patriarchs.txt"]							{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Testimony of Truth.txt"]										{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Testament of the 12 Patriarchs.txt"]						{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Testimony of Truth.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Theodotus.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Theophilus of Antioch.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Thomas the Contender.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Thunder, Perfect Mind.txt"]									{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Tobit.txt"]													{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Traditions of Matthias.txt"]									{ --opt-bg:#cc8000; }
-		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Vision of Ezra.txt"]											{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Traditions of Matthias.txt"]								{ --opt-bg:#cc8000; }
+		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Vision of Ezra.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Wisdom of Sirach.txt"]										{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/Additions/English/Wisdom of Solomon.txt"]										{ --opt-bg:#cc8000; }
 		</style>
@@ -1663,445 +1663,445 @@
 		<select id="bookSelect" onchange="loadFile(this.value)">
 			<option value='Book' selected="true">&#x1F4D6; Book:</option>
 			<option value='---'>--------OT Hebrew--------</option><!-- OT in Hebrew -->
-			<option value='/gemacrypt/files/books/OT/Hebrew/genesis/genesis.txt'>Genesis</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/exodus/exodus.txt'>Exodus</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/leviticus/leviticus.txt'>Leviticus</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/numbers/numbers.txt'>Numbers</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/deuteronomy/deuteronomy.txt'>Deuteronomy</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/joshua/joshua.txt'>Joshua</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/judges/judges.txt'>Judges</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/ruth/ruth.txt'>Ruth</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/1samuel/1samuel.txt'>1 Samuel</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/2samuel/2samuel.txt'>2 Samuel</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/1kings/1kings.txt'>1 Kings</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/2kings/2kings.txt'>2 Kings</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/1chronicles/1chronicles.txt'>1 Chronicles</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/2chronicles/2chronicles.txt'>2 Chronicles</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/ezra/ezra.txt'>Ezra</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/nehemiah/nehemiah.txt'>Nehemiah</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/esther/esther.txt'>Esther</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/job/job.txt'>Job</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/psalms/psalms.txt'>Psalms</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/proverbs/proverbs.txt'>Proverbs</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/ecclesiastes/ecclesiastes.txt'>Ecclesiastes</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/songs/songs.txt'>Song of Songs</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/isaiah/isaiah.txt'>Isaiah</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/jeremiah/jeremiah.txt'>Jeremiah</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/lamentations/lamentations.txt'>Lamentations</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/ezekiel/ezekiel.txt'>Ezekiel</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/daniel/daniel.txt'>Daniel</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/hosea/hosea.txt'>Hosea</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/joel/joel.txt'>Joel</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/amos/amos.txt'>Amos</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/obadiah/obadiah.txt'>Obadiah</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/jonah/jonah.txt'>Jonah</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/micah/micah.txt'>Micah</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/nahum/nahum.txt'>Nahum</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/habakkuk/habakkuk.txt'>Habakkuk</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/zephaniah/zephaniah.txt'>Zephaniah</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/haggai/haggai.txt'>Haggai</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/zechariah/zechariah.txt'>Zechariah</option>
-			<option value='/gemacrypt/files/books/OT/Hebrew/malachi/malachi.txt'>Malachi</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/genesis/genesis.txt'>&#x1F4DC; Genesis</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/exodus/exodus.txt'>&#x1F4DC; Exodus</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/leviticus/leviticus.txt'>&#x1F4DC; Leviticus</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/numbers/numbers.txt'>&#x1F4DC; Numbers</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/deuteronomy/deuteronomy.txt'>&#x1F4DC; Deuteronomy</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/joshua/joshua.txt'>&#x1F4DC; Joshua</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/judges/judges.txt'>&#x1F4DC; Judges</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/ruth/ruth.txt'>&#x1F4DC; Ruth</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/1samuel/1samuel.txt'>&#x1F4DC; 1 Samuel</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/2samuel/2samuel.txt'>&#x1F4DC; 2 Samuel</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/1kings/1kings.txt'>&#x1F4DC; 1 Kings</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/2kings/2kings.txt'>&#x1F4DC; 2 Kings</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/1chronicles/1chronicles.txt'>&#x1F4DC; 1 Chronicles</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/2chronicles/2chronicles.txt'>&#x1F4DC; 2 Chronicles</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/ezra/ezra.txt'>&#x1F4DC; Ezra</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/nehemiah/nehemiah.txt'>&#x1F4DC; Nehemiah</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/esther/esther.txt'>&#x1F4DC; Esther</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/job/job.txt'>&#x1F4DC; Job</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/psalms/psalms.txt'>&#x1F4DC; Psalms</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/proverbs/proverbs.txt'>&#x1F4DC; Proverbs</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/ecclesiastes/ecclesiastes.txt'>&#x1F4DC; Ecclesiastes</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/songs/songs.txt'>&#x1F4DC; Song of Songs</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/isaiah/isaiah.txt'>&#x1F4DC; Isaiah</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/jeremiah/jeremiah.txt'>&#x1F4DC; Jeremiah</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/lamentations/lamentations.txt'>&#x1F4DC; Lamentations</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/ezekiel/ezekiel.txt'>&#x1F4DC; Ezekiel</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/daniel/daniel.txt'>&#x1F4DC; Daniel</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/hosea/hosea.txt'>&#x1F4DC; Hosea</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/joel/joel.txt'>&#x1F4DC; Joel</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/amos/amos.txt'>&#x1F4DC; Amos</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/obadiah/obadiah.txt'>&#x1F4DC; Obadiah</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/jonah/jonah.txt'>&#x1F4DC; Jonah</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/micah/micah.txt'>&#x1F4DC; Micah</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/nahum/nahum.txt'>&#x1F4DC; Nahum</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/habakkuk/habakkuk.txt'>&#x1F4DC; Habakkuk</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/zephaniah/zephaniah.txt'>&#x1F4DC; Zephaniah</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/haggai/haggai.txt'>&#x1F4DC; Haggai</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/zechariah/zechariah.txt'>&#x1F4DC; Zechariah</option>
+			<option value='/gemacrypt/files/books/OT/Hebrew/malachi/malachi.txt'>&#x1F4DC; Malachi</option>
 			<option value='---'> </option>
 			<option value='---'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
 			<option value='---'>--(E. Magoliouth-Trans)--</option><!-- Ezekiel Magoliouth's Translation of the Greek NT to Hebrew -->
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/matthew/matthew.txt'>Matthew</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/mark/mark.txt'>Mark</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/luke/luke.txt'>Luke</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/john/john.txt'>John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/acts/acts.txt'>Acts</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/romans/romans.txt'>Romans</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1corinthians/1corinthians.txt'>1 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2corinthians/2corinthians.txt'>2 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/galatians/galatians.txt'>Galatians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/ephesians/ephesians.txt'>Ephesians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/philippians/philippians.txt'>Philippians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/colossians/colossians.txt'>Colossians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1thessalonians/1thessalonians.txt'>1 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2thessalonians/2thessalonians.txt'>2 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1timothy/1timothy.txt'>1 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2timothy/2timothy.txt'>2 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/titus/titus.txt'>Titus</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/philemon/philemon.txt'>Philemon</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/hebrews/hebrews.txt'>Hebrews</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/james/james.txt'>James</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1peter/1peter.txt'>1 Peter</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2peter/2peter.txt'>2 Peter</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1john/1john.txt'>1 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2john/2john.txt'>2 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/3john/3john.txt'>3 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/jude/jude.txt'>Jude</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/revelation/revelation.txt'>Revelation</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/matthew/matthew.txt'>&#x1F4D8; Matthew</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/mark/mark.txt'>&#x1F4D8; Mark</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/luke/luke.txt'>&#x1F4D8; Luke</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/john/john.txt'>&#x1F4D8; John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/acts/acts.txt'>&#x1F4D8; Acts</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/romans/romans.txt'>&#x1F4D8; Romans</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1corinthians/1corinthians.txt'>&#x1F4D8; 1 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2corinthians/2corinthians.txt'>&#x1F4D8; 2 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/galatians/galatians.txt'>&#x1F4D8; Galatians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/ephesians/ephesians.txt'>&#x1F4D8; Ephesians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/philippians/philippians.txt'>&#x1F4D8; Philippians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/colossians/colossians.txt'>&#x1F4D8; Colossians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1thessalonians/1thessalonians.txt'>&#x1F4D8; 1 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2thessalonians/2thessalonians.txt'>&#x1F4D8; 2 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1timothy/1timothy.txt'>&#x1F4D8; 1 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2timothy/2timothy.txt'>&#x1F4D8; 2 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/titus/titus.txt'>&#x1F4D8; Titus</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/philemon/philemon.txt'>&#x1F4D8; Philemon</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/hebrews/hebrews.txt'>&#x1F4D8; Hebrews</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/james/james.txt'>&#x1F4D8; James</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1peter/1peter.txt'>&#x1F4D8; 1 Peter</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2peter/2peter.txt'>&#x1F4D8; 2 Peter</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/1john/1john.txt'>&#x1F4D8; 1 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/2john/2john.txt'>&#x1F4D8; 2 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/3john/3john.txt'>&#x1F4D8; 3 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/jude/jude.txt'>&#x1F4D8; Jude</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/revelation/revelation.txt'>&#x1F4D8; Revelation</option>
 			<option value='---'> </option>
 			<option value='---'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
 			<option value='---'>-(Delitzsch Translation)-</option><!-- Delitzsch's Translation of the Greek NT to Hebrew -->
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/matthew/matthew.txt'>Matthew</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/mark/mark.txt'>Mark</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/luke/luke.txt'>Luke</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/john/john.txt'>John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/acts/acts.txt'>Acts</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/romans/romans.txt'>Romans</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1corinthians/1corinthians.txt'>1 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2corinthians/2corinthians.txt'>2 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/galatians/galatians.txt'>Galatians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/ephesians/ephesians.txt'>Ephesians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/philippians/philippians.txt'>Philippians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/colossians/colossians.txt'>Colossians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1thessalonians/1thessalonians.txt'>1 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2thessalonians/2thessalonians.txt'>2 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1timothy/1timothy.txt'>1 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2timothy/2timothy.txt'>2 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/titus/titus.txt'>Titus</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/philemon/philemon.txt'>Philemon</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/hebrews/hebrews.txt'>Hebrews</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/james/james.txt'>James</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1peter/1peter.txt'>1 Peter</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2peter/2peter.txt'>2 Peter</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1john/1john.txt'>1 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2john/2john.txt'>2 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/3john/3john.txt'>3 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/jude/jude.txt'>Jude</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/revelation/revelation.txt'>Revelation</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/matthew/matthew.txt'>&#x1F4D7; Matthew</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/mark/mark.txt'>&#x1F4D7; Mark</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/luke/luke.txt'>&#x1F4D7; Luke</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/john/john.txt'>&#x1F4D7; John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/acts/acts.txt'>&#x1F4D7; Acts</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/romans/romans.txt'>&#x1F4D7; Romans</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1corinthians/1corinthians.txt'>&#x1F4D7; 1 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2corinthians/2corinthians.txt'>&#x1F4D7; 2 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/galatians/galatians.txt'>&#x1F4D7; Galatians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/ephesians/ephesians.txt'>&#x1F4D7; Ephesians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/philippians/philippians.txt'>&#x1F4D7; Philippians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/colossians/colossians.txt'>&#x1F4D7; Colossians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1thessalonians/1thessalonians.txt'>&#x1F4D7; 1 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2thessalonians/2thessalonians.txt'>&#x1F4D7; 2 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1timothy/1timothy.txt'>&#x1F4D7; 1 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2timothy/2timothy.txt'>&#x1F4D7; 2 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/titus/titus.txt'>&#x1F4D7; Titus</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/philemon/philemon.txt'>&#x1F4D7; Philemon</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/hebrews/hebrews.txt'>&#x1F4D7; Hebrews</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/james/james.txt'>&#x1F4D7; James</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1peter/1peter.txt'>&#x1F4D7; 1 Peter</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2peter/2peter.txt'>&#x1F4D7; 2 Peter</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1john/1john.txt'>&#x1F4D7; 1 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2john/2john.txt'>&#x1F4D7; 2 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/3john/3john.txt'>&#x1F4D7; 3 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/jude/jude.txt'>&#x1F4D7; Jude</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/revelation/revelation.txt'>&#x1F4D7; Revelation</option>
 			<option value='---'> </option>
 			<option value='---'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
 			<option value='---'>-(Salkinson-Translation)-</option><!-- Salkinson's Translation of the Greek NT to Hebrew -->
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/matthew/matthew.txt'>Matthew</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/mark/mark.txt'>Mark</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/luke/luke.txt'>Luke</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/john/john.txt'>John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/acts/acts.txt'>Acts</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/romans/romans.txt'>Romans</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1corinthians/1corinthians.txt'>1 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2corinthians/2corinthians.txt'>2 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/galatians/galatians.txt'>Galatians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/ephesians/ephesians.txt'>Ephesians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/philippians/philippians.txt'>Philippians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/colossians/colossians.txt'>Colossians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1thessalonians/1thessalonians.txt'>1 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2thessalonians/2thessalonians.txt'>2 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1timothy/1timothy.txt'>1 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2timothy/2timothy.txt'>2 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/titus/titus.txt'>Titus</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/philemon/philemon.txt'>Philemon</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/hebrews/hebrews.txt'>Hebrews</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/james/james.txt'>James</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1peter/1peter.txt'>1 Peter</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2peter/2peter.txt'>2 Peter</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1john/1john.txt'>1 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2john/2john.txt'>2 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/3john/3john.txt'>3 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/jude/jude.txt'>Jude</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/revelation/revelation.txt'>Revelation</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/matthew/matthew.txt'>&#x1F4D5; Matthew</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/mark/mark.txt'>&#x1F4D5; Mark</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/luke/luke.txt'>&#x1F4D5; Luke</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/john/john.txt'>&#x1F4D5; John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/acts/acts.txt'>&#x1F4D5; Acts</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/romans/romans.txt'>&#x1F4D5; Romans</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1corinthians/1corinthians.txt'>&#x1F4D5; 1 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2corinthians/2corinthians.txt'>&#x1F4D5; 2 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/galatians/galatians.txt'>&#x1F4D5; Galatians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/ephesians/ephesians.txt'>&#x1F4D5; Ephesians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/philippians/philippians.txt'>&#x1F4D5; Philippians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/colossians/colossians.txt'>&#x1F4D5; Colossians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1thessalonians/1thessalonians.txt'>&#x1F4D5; 1 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2thessalonians/2thessalonians.txt'>&#x1F4D5; 2 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1timothy/1timothy.txt'>&#x1F4D5; 1 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2timothy/2timothy.txt'>&#x1F4D5; 2 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/titus/titus.txt'>&#x1F4D5; Titus</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/philemon/philemon.txt'>&#x1F4D5; Philemon</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/hebrews/hebrews.txt'>&#x1F4D5; Hebrews</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/james/james.txt'>&#x1F4D5; James</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1peter/1peter.txt'>&#x1F4D5; 1 Peter</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2peter/2peter.txt'>&#x1F4D5; 2 Peter</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1john/1john.txt'>&#x1F4D5; 1 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2john/2john.txt'>&#x1F4D5; 2 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/3john/3john.txt'>&#x1F4D5; 3 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/jude/jude.txt'>&#x1F4D5; Jude</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/revelation/revelation.txt'>&#x1F4D5; Revelation</option>
 			<option value='---'> </option>
 			<option value='---'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
 			<option value='---'>-(Richmond Translation)--</option><!-- Richmond's Translation of the Greek NT to Hebrew -->
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/matthew/matthew.txt'>Matthew</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/mark/mark.txt'>Mark</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/luke/luke.txt'>Luke</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/john/john.txt'>John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/acts/acts.txt'>Acts</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/romans/romans.txt'>Romans</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1corinthians/1corinthians.txt'>1 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2corinthians/2corinthians.txt'>2 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/galatians/galatians.txt'>Galatians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/ephesians/ephesians.txt'>Ephesians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/philippians/philippians.txt'>Philippians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/colossians/colossians.txt'>Colossians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1thessalonians/1thessalonians.txt'>1 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2thessalonians/2thessalonians.txt'>2 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1timothy/1timothy.txt'>1 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2timothy/2timothy.txt'>2 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/titus/titus.txt'>Titus</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/philemon/philemon.txt'>Philemon</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/hebrews/hebrews.txt'>Hebrews</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/james/james.txt'>James</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1peter/1peter.txt'>1 Peter</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2peter/2peter.txt'>2 Peter</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1john/1john.txt'>1 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2john/2john.txt'>2 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/3john/3john.txt'>3 John</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/jude/jude.txt'>Jude</option>
-			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/revelation/revelation.txt'>Revelation</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/matthew/matthew.txt'>&#x1F4D9; Matthew</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/mark/mark.txt'>&#x1F4D9; Mark</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/luke/luke.txt'>&#x1F4D9; Luke</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/john/john.txt'>&#x1F4D9; John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/acts/acts.txt'>&#x1F4D9; Acts</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/romans/romans.txt'>&#x1F4D9; Romans</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1corinthians/1corinthians.txt'>&#x1F4D9; 1 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2corinthians/2corinthians.txt'>&#x1F4D9; 2 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/galatians/galatians.txt'>&#x1F4D9; Galatians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/ephesians/ephesians.txt'>&#x1F4D9; Ephesians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/philippians/philippians.txt'>&#x1F4D9; Philippians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/colossians/colossians.txt'>&#x1F4D9; Colossians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1thessalonians/1thessalonians.txt'>&#x1F4D9; 1 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2thessalonians/2thessalonians.txt'>&#x1F4D9; 2 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1timothy/1timothy.txt'>&#x1F4D9; 1 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2timothy/2timothy.txt'>&#x1F4D9; 2 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/titus/titus.txt'>&#x1F4D9; Titus</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/philemon/philemon.txt'>&#x1F4D9; Philemon</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/hebrews/hebrews.txt'>&#x1F4D9; Hebrews</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/james/james.txt'>&#x1F4D9; James</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1peter/1peter.txt'>&#x1F4D9; 1 Peter</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2peter/2peter.txt'>&#x1F4D9; 2 Peter</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/1john/1john.txt'>&#x1F4D9; 1 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/2john/2john.txt'>&#x1F4D9; 2 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/3john/3john.txt'>&#x1F4D9; 3 John</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/jude/jude.txt'>&#x1F4D9; Jude</option>
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/revelation/revelation.txt'>&#x1F4D9; Revelation</option>
 			<option value='---'> </option>
 			<option value='---'>--------OT Greek--------</option><!-- OT in Greek -->
-			<option value='/gemacrypt/files/books/OT/Greek/genesis/genesis.txt'>Genesis</option>
-			<option value='/gemacrypt/files/books/OT/Greek/exodus/exodus.txt'>Exodus</option>
-			<option value='/gemacrypt/files/books/OT/Greek/leviticus/leviticus.txt'>Leviticus</option>
-			<option value='/gemacrypt/files/books/OT/Greek/numbers/numbers.txt'>Numbers</option>
-			<option value='/gemacrypt/files/books/OT/Greek/deuteronomy/deuteronomy.txt'>Deuteronomy</option>
-			<option value='/gemacrypt/files/books/OT/Greek/joshua/joshua.txt'>Joshua</option>
-			<option value='/gemacrypt/files/books/OT/Greek/judges/judges.txt'>Judges</option>
-			<option value='/gemacrypt/files/books/OT/Greek/ruth/ruth.txt'>Ruth</option>
-			<option value='/gemacrypt/files/books/OT/Greek/1samuel/1samuel.txt'>1 Samuel</option>
-			<option value='/gemacrypt/files/books/OT/Greek/2samuel/2samuel.txt'>2 Samuel</option>
-			<option value='/gemacrypt/files/books/OT/Greek/1kings/1kings.txt'>1 Kings</option>
-			<option value='/gemacrypt/files/books/OT/Greek/2kings/2kings.txt'>2 Kings</option>
-			<option value='/gemacrypt/files/books/OT/Greek/1chronicles/1chronicles.txt'>1 Chronicles</option>
-			<option value='/gemacrypt/files/books/OT/Greek/2chronicles/2chronicles.txt'>2 Chronicles</option>
-			<option value='/gemacrypt/files/books/OT/Greek/ezra/ezra.txt'>Ezra</option>
-			<option value='/gemacrypt/files/books/OT/Greek/nehemiah/nehemiah.txt'>Nehemiah</option>
-			<option value='/gemacrypt/files/books/OT/Greek/esther/esther.txt'>Esther</option>
-			<option value='/gemacrypt/files/books/OT/Greek/job/job.txt'>Job</option>
-			<option value='/gemacrypt/files/books/OT/Greek/psalms/psalms.txt'>Psalms</option>
-			<option value='/gemacrypt/files/books/OT/Greek/proverbs/proverbs.txt'>Proverbs</option>
-			<option value='/gemacrypt/files/books/OT/Greek/ecclesiastes/ecclesiastes.txt'>Ecclesiastes</option>
-			<option value='/gemacrypt/files/books/OT/Greek/songs/songs.txt'>Song of Songs</option>
-			<option value='/gemacrypt/files/books/OT/Greek/isaiah/isaiah.txt'>Isaiah</option>
-			<option value='/gemacrypt/files/books/OT/Greek/jeremiah/jeremiah.txt'>Jeremiah</option>
-			<option value='/gemacrypt/files/books/OT/Greek/lamentations/lamentations.txt'>Lamentations</option>
-			<option value='/gemacrypt/files/books/OT/Greek/ezekiel/ezekiel.txt'>Ezekiel</option>
-			<option value='/gemacrypt/files/books/OT/Greek/daniel/daniel.txt'>Daniel</option>
-			<option value='/gemacrypt/files/books/OT/Greek/hosea/hosea.txt'>Hosea</option>
-			<option value='/gemacrypt/files/books/OT/Greek/joel/joel.txt'>Joel</option>
-			<option value='/gemacrypt/files/books/OT/Greek/amos/amos.txt'>Amos</option>
-			<option value='/gemacrypt/files/books/OT/Greek/obadiah/obadiah.txt'>Obadiah</option>
-			<option value='/gemacrypt/files/books/OT/Greek/jonah/jonah.txt'>Jonah</option>
-			<option value='/gemacrypt/files/books/OT/Greek/micah/micah.txt'>Micah</option>
-			<option value='/gemacrypt/files/books/OT/Greek/nahum/nahum.txt'>Nahum</option>
-			<option value='/gemacrypt/files/books/OT/Greek/habakkuk/habakkuk.txt'>Habakkuk</option>
-			<option value='/gemacrypt/files/books/OT/Greek/zephaniah/zephaniah.txt'>Zephaniah</option>
-			<option value='/gemacrypt/files/books/OT/Greek/haggai/haggai.txt'>Haggai</option>
-			<option value='/gemacrypt/files/books/OT/Greek/zechariah/zechariah.txt'>Zechariah</option>
-			<option value='/gemacrypt/files/books/OT/Greek/malachi/malachi.txt'>Malachi</option>
+			<option value='/gemacrypt/files/books/OT/Greek/genesis/genesis.txt'>&#x1F4DC; Genesis</option>
+			<option value='/gemacrypt/files/books/OT/Greek/exodus/exodus.txt'>&#x1F4DC; Exodus</option>
+			<option value='/gemacrypt/files/books/OT/Greek/leviticus/leviticus.txt'>&#x1F4DC; Leviticus</option>
+			<option value='/gemacrypt/files/books/OT/Greek/numbers/numbers.txt'>&#x1F4DC; Numbers</option>
+			<option value='/gemacrypt/files/books/OT/Greek/deuteronomy/deuteronomy.txt'>&#x1F4DC; Deuteronomy</option>
+			<option value='/gemacrypt/files/books/OT/Greek/joshua/joshua.txt'>&#x1F4DC; Joshua</option>
+			<option value='/gemacrypt/files/books/OT/Greek/judges/judges.txt'>&#x1F4DC; Judges</option>
+			<option value='/gemacrypt/files/books/OT/Greek/ruth/ruth.txt'>&#x1F4DC; Ruth</option>
+			<option value='/gemacrypt/files/books/OT/Greek/1samuel/1samuel.txt'>&#x1F4DC; 1 Samuel</option>
+			<option value='/gemacrypt/files/books/OT/Greek/2samuel/2samuel.txt'>&#x1F4DC; 2 Samuel</option>
+			<option value='/gemacrypt/files/books/OT/Greek/1kings/1kings.txt'>&#x1F4DC; 1 Kings</option>
+			<option value='/gemacrypt/files/books/OT/Greek/2kings/2kings.txt'>&#x1F4DC; 2 Kings</option>
+			<option value='/gemacrypt/files/books/OT/Greek/1chronicles/1chronicles.txt'>&#x1F4DC; 1 Chronicles</option>
+			<option value='/gemacrypt/files/books/OT/Greek/2chronicles/2chronicles.txt'>&#x1F4DC; 2 Chronicles</option>
+			<option value='/gemacrypt/files/books/OT/Greek/ezra/ezra.txt'>&#x1F4DC; Ezra</option>
+			<option value='/gemacrypt/files/books/OT/Greek/nehemiah/nehemiah.txt'>&#x1F4DC; Nehemiah</option>
+			<option value='/gemacrypt/files/books/OT/Greek/esther/esther.txt'>&#x1F4DC; Esther</option>
+			<option value='/gemacrypt/files/books/OT/Greek/job/job.txt'>&#x1F4DC; Job</option>
+			<option value='/gemacrypt/files/books/OT/Greek/psalms/psalms.txt'>&#x1F4DC; Psalms</option>
+			<option value='/gemacrypt/files/books/OT/Greek/proverbs/proverbs.txt'>&#x1F4DC; Proverbs</option>
+			<option value='/gemacrypt/files/books/OT/Greek/ecclesiastes/ecclesiastes.txt'>&#x1F4DC; Ecclesiastes</option>
+			<option value='/gemacrypt/files/books/OT/Greek/songs/songs.txt'>&#x1F4DC; Song of Songs</option>
+			<option value='/gemacrypt/files/books/OT/Greek/isaiah/isaiah.txt'>&#x1F4DC; Isaiah</option>
+			<option value='/gemacrypt/files/books/OT/Greek/jeremiah/jeremiah.txt'>&#x1F4DC; Jeremiah</option>
+			<option value='/gemacrypt/files/books/OT/Greek/lamentations/lamentations.txt'>&#x1F4DC; Lamentations</option>
+			<option value='/gemacrypt/files/books/OT/Greek/ezekiel/ezekiel.txt'>&#x1F4DC; Ezekiel</option>
+			<option value='/gemacrypt/files/books/OT/Greek/daniel/daniel.txt'>&#x1F4DC; Daniel</option>
+			<option value='/gemacrypt/files/books/OT/Greek/hosea/hosea.txt'>&#x1F4DC; Hosea</option>
+			<option value='/gemacrypt/files/books/OT/Greek/joel/joel.txt'>&#x1F4DC; Joel</option>
+			<option value='/gemacrypt/files/books/OT/Greek/amos/amos.txt'>&#x1F4DC; Amos</option>
+			<option value='/gemacrypt/files/books/OT/Greek/obadiah/obadiah.txt'>&#x1F4DC; Obadiah</option>
+			<option value='/gemacrypt/files/books/OT/Greek/jonah/jonah.txt'>&#x1F4DC; Jonah</option>
+			<option value='/gemacrypt/files/books/OT/Greek/micah/micah.txt'>&#x1F4DC; Micah</option>
+			<option value='/gemacrypt/files/books/OT/Greek/nahum/nahum.txt'>&#x1F4DC; Nahum</option>
+			<option value='/gemacrypt/files/books/OT/Greek/habakkuk/habakkuk.txt'>&#x1F4DC; Habakkuk</option>
+			<option value='/gemacrypt/files/books/OT/Greek/zephaniah/zephaniah.txt'>&#x1F4DC; Zephaniah</option>
+			<option value='/gemacrypt/files/books/OT/Greek/haggai/haggai.txt'>&#x1F4DC; Haggai</option>
+			<option value='/gemacrypt/files/books/OT/Greek/zechariah/zechariah.txt'>&#x1F4DC; Zechariah</option>
+			<option value='/gemacrypt/files/books/OT/Greek/malachi/malachi.txt'>&#x1F4DC; Malachi</option>
 			<option value='---'> </option>
 			<option value='---'>--------NT Greek--------</option><!-- NT in Greek -->
-			<option value='/gemacrypt/files/books/NT/Greek/matthew/matthew.txt'>Matthew</option>
-			<option value='/gemacrypt/files/books/NT/Greek/mark/mark.txt'>Mark</option>
-			<option value='/gemacrypt/files/books/NT/Greek/luke/luke.txt'>Luke</option>
-			<option value='/gemacrypt/files/books/NT/Greek/john/john.txt'>John</option>
-			<option value='/gemacrypt/files/books/NT/Greek/acts/acts.txt'>Acts</option>
-			<option value='/gemacrypt/files/books/NT/Greek/romans/romans.txt'>Romans</option>
-			<option value='/gemacrypt/files/books/NT/Greek/1corinthians/1corinthians.txt'>1 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/Greek/2corinthians/2corinthians.txt'>2 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/Greek/galatians/galatians.txt'>Galatians</option>
-			<option value='/gemacrypt/files/books/NT/Greek/ephesians/ephesians.txt'>Ephesians</option>
-			<option value='/gemacrypt/files/books/NT/Greek/philippians/philippians.txt'>Philippians</option>
-			<option value='/gemacrypt/files/books/NT/Greek/colossians/colossians.txt'>Colossians</option>
-			<option value='/gemacrypt/files/books/NT/Greek/1thessalonians/1thessalonians.txt'>1 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/Greek/2thessalonians/2thessalonians.txt'>2 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/Greek/1timothy/1timothy.txt'>1 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/Greek/2timothy/2timothy.txt'>2 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/Greek/titus/titus.txt'>Titus</option>
-			<option value='/gemacrypt/files/books/NT/Greek/philemon/philemon.txt'>Philemon</option>
-			<option value='/gemacrypt/files/books/NT/Greek/hebrews/hebrews.txt'>Hebrews</option>
-			<option value='/gemacrypt/files/books/NT/Greek/james/james.txt'>James</option>
-			<option value='/gemacrypt/files/books/NT/Greek/1peter/1peter.txt'>1 Peter</option>
-			<option value='/gemacrypt/files/books/NT/Greek/2peter/2peter.txt'>2 Peter</option>
-			<option value='/gemacrypt/files/books/NT/Greek/1john/1john.txt'>1 John</option>
-			<option value='/gemacrypt/files/books/NT/Greek/2john/2john.txt'>2 John</option>
-			<option value='/gemacrypt/files/books/NT/Greek/3john/3john.txt'>3 John</option>
-			<option value='/gemacrypt/files/books/NT/Greek/jude/jude.txt'>Jude</option>
-			<option value='/gemacrypt/files/books/NT/Greek/revelation/revelation.txt'>Revelation</option>
+			<option value='/gemacrypt/files/books/NT/Greek/matthew/matthew.txt'>&#x1F4D8; Matthew</option>
+			<option value='/gemacrypt/files/books/NT/Greek/mark/mark.txt'>&#x1F4D8; Mark</option>
+			<option value='/gemacrypt/files/books/NT/Greek/luke/luke.txt'>&#x1F4D8; Luke</option>
+			<option value='/gemacrypt/files/books/NT/Greek/john/john.txt'>&#x1F4D8; John</option>
+			<option value='/gemacrypt/files/books/NT/Greek/acts/acts.txt'>&#x1F4D8; Acts</option>
+			<option value='/gemacrypt/files/books/NT/Greek/romans/romans.txt'>&#x1F4D8; Romans</option>
+			<option value='/gemacrypt/files/books/NT/Greek/1corinthians/1corinthians.txt'>&#x1F4D8; 1 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/Greek/2corinthians/2corinthians.txt'>&#x1F4D8; 2 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/Greek/galatians/galatians.txt'>&#x1F4D8; Galatians</option>
+			<option value='/gemacrypt/files/books/NT/Greek/ephesians/ephesians.txt'>&#x1F4D8; Ephesians</option>
+			<option value='/gemacrypt/files/books/NT/Greek/philippians/philippians.txt'>&#x1F4D8; Philippians</option>
+			<option value='/gemacrypt/files/books/NT/Greek/colossians/colossians.txt'>&#x1F4D8; Colossians</option>
+			<option value='/gemacrypt/files/books/NT/Greek/1thessalonians/1thessalonians.txt'>&#x1F4D8; 1 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/Greek/2thessalonians/2thessalonians.txt'>&#x1F4D8; 2 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/Greek/1timothy/1timothy.txt'>&#x1F4D8; 1 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/Greek/2timothy/2timothy.txt'>&#x1F4D8; 2 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/Greek/titus/titus.txt'>&#x1F4D8; Titus</option>
+			<option value='/gemacrypt/files/books/NT/Greek/philemon/philemon.txt'>&#x1F4D8; Philemon</option>
+			<option value='/gemacrypt/files/books/NT/Greek/hebrews/hebrews.txt'>&#x1F4D8; Hebrews</option>
+			<option value='/gemacrypt/files/books/NT/Greek/james/james.txt'>&#x1F4D8; James</option>
+			<option value='/gemacrypt/files/books/NT/Greek/1peter/1peter.txt'>&#x1F4D8; 1 Peter</option>
+			<option value='/gemacrypt/files/books/NT/Greek/2peter/2peter.txt'>&#x1F4D8; 2 Peter</option>
+			<option value='/gemacrypt/files/books/NT/Greek/1john/1john.txt'>&#x1F4D8; 1 John</option>
+			<option value='/gemacrypt/files/books/NT/Greek/2john/2john.txt'>&#x1F4D8; 2 John</option>
+			<option value='/gemacrypt/files/books/NT/Greek/3john/3john.txt'>&#x1F4D8; 3 John</option>
+			<option value='/gemacrypt/files/books/NT/Greek/jude/jude.txt'>&#x1F4D8; Jude</option>
+			<option value='/gemacrypt/files/books/NT/Greek/revelation/revelation.txt'>&#x1F4D8; Revelation</option>
 			<option value='---'> </option>
 			<option value='---'>--------OT English--------</option>
-			<option value='/gemacrypt/files/books/OT/English/genesis/genesis.txt'>Genesis</option>
-			<option value='/gemacrypt/files/books/OT/English/exodus/exodus.txt'>Exodus</option>
-			<option value='/gemacrypt/files/books/OT/English/leviticus/leviticus.txt'>Leviticus</option>
-			<option value='/gemacrypt/files/books/OT/English/numbers/numbers.txt'>Numbers</option>
-			<option value='/gemacrypt/files/books/OT/English/deuteronomy/deuteronomy.txt'>Deuteronomy</option>
-			<option value='/gemacrypt/files/books/OT/English/joshua/joshua.txt'>Joshua</option>
-			<option value='/gemacrypt/files/books/OT/English/judges/judges.txt'>Judges</option>
-			<option value='/gemacrypt/files/books/OT/English/ruth/ruth.txt'>Ruth</option>
-			<option value='/gemacrypt/files/books/OT/English/1samuel/1samuel.txt'>1 Samuel</option>
-			<option value='/gemacrypt/files/books/OT/English/2samuel/2samuel.txt'>2 Samuel</option>
-			<option value='/gemacrypt/files/books/OT/English/1kings/1kings.txt'>1 Kings</option>
-			<option value='/gemacrypt/files/books/OT/English/2kings/2kings.txt'>2 Kings</option>
-			<option value='/gemacrypt/files/books/OT/English/1chronicles/1chronicles.txt'>1 Chronicles</option>
-			<option value='/gemacrypt/files/books/OT/English/2chronicles/2chronicles.txt'>2 Chronicles</option>
-			<option value='/gemacrypt/files/books/OT/English/ezra/ezra.txt'>Ezra</option>
-			<option value='/gemacrypt/files/books/OT/English/nehemiah/nehemiah.txt'>Nehemiah</option>
-			<option value='/gemacrypt/files/books/OT/English/esther/esther.txt'>Esther</option>
-			<option value='/gemacrypt/files/books/OT/English/job/job.txt'>Job</option>
-			<option value='/gemacrypt/files/books/OT/English/psalms/psalms.txt'>Psalms</option>
-			<option value='/gemacrypt/files/books/OT/English/proverbs/proverbs.txt'>Proverbs</option>
-			<option value='/gemacrypt/files/books/OT/English/ecclesiastes/ecclesiastes.txt'>Ecclesiastes</option>
-			<option value='/gemacrypt/files/books/OT/English/songs/songs.txt'>Song of Songs</option>
-			<option value='/gemacrypt/files/books/OT/English/isaiah/isaiah.txt'>Isaiah</option>
-			<option value='/gemacrypt/files/books/OT/English/jeremiah/jeremiah.txt'>Jeremiah</option>
-			<option value='/gemacrypt/files/books/OT/English/lamentations/lamentations.txt'>Lamentations</option>
-			<option value='/gemacrypt/files/books/OT/English/ezekiel/ezekiel.txt'>Ezekiel</option>
-			<option value='/gemacrypt/files/books/OT/English/daniel/daniel.txt'>Daniel</option>
-			<option value='/gemacrypt/files/books/OT/English/hosea/hosea.txt'>Hosea</option>
-			<option value='/gemacrypt/files/books/OT/English/joel/joel.txt'>Joel</option>
-			<option value='/gemacrypt/files/books/OT/English/amos/amos.txt'>Amos</option>
-			<option value='/gemacrypt/files/books/OT/English/obadiah/obadiah.txt'>Obadiah</option>
-			<option value='/gemacrypt/files/books/OT/English/jonah/jonah.txt'>Jonah</option>
-			<option value='/gemacrypt/files/books/OT/English/micah/micah.txt'>Micah</option>
-			<option value='/gemacrypt/files/books/OT/English/nahum/nahum.txt'>Nahum</option>
-			<option value='/gemacrypt/files/books/OT/English/habakkuk/habakkuk.txt'>Habakkuk</option>
-			<option value='/gemacrypt/files/books/OT/English/zephaniah/zephaniah.txt'>Zephaniah</option>
-			<option value='/gemacrypt/files/books/OT/English/haggai/haggai.txt'>Haggai</option>
-			<option value='/gemacrypt/files/books/OT/English/zechariah/zechariah.txt'>Zechariah</option>
-			<option value='/gemacrypt/files/books/OT/English/malachi/malachi.txt'>Malachi</option>
+			<option value='/gemacrypt/files/books/OT/English/genesis/genesis.txt'>&#x1F4DC; Genesis</option>
+			<option value='/gemacrypt/files/books/OT/English/exodus/exodus.txt'>&#x1F4DC; Exodus</option>
+			<option value='/gemacrypt/files/books/OT/English/leviticus/leviticus.txt'>&#x1F4DC; Leviticus</option>
+			<option value='/gemacrypt/files/books/OT/English/numbers/numbers.txt'>&#x1F4DC; Numbers</option>
+			<option value='/gemacrypt/files/books/OT/English/deuteronomy/deuteronomy.txt'>&#x1F4DC; Deuteronomy</option>
+			<option value='/gemacrypt/files/books/OT/English/joshua/joshua.txt'>&#x1F4DC; Joshua</option>
+			<option value='/gemacrypt/files/books/OT/English/judges/judges.txt'>&#x1F4DC; Judges</option>
+			<option value='/gemacrypt/files/books/OT/English/ruth/ruth.txt'>&#x1F4DC; Ruth</option>
+			<option value='/gemacrypt/files/books/OT/English/1samuel/1samuel.txt'>&#x1F4DC; 1 Samuel</option>
+			<option value='/gemacrypt/files/books/OT/English/2samuel/2samuel.txt'>&#x1F4DC; 2 Samuel</option>
+			<option value='/gemacrypt/files/books/OT/English/1kings/1kings.txt'>&#x1F4DC; 1 Kings</option>
+			<option value='/gemacrypt/files/books/OT/English/2kings/2kings.txt'>&#x1F4DC; 2 Kings</option>
+			<option value='/gemacrypt/files/books/OT/English/1chronicles/1chronicles.txt'>&#x1F4DC; 1 Chronicles</option>
+			<option value='/gemacrypt/files/books/OT/English/2chronicles/2chronicles.txt'>&#x1F4DC; 2 Chronicles</option>
+			<option value='/gemacrypt/files/books/OT/English/ezra/ezra.txt'>&#x1F4DC; Ezra</option>
+			<option value='/gemacrypt/files/books/OT/English/nehemiah/nehemiah.txt'>&#x1F4DC; Nehemiah</option>
+			<option value='/gemacrypt/files/books/OT/English/esther/esther.txt'>&#x1F4DC; Esther</option>
+			<option value='/gemacrypt/files/books/OT/English/job/job.txt'>&#x1F4DC; Job</option>
+			<option value='/gemacrypt/files/books/OT/English/psalms/psalms.txt'>&#x1F4DC; Psalms</option>
+			<option value='/gemacrypt/files/books/OT/English/proverbs/proverbs.txt'>&#x1F4DC; Proverbs</option>
+			<option value='/gemacrypt/files/books/OT/English/ecclesiastes/ecclesiastes.txt'>&#x1F4DC; Ecclesiastes</option>
+			<option value='/gemacrypt/files/books/OT/English/songs/songs.txt'>&#x1F4DC; Song of Songs</option>
+			<option value='/gemacrypt/files/books/OT/English/isaiah/isaiah.txt'>&#x1F4DC; Isaiah</option>
+			<option value='/gemacrypt/files/books/OT/English/jeremiah/jeremiah.txt'>&#x1F4DC; Jeremiah</option>
+			<option value='/gemacrypt/files/books/OT/English/lamentations/lamentations.txt'>&#x1F4DC; Lamentations</option>
+			<option value='/gemacrypt/files/books/OT/English/ezekiel/ezekiel.txt'>&#x1F4DC; Ezekiel</option>
+			<option value='/gemacrypt/files/books/OT/English/daniel/daniel.txt'>&#x1F4DC; Daniel</option>
+			<option value='/gemacrypt/files/books/OT/English/hosea/hosea.txt'>&#x1F4DC; Hosea</option>
+			<option value='/gemacrypt/files/books/OT/English/joel/joel.txt'>&#x1F4DC; Joel</option>
+			<option value='/gemacrypt/files/books/OT/English/amos/amos.txt'>&#x1F4DC; Amos</option>
+			<option value='/gemacrypt/files/books/OT/English/obadiah/obadiah.txt'>&#x1F4DC; Obadiah</option>
+			<option value='/gemacrypt/files/books/OT/English/jonah/jonah.txt'>&#x1F4DC; Jonah</option>
+			<option value='/gemacrypt/files/books/OT/English/micah/micah.txt'>&#x1F4DC; Micah</option>
+			<option value='/gemacrypt/files/books/OT/English/nahum/nahum.txt'>&#x1F4DC; Nahum</option>
+			<option value='/gemacrypt/files/books/OT/English/habakkuk/habakkuk.txt'>&#x1F4DC; Habakkuk</option>
+			<option value='/gemacrypt/files/books/OT/English/zephaniah/zephaniah.txt'>&#x1F4DC; Zephaniah</option>
+			<option value='/gemacrypt/files/books/OT/English/haggai/haggai.txt'>&#x1F4DC; Haggai</option>
+			<option value='/gemacrypt/files/books/OT/English/zechariah/zechariah.txt'>&#x1F4DC; Zechariah</option>
+			<option value='/gemacrypt/files/books/OT/English/malachi/malachi.txt'>&#x1F4DC; Malachi</option>
 			<option value='---'> </option>
 			<option value='---'>--------NT English--------</option>
-			<option value='/gemacrypt/files/books/NT/English/matthew/matthew.txt'>Matthew</option>
-			<option value='/gemacrypt/files/books/NT/English/mark/mark.txt'>Mark</option>
-			<option value='/gemacrypt/files/books/NT/English/luke/luke.txt'>Luke</option>
-			<option value='/gemacrypt/files/books/NT/English/john/john.txt'>John</option>
-			<option value='/gemacrypt/files/books/NT/English/acts/acts.txt'>Acts</option>
-			<option value='/gemacrypt/files/books/NT/English/romans/romans.txt'>Romans</option>
-			<option value='/gemacrypt/files/books/NT/English/1corinthians/1corinthians.txt'>1 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/English/2corinthians/2corinthians.txt'>2 Corinthians</option>
-			<option value='/gemacrypt/files/books/NT/English/galatians/galatians.txt'>Galatians</option>
-			<option value='/gemacrypt/files/books/NT/English/ephesians/ephesians.txt'>Ephesians</option>
-			<option value='/gemacrypt/files/books/NT/English/philippians/philippians.txt'>Philippians</option>
-			<option value='/gemacrypt/files/books/NT/English/colossians/colossians.txt'>Colossians</option>
-			<option value='/gemacrypt/files/books/NT/English/1thessalonians/1thessalonians.txt'>1 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/English/2thessalonians/2thessalonians.txt'>2 Thessalonians</option>
-			<option value='/gemacrypt/files/books/NT/English/1timothy/1timothy.txt'>1 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/English/2timothy/2timothy.txt'>2 Timothy</option>
-			<option value='/gemacrypt/files/books/NT/English/titus/titus.txt'>Titus</option>
-			<option value='/gemacrypt/files/books/NT/English/philemon/philemon.txt'>Philemon</option>
-			<option value='/gemacrypt/files/books/NT/English/hebrews/hebrews.txt'>Hebrews</option>
-			<option value='/gemacrypt/files/books/NT/English/james/james.txt'>James</option>
-			<option value='/gemacrypt/files/books/NT/English/1peter/1peter.txt'>1 Peter</option>
-			<option value='/gemacrypt/files/books/NT/English/2peter/2peter.txt'>2 Peter</option>
-			<option value='/gemacrypt/files/books/NT/English/1john/1john.txt'>1 John</option>
-			<option value='/gemacrypt/files/books/NT/English/2john/2john.txt'>2 John</option>
-			<option value='/gemacrypt/files/books/NT/English/3john/3john.txt'>3 John</option>
-			<option value='/gemacrypt/files/books/NT/English/jude/jude.txt'>Jude</option>
-			<option value='/gemacrypt/files/books/NT/English/revelation/revelation.txt'>Revelation</option>
+			<option value='/gemacrypt/files/books/NT/English/matthew/matthew.txt'>&#x1F4D8; Matthew</option>
+			<option value='/gemacrypt/files/books/NT/English/mark/mark.txt'>&#x1F4D8; Mark</option>
+			<option value='/gemacrypt/files/books/NT/English/luke/luke.txt'>&#x1F4D8; Luke</option>
+			<option value='/gemacrypt/files/books/NT/English/john/john.txt'>&#x1F4D8; John</option>
+			<option value='/gemacrypt/files/books/NT/English/acts/acts.txt'>&#x1F4D8; Acts</option>
+			<option value='/gemacrypt/files/books/NT/English/romans/romans.txt'>&#x1F4D8; Romans</option>
+			<option value='/gemacrypt/files/books/NT/English/1corinthians/1corinthians.txt'>&#x1F4D8; 1 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/English/2corinthians/2corinthians.txt'>&#x1F4D8; 2 Corinthians</option>
+			<option value='/gemacrypt/files/books/NT/English/galatians/galatians.txt'>&#x1F4D8; Galatians</option>
+			<option value='/gemacrypt/files/books/NT/English/ephesians/ephesians.txt'>&#x1F4D8; Ephesians</option>
+			<option value='/gemacrypt/files/books/NT/English/philippians/philippians.txt'>&#x1F4D8; Philippians</option>
+			<option value='/gemacrypt/files/books/NT/English/colossians/colossians.txt'>&#x1F4D8; Colossians</option>
+			<option value='/gemacrypt/files/books/NT/English/1thessalonians/1thessalonians.txt'>&#x1F4D8; 1 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/English/2thessalonians/2thessalonians.txt'>&#x1F4D8; 2 Thessalonians</option>
+			<option value='/gemacrypt/files/books/NT/English/1timothy/1timothy.txt'>&#x1F4D8; 1 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/English/2timothy/2timothy.txt'>&#x1F4D8; 2 Timothy</option>
+			<option value='/gemacrypt/files/books/NT/English/titus/titus.txt'>&#x1F4D8; Titus</option>
+			<option value='/gemacrypt/files/books/NT/English/philemon/philemon.txt'>&#x1F4D8; Philemon</option>
+			<option value='/gemacrypt/files/books/NT/English/hebrews/hebrews.txt'>&#x1F4D8; Hebrews</option>
+			<option value='/gemacrypt/files/books/NT/English/james/james.txt'>&#x1F4D8; James</option>
+			<option value='/gemacrypt/files/books/NT/English/1peter/1peter.txt'>&#x1F4D8; 1 Peter</option>
+			<option value='/gemacrypt/files/books/NT/English/2peter/2peter.txt'>&#x1F4D8; 2 Peter</option>
+			<option value='/gemacrypt/files/books/NT/English/1john/1john.txt'>&#x1F4D8; 1 John</option>
+			<option value='/gemacrypt/files/books/NT/English/2john/2john.txt'>&#x1F4D8; 2 John</option>
+			<option value='/gemacrypt/files/books/NT/English/3john/3john.txt'>&#x1F4D8; 3 John</option>
+			<option value='/gemacrypt/files/books/NT/English/jude/jude.txt'>&#x1F4D8; Jude</option>
+			<option value='/gemacrypt/files/books/NT/English/revelation/revelation.txt'>&#x1F4D8; Revelation</option>
 			<option value='---'> </option>
 			<option value='---'>--------Additions Hebrew--------</option>
-			<option value='/gemacrypt/files/books/Additions/Hebrew/Apocalypse of Adam.txt'>Apocalypse of Adam</option>
+			<option value='/gemacrypt/files/books/Additions/Hebrew/Apocalypse of Adam.txt'>&#x1F4D8; Apocalypse of Adam</option>
 			<option value='---'> </option>
 			<option value='---'>--------Additions Greek--------</option>
-			<option value='/gemacrypt/files/books/Additions/Greek/Apocalypse of Peter.txt'>Apocalypse of Peter</option>
-			<option value='/gemacrypt/files/books/Additions/Greek/Gospel of Harmony.txt'>Gospel of Harmony</option>
-			<option value='/gemacrypt/files/books/Additions/Greek/Gospel of Peter.txt'>Gospel of Peter</option>
-			<option value='/gemacrypt/files/books/Additions/Greek/Psalms of Solomon.txt'>Psalms of Solomon</option>
+			<option value='/gemacrypt/files/books/Additions/Greek/Apocalypse of Peter.txt'>&#x1F4D7; Apocalypse of Peter</option>
+			<option value='/gemacrypt/files/books/Additions/Greek/Gospel of Harmony.txt'>&#x1F4D7; Gospel of Harmony</option>
+			<option value='/gemacrypt/files/books/Additions/Greek/Gospel of Peter.txt'>&#x1F4D7; Gospel of Peter</option>
+			<option value='/gemacrypt/files/books/Additions/Greek/Psalms of Solomon.txt'>&#x1F4D7; Psalms of Solomon</option>
 			<option value='---'> </option>
 			<option value='---'>--------Additions Latin--------</option>
-			<option value='/gemacrypt/files/books/Additions/Latin/Apocalypse of Golias.txt'>Apocalypse of Golias</option>
-			<option value='/gemacrypt/files/books/Additions/Latin/Epistle to the Laodiceans.txt'>Epistle to the Laodiceans</option>
+			<option value='/gemacrypt/files/books/Additions/Latin/Apocalypse of Golias.txt'>&#x1F4D9; Apocalypse of Golias</option>
+			<option value='/gemacrypt/files/books/Additions/Latin/Epistle to the Laodiceans.txt'>&#x1F4D9; Epistle to the Laodiceans</option>
 			<option value='---'> </option>
 			<option value='---'>--------Additions English--------</option>
-			<option value='/gemacrypt/files/books/Additions/English/1 Adam and Eve.txt'>1 Adam and Eve</option>
-			<option value='/gemacrypt/files/books/Additions/English/1 Apocalypse of James.txt'>1 Apocalypse of James</option>
-			<option value='/gemacrypt/files/books/Additions/English/2 Apocalypse of James.txt'>2 Apocalypse of James</option>
-			<option value='/gemacrypt/files/books/Additions/English/1 Clement.txt'>1 Clement</option>
-			<option value='/gemacrypt/files/books/Additions/English/2 Clement.txt'>2 Clement</option>
-			<option value='/gemacrypt/files/books/Additions/English/1 Enoch.txt'>1 Enoch</option>
-			<option value='/gemacrypt/files/books/Additions/English/2 Enoch.txt'>2 Enoch</option>
-			<option value='/gemacrypt/files/books/Additions/English/3 Enoch.txt'>3 Enoch</option>
-			<option value='/gemacrypt/files/books/Additions/English/1 Esdras.txt'>1 Esdras</option>
-			<option value='/gemacrypt/files/books/Additions/English/2 Esdras.txt'>2 Esdras</option>
-			<option value='/gemacrypt/files/books/Additions/English/1 Maccabees.txt'>1 Maccabess</option>
-			<option value='/gemacrypt/files/books/Additions/English/2 Maccabees.txt'>2 Maccabess</option>
-			<option value='/gemacrypt/files/books/Additions/English/3 Maccabees.txt'>3 Maccabess</option>
-			<option value='/gemacrypt/files/books/Additions/English/4 Maccabees.txt'>4 Maccabess</option>
-			<option value='/gemacrypt/files/books/Additions/English/Acts of Andrew.txt'>Acts of Andrew</option>
-			<option value='/gemacrypt/files/books/Additions/English/Acts of Paul.txt'>Acts of Paul</option>
-			<option value='/gemacrypt/files/books/Additions/English/Acts of Apollonius.txt'>Acts of Apollonius</option>
-			<option value='/gemacrypt/files/books/Additions/English/Acts of John.txt'>Acts of John</option>
-			<option value='/gemacrypt/files/books/Additions/English/Acts of Perpetua and Felicitas.txt'>Acts of Perpetua and Felicitas</option>
-			<option value='/gemacrypt/files/books/Additions/English/Acts of Peter.txt'>Acts of Peter</option>
-			<option value='/gemacrypt/files/books/Additions/English/Acts of Peter and the Twelve.txt'>Acts of Peter and the Twelve</option>
-			<option value='/gemacrypt/files/books/Additions/English/Acts of Pilate.txt'>Acts of Pilate</option>
-			<option value='/gemacrypt/files/books/Additions/English/Acts of Thomas.txt'>Acts of Thomas</option>
-			<option value='/gemacrypt/files/books/Additions/English/Adam.txt'>Adam</option>
-			<option value='/gemacrypt/files/books/Additions/English/Adam and Eve.txt'>Adam and Eve</option>
-			<option value='/gemacrypt/files/books/Additions/English/Additions to Esther.txt'>Additions to Esther</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Abraham.txt'>Apocalypse of Abraham</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Adam.txt'>Apocalypse of Adam</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Bartholomew.txt'>Apocalypse of Bartholomew</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Baruch 2.txt'>Apocalypse of Baruch 2</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Baruch 3.txt'>Apocalypse of Baruch 3</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Daniel.txt'>Apocalypse of Daniel</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Elijah.txt'>Apocalypse of Elijah</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Esdras.txt'>Apocalypse of Esdras</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Ezra.txt'>Apocalypse of Ezra</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Golias.txt'>Apocalypse of Golias</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Lamech.txt'>Apocalypse of Lamech</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Moses.txt'>Apocalypse of Moses</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Paul.txt'>Apocalypse of Paul</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Peter.txt'>Apocalypse of Peter</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Pseduo-Methodius.txt'>Apocalypse of Pseduo-Methodius</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Sedrach.txt'>Apocalypse of Sedrach</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Stephen.txt'>Apocalypse of Stephen</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of the Virgin.txt'>Apocalypse of the Virgin</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Thomas.txt'>Apocalypse of Thomas</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Zephaniah.txt'>Apocalypse of Zephaniah</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Zerubbabel.txt'>Apocalypse of Zerubbabel</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apocryphon of John.txt'>Apocryphon of John</option>
-			<option value='/gemacrypt/files/books/Additions/English/Apology of Aristides.txt'>Apology of Aristides</option>
-			<option value='/gemacrypt/files/books/Additions/English/Ascension of Isaiah.txt'>Ascension of Isaiah</option>
-			<option value='/gemacrypt/files/books/Additions/English/Baruch.txt'>Baruch</option>
-			<option value='/gemacrypt/files/books/Additions/English/Bel and the Dragon.txt'>Bel and the Dragon</option>
-			<option value='/gemacrypt/files/books/Additions/English/Dialogue of the Savior.txt'>Dialogue of the Savior</option>
-			<option value='/gemacrypt/files/books/Additions/English/Didache.txt'>Didache</option>
-			<option value='/gemacrypt/files/books/Additions/English/Diognetus.txt'>Diognetus</option>
-			<option value='/gemacrypt/files/books/Additions/English/Dionysius of Corinth.txt'>Dionysius of Corinth</option>
-			<option value='/gemacrypt/files/books/Additions/English/Epiphanes.txt'>Epiphanes</option>
-			<option value='/gemacrypt/files/books/Additions/English/Epistle of Apostolorum.txt'>Epistle of Apostolorum</option>
-			<option value='/gemacrypt/files/books/Additions/English/Epistle of Aristeas.txt'>Epistle of Aristeas</option>
-			<option value='/gemacrypt/files/books/Additions/English/Epistle of Barnabas.txt'>Epistle of Barnabas</option>
-			<option value='/gemacrypt/files/books/Additions/English/Epistle of Enoch.txt'>Epistle of Enoch</option>
-			<option value='/gemacrypt/files/books/Additions/English/Epistle of Jeremiah.txt'>Epistle of Jeremiah</option>
-			<option value='/gemacrypt/files/books/Additions/English/Epistle of Peter to Philip.txt'>Epistle of Peter to Philip</option>
-			<option value='/gemacrypt/files/books/Additions/English/Epistle of Polycarp.txt'>Epistle of Polycarp</option>
-			<option value='/gemacrypt/files/books/Additions/English/Epistle of Ptolemy.txt'>Epistle of Ptolemy</option>
-			<option value='/gemacrypt/files/books/Additions/English/Epistle of Vienna and Lyons.txt'>Epistle of Vienna and Lyons</option>
-			<option value='/gemacrypt/files/books/Additions/English/Epistle to the Laodiceans.txt'>Epistle to the Laodiceans</option>
-			<option value='/gemacrypt/files/books/Additions/English/Eugnostos the Blessed.txt'>Eugnostos the Blessed</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gnostic Antithesis.txt'>Gnostic Antithesis</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gnostic Basilides.txt'>Gnostic Basilides</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gnostic Naassene.txt'>Gnostic Naassene</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Ebionites.txt'>Gospel of Ebionites</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Egerton.txt'>Gospel of Egerton</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Egyptians.txt'>Gospel of Egyptians</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Harmony.txt'>Gospel of Harmony</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of the Hebrews.txt'>Gospel of the Hebrews</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of James.txt'>Gospel of James</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Judas.txt'>Gospel of Judas</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of the Marcion.txt'>Gospel of the Marcion</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Mary.txt'>Gospel of Mary</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Nazoreans.txt'>Gospel of Nazoreans</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Nicodemus.txt'>Gospel of Nicodemus</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Oxyrhynchus 840.txt'>Gospel of Oxyrhynchus 840</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Oxyrhynchus 1224.txt'>Gospel of Oxyrhynchus 1224</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Peter.txt'>Gospel of Peter</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of the Lord.txt'>Gospel of the Lord</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Thomas.txt'>Gospel of Thomas</option>
-			<option value='/gemacrypt/files/books/Additions/English/Gospel of Truth.txt'>Gospel of Truth</option>
-			<option value='/gemacrypt/files/books/Additions/English/Heracleon.txt'>Heracleon</option>
-			<option value='/gemacrypt/files/books/Additions/English/Ignatius to Polycarp.txt'>Ignatius to Polycarp</option>
-			<option value='/gemacrypt/files/books/Additions/English/Jasher.txt'>Jasher</option>
-			<option value='/gemacrypt/files/books/Additions/English/Jubilees.txt'>Jubilees</option>
-			<option value='/gemacrypt/files/books/Additions/English/Judith.txt'>Judith</option>
-			<option value='/gemacrypt/files/books/Additions/English/Life of Apollonius of Tyana.txt'>Life of Apollonius of Tyana</option>
-			<option value='/gemacrypt/files/books/Additions/English/Martyrdom of Isaiah.txt'>Martyrdom of Isaiah</option>
-			<option value='/gemacrypt/files/books/Additions/English/Martydom of Polycarp.txt'>Martydom of Polycarp</option>
-			<option value='/gemacrypt/files/books/Additions/English/Melchizedek.txt'>Melchizedek</option>
-			<option value='/gemacrypt/files/books/Additions/English/Odes of Solomon.txt'>Odes of Solomon</option>
-			<option value='/gemacrypt/files/books/Additions/English/Ophite Diagrams.txt'>Ophite Diagrams</option>
-			<option value='/gemacrypt/files/books/Additions/English/Passion Narrative.txt'>Passion Narrative</option>
-			<option value='/gemacrypt/files/books/Additions/English/Prayer of Azariah.txt'>Prayer of Azariah</option>
-			<option value='/gemacrypt/files/books/Additions/English/Prayer of Manassas.txt'>Prayer of Manassas</option>
-			<option value='/gemacrypt/files/books/Additions/English/Prayer of Paul.txt'>Prayer of Paul</option>
-			<option value='/gemacrypt/files/books/Additions/English/Preaching of Peter.txt'>Preaching of Peter</option>
-			<option value='/gemacrypt/files/books/Additions/English/Psalms of Solomon.txt'>Psalms of Solomon</option>
-			<option value='/gemacrypt/files/books/Additions/English/Secret Book of James.txt'>Secret Book of James</option>
-			<option value='/gemacrypt/files/books/Additions/English/Secret Book of Mark.txt'>Secret Book of Mark</option>
-			<option value='/gemacrypt/files/books/Additions/English/Shem.txt'>Shem</option>
-			<option value='/gemacrypt/files/books/Additions/English/Shepherd of Hermas.txt'>Shepherd of Hermas</option>
-			<option value='/gemacrypt/files/books/Additions/English/Sophia of Jesus.txt'>Sophia of Jesus</option>
-			<option value='/gemacrypt/files/books/Additions/English/Susanna.txt'>Susanna</option>
-			<option value='/gemacrypt/files/books/Additions/English/Testament of Abraham.txt'>Testament of Abraham</option>
-			<option value='/gemacrypt/files/books/Additions/English/Testament of Moses.txt'>Testament of Moses</option>
-			<option value='/gemacrypt/files/books/Additions/English/Testament of Solomon.txt'>Testament of Solomon</option>
-			<option value='/gemacrypt/files/books/Additions/English/Testament of the 12 Patriarchs.txt'>Testament of the 12 Patriarchs</option>
-			<option value='/gemacrypt/files/books/Additions/English/Testimony of Truth.txt'>Testimony of Truth</option>
-			<option value='/gemacrypt/files/books/Additions/English/Theodotus.txt'>Theodotus</option>
-			<option value='/gemacrypt/files/books/Additions/English/Theophilus of Antioch.txt'>Theophilus of Antioch</option>
-			<option value='/gemacrypt/files/books/Additions/English/Thomas the Contender.txt'>Thomas the Contender</option>
-			<option value='/gemacrypt/files/books/Additions/English/Thunder, Perfect Mind.txt'>Thunder, Perfect Mind</option>
-			<option value='/gemacrypt/files/books/Additions/English/Tobit.txt'>Tobit</option>
-			<option value='/gemacrypt/files/books/Additions/English/Traditions of Matthias.txt'>Traditions of Matthias</option>
-			<option value='/gemacrypt/files/books/Additions/English/Vision of Ezra.txt'>Vision of Ezra</option>
-			<option value='/gemacrypt/files/books/Additions/English/Wisdom of Sirach.txt'>Wisdom of Sirach</option>
-			<option value='/gemacrypt/files/books/Additions/English/Wisdom of Solomon.txt'>Wisdom of Solomon</option>
+			<option value='/gemacrypt/files/books/Additions/English/1 Adam and Eve.txt'><!--&#x1F4D5; -->1 Adam and Eve</option>
+			<option value='/gemacrypt/files/books/Additions/English/1 Apocalypse of James.txt'><!--&#x1F4D5; -->1 Apocalypse of James</option>
+			<option value='/gemacrypt/files/books/Additions/English/2 Apocalypse of James.txt'><!--&#x1F4D5; -->2 Apocalypse of James</option>
+			<option value='/gemacrypt/files/books/Additions/English/1 Clement.txt'><!--&#x1F4D5; -->1 Clement</option>
+			<option value='/gemacrypt/files/books/Additions/English/2 Clement.txt'><!--&#x1F4D5; -->2 Clement</option>
+			<option value='/gemacrypt/files/books/Additions/English/1 Enoch.txt'><!--&#x1F4D5; -->1 Enoch</option>
+			<option value='/gemacrypt/files/books/Additions/English/2 Enoch.txt'><!--&#x1F4D5; -->2 Enoch</option>
+			<option value='/gemacrypt/files/books/Additions/English/3 Enoch.txt'><!--&#x1F4D5; -->3 Enoch</option>
+			<option value='/gemacrypt/files/books/Additions/English/1 Esdras.txt'><!--&#x1F4D5; -->1 Esdras</option>
+			<option value='/gemacrypt/files/books/Additions/English/2 Esdras.txt'><!--&#x1F4D5; -->2 Esdras</option>
+			<option value='/gemacrypt/files/books/Additions/English/1 Maccabees.txt'><!--&#x1F4D5; -->1 Maccabess</option>
+			<option value='/gemacrypt/files/books/Additions/English/2 Maccabees.txt'><!--&#x1F4D5; -->2 Maccabess</option>
+			<option value='/gemacrypt/files/books/Additions/English/3 Maccabees.txt'><!--&#x1F4D5; -->3 Maccabess</option>
+			<option value='/gemacrypt/files/books/Additions/English/4 Maccabees.txt'><!--&#x1F4D5; -->4 Maccabess</option>
+			<option value='/gemacrypt/files/books/Additions/English/Acts of Andrew.txt'><!--&#x1F4D5; -->Acts of Andrew</option>
+			<option value='/gemacrypt/files/books/Additions/English/Acts of Paul.txt'><!--&#x1F4D5; -->Acts of Paul</option>
+			<option value='/gemacrypt/files/books/Additions/English/Acts of Apollonius.txt'><!--&#x1F4D5; -->Acts of Apollonius</option>
+			<option value='/gemacrypt/files/books/Additions/English/Acts of John.txt'><!--&#x1F4D5; -->Acts of John</option>
+			<option value='/gemacrypt/files/books/Additions/English/Acts of Perpetua and Felicitas.txt'><!--&#x1F4D5; -->Acts of Perpetua and Felicitas</option>
+			<option value='/gemacrypt/files/books/Additions/English/Acts of Peter.txt'><!--&#x1F4D5; -->Acts of Peter</option>
+			<option value='/gemacrypt/files/books/Additions/English/Acts of Peter and the Twelve.txt'><!--&#x1F4D5; -->Acts of Peter and the Twelve</option>
+			<option value='/gemacrypt/files/books/Additions/English/Acts of Pilate.txt'><!--&#x1F4D5; -->Acts of Pilate</option>
+			<option value='/gemacrypt/files/books/Additions/English/Acts of Thomas.txt'><!--&#x1F4D5; -->Acts of Thomas</option>
+			<option value='/gemacrypt/files/books/Additions/English/Adam.txt'><!--&#x1F4D5; -->Adam</option>
+			<option value='/gemacrypt/files/books/Additions/English/Adam and Eve.txt'><!--&#x1F4D5; -->Adam and Eve</option>
+			<option value='/gemacrypt/files/books/Additions/English/Additions to Esther.txt'><!--&#x1F4D5; -->Additions to Esther</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Abraham.txt'><!--&#x1F4D5; -->Apocalypse of Abraham</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Adam.txt'><!--&#x1F4D5; -->Apocalypse of Adam</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Bartholomew.txt'><!--&#x1F4D5; -->Apocalypse of Bartholomew</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Baruch 2.txt'><!--&#x1F4D5; -->Apocalypse of Baruch 2</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Baruch 3.txt'><!--&#x1F4D5; -->Apocalypse of Baruch 3</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Daniel.txt'><!--&#x1F4D5; -->Apocalypse of Daniel</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Elijah.txt'><!--&#x1F4D5; -->Apocalypse of Elijah</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Esdras.txt'><!--&#x1F4D5; -->Apocalypse of Esdras</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Ezra.txt'><!--&#x1F4D5; -->Apocalypse of Ezra</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Golias.txt'><!--&#x1F4D5; -->Apocalypse of Golias</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Lamech.txt'><!--&#x1F4D5; -->Apocalypse of Lamech</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Moses.txt'><!--&#x1F4D5; -->Apocalypse of Moses</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Paul.txt'><!--&#x1F4D5; -->Apocalypse of Paul</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Peter.txt'><!--&#x1F4D5; -->Apocalypse of Peter</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Pseduo-Methodius.txt'><!--&#x1F4D5; -->Apocalypse of Pseduo-Methodius</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Sedrach.txt'><!--&#x1F4D5; -->Apocalypse of Sedrach</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Stephen.txt'><!--&#x1F4D5; -->Apocalypse of Stephen</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of the Virgin.txt'><!--&#x1F4D5; -->Apocalypse of the Virgin</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Thomas.txt'><!--&#x1F4D5; -->Apocalypse of Thomas</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Zephaniah.txt'><!--&#x1F4D5; -->Apocalypse of Zephaniah</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocalypse of Zerubbabel.txt'><!--&#x1F4D5; -->Apocalypse of Zerubbabel</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apocryphon of John.txt'><!--&#x1F4D5; -->Apocryphon of John</option>
+			<option value='/gemacrypt/files/books/Additions/English/Apology of Aristides.txt'><!--&#x1F4D5; -->Apology of Aristides</option>
+			<option value='/gemacrypt/files/books/Additions/English/Ascension of Isaiah.txt'><!--&#x1F4D5; -->Ascension of Isaiah</option>
+			<option value='/gemacrypt/files/books/Additions/English/Baruch.txt'><!--&#x1F4D5; -->Baruch</option>
+			<option value='/gemacrypt/files/books/Additions/English/Bel and the Dragon.txt'><!--&#x1F4D5; -->Bel and the Dragon</option>
+			<option value='/gemacrypt/files/books/Additions/English/Dialogue of the Savior.txt'><!--&#x1F4D5; -->Dialogue of the Savior</option>
+			<option value='/gemacrypt/files/books/Additions/English/Didache.txt'><!--&#x1F4D5; -->Didache</option>
+			<option value='/gemacrypt/files/books/Additions/English/Diognetus.txt'><!--&#x1F4D5; -->Diognetus</option>
+			<option value='/gemacrypt/files/books/Additions/English/Dionysius of Corinth.txt'><!--&#x1F4D5; -->Dionysius of Corinth</option>
+			<option value='/gemacrypt/files/books/Additions/English/Epiphanes.txt'><!--&#x1F4D5; -->Epiphanes</option>
+			<option value='/gemacrypt/files/books/Additions/English/Epistle of Apostolorum.txt'><!--&#x1F4D5; -->Epistle of Apostolorum</option>
+			<option value='/gemacrypt/files/books/Additions/English/Epistle of Aristeas.txt'><!--&#x1F4D5; -->Epistle of Aristeas</option>
+			<option value='/gemacrypt/files/books/Additions/English/Epistle of Barnabas.txt'><!--&#x1F4D5; -->Epistle of Barnabas</option>
+			<option value='/gemacrypt/files/books/Additions/English/Epistle of Enoch.txt'><!--&#x1F4D5; -->Epistle of Enoch</option>
+			<option value='/gemacrypt/files/books/Additions/English/Epistle of Jeremiah.txt'><!--&#x1F4D5; -->Epistle of Jeremiah</option>
+			<option value='/gemacrypt/files/books/Additions/English/Epistle of Peter to Philip.txt'><!--&#x1F4D5; -->Epistle of Peter to Philip</option>
+			<option value='/gemacrypt/files/books/Additions/English/Epistle of Polycarp.txt'><!--&#x1F4D5; -->Epistle of Polycarp</option>
+			<option value='/gemacrypt/files/books/Additions/English/Epistle of Ptolemy.txt'><!--&#x1F4D5; -->Epistle of Ptolemy</option>
+			<option value='/gemacrypt/files/books/Additions/English/Epistle of Vienna and Lyons.txt'><!--&#x1F4D5; -->Epistle of Vienna and Lyons</option>
+			<option value='/gemacrypt/files/books/Additions/English/Epistle to the Laodiceans.txt'><!--&#x1F4D5; -->Epistle to the Laodiceans</option>
+			<option value='/gemacrypt/files/books/Additions/English/Eugnostos the Blessed.txt'><!--&#x1F4D5; -->Eugnostos the Blessed</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gnostic Antithesis.txt'><!--&#x1F4D5; -->Gnostic Antithesis</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gnostic Basilides.txt'><!--&#x1F4D5; -->Gnostic Basilides</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gnostic Naassene.txt'><!--&#x1F4D5; -->Gnostic Naassene</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Ebionites.txt'><!--&#x1F4D5; -->Gospel of Ebionites</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Egerton.txt'><!--&#x1F4D5; -->Gospel of Egerton</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Egyptians.txt'><!--&#x1F4D5; -->Gospel of Egyptians</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Harmony.txt'><!--&#x1F4D5; -->Gospel of Harmony</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of the Hebrews.txt'><!--&#x1F4D5; -->Gospel of the Hebrews</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of James.txt'><!--&#x1F4D5; -->Gospel of James</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Judas.txt'><!--&#x1F4D5; -->Gospel of Judas</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of the Marcion.txt'><!--&#x1F4D5; -->Gospel of the Marcion</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Mary.txt'><!--&#x1F4D5; -->Gospel of Mary</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Nazoreans.txt'><!--&#x1F4D5; -->Gospel of Nazoreans</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Nicodemus.txt'><!--&#x1F4D5; -->Gospel of Nicodemus</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Oxyrhynchus 840.txt'><!--&#x1F4D5; -->Gospel of Oxyrhynchus 840</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Oxyrhynchus 1224.txt'><!--&#x1F4D5; -->Gospel of Oxyrhynchus 1224</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Peter.txt'><!--&#x1F4D5; -->Gospel of Peter</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of the Lord.txt'><!--&#x1F4D5; -->Gospel of the Lord</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Thomas.txt'><!--&#x1F4D5; -->Gospel of Thomas</option>
+			<option value='/gemacrypt/files/books/Additions/English/Gospel of Truth.txt'><!--&#x1F4D5; -->Gospel of Truth</option>
+			<option value='/gemacrypt/files/books/Additions/English/Heracleon.txt'><!--&#x1F4D5; -->Heracleon</option>
+			<option value='/gemacrypt/files/books/Additions/English/Ignatius to Polycarp.txt'><!--&#x1F4D5; -->Ignatius to Polycarp</option>
+			<option value='/gemacrypt/files/books/Additions/English/Jasher.txt'><!--&#x1F4D5; -->Jasher</option>
+			<option value='/gemacrypt/files/books/Additions/English/Jubilees.txt'><!--&#x1F4D5; -->Jubilees</option>
+			<option value='/gemacrypt/files/books/Additions/English/Judith.txt'><!--&#x1F4D5; -->Judith</option>
+			<option value='/gemacrypt/files/books/Additions/English/Life of Apollonius of Tyana.txt'><!--&#x1F4D5; -->Life of Apollonius of Tyana</option>
+			<option value='/gemacrypt/files/books/Additions/English/Martyrdom of Isaiah.txt'><!--&#x1F4D5; -->Martyrdom of Isaiah</option>
+			<option value='/gemacrypt/files/books/Additions/English/Martydom of Polycarp.txt'><!--&#x1F4D5; -->Martydom of Polycarp</option>
+			<option value='/gemacrypt/files/books/Additions/English/Melchizedek.txt'><!--&#x1F4D5; -->Melchizedek</option>
+			<option value='/gemacrypt/files/books/Additions/English/Odes of Solomon.txt'><!--&#x1F4D5; -->Odes of Solomon</option>
+			<option value='/gemacrypt/files/books/Additions/English/Ophite Diagrams.txt'><!--&#x1F4D5; -->Ophite Diagrams</option>
+			<option value='/gemacrypt/files/books/Additions/English/Passion Narrative.txt'><!--&#x1F4D5; -->Passion Narrative</option>
+			<option value='/gemacrypt/files/books/Additions/English/Prayer of Azariah.txt'><!--&#x1F4D5; -->Prayer of Azariah</option>
+			<option value='/gemacrypt/files/books/Additions/English/Prayer of Manassas.txt'><!--&#x1F4D5; -->Prayer of Manassas</option>
+			<option value='/gemacrypt/files/books/Additions/English/Prayer of Paul.txt'><!--&#x1F4D5; -->Prayer of Paul</option>
+			<option value='/gemacrypt/files/books/Additions/English/Preaching of Peter.txt'><!--&#x1F4D5; -->Preaching of Peter</option>
+			<option value='/gemacrypt/files/books/Additions/English/Psalms of Solomon.txt'><!--&#x1F4D5; -->Psalms of Solomon</option>
+			<option value='/gemacrypt/files/books/Additions/English/Secret Book of James.txt'><!--&#x1F4D5; -->Secret Book of James</option>
+			<option value='/gemacrypt/files/books/Additions/English/Secret Book of Mark.txt'><!--&#x1F4D5; -->Secret Book of Mark</option>
+			<option value='/gemacrypt/files/books/Additions/English/Shem.txt'><!--&#x1F4D5; -->Shem</option>
+			<option value='/gemacrypt/files/books/Additions/English/Shepherd of Hermas.txt'><!--&#x1F4D5; -->Shepherd of Hermas</option>
+			<option value='/gemacrypt/files/books/Additions/English/Sophia of Jesus.txt'><!--&#x1F4D5; -->Sophia of Jesus</option>
+			<option value='/gemacrypt/files/books/Additions/English/Susanna.txt'><!--&#x1F4D5; -->Susanna</option>
+			<option value='/gemacrypt/files/books/Additions/English/Testament of Abraham.txt'><!--&#x1F4D5; -->Testament of Abraham</option>
+			<option value='/gemacrypt/files/books/Additions/English/Testament of Moses.txt'><!--&#x1F4D5; -->Testament of Moses</option>
+			<option value='/gemacrypt/files/books/Additions/English/Testament of Solomon.txt'><!--&#x1F4D5; -->Testament of Solomon</option>
+			<option value='/gemacrypt/files/books/Additions/English/Testament of the 12 Patriarchs.txt'><!--&#x1F4D5; -->Testament of the 12 Patriarchs</option>
+			<option value='/gemacrypt/files/books/Additions/English/Testimony of Truth.txt'><!--&#x1F4D5; -->Testimony of Truth</option>
+			<option value='/gemacrypt/files/books/Additions/English/Theodotus.txt'><!--&#x1F4D5; -->Theodotus</option>
+			<option value='/gemacrypt/files/books/Additions/English/Theophilus of Antioch.txt'><!--&#x1F4D5; -->Theophilus of Antioch</option>
+			<option value='/gemacrypt/files/books/Additions/English/Thomas the Contender.txt'><!--&#x1F4D5; -->Thomas the Contender</option>
+			<option value='/gemacrypt/files/books/Additions/English/Thunder, Perfect Mind.txt'><!--&#x1F4D5; -->Thunder, Perfect Mind</option>
+			<option value='/gemacrypt/files/books/Additions/English/Tobit.txt'><!--&#x1F4D5; -->Tobit</option>
+			<option value='/gemacrypt/files/books/Additions/English/Traditions of Matthias.txt'><!--&#x1F4D5; -->Traditions of Matthias</option>
+			<option value='/gemacrypt/files/books/Additions/English/Vision of Ezra.txt'><!--&#x1F4D5; -->Vision of Ezra</option>
+			<option value='/gemacrypt/files/books/Additions/English/Wisdom of Sirach.txt'><!--&#x1F4D5; -->Wisdom of Sirach</option>
+			<option value='/gemacrypt/files/books/Additions/English/Wisdom of Solomon.txt'><!--&#x1F4D5; -->Wisdom of Solomon</option>
         </select>
     
 		<script>
@@ -2110,39 +2110,39 @@
 			  var textarea = document.getElementById('textArea');
 			  switch (this.value) {
 				/*--------OT Hebrew--------*/
-				case '/gemacrypt/files/books/OT/Hebrew/genesis/genesis.txt':													textarea.dir = 'rtl';	break;
+				case '/gemacrypt/files/books/OT/Hebrew/genesis/genesis.txt':												textarea.dir = 'rtl';	break;
 				case '/gemacrypt/files/books/OT/Hebrew/exodus/exodus.txt':													textarea.dir = 'rtl';	break;
-				case '/gemacrypt/files/books/OT/Hebrew/leviticus/leviticus.txt':												textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/genesis/genesis.txt":													textarea.dir = 'rtl';	break;
+				case '/gemacrypt/files/books/OT/Hebrew/leviticus/leviticus.txt':											textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/genesis/genesis.txt":												textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/exodus/exodus.txt":													textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/leviticus/leviticus.txt":												textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/numbers/numbers.txt":													textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/deuteronomy/deuteronomy.txt":											textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/leviticus/leviticus.txt":											textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/numbers/numbers.txt":												textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/deuteronomy/deuteronomy.txt":										textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/joshua/joshua.txt":													textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/judges/judges.txt":													textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/1samuel/1samuel.txt":													textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/2samuel/2samuel.txt":													textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/1samuel/1samuel.txt":												textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/2samuel/2samuel.txt":												textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/1kings/1kings.txt":													textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/2kings/2kings.txt":													textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/isaiah/isaiah.txt":													textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/jeremiah/jeremiah.txt":												textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/ezekiel/ezekiel.txt":													textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/hosea/hosea.txt":														textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/ezekiel/ezekiel.txt":												textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/hosea/hosea.txt":													textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/joel/joel.txt":														textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/amos/amos.txt":														textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/obadiah/obadiah.txt":													textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/jonah/jonah.txt":														textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/micah/micah.txt":														textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/nahum/nahum.txt":														textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/obadiah/obadiah.txt":												textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/jonah/jonah.txt":													textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/micah/micah.txt":													textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/nahum/nahum.txt":													textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/habakkuk/habakkuk.txt":												textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/zephaniah/zephaniah.txt":												textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/zephaniah/zephaniah.txt":											textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/haggai/haggai.txt":													textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/zechariah/zechariah.txt":												textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/malachi/malachi.txt":													textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/zechariah/zechariah.txt":											textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/malachi/malachi.txt":												textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/psalms/psalms.txt":													textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/proverbs/proverbs.txt":												textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/job/job.txt":															textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/songs/songs.txt":														textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/job/job.txt":														textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/songs/songs.txt":													textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/ruth/ruth.txt":														textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/lamentations/lamentations.txt":										textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/ecclesiastes/ecclesiastes.txt":										textarea.dir = 'rtl';	break;
@@ -2150,8 +2150,8 @@
 				case "/gemacrypt/files/books/OT/Hebrew/daniel/daniel.txt":													textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/ezra/ezra.txt":														textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/OT/Hebrew/nehemiah/nehemiah.txt":												textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/1chronicles/1chronicles.txt":											textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/OT/Hebrew/2chronicles/2chronicles.txt":											textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/1chronicles/1chronicles.txt":										textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/OT/Hebrew/2chronicles/2chronicles.txt":										textarea.dir = 'rtl';	break;
 				/*--------NT Hebrew---------E.Magoliouth-Trans--*/
 				case "/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/matthew/matthew.txt":					textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/mark/mark.txt":						textarea.dir = 'rtl';	break;
@@ -2182,60 +2182,60 @@
 				case "/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/revelation/revelation.txt":			textarea.dir = 'rtl';	break;
 				/*--------NT Hebrew---------Delitzsch-Translation--*/
 				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/matthew/matthew.txt":							textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/mark/mark.txt":									textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/luke/luke.txt":									textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/john/john.txt":									textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/acts/acts.txt":									textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/romans/romans.txt":								textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1corinthians/1corinthians.txt":					textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2corinthians/2corinthians.txt":					textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/mark/mark.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/luke/luke.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/john/john.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/acts/acts.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/romans/romans.txt":							textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1corinthians/1corinthians.txt":				textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2corinthians/2corinthians.txt":				textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/galatians/galatians.txt":						textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/ephesians/ephesians.txt":						textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/philippians/philippians.txt":					textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/colossians/colossians.txt":						textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1thessalonians/1thessalonians.txt":				textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2thessalonians/2thessalonians.txt":				textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1timothy/1timothy.txt":							textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2timothy/2timothy.txt":							textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/colossians/colossians.txt":					textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1thessalonians/1thessalonians.txt":			textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2thessalonians/2thessalonians.txt":			textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1timothy/1timothy.txt":						textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2timothy/2timothy.txt":						textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/titus/titus.txt":								textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/philemon/philemon.txt":							textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/philemon/philemon.txt":						textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/hebrews/hebrews.txt":							textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/james/james.txt":								textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1peter/1peter.txt":								textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2peter/2peter.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1peter/1peter.txt":							textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2peter/2peter.txt":							textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/1john/1john.txt":								textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/2john/2john.txt":								textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/3john/3john.txt":								textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/jude/jude.txt":									textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/revelation/revelation.txt":						textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/jude/jude.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/revelation/revelation.txt":					textarea.dir = 'rtl';	break;
 				/*--------NT Hebrew---------Salkinson-Translation--*/
 				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/matthew/matthew.txt":							textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/mark/mark.txt":									textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/luke/luke.txt":									textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/john/john.txt":									textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/acts/acts.txt":									textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/romans/romans.txt":								textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1corinthians/1corinthians.txt":					textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2corinthians/2corinthians.txt":					textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/mark/mark.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/luke/luke.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/john/john.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/acts/acts.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/romans/romans.txt":							textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1corinthians/1corinthians.txt":				textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2corinthians/2corinthians.txt":				textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/galatians/galatians.txt":						textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/ephesians/ephesians.txt":						textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/philippians/philippians.txt":					textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/colossians/colossians.txt":						textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1thessalonians/1thessalonians.txt":				textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2thessalonians/2thessalonians.txt":				textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1timothy/1timothy.txt":							textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2timothy/2timothy.txt":							textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/colossians/colossians.txt":					textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1thessalonians/1thessalonians.txt":			textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2thessalonians/2thessalonians.txt":			textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1timothy/1timothy.txt":						textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2timothy/2timothy.txt":						textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/titus/titus.txt":								textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/philemon/philemon.txt":							textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/philemon/philemon.txt":						textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/hebrews/hebrews.txt":							textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/james/james.txt":								textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1peter/1peter.txt":								textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2peter/2peter.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1peter/1peter.txt":							textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2peter/2peter.txt":							textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/1john/1john.txt":								textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/2john/2john.txt":								textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/3john/3john.txt":								textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/jude/jude.txt":									textarea.dir = 'rtl';	break;
-				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/revelation/revelation.txt":						textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/jude/jude.txt":								textarea.dir = 'rtl';	break;
+				case "/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/revelation/revelation.txt":					textarea.dir = 'rtl';	break;
 				/*--------NT Hebrew---------Richmond-Translation--*/
 				case "/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/matthew/matthew.txt":							textarea.dir = 'rtl';	break;
 				case "/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/mark/mark.txt":									textarea.dir = 'rtl';	break;
@@ -2410,27 +2410,27 @@
 				case "/gemacrypt/files/books/Additions/Hebrew/Apocalypse of Adam.txt":										textarea.dir = 'rtl';	break;
 				/*--------Additions in Greek---------*/
 				case "/gemacrypt/files/books/Additions/Greek/Apocalypse of Peter.txt":										textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/Greek/Gospel of Harmony.txt":											textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/Greek/Gospel of Harmony.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/Greek/Gospel of Peter.txt":											textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/Greek/Psalms of Solomon.txt":											textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/Greek/Psalms of Solomon.txt":										textarea.dir = 'ltr';	break;
 				/*--------Additions in Latin---------*/
 				case "/gemacrypt/files/books/Additions/Latin/Apocalypse of Golias.txt":										textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/Latin/Epistle to the Laodiceans.txt":									textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/Latin/Epistle to the Laodiceans.txt":								textarea.dir = 'ltr';	break;
 				/*--------Additions in English-------*/
 				case "/gemacrypt/files/books/Additions/English/1 Adam and Eve.txt":											textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/1 Apocalypse of James.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/2 Apocalypse of James.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/1 Clement.txt":												textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/2 Clement.txt":												textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/1 Enoch.txt":													textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/2 Enoch.txt":													textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/3 Enoch.txt":													textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/1 Enoch.txt":												textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/2 Enoch.txt":												textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/3 Enoch.txt":												textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/1 Esdras.txt":												textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/2 Esdras.txt":												textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/1 Maccabees.txt":												textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/2 Maccabees.txt":												textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/3 Maccabees.txt":												textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/4 Maccabees.txt":												textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/1 Maccabees.txt":											textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/2 Maccabees.txt":											textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/3 Maccabees.txt":											textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/4 Maccabees.txt":											textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Acts of Andrew.txt":											textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Acts of Paul.txt":											textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Acts of Apollonius.txt":										textarea.dir = 'ltr';	break;
@@ -2442,7 +2442,7 @@
 				case "/gemacrypt/files/books/Additions/English/Acts of Thomas.txt":											textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Adam.txt":													textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Adam and Eve.txt":											textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Additions to Esther.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Additions to Esther.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Abraham.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Adam.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Bartholomew.txt":								textarea.dir = 'ltr';	break;
@@ -2454,68 +2454,68 @@
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Ezra.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Golias.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Lamech.txt":									textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Apocalypse of Moses.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Apocalypse of Moses.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Paul.txt":										textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Apocalypse of Peter.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Apocalypse of Peter.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Pseduo-Methodius.txt":							textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Sedrach.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Stephen.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of the Virgin.txt":								textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Thomas.txt":									textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Apocalypse of Zephaniah.txt":									textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Apocalypse of Zephaniah.txt":								textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocalypse of Zerubbabel.txt":								textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apocryphon of John.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Apology of Aristides.txt":									textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Ascension of Isaiah.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Ascension of Isaiah.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Baruch.txt":													textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Bel and the Dragon.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Dialogue of the Savior.txt":									textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Didache.txt":													textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Didache.txt":												textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Diognetus.txt":												textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Dionysius of Corinth.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Epiphanes.txt":												textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Epistle of Apostolorum.txt":									textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Epistle of Aristeas.txt":										textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Epistle of Barnabas.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Epistle of Aristeas.txt":									textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Epistle of Barnabas.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Epistle of Enoch.txt":										textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Epistle of Jeremiah.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Epistle of Jeremiah.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Epistle of Peter to Philip.txt":								textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Epistle of Polycarp.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Epistle of Polycarp.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Epistle of Ptolemy.txt":										textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Epistle of Vienna and Lyons.txt":								textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Epistle of Vienna and Lyons.txt":							textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Epistle to the Laodiceans.txt":								textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Eugnostos the Blessed.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gnostic Antithesis.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gnostic Basilides.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gnostic Naassene.txt":										textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Gospel of Ebionites.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Gospel of Ebionites.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gospel of Egerton.txt":										textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Gospel of Egyptians.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Gospel of Egyptians.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gospel of Harmony.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gospel of the Hebrews.txt":									textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Gospel of James.txt":											textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Gospel of Judas.txt":											textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Gospel of James.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Gospel of Judas.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gospel of the Marcion.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gospel of Mary.txt":											textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Gospel of Nazoreans.txt":										textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Gospel of Nicodemus.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Gospel of Nazoreans.txt":									textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Gospel of Nicodemus.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gospel of Oxyrhynchus 840.txt":								textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gospel of Oxyrhynchus 1224.txt":								textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Gospel of Peter.txt":											textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Gospel of Peter.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gospel of the Lord.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Gospel of Thomas.txt":										textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Gospel of Truth.txt":											textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Gospel of Truth.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Heracleon.txt":												textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Ignatius to Polycarp.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Jasher.txt":													textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Jubilees.txt":												textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Judith.txt":													textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Life of Apollonius of Tyana.txt":								textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Martyrdom of Isaiah.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Life of Apollonius of Tyana.txt":							textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Martyrdom of Isaiah.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Martydom of Polycarp.txt":									textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Melchizedek.txt":												textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Odes of Solomon.txt":											textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Ophite Diagrams.txt":											textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Melchizedek.txt":											textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Odes of Solomon.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Ophite Diagrams.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Passion Narrative.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Prayer of Azariah.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Prayer of Manassas.txt":										textarea.dir = 'ltr';	break;
@@ -2523,11 +2523,11 @@
 				case "/gemacrypt/files/books/Additions/English/Preaching of Peter.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Psalms of Solomon.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Secret Book of James.txt":									textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Secret Book of Mark.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Secret Book of Mark.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Shem.txt":													textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Shepherd of Hermas.txt":										textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Sophia of Jesus.txt":											textarea.dir = 'ltr';	break;
-				case "/gemacrypt/files/books/Additions/English/Susanna.txt":													textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Sophia of Jesus.txt":										textarea.dir = 'ltr';	break;
+				case "/gemacrypt/files/books/Additions/English/Susanna.txt":												textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Testament of Abraham.txt":									textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Testament of Moses.txt":										textarea.dir = 'ltr';	break;
 				case "/gemacrypt/files/books/Additions/English/Testament of Solomon.txt":									textarea.dir = 'ltr';	break;
@@ -2562,13 +2562,30 @@
 				const div = document.createElement('div');
 				div.textContent = text;
 				let escapedText = div.innerHTML;
+
+				// Greek and English .txt files contain the \u200E (Left-to-Right Mark) or &#8206; or &#x200E; as the very first character of the .txt file.
+				// Hebrew .txt files also contain the \u200F (Right-to-Left Mark) or &#8207; or &#x200F; as the very first character of the .txt file.
 				
+				// Style the letter to the left of BOM (U+FEFF) or &#xFEFF; or &#65279; but exclude asterisk (*) and flower mark (⁕)
+				// Due to browser artifacts (<) being generated when processing the Zero-Width No-Break Space (BOM), a \u180E character is added before the Zero-Width character it to prevent the artifact.
+				escapedText = escapedText.replace(/([^*⁕])(\uFEFF|&#xFEFF;|&#65279;)/g, function(match, p1, p2) {
+					return '<span style="font-size:36px">' + p1 + '</span>' + p2;
+				});
+
+				// Style the letter to the left of Word Joiner (U+2060), or &#x2060; or &#8288;, or &NoBreak; but exclude asterisk (*) and flower mark (⁕)
+				// Due to browser artifacts (<) being generated when processing the Zero-Width No-Break (Word Joiner), a \u180E character is added before the Zero-Width character it to prevent the artifact.
+				escapedText = escapedText.replace(/([^*⁕])(\u2060|&#x2060;|&#8288;|&NoBreak;)/g, function(match, p1, p2) {
+					return '<span style="font-size:14px">' + p1 + '</span>' + p2;
+				});
+
+				//Raised Letters
+
 				// Replace asterisks (*) with red colored version
 				escapedText = escapedText.replace(/\*/g, '<span style="color: #FF0000;">*</span>');
-				
+
 				// Replace flower punctuation marks (⁕ U+2055) with red colored version
 				escapedText = escapedText.replace(/⁕/g, '<span style="color: #FF0000;">⁕</span>');
-				
+
 				return escapedText;
 			}
 			
@@ -2863,77 +2880,81 @@
 			document.getElementById('bookSelect').value = 'Book';
 			document.getElementById('gematriaSelect').value = 'Value';
 			document.getElementById('encryptionSelect').value = 'Encryption';
-			document.getElementById('removeSelect').value = 'Remove';
+			document.getElementById('modifySelect').value = 'Modify';
 		}
 		</script>
 
 		<style>
-		#removeSelect {  border-radius: 8px; }
-		#removeSelect option          { background:#3333aa; color:#fff; border-radius: 5px; }	/*  Fallback color for any option that does not get an override  */
-		#removeSelect option          { background:var(--opt-bg,#3333aa); border-radius: 5px; } 
-		#removeSelect option[value*="AltWord2"]					{ --opt-bg:#3333aa; }
-		#removeSelect option[value*="AltWord1"]					{ --opt-bg:#3333aa; }
-		#removeSelect option[value*="Cantillation"]				{ --opt-bg:#48bef5; }
-		#removeSelect option[value*="Niqqud"]					{ --opt-bg:#48bef5; }
-		#removeSelect option[value*="Maqaf"]					{ --opt-bg:#48bef5; }
-		#removeSelect option[value*="Punctuation"]				{ --opt-bg:#4589a8; }
-		#removeSelect option[value*="Digits"]					{ --opt-bg:#4589a8; }
-		#removeSelect option[value*="Spaces"]					{ --opt-bg:#4589a8; }
-		#removeSelect option[value*="CarriageReturns"]			{ --opt-bg:#4589a8; }
-		#removeSelect option[value*="LatinLetters"]				{ --opt-bg:#00aeff; }
-		#removeSelect option[value*="GreekLetters"]				{ --opt-bg:#00aeff; }
-		#removeSelect option[value*="HebrewLetters"]			{ --opt-bg:#00aeff; }
-		#removeSelect option[value*="ConvertFinals"]			{ --opt-bg:#546cad; }
-		#removeSelect option[value*="SplitHyphen"]				{ --opt-bg:#546cad; }
+		#modifySelect {  border-radius: 8px; }
+		#modifySelect option          { background:#3333aa; color:#fff; border-radius: 5px; }	/*  Fallback color for any option that does not get an override  */
+		#modifySelect option          { background:var(--opt-bg,#3333aa); border-radius: 5px; } 
+		#modifySelect option[value*="AltWord2"]					{ --opt-bg:#3333aa; }
+		#modifySelect option[value*="AltWord1"]					{ --opt-bg:#3333aa; }
+		#modifySelect option[value*="AltLetterSize"]			{ --opt-bg:#3333aa; }
+		#modifySelect option[value*="LetterSize"]				{ --opt-bg:#3333aa; }
+		#modifySelect option[value*="Cantillation"]				{ --opt-bg:#48bef5; }
+		#modifySelect option[value*="Niqqud"]					{ --opt-bg:#48bef5; }
+		#modifySelect option[value*="Maqaf"]					{ --opt-bg:#48bef5; }
+		#modifySelect option[value*="Punctuation"]				{ --opt-bg:#4589a8; }
+		#modifySelect option[value*="Digits"]					{ --opt-bg:#4589a8; }
+		#modifySelect option[value*="Spaces"]					{ --opt-bg:#4589a8; }
+		#modifySelect option[value*="CarriageReturns"]			{ --opt-bg:#4589a8; }
+		#modifySelect option[value*="LatinLetters"]				{ --opt-bg:#00aeff; }
+		#modifySelect option[value*="GreekLetters"]				{ --opt-bg:#00aeff; }
+		#modifySelect option[value*="HebrewLetters"]			{ --opt-bg:#00aeff; }
+		#modifySelect option[value*="ConvertFinals"]			{ --opt-bg:#546cad; }
+		#modifySelect option[value*="SplitHyphen"]				{ --opt-bg:#546cad; }
 		</style>
 
-        <select id="removeSelect" tabIndex="" onChange="">
-            <option value='Remove' selected="true">&#x1F6AB; Remove:</option>
-			<option value='AltWord2'>Alt Word #2 ⁕</option>
-			<option value='AltWord1'>Alt Word #1 *</option>
-			<option value='Cantillation'>Cantillation (♫ notes)</option>
-			<option value='Niqqud'>Niqqud (Vowel Points)</option>
-			<option value='Maqaf'>Maqaf (dash, hypenes)</option>
-			<option value='Punctuation'>Punctuation</option>
-			<option value='Digits'>Digits</option>
-			<option value='Spaces'>Spaces</option>
-			<option value='CarriageReturns'>Carriage Returns</option>
-			<option value='LatinLetters'>Latin/English Letters</option>
-			<option value='GreekLetters'>Greek Letters</option>
-			<option value='HebrewLetters'>Hebrew Letters</option>
-			<option value='ConvertFinals'>Convert Finals</option>
-			<option value='SplitHyphen'>Split Hyphenated</option>
+        <select id="modifySelect" tabIndex="" onChange="">
+            <option value='Modify' selected="true">&#x1F4DD; Modify:</option>
+			<option value='AltWord2'>&#x26D4; Alt Word #2 ⁕</option>
+			<option value='AltWord1'>&#x26D4; Alt Word #1 *</option>
+			<option value='AltLetterSize'>&#x2705; Alt Letter Size</option>
+			<option value='LetterSize'>&#x26D4; Alt Letter Size</option>
+			<option value='Cantillation'>&#x26D4; Cantillation (♫ notes)</option>
+			<option value='Niqqud'>&#x26D4; Niqqud (Vowel Points)</option>
+			<option value='Maqaf'>&#x26D4; Maqaf (dash, hypenes)</option>
+			<option value='Punctuation'>&#x26D4; Punctuation</option>
+			<option value='Digits'>&#x26D4; Digits</option>
+			<option value='Spaces'>&#x26D4; Spaces</option>
+			<option value='CarriageReturns'>&#x26D4; Carriage Returns</option>
+			<option value='LatinLetters'>&#x26D4; Latin/English Letters</option>
+			<option value='GreekLetters'>&#x26D4; Greek Letters</option>
+			<option value='HebrewLetters'>&#x26D4; Hebrew Letters</option>
+			<option value='ConvertFinals'>&#x2705; Convert Finals</option>
+			<option value='SplitHyphen'>&#x2705; Split Hyphenated</option>
 
         </select>
 
 		<select id="gematriaSelect" tabIndex="3" onChange="gematria = this.value">
-            <option value='Value' selected="true">&#x0023; Gematria:</option>
-            <option value='Ragil'>Ragil</option>
-			<option value='Katan'>Katan</option>
-			<option value='HaKlali'>HaKlali</option>
-			<option value='Kolel'>Kolel</option>
-			<option value='Kolel+1'>Kolel+word</option>
-			<option value='Ordinal'>Ordinal</option>
-			<option value='Reduced'>Reduced</option>
-			<option value='IntegralReduced'>Integral Reduced</option>
-			<option value='HaKadmi'>HaKadmi</option>
-			<option value='HaPerati'>HaPerati</option>
-			<option value='Miluy'>Miluy</option>
+            <option value='Value' selected="true">&#x1F522; Gematria:</option>
+            <option value='Ragil'>&#x1F9EE; Ragil</option>
+			<option value='Katan'>&#x1F9EE; Katan</option>
+			<option value='HaKlali'>&#x1F9EE; HaKlali</option>
+			<option value='Kolel'>&#x1F9EE; Kolel</option>
+			<option value='Kolel+1'>&#x1F9EE; Kolel+word</option>
+			<option value='Ordinal'>&#x1F9EE; Ordinal</option>
+			<option value='Reduced'>&#x1F9EE; Reduced</option>
+			<option value='IntegralReduced'>&#x1F9EE; Integral Reduced</option>
+			<option value='HaKadmi'>&#x1F9EE; HaKadmi</option>
+			<option value='HaPerati'>&#x1F9EE; HaPerati</option>
+			<option value='Miluy'>&#x1F9EE; Miluy</option>
         </select>
 
 		<select id="encryptionSelect" tabIndex="2" onchange="encryption = this.value" onclick="encryption = this.value">
-			<option value='Encryption' selected="true">&#x1F512; Encryption:   </option>
-			<option value='AYiK-BeCheR'>AYiK-BeCheR</option>
-			<option value='AL-BaM'>AL-BaM</option>
-			<option value='AT-BaSh'>AT-BaSh</option>
-			<option value='ACh-BI'>ACh-BI</option>
-			<option value='AChaS-BeTA'>AChaS-BeTA</option>
-			<option value='AT-BaCh'>AT-BaCh</option>
-			<option value='AT-BaCh999'>AT-BaCh (with Finals)</option>
-			<option value='AiY-BaK'>AiY-BaK</option>
-			<option value='ATz-BaPh'>ATz-BaPh</option>
-			<option value='AL-BeTh'>AL-BeTh</option>
-			<option value='Ofanim'>Ofanim</option>
+			<option value='Encryption' selected="true">&#x1F510; Encryption:   </option>
+			<option value='AYiK-BeCheR'>&#x1F511; AYiK-BeCheR</option>
+			<option value='AL-BaM'>&#x1F511; AL-BaM</option>
+			<option value='AT-BaSh'>&#x1F511; AT-BaSh</option>
+			<option value='ACh-BI'>&#x1F511; ACh-BI</option>
+			<option value='AChaS-BeTA'>&#x1F511; AChaS-BeTA</option>
+			<option value='AT-BaCh'>&#x1F511; AT-BaCh</option>
+			<option value='AT-BaCh999'>&#x1F511; AT-BaCh (with Finals)</option>
+			<option value='AiY-BaK'>&#x1F511; AiY-BaK</option>
+			<option value='ATz-BaPh'>&#x1F511; ATz-BaPh</option>
+			<option value='AL-BeTh'>&#x1F511; AL-BeTh</option>
+			<option value='Ofanim'>&#x1F511; Ofanim</option>
 		  </select>
 		  <script>
 			encryptionSelect.onchange = function() {
@@ -7711,7 +7732,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
         const fileSelect = document.getElementById('bookSelect');
         const gematriaSelect = document.getElementById('gematriaSelect');
         const encryptionSelect = document.getElementById('encryptionSelect');
-        const removeSelect = document.getElementById('removeSelect');
+        const modifySelect = document.getElementById('modifySelect');
         const calcBtn = document.getElementById('calcBtn');
         const copyBtn = document.getElementById('copyBtn');
 		const directionBtn = document.getElementById('directionBtn');
@@ -7812,169 +7833,165 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
                 const resultText = texts.join('\n\n');
                 textArea.textContent += '\n\n' + resultText;
             });
-        });
-		// Remove functionality if "Alt Word #2" are selected, change event listener.  This is the word having the same meaning, but a slightly different spelling found later in the Dead Sea Scrolls, and therefore a different Gematria value. 
-		removeSelect.addEventListener('change', () => {
-		    const selectedValue = removeSelect.value;
-		    if (selectedValue === 'AltWord2') {
-		        // Get plain text content (strips HTML)
-		        const textAreaContent = textArea.textContent;
-		        // Remove Alt Word #2 content - match flower mark followed by non-space characters and optional space
-		        const noAltWord2Content = textAreaContent.replace(/⁕[^\s⁕]* ?/g, '');	// Replaces ⁕ followed by any non-whitespace/non-flower characters and optional space
-		        // Re-apply highlighting to the cleaned content
-		        textArea.innerHTML = highlightSpecialCharacters(noAltWord2Content);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		    }
-		});	
-		// Remove functionality if "Alt Word #1" are selected, change event listener.  This is the original word traditionally found in the Old Testament.
-		removeSelect.addEventListener('change', () => {
-		    const selectedValue = removeSelect.value;
-		    if (selectedValue === 'AltWord1') {
-		        // Get plain text content (strips HTML)
-		        const textAreaContent = textArea.textContent;
-		        // Remove Alt Word #1 content - match single asterisk followed by non-space characters and optional space
-				const noAltWord1Content = textAreaContent.replace(/\*[^\s\*]* ?/g, '');	// Removes * followed by any non-whitespace/non-asterisk characters and optional space
-		        // Re-apply highlighting to the cleaned content
-		        textArea.innerHTML = highlightSpecialCharacters(noAltWord1Content);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		    }
-		});
-		// Remove functionality if "Cantillation" is selected, change event listener
-		removeSelect.addEventListener('change', () => {
-			const selectedValue = removeSelect.value;
-			if (selectedValue === 'Cantillation') {
-				const textAreaContent = textArea.textContent;
-				const cantillationMarks = /[\u0591-\u05AF]/g; // Hebrew Cantillation marks (te'amim)
-				const noCantillationContent = textAreaContent.replace(cantillationMarks, '');
-				textArea.innerHTML = highlightSpecialCharacters(noCantillationContent);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-			}
-		});
-		// Remove functionality if "Niqqud" is selected, change event listener
-		removeSelect.addEventListener('change', () => {
-			const selectedValue = removeSelect.value;
-			if (selectedValue === 'Niqqud') {
-				const textAreaContent = textArea.textContent;
-				const hebrewCharacters = /[\u0590\u05B0-\u05BD\u05BF\u05C1-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g; // except for Cantillation, new lines, and ׀ (U+05C0)
-				const noNiqqudContent = textAreaContent.replace(hebrewCharacters, '');
-				textArea.innerHTML = highlightSpecialCharacters(noNiqqudContent);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-			}
-		});
-		// Remove functionality if "Maqaf" is selected, change event listener
-		removeSelect.addEventListener('change', () => {
-			const selectedValue = removeSelect.value;
-			if (selectedValue === 'Maqaf') {
-				const textAreaContent = textArea.textContent;
-				const maqafDashMinus = /[\u05BE|­|-]/g; // Remove maqaf, soft hyphen, and regular hyphen/dash
-				const noMaqafContent = textAreaContent.replace(maqafDashMinus, '');
-				textArea.innerHTML = highlightSpecialCharacters(noMaqafContent);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-			}
-		});
-		// Remove functionality if "Punctuation" is selected, change event listener
-		removeSelect.addEventListener('change', () => {
-		    const selectedValue = removeSelect.value;
-		    if (selectedValue === 'Punctuation') {
-		        const textAreaContent = textArea.textContent;
-		        const noPunctuationContent = textAreaContent.replace(/ \u05C0/g, '').replace(/[.,!?\-;\(\)\[\]\u05C3\u05C0]/g, '');
-		        textArea.innerHTML = highlightSpecialCharacters(noPunctuationContent);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		    }
-		});
-		// Remove functionality if "Digits" are selected, change event listener, including colons and tabs for the verse indicators
-		removeSelect.addEventListener('change', () => {
-		    const selectedValue = removeSelect.value;
-		    if (selectedValue === 'Digits') {
-		        const textAreaContent = textArea.textContent;
-		        const noDigitsContent = textAreaContent
-					.replace(/[\d,\u003A\u05C3\t]/g, '')	// remove Digits, commas, colons, Sof Pasuq (Hebrew colon), tabs & Fleur-De-Lis
-					.replace(/\n{2,}/g, '\n') 				// removes a double or repeating New Line
-					.replace(/\r{2,}/g, '\r');				// removes a double or repeating Carriage Return
-		        textArea.innerHTML = highlightSpecialCharacters(noDigitsContent);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		    }
-		});
-		// Remove functionality if "Spaces" are selected, change event listener
-		removeSelect.addEventListener('change', () => {
-		    const selectedValue = removeSelect.value;
-		    if (selectedValue === 'Spaces') {
-		        const textAreaContent = textArea.textContent;
-		        const noSpacesContent = textAreaContent.replace(/[^\S\r\n]+/g, '');
-		        textArea.innerHTML = highlightSpecialCharacters(noSpacesContent);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		    }
-		});
-		// Remove functionality if "Spaces" are selected, change event listener
-				removeSelect.addEventListener('change', () => {
-			const selectedValue = removeSelect.value;
-			if (selectedValue === 'CarriageReturns') {
-				const textAreaContent = textArea.textContent;
-				const noCarriageReturnsContent = textAreaContent.replace(/(\r\n|\n|\r)/gm, '');
-				textArea.innerHTML = highlightSpecialCharacters(noCarriageReturnsContent);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
 
-					textArea.classList.add('horizontalScroll'); // add the class to show horizontal scrollbar for browsers that do not wrap text to the text field.
-			} else {
-					textArea.classList.remove('horizontalScroll'); // remove the class when another option is selected
-			}
 		});
-		// Remove functionality if "LatinLetters" are selected, change event listener
-		removeSelect.addEventListener('change', () => {
-		    const selectedValue = removeSelect.value;
-		    if (selectedValue === 'LatinLetters') {
-		        const textAreaContent = textArea.textContent;
-		        const noLatinLettersContent = textAreaContent.replace(/[a-zA-Z\uAB30–\uAB6F\uAB65)(]/g, '');
-		        textArea.innerHTML = highlightSpecialCharacters(noLatinLettersContent);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		    }
-		});
-		// Remove functionality if "GreekLetters" are selected, change event listener
-		removeSelect.addEventListener('change', () => {
-		    const selectedValue = removeSelect.value;
-		    if (selectedValue === 'GreekLetters') {
-		        const textAreaContent = textArea.textContent;
-		        const noGreekLettersContent = textAreaContent.replace(/[\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]]/g, '');
-		        textArea.innerHTML = highlightSpecialCharacters(noGreekLettersContent);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		    }
-		});
-		// Remove functionality if "HebrewLetters" are selected, change event listener
-		removeSelect.addEventListener('change', () => {
-		    const selectedValue = removeSelect.value;
-		    if (selectedValue === 'HebrewLetters') {
-		        const textAreaContent = textArea.textContent;
-		        const noHebrewLettersContent = textAreaContent.replace(/[\u0590-\u05FF]/g, '');
-		        textArea.innerHTML = highlightSpecialCharacters(noHebrewLettersContent);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		    }
-		});	
-		// Remove functionality if "ConvertFinals" is selected, change event listener
-	removeSelect.addEventListener('change', () => {
-		const selectedValue = removeSelect.value;
-		if (selectedValue === 'ConvertFinals') {
+
+		let lastModifySelectValue = null;
+		function handleModifySelectEvent(e) {
+			const selectedValue = modifySelect.value;
 			const textAreaContent = textArea.textContent;
-			// Replace Hebrew final forms with their regular forms
-			const convertedContent = textAreaContent
-				.replace(/ך/g, 'כ')  // Final Kaf → Kaf
-				.replace(/ם/g, 'מ')  // Final Mem → Mem
-				.replace(/ן/g, 'נ')  // Final Nun → Nun
-				.replace(/ף/g, 'פ')  // Final Peh → Peh
-				.replace(/ץ/g, 'צ'); // Final Tzadi → Tzadi
-			textArea.innerHTML = highlightSpecialCharacters(convertedContent);
-			//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
-		}
-		});
-		// Remove functionality if "SplitHyphen" is selected, change event listener
-		removeSelect.addEventListener('change', () => {
-			const selectedValue = removeSelect.value;
-			if (selectedValue === 'SplitHyphen') {
-				const textAreaContent = textArea.textContent;
-				// Replace Maqaf (U+05BE), soft hyphen (U+00AD), and regular hyphen/dash with a single space
-				const splitHyphenContent = textAreaContent.replace(/[\u05BE\u00AD\-]/g, ' ');
-				textArea.innerHTML = highlightSpecialCharacters(splitHyphenContent);
-				//removeSelect.value = 'Remove'; // set dropdown menu back to 1st option
+			let html;
+			// Always run if event is mousedown (repeated clicks), or if value changed
+			if (!e || (e.type !== 'mousedown' && selectedValue === lastModifySelectValue)) {
+				return;
 			}
+			lastModifySelectValue = selectedValue;
+			switch (selectedValue) {
+				case 'AltWord2':
+					const noAltWord2Content = textAreaContent.replace(/⁕[^\s⁕]* ?/g, '');
+					textArea.innerHTML = highlightSpecialCharacters(noAltWord2Content);
+					break;
+				case 'AltWord1':
+					const noAltWord1Content = textAreaContent.replace(/\*[^\s\*]* ?/g, '');
+					textArea.innerHTML = highlightSpecialCharacters(noAltWord1Content);
+					break;
+				case 'Cantillation':
+					const cantillationMarks = /[\u0591\u0592\u0593\u0594\u0595\u0596\u0597\u0598\u0599\u059A\u059B\u059C\u059D\u059E\u059F\u05A0\u05A1\u05A2\u05A3\u05A4\u05A5\u05A6\u05A7\u05A8\u05A9\u05AA\u05AB\u05AC\u05AD\u05C0\u05AF]/g;
+					const noCantillationContent = textAreaContent.replace(cantillationMarks, '');
+					textArea.innerHTML = highlightSpecialCharacters(noCantillationContent);
+					break;
+				case 'Niqqud':
+					const hebrewCharacters = /[\u0590\u05B0-\u05BD\u05BF\u05C1-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g;
+					const noNiqqudContent = textAreaContent.replace(hebrewCharacters, '');
+					textArea.innerHTML = highlightSpecialCharacters(noNiqqudContent);
+					break;
+				case 'Maqaf':
+					const maqafDashMinus = /[\u05BE|­|-]/g;
+					const noMaqafContent = textAreaContent.replace(maqafDashMinus, '');
+					textArea.innerHTML = highlightSpecialCharacters(noMaqafContent);
+					break;
+				case 'Punctuation':
+					const noPunctuationContent = textAreaContent.replace(/ \u05C0/g, '').replace(/[.,!?\-;\(\)\[\]\u05C3\u05C0]/g, '');
+					textArea.innerHTML = highlightSpecialCharacters(noPunctuationContent);
+					break;
+				case 'Digits':
+					const noDigitsContent = textAreaContent
+						.replace(/[\d,\u003A\u05C3\t]/g, '')
+						.replace(/\n{2,}/g, '\n')
+						.replace(/\r{2,}/g, '\r');
+					textArea.innerHTML = highlightSpecialCharacters(noDigitsContent);
+					break;
+				case 'Spaces':
+					const noSpacesContent = textAreaContent.replace(/[^\S\r\n]+/g, '');
+					textArea.innerHTML = highlightSpecialCharacters(noSpacesContent);
+					break;
+				case 'CarriageReturns':
+					const noCarriageReturnsContent = textAreaContent.replace(/(\r\n|\n|\r)/gm, '');
+					textArea.innerHTML = highlightSpecialCharacters(noCarriageReturnsContent);
+					textArea.classList.add('horizontalScroll');
+					break;
+				case 'LatinLetters':
+					const noLatinLettersContent = textAreaContent.replace(/[a-zA-Z\uAB30–\uAB6F\uAB65)(]/g, '');
+					textArea.innerHTML = highlightSpecialCharacters(noLatinLettersContent);
+					break;
+				case 'GreekLetters':
+					const noGreekLettersContent = textAreaContent.replace(/[\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]]/g, '');
+					textArea.innerHTML = highlightSpecialCharacters(noGreekLettersContent);
+					break;
+				case 'HebrewLetters':
+					const noHebrewLettersContent = textAreaContent.replace(/[\u0590-\u05FF]/g, '');
+					textArea.innerHTML = highlightSpecialCharacters(noHebrewLettersContent);
+					break;
+				case 'LetterSize':
+					html = textArea.innerHTML;
+					html = html.replace(/(\uFEFF|&#65279;|\u2060|&#8288;|&NoBreak;|&#xFEFF;|&#x2060;)/g, '');
+					html = html.replace(/font-size:\s*(?!18px)(\d+px)/g, 'font-size:18px');
+					textArea.innerHTML = html;
+					break;
+				case 'AltLetterSize':
+					// Use GraphemeSplitter to split text into grapheme clusters and apply font size if BOM/NoBreak present
+					// Load GraphemeSplitter if not already loaded
+					if (typeof GraphemeSplitter === 'undefined') {
+						// eslint-disable-next-line no-eval
+						eval(window.localStorage.getItem('GraphemeSplitterSrc'));
+					}
+					let html = textArea.innerHTML;
+					const brPlaceholder = '___BR___';
+					html = html.replace(/<br\s*\/?>/gi, brPlaceholder);
+					 function wrapFontSizeInText(text) {
+					     const splitter = new GraphemeSplitter();
+					     const clusters = splitter.splitGraphemes(text);
+					     return clusters.map(function(cluster) {
+					         // Check for BOM/NoBreak in cluster
+					         if (/[\uFEFF\u2060]|&#x2060;|&#65279;|&#xFEFF;|&#8288;|&NoBreak;/.test(cluster)) {
+					             let fontSize = '14px';
+					             if (/\uFEFF|&#65279;|&#xFEFF;/.test(cluster)) fontSize = '36px';
+					             // Remove BOM/NoBreak for display
+					             cluster = cluster.replace(/[\uFEFF\u2060]|&#65279;|&#xFEFF;|&#8288;|&NoBreak;/g, '');
+					             return '<span style="font-size:' + fontSize + '">' + cluster + '</span>';
+					         } else {
+					             return cluster;
+					         }
+					     }).join('');
+					 }
+					// Only apply font size to the base letter following the special character
+					function wrapFontSizeInText(text) {
+						// Hebrew, Greek, Latin base letters
+						const baseLetter = '[\u05D0-\u05EA\u05DA\u05DD\u05DF\u05E3\u05E5\u0391-\u03A9\u03B1-\u03C9a-zA-Z]';
+						const bomPattern = '(?:\uFEFF|&#65279;|&#xFEFF;)';
+						const noBreakPattern = '(?:\u2060|&#8288;|&#x2060;|&NoBreak;)';
+						// BOM + base letter
+						text = text.replace(new RegExp(bomPattern + '(' + baseLetter + ')', 'g'), function(match, p1) {
+							return match.slice(0, match.length - p1.length) + '<span style="font-size:36px">' + p1 + '</span>';
+						});
+						// NoBreak + base letter
+						text = text.replace(new RegExp(noBreakPattern + '(' + baseLetter + ')', 'g'), function(match, p1) {
+							return match.slice(0, match.length - p1.length) + '<span style="font-size:14px">' + p1 + '</span>';
+						});
+						return text;
+					}
+					const tempDiv = document.createElement('div');
+					tempDiv.innerHTML = html;
+					function walk(node) {
+						if (node.nodeType === Node.TEXT_NODE) {
+							const processed = wrapFontSizeInText(node.nodeValue);
+							if (processed !== node.nodeValue) {
+								const span = document.createElement('span');
+								span.innerHTML = processed;
+								node.parentNode.replaceChild(span, node);
+							}
+						} else if (node.nodeType === Node.ELEMENT_NODE) {
+							for (let child of Array.from(node.childNodes)) {
+								walk(child);
+							}
+						}
+					}
+					walk(tempDiv);
+					let finalHtml = tempDiv.innerHTML.replace(new RegExp(brPlaceholder, 'g'), '<br>');
+					textArea.innerHTML = finalHtml;
+					break;
+				case 'ConvertFinals':
+					const convertedContent = textAreaContent
+						.replace(/ך/g, 'כ')
+						.replace(/ם/g, 'מ')
+						.replace(/ן/g, 'נ')
+						.replace(/ף/g, 'פ')
+						.replace(/ץ/g, 'צ');
+					textArea.innerHTML = highlightSpecialCharacters(convertedContent);
+					break;
+				case 'SplitHyphen':
+					const splitHyphenContent = textAreaContent.replace(/[\u05BE\u00AD\-]/g, ' ');
+					textArea.innerHTML = highlightSpecialCharacters(splitHyphenContent);
+					break;
+				default:
+					textArea.classList.remove('horizontalScroll');
+					break;
+			}
+		}
+		modifySelect.addEventListener('change', handleModifySelectEvent);
+		modifySelect.addEventListener('mousedown', function(e) {
+			// Always trigger the handler on mousedown, even if the same option is selected
+			handleModifySelectEvent({type: 'mousedown'});
 		});
 
 		//\S\s\r\n\d.:;,!*-|()+
@@ -10982,11 +10999,15 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
         let clearBtnLastClickTime = 0;
         const clearBtnDoubleClickDelay = 5000; // 5 seconds
 
-        // The Clear button's functionality
+		// The Clear button's functionality
 		clearBtn.addEventListener('click', async () => {
 			const currentTime = Date.now();
 			const timeSinceLastClick = currentTime - clearBtnLastClickTime;
-			
+			// Reset modifySelect to default on first click (not double click)
+			if (timeSinceLastClick >= clearBtnDoubleClickDelay || clearBtnLastClickTime === 0) {
+				const modifySelect = document.getElementById('modifySelect');
+				if (modifySelect) modifySelect.value = 'Modify';
+			}
 			// If clicked within 5 seconds of previous click, clear the text area completely
 			if (timeSinceLastClick < clearBtnDoubleClickDelay && clearBtnLastClickTime > 0) {
 				textArea.textContent = '';
@@ -10998,10 +11019,8 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				document.getElementById('encrypted').innerHTML = ``;
 				document.getElementById('encryptedsum').innerHTML = ``;
 				availableColors = [...colors];
-				
 				// Clear cached file content when completely clearing the text area
 				localStorage.removeItem('gemacrypt_cached_file_content');
-				
 				// Clear ELS modal inputs and results if modal is open
 				const elsModal = document.getElementById('elsModal');
 				if (elsModal) {
@@ -11016,7 +11035,6 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			} else {
 				// First click within 5-second window - load the book file
 				clearBtnLastClickTime = currentTime;
-				
 				// Check if currentBook is empty.txt and we have cached content
 				if (currentBook === '/gemacrypt/files/books/empty.txt') {
 					const cachedContent = localStorage.getItem('gemacrypt_cached_file_content');
@@ -11026,7 +11044,6 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						try {
 							// Apply highlighting to the cached text
 							textArea.innerHTML = highlightSpecialCharacters(cachedContent);
-							
 							// Detect language and store in global variable
 							detectedLanguage = detectLanguage(cachedContent);
 							console.log('Language detected from cached content:', detectedLanguage);
@@ -11036,13 +11053,11 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						return; // Exit early since we used cached content
 					}
 				}
-				
 				// Load the book file from currentBook path
 				try {
 					showLoadingIndicator();
 					let corsProxy = `${window.location.protocol}//${window.location.hostname}/`;
 					let response;
-					
 					try {
 						response = await fetch(corsProxy + currentBook);
 					} catch (error) {
