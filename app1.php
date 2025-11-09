@@ -6,6 +6,7 @@
 <link id="theme-css" href="files/resources/lib/theme/jqm/jqm.css" rel="stylesheet" />
 <link href="files/resources/lib/jquerymobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="grapheme-splitter.js"></script>
 <script>
 	// Keep a reference to the newer CDN jQuery so we can restore it if older jQuery overwrites window.jQuery
 	try { if (window.jQuery) { window._jQueryPlaceholder = window.jQuery; } } catch (e) { console.error('store CDN jQuery failed', e); }
@@ -1544,8 +1545,8 @@ var hapL01=1;var hapL02=4;var hapL03=9;var hapL04=16;var hapL05=25;var hapL06=36
 var milL01=813;var milL02=412;var milL03=83;var milL04=434;var milL05=6;var milL06=12;var milL07=717;var milL08=418;var milL09=419;var milL10=20;var milL11=820;var milL12=74;var milL13=640;var milL14=756;var milL15=600;var milL16=780;var milL17=81;var milL18=104;var milL19=906;var milL20=510;var milL21=1010;var milL22=406;var milL23=820;var milL24=640;var milL25=756;var milL26=81;var milL27=104;
 
 // Remove EVERYTHING but Hebrew, Greek, and Digits or Numbers
-inputText = inputText.replace(/[^\w\u05D0-\u05EA\u037B-\u03FF\d]/g, '');  // English letters \u0041-\u007A, Greek letters \u037B-\u03FF, Hebrew letters \u05D0-\u05EA
-inputText2 = inputText2.replace(/[^\w\u05D0-\u05EA\u037B-\u03FF\d]/g, '');  // English letters \u0041-\u007A, Greek letters \u037B-\u03FF, Hebrew letters \u05D0-\u05EA
+inputText = inputText.replace(/[^\w\u05C6\u05D0-\u05EA\u037B-\u03FF\d]/g, '');  // English letters \u0041-\u007A, Greek letters \u037B-\u03FF, Hebrew letters \u05D0-\u05EA, backwards nun \u05C6
+inputText2 = inputText2.replace(/[^\w\u05C6\u05D0-\u05EA\u037B-\u03FF\d]/g, '');  // English letters \u0041-\u007A, Greek letters \u037B-\u03FF, Hebrew letters \u05D0-\u05EA, backwards nun \u05C6
 
 // Interweave between the 2 words to knit them into one
 var word1 = inputText;
@@ -1569,7 +1570,14 @@ end++;
 document.getElementById("knit").innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(knit)+"' target='_blank'><b>" + knit + "</b></a><br />";
 
 // inputText will be split up by character or letter
-var array = inputText.split("");
+// Use Unicode-aware splitting to preserve all Hebrew letters, including backwards nun (U+05C6)
+// If graphemeSplitter is available, use it; otherwise, fallback to Array.from
+if (typeof GraphemeSplitter !== 'undefined') {
+	var splitter = new GraphemeSplitter();
+	var array = splitter.splitGraphemes(inputText);
+} else {
+	var array = Array.from(inputText);
+}
 var array2 = inputText2.split("");
 
 // English Gematria & Numerials
@@ -2307,6 +2315,7 @@ for (var i=0; i < inputText.length; i++){
 	/*lamed*/	case "\u05DC":BE = "\u05DB";	gematriaAvgadBE += L11;	FE = "\u05DE";	gematriaAvgadFE += L13;	break;	// kaf & mem
 	/*mem*/		case "\u05DE":BE = "\u05DC";	gematriaAvgadBE += L12;	FE = "\u05E0";	gematriaAvgadFE += L14;	break;	// lamed & num
 	/*nun*/		case "\u05E0":BE = "\u05DE";	gematriaAvgadBE += L13;	FE = "\u05E1";	gematriaAvgadFE += L15;	break;	// mem & samech
+	/*Bk nun*/	case "\u05C6":BE = "\u05DE";	gematriaAvgadBE += L13;	FE = "\u05E1";	gematriaAvgadFE += L15;	break;	// mem & samech
 	/*samech*/	case "\u05E1":BE = "\u05E0";	gematriaAvgadBE += L14;	FE = "\u05E2";	gematriaAvgadFE += L16;	break;	// nun & ayin
 	/*ayin*/	case "\u05E2":BE = "\u05E1";	gematriaAvgadBE += L15;	FE = "\u05E4";	gematriaAvgadFE += L17;	break;	// samech & pey
 	/*pey*/		case "\u05E4":BE = "\u05E2";	gematriaAvgadBE += L16;	FE = "\u05E6";	gematriaAvgadFE += L18;	break;	// ayin & tzadi
@@ -2332,6 +2341,8 @@ if (forexch.substr(forexch.length - 1, 1) == "\u05DB") {
   forexch = forexch.substr(0, forexch.length - 1) + "\u05DD";
 }if (forexch.substr(forexch.length - 1, 1) == "\u05E0") {
   forexch = forexch.substr(0, forexch.length - 1) + "\u05DF";
+}if (forexch.substr(forexch.length - 1, 1) == "\u05C6") {
+  forexch = forexch.substr(0, forexch.length - 1) + "\u05DF";
 }if (forexch.substr(forexch.length - 1, 1) == "\u05E4") {
   forexch = forexch.substr(0, forexch.length - 1) + "\u05E3";
 }if (forexch.substr(forexch.length - 1, 1) == "\u05E6") {
@@ -2341,6 +2352,8 @@ if (forexch.substr(forexch.length - 1, 1) == "\u05DB") {
 }if (backexch.substr(backexch.length - 1, 1) == "\u05DE") {
   backexch = backexch.substr(0, backexch.length - 1) + "\u05DD";
 }if (backexch.substr(backexch.length - 1, 1) == "\u05E0") {
+  backexch = backexch.substr(0, backexch.length - 1) + "\u05DF";
+}if (backexch.substr(backexch.length - 1, 1) == "\u05C6") {
   backexch = backexch.substr(0, backexch.length - 1) + "\u05DF";
 }if (backexch.substr(backexch.length - 1, 1) == "\u05E4") {
   backexch = backexch.substr(0, backexch.length - 1) + "\u05E3";
@@ -2387,6 +2400,7 @@ for (var i=0; i < alphas.length; i++){
 		/*lamed*/	case "\u05DC":pictogram += "<a href='#' style='text-decoration: none; color: white;'><img src='img/pictographs/lamed.png' alt='Staff, Authority, Teach, Learn, Tongue' border='0'><span style='vertical-align:middle'>&#9;Staff, Authority, Teach, Learn, Tongue</span></a><br />";break;
 		/*mem*/		case "\u05DE":pictogram += "<a href='#' style='text-decoration: none; color: white;'><img src='img/pictographs/mem.png' alt='Water, Masses, Chaos, Wisdom' border='0'><span style='vertical-align:middle'>&#9;Water, Masses, Chaos, Wisdom</span></a><br />";break;
 		/*nun*/		case "\u05E0":pictogram += "<a href='#' style='text-decoration: none; color: white;'><img src='img/pictographs/nun.png' alt='Fish, Activity, Life' border='0'><span style='vertical-align:middle'>&#9; Fish, Activity, Life</span></a><br />";break;
+		/*Bk nun*/	case "\u05C6":pictogram += "<a href='#' style='text-decoration: none; color: white;'><img src='img/pictographs/nun.png' alt='Fish, Activity, Life' border='0'><span style='vertical-align:middle'>&#9; Fish, Activity, Life</span></a><br />";break;
 		/*samech*/	case "\u05E1":pictogram += "<a href='#' style='text-decoration: none; color: white;'><img src='img/pictographs/samech.png' alt='Support, Prop, Turn, Twist' border='0'><span style='vertical-align:middle'>&#9; Support, Prop, Turn, Twist</span></a><br />";break;
 		/*ayin*/	case "\u05E2":pictogram += "<a href='#' style='text-decoration: none; color: white;'><img src='img/pictographs/ayin.png' alt='Eye, See, Know, Experience' border='0'><span style='vertical-align:middle'>&#9; Eye, See, Know, Experience</span></a><br />";break;
 		/*kuf*/		case "\u05E7":pictogram += "<a href='#' style='text-decoration: none; color: white;'><img src='img/pictographs/koph.png' alt='Back of Head, Behind, Last, Least' border='0'><span style='vertical-align:middle'>&#9; Back of Head, Behind, Last, Least</span></a><br />";break;
@@ -2423,6 +2437,7 @@ for (var i=0; i < alphas.length; i++){
 		/*lamed*/	case "\u05DC":morph += "<a href='#' style='text-decoration: none;'><b><font color=red>\u05DC = </font>\u05E7</b></a><br /><br />";break;
 		/*mem*/		case "\u05DE":morph += "<a href='#' style='text-decoration: none;'><b><font color=red>\u05DE = </font>\u05DD   ,\u05D4\u05D9</b></a><br /><br />";break;
 		/*nun*/		case "\u05E0":morph += "<a href='#' style='text-decoration: none;'><b><font color=red>\u05E0 = </font>\u05D6\u05D9   ,\u05D9\u05D5\u05D9</b></a><br /><br />";break;
+		/*Bk nun*/	case "\u05C6":morph += "<a href='#' style='text-decoration: none;'><b><font color=red>\u05C6 = </font>\u05D6\u05D9   ,\u05D9\u05D5\u05D9</b></a><br /><br />";break;
 		/*samech*/	case "\u05E1":morph += "<a href='#' style='text-decoration: none;'><b><font color=red>\u05E1 = </font>\u05E1</b></a><br /><br />";break;
 		/*ayin*/	case "\u05E2":morph += "<a href='#' style='text-decoration: none;'><b><font color=red>\u05E2 = </font>\u05D5\u05DF</b></a><br /><br />";break;		
 		/*pey*/		case "\u05E4":morph += "<a href='#' style='text-decoration: none;'><b><font color=red>\u05E4 = </font>\u05DB\u05D9   ,\u05D7\u05D9   ,\u05D9\u05D4\u05D9</b></a><br /><br />";break;
@@ -2456,6 +2471,7 @@ for (var i=0; i < alphas.length; i++){
 		/*lamed*/	case "\u05DC":div += "<font color=green><b>\u05DC = </b></font><a href='http://www.biblewheel.com/GR/GR_Database.php?SearchBy_Gematria="+L12+"&SearchByNum=Go' style='text-decoration: none; color: white;' target='_blank'><b>\u05D9\u05D9\u05D9  ,\u05D9\u05DB</a></b><br /><br />";break;
 		/*mem*/		case "\u05DE":div += "<font color=green><b>\u05DE = </b></font><a href='http://www.biblewheel.com/GR/GR_Database.php?SearchBy_Gematria="+L13+"&SearchByNum=Go' style='text-decoration: none; color: white;' target='_blank'><b>\u05DB\u05DB  ,\u05D9\u05D9\u05DB  ,\u05D9\u05DC</a></b><br /><br />";break;
 		/*nun*/		case "\u05E0":div += "<font color=green><b>\u05E0 = </b></font><a href='http://www.biblewheel.com/GR/GR_Database.php?SearchBy_Gematria="+L14+"&SearchByNum=Go' style='text-decoration: none; color: white;' target='_blank'><b>\u05D9\u05D9\u05D9\u05DB  ,\u05D9\u05DB\u05DB  ,\u05D9\u05D9\u05DC  ,\u05DB\u05DC  ,\u05D9\u05DE</a></b><br /><br />";break;
+		/*Bk nun*/	case "\u05C6":div += "<font color=green><b>\u05C6 = </b></font><a href='http://www.biblewheel.com/GR/GR_Database.php?SearchBy_Gematria="+L14+"&SearchByNum=Go' style='text-decoration: none; color: white;' target='_blank'><b>\u05D9\u05D9\u05D9\u05DB  ,\u05D9\u05DB\u05DB  ,\u05D9\u05D9\u05DC  ,\u05DB\u05DC  ,\u05D9\u05DE</a></b><br /><br />";break;
 		/*samech*/	case "\u05E1":div += "<font color=green><b>\u05E1 = </b></font><a href='http://www.biblewheel.com/GR/GR_Database.php?SearchBy_Gematria="+L15+"&SearchByNum=Go' style='text-decoration: none; color: white;' target='_blank'><b>\u05D9\u05D9\u05DB\u05DB  ,\u05DB\u05DB\u05DB  ,\u05D9\u05D9\u05D9\u05DC  ,\u05D9\u05DB\u05DC  ,\u05DC\u05DC  ,\u05D9\u05D9\u05DE  ,\u05DB\u05DE  ,\u05D9\u05E0</a></b><br /><br />";break;
 		/*ayin*/	case "\u05E2":div += "<font color=green><b>\u05E2 = </b></font><a href='http://www.biblewheel.com/GR/GR_Database.php?SearchBy_Gematria="+L16+"&SearchByNum=Go' style='text-decoration: none; color: white;' target='_blank'><b>\u05D9\u05D9\u05D9\u05DB\u05DB  ,\u05D9\u05DB\u05DB\u05DB  ,\u05DB\u05DB\u05DC  ,\u05D9\u05D9\u05DB\u05DC  ,\u05D9\u05DC\u05DC  ,\u05D9\u05D9\u05D9\u05DE  ,\u05DC\u05DE  ,\u05D9\u05DB\u05DE  ,\u05DB\u05E0 ,\u05D9\u05D9\u05DB  ,\u05D9\u05E1</a></b><br /><br />";break;
 		/*pey*/		case "\u05E4":div += "<font color=green><b>\u05E4 = </b></font><a href='http://www.biblewheel.com/GR/GR_Database.php?SearchBy_Gematria="+L17+"&SearchByNum=Go' style='text-decoration: none; color: white;' target='_blank'><b>\u05D9\u05D9\u05DB\u05DE  ,\u05DB\u05DB\u05DE  ,\u05D9\u05DC\u05DE  ,\u05DE\u05DE  ,\u05D9\u05D9\u05D9\u05E0  ,\u05D9\u05DB\u05E0  ,\u05DC\u05E0  ,\u05D9\u05D9\u05E1  ,\u05DB\u05E1  ,\u05D9\u05E2  ,\u05D9\u05D9\u05DB\u05DB\u05DB  ,\u05D9\u05D9\u05DC\u05DC  ,\u05DB\u05DC\u05DC  ,\u05D9\u05D9\u05D9\u05DB\u05DC  ,\u05D9\u05DB\u05DB\u05DC</a></b><br /><br />";break;
@@ -2502,6 +2518,7 @@ for (var i=0; i < alphas.length; i++){
 		/*lamed*/	case "\u05DC":wordAB += "<font color='#FFFFFF'>&#x05DC&#x05DE&#x05D3 </font><br />";			textAB += "למד ";		gematriaAB += L12+L13+L04;		break;		
 		/*mem*/		case "\u05DE":wordAB += "<font color='#FFFFFF'>&#x05DD&#x05DE </font><br />";					textAB += "מם ";		gematriaAB += L13+L24;			break;			
 		/*nun*/		case "\u05E0":wordAB += "<font color='#FFFFFF'>&#x05E0&#x05D5&#x05DF </font><br />";			textAB += "נון ";		gematriaAB += L14+L06+L25;		break;		
+		/*Bk nun*/	case "\u05C6":wordAB += "<font color='#FFFFFF'>&#x05E0&#x05D5&#x05DF </font><br />";			textAB += "׆ון ";		gematriaAB += L14+L06+L25;		break;		
 		/*samech*/	case "\u05E1":wordAB += "<font color='#FFFFFF'>&#x05E1&#x05DE&#x05DA </font><br />";			textAB += "סמך ";		gematriaAB += L15+L13+L23;		break;		
 		/*ayin*/	case "\u05E2":wordAB += "<font color='#FFFFFF'>&#x05E2&#x05D9&#x05DF </font><br />";			textAB += "עין ";		gematriaAB += L16+L10+L25;		break;		
 		/*pey*/		case "\u05E4":wordAB += "<font color='#FFFFFF'>&#x05E4&#x05D0 </font><br />";					textAB += "פא ";		gematriaAB += L17+L01;			break;			
@@ -2536,6 +2553,7 @@ for (var i=0; i < alphas.length; i++){
 		/*lamed*/	case "\u05DC":wordSaG += "<font color='#FFFFFF'>&#x05DC&#x05DE&#x05D3 </font><br />";			textSaG += "למד ";		gematriaSaG += L12+L13+L04;		break;		
 		/*mem*/		case "\u05DE":wordSaG += "<font color='#FFFFFF'>&#x05DD&#x05DE </font><br />";					textSaG += "מם";		gematriaSaG += L13+L24;			break;			
 		/*nun*/		case "\u05E0":wordSaG += "<font color='#FFFFFF'>&#x05E0&#x05D5&#x05DF </font><br />";			textSaG += "נון ";		gematriaSaG += L14+L06+L25;		break;		
+		/*nun*/		case "\u05C6":wordSaG += "<font color='#FFFFFF'>&#x05E0&#x05D5&#x05DF </font><br />";			textSaG += "׆ון ";		gematriaSaG += L14+L06+L25;		break;		
 		/*samech*/	case "\u05E1":wordSaG += "<font color='#FFFFFF'>&#x05E1&#x05DE&#x05DA </font><br />";			textSaG += "סמך ";		gematriaSaG += L15+L13+L23;		break;		
 		/*ayin*/	case "\u05E2":wordSaG += "<font color='#FFFFFF'>&#x05E2&#x05D9&#x05DF </font><br />";			textSaG += "עין ";		gematriaSaG += L16+L10+L25;		break;		
 		/*pey*/		case "\u05E4":wordSaG += "<font color='#FFFFFF'>&#x05E4&#x05D0 </font><br />";					textSaG += "פא ";		gematriaSaG += L17+L01;			break;			
@@ -2570,6 +2588,7 @@ for (var i=0; i < alphas.length; i++){
 		/*lamed*/	case "\u05DC":wordMaH += "<font color='#FFFFFF'>&#x05DC&#x05DE&#x05D3 </font><br />";			textMaH += "למד ";		gematriaMaH += L12+L13+L04;		break;		
 		/*mem*/		case "\u05DE":wordMaH += "<font color='#FFFFFF'>&#x05DD&#x05DE </font><br />";					textMaH += "מם ";		gematriaMaH += L13+L24;			break;			
 		/*nun*/		case "\u05E0":wordMaH += "<font color='#FFFFFF'>&#x05E0&#x05D5&#x05DF </font><br />";			textMaH += "נון ";		gematriaMaH += L14+L06+L25;		break;		
+		/*Bk nun*/	case "\u05C6":wordMaH += "<font color='#FFFFFF'>&#x05E0&#x05D5&#x05DF </font><br />";			textMaH += "׆ון ";		gematriaMaH += L14+L06+L25;		break;		
 		/*samech*/	case "\u05E1":wordMaH += "<font color='#FFFFFF'>&#x05E1&#x05DE&#x05DA </font><br />";			textMaH += "סמך ";		gematriaMaH += L15+L13+L23;		break;		
 		/*ayin*/	case "\u05E2":wordMaH += "<font color='#FFFFFF'>&#x05E2&#x05D9&#x05DF </font><br />";			textMaH += "עין ";		gematriaMaH += L16+L10+L25;		break;		
 		/*pey*/		case "\u05E4":wordMaH += "<font color='#FFFFFF'>&#x05E4&#x05D0 </font><br />";					textMaH += "פא ";		gematriaMaH += L17+L01;			break;			
@@ -2604,6 +2623,7 @@ for (var i=0; i < alphas.length; i++){
 		/*lamed*/	case "\u05DC":wordBaN += "<font color='#FFFFFF'>&#x05DC&#x05DE&#x05D3 </font><br />";			textBaN += "למד ";		gematriaBaN += L12+L13+L04;		break;		
 		/*mem*/		case "\u05DE":wordBaN += "<font color='#FFFFFF'>&#x05DD&#x05DE </font><br />";					textBaN += "מם ";		gematriaBaN += L13+L24;			break;			
 		/*nun*/		case "\u05E0":wordBaN += "<font color='#FFFFFF'>&#x05E0&#x05D5&#x05DF </font><br />";			textBaN += "נון ";		gematriaBaN += L14+L06+L25;		break;		
+		/*nun*/		case "\u05C6":wordBaN += "<font color='#FFFFFF'>&#x05E0&#x05D5&#x05DF </font><br />";			textBaN += "׆ון ";		gematriaBaN += L14+L06+L25;		break;		
 		/*samech*/	case "\u05E1":wordBaN += "<font color='#FFFFFF'>&#x05E1&#x05DE&#x05DA </font><br />";			textBaN += "סמך ";		gematriaBaN += L15+L13+L23;		break;		
 		/*ayin*/	case "\u05E2":wordBaN += "<font color='#FFFFFF'>&#x05E2&#x05D9&#x05DF </font><br />";			textBaN += "עין ";		gematriaBaN += L16+L10+L25;		break;		
 		/*pey*/		case "\u05E4":wordBaN += "<font color='#FFFFFF'>&#x05E4&#x05D4 </font><br />";					textBaN += "פה ";		gematriaBaN += L17+L05;			break;			
@@ -2658,6 +2678,7 @@ if( cryptography == "AL-BaM" ){
 			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D0";gematria2 += L01;break;	// aleph
 			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D1";gematria2 += L02;break;	// bet
 			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D2";gematria2 += L03;break;	// gimel
+			/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D2";gematria2 += L03;break;	// gimel
 			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D3";gematria2 += L04;break;	// dalet
 			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D4";gematria2 += L05;break;	// hey
 			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D5";gematria2 += L06;break;	// vav
@@ -2681,6 +2702,7 @@ if( cryptography == "AL-BaM" ){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+				/*nun*/		case "\u05C6":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -2729,6 +2751,7 @@ else if( cryptography == "AT-BaSh" ){
 			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05DB";gematria2 += L11;break;	// kaf
 			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D9";gematria2 += L10;break;	// yod
 			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D8";gematria2 += L09;break;	// tet
+			/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D8";gematria2 += L09;break;	// tet
 			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D7";gematria2 += L08;break;	// chet
 			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D6";gematria2 += L07;break;	// zayin
 			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D5";gematria2 += L06;break;	// vav
@@ -2751,6 +2774,7 @@ if(i+1 == alphas.length){
 		/*kaf*/		case "\u05DB":letter = "\u05DA";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 		/*mem*/		case "\u05DE":letter = "\u05DD";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 		/*nun*/		case "\u05E0":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+		/*Bk nun*/	case "\u05C6":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 		/*pey*/		case "\u05E4":letter = "\u05E3";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 		/*tzadi*/	case "\u05E6":letter = "\u05E5";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 		default:letter = "";break;
@@ -2799,6 +2823,7 @@ else if( cryptography == "ACh-BI" ){
 			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05EA";gematria2 += L22;break;	// tav
 			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E9";gematria2 += L21;break;	// shin
 			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E8";gematria2 += L20;break;	// resh
+			/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05E8";gematria2 += L20;break;	// resh
 			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05E7";gematria2 += L19;break;	// kuf
 			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05E6";gematria2 += L18;break;	// tzadi
 			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05E4";gematria2 += L17;break;	// pey
@@ -2821,6 +2846,7 @@ else if( cryptography == "ACh-BI" ){
 			/*kaf*/		case "\u05DB":letter = "\u05DA";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 			/*mem*/		case "\u05DE":letter = "\u05DD";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 			/*nun*/		case "\u05E0":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+			/*Bk nun*/	case "\u05C6":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 			/*pey*/		case "\u05E4":letter = "\u05E3";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 			/*tzadi*/	case "\u05E6":letter = "\u05E5";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 			default:letter = "";break;
@@ -2869,6 +2895,7 @@ else if( cryptography == "AYiK-BeCheR" ){
 			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E9";gematria2 += L21;break;	// shin
 			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05EA";gematria2 += L22;break;	// tav
 			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05DB";gematria2 += L11;break;	// kaf
+			/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05DB";gematria2 += L11;break;	// kaf
 			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05E0";gematria2 += L14;break;	// nun
 			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05E4";gematria2 += L17;break;	// pey
@@ -2892,6 +2919,7 @@ else if( cryptography == "AYiK-BeCheR" ){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -2940,6 +2968,7 @@ else if( cryptography == "AChaS-BeTA" ){
 			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E7";gematria2 += L19;break;	// kuf
 			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E8";gematria2 += L20;break;	// resh
 			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E9";gematria2 += L21;break;	// shin
+			/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05E9";gematria2 += L21;break;	// shin
 			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D0";gematria2 += L01;break;	// aleph
 			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D1";gematria2 += L02;break;	// bet
 			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D2";gematria2 += L03;break;	// gimel
@@ -2963,6 +2992,7 @@ else if( cryptography == "AChaS-BeTA" ){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -3011,6 +3041,7 @@ else if( cryptography == "AT-BaCh" ){
 			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E2";gematria2 += L16;break;	// ayin
 			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E1";gematria2 += L15;break;	// samech
 			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+			/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05DC";gematria2 += L12;break;	// lamed
 			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -3034,6 +3065,7 @@ else if( cryptography == "AT-BaCh" ){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -3082,6 +3114,7 @@ else if( cryptography == "AT-BaCh-finals" ){
 			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E2";gematria2 += L16;break;	// ayin
 			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E1";gematria2 += L15;break;	// samech
 			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+			/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05DC";gematria2 += L12;break;	// lamed
 			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -3105,6 +3138,7 @@ else if( cryptography == "AT-BaCh-finals" ){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -3153,6 +3187,7 @@ else if( cryptography == "AiY-BaK" ){
 			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D2";gematria2 += L03;break;	// gimel
 			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D3";gematria2 += L04;break;	// dalet
 			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
+			/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
 			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D5";gematria2 += L06;break;	// vav
 			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D6";gematria2 += L07;break;	// zayin
 			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D7";gematria2 += L08;break;	// chet
@@ -3176,6 +3211,7 @@ else if( cryptography == "AiY-BaK" ){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -3224,6 +3260,7 @@ else if( cryptography == "ATz-BaPh" ){
 			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E2";gematria2 += L16;break;	// ayin
 			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E1";gematria2 += L15;break;	// samech
 			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+			/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05DC";gematria2 += L12;break;	// lamed
 			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -3247,6 +3284,7 @@ else if( cryptography == "ATz-BaPh" ){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -3295,6 +3333,7 @@ else if( cryptography == "AL-BeTh" ){
 			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D0";gematria2 += L01;break;	// aleph
 			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D2";gematria2 += L03;break;	// gimel
 			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
+			/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
 			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D6";gematria2 += L07;break;	// zayin
 			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D8";gematria2 += L09;break;	// tet
 			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -3318,6 +3357,7 @@ else if( cryptography == "AL-BeTh" ){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -3366,6 +3406,7 @@ else if( cryptography == "Ofanim" ){
 			/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D3";gematria2 += L04;break;	// delet
 			/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05DE";gematria2 += L13;break;	// mem
 			/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+			/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 			/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DB";gematria2 += L11;break;	// kaf
 			/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05E0";gematria2 += L14;break;	// nun
 			/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D0";gematria2 += L01;break;	// aleph
@@ -3389,6 +3430,7 @@ else if( cryptography == "Ofanim" ){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";cryptography2 = cryptography2.substring(0, cryptography2.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -3466,6 +3508,7 @@ temp4 = temp3.toString();
 			/*lamed*/	case "30":			gematriaSummation += L12;temp5 = "\u05DC";break;
 			/*mem*/		case "40":			gematriaSummation += L13;temp5 = "\u05DE";break;
 			/*nun*/		case "50":			gematriaSummation += L14;temp5 = "\u05E0";break;
+			/*Bk nun*/	case "50":			gematriaSummation += L14;temp5 = "\u05C6";break;
 			/*samech*/	case "60":			gematriaSummation += L15;temp5 = "\u05E1";break;
 			/*ayin*/	case "70":			gematriaSummation += L16;temp5 = "\u05E2";break;
 			/*pey*/		case "80":			gematriaSummation += L17;temp5 = "\u05E4";break;
@@ -3493,6 +3536,7 @@ temp4 = temp3.toString();
 			/*lamed*/	case "30000":		gematriaSummation += L12;temp5 = "\u05DC";break;
 			/*mem*/		case "40000":		gematriaSummation += L13;temp5 = "\u05DE";break;
 			/*nun*/		case "50000":		gematriaSummation += L14;temp5 = "\u05E0";break;
+			/*Bk nun*/	case "50000":		gematriaSummation += L14;temp5 = "\u05C6";break;
 			/*samech*/	case "60000":		gematriaSummation += L15;temp5 = "\u05E1";break;
 			/*ayin*/	case "70000":		gematriaSummation += L16;temp5 = "\u05E2";break;
 			/*pey*/		case "80000":		gematriaSummation += L17;temp5 = "\u05E4";break;
@@ -3520,6 +3564,7 @@ temp4 = temp3.toString();
 			/*lamed*/	case "30000000":	gematriaSummation += L12;temp5 = "\u05DC";break;
 			/*mem*/		case "40000000":	gematriaSummation += L13;temp5 = "\u05DE";break;
 			/*nun*/		case "50000000":	gematriaSummation += L14;temp5 = "\u05E0";break;
+			/*Bk nun*/	case "50000000":	gematriaSummation += L14;temp5 = "\u05C6";break;
 			/*samech*/	case "60000000":	gematriaSummation += L15;temp5 = "\u05E1";break;
 			/*ayin*/	case "70000000":	gematriaSummation += L16;temp5 = "\u05E2";break;
 			/*pey*/		case "80000000":	gematriaSummation += L17;temp5 = "\u05E4";break;
@@ -3556,6 +3601,7 @@ for (var i=0; i < summation.length; i++){
 	/*lamed*/	case "\u05DC":gematriaSum += L12;	break;
 	/*mem*/		case "\u05DE":gematriaSum += L13;	break;
 	/*nun*/		case "\u05E0":gematriaSum += L14;	break;
+	/*Bk nun*/	case "\u05C6":gematriaSum += L14;	break;
 	/*samech*/	case "\u05E1":gematriaSum += L15;	break;
 	/*ayin*/	case "\u05E2":gematriaSum += L16;	break;
 	/*pey*/		case "\u05E4":gematriaSum += L17;	break;
@@ -3881,6 +3927,7 @@ for (var i=0; i < acronym.length; i++){
 	/*lamed*/	case "\u05DC":gematriaAcronym += L12;	break;
 	/*mem*/		case "\u05DE":gematriaAcronym += L13;	break;
 	/*nun*/		case "\u05E0":gematriaAcronym += L14;	break;
+	/*Bk nun*/	case "\u05C6":gematriaAcronym += L14;	break;
 	/*samech*/	case "\u05E1":gematriaAcronym += L15;	break;
 	/*ayin*/	case "\u05E2":gematriaAcronym += L16;	break;
 	/*pey*/		case "\u05E4":gematriaAcronym += L17;	break;
@@ -3922,6 +3969,7 @@ for (var i=0; i < sofim.length; i++){
 	/*lamed*/	case "\u05DC":gematriaSofit += L12;	break;
 	/*mem*/		case "\u05DE":gematriaSofit += L13;	break;
 	/*nun*/		case "\u05E0":gematriaSofit += L14;	break;
+	/*Bk nun*/	case "\u05C6":gematriaSofit += L14;	break;
 	/*samech*/	case "\u05E1":gematriaSofit += L15;	break;
 	/*ayin*/	case "\u05E2":gematriaSofit += L16;	break;
 	/*pey*/		case "\u05E4":gematriaSofit += L17;	break;
@@ -3960,6 +4008,7 @@ for (var i=0; i < elision.length; i++){
 	/*lamed*/	case "\u05DC":gematriaElision += L12;	break;
 	/*mem*/		case "\u05DE":gematriaElision += L13;	break;
 	/*nun*/		case "\u05E0":gematriaElision += L14;	break;
+	/*Bk nun*/	case "\u05C6":gematriaElision += L14;	break;
 	/*samech*/	case "\u05E1":gematriaElision += L15;	break;
 	/*ayin*/	case "\u05E2":gematriaElision += L16;	break;
 	/*pey*/		case "\u05E4":gematriaElision += L17;	break;
@@ -4002,6 +4051,7 @@ for (var i=0; i < leap.length; i++){
 	/*lamed*/	case "\u05DC":gematriaLeap += L12;	break;
 	/*mem*/		case "\u05DE":gematriaLeap += L13;	break;
 	/*nun*/		case "\u05E0":gematriaLeap += L14;	break;
+	/*Bk nun*/	case "\u05C6":gematriaLeap += L14;	break;
 	/*samech*/	case "\u05E1":gematriaLeap += L15;	break;
 	/*ayin*/	case "\u05E2":gematriaLeap += L16;	break;
 	/*pey*/		case "\u05E4":gematriaLeap += L17;	break;
@@ -4040,6 +4090,7 @@ for (var i=0; i < skip.length; i++){
 	/*lamed*/	case "\u05DC":gematriaSkip += L12;	break;
 	/*mem*/		case "\u05DE":gematriaSkip += L13;	break;
 	/*nun*/		case "\u05E0":gematriaSkip += L14;	break;
+	/*Bk nun*/	case "\u05C6":gematriaSkip += L14;	break;
 	/*samech*/	case "\u05E1":gematriaSkip += L15;	break;
 	/*ayin*/	case "\u05E2":gematriaSkip += L16;	break;
 	/*pey*/		case "\u05E4":gematriaSkip += L17;	break;
@@ -4074,6 +4125,7 @@ for (var i=0; i < word2.length; i++){
 	/*lamed*/	case "\u05DC":gematriaWord2 += L12;	break;
 	/*mem*/		case "\u05DE":gematriaWord2 += L13;	break;
 	/*nun*/		case "\u05E0":gematriaWord2 += L14;	break;
+	/*Bk nun*/	case "\u05C6":gematriaWord2 += L14;	break;
 	/*samech*/	case "\u05E1":gematriaWord2 += L15;	break;
 	/*ayin*/	case "\u05E2":gematriaWord2 += L16;	break;
 	/*pey*/		case "\u05E4":gematriaWord2 += L17;	break;
@@ -4108,6 +4160,7 @@ for (var i=0; i < knit.length; i++){
 	/*lamed*/	case "\u05DC":gematriaKnit += L12;	break;
 	/*mem*/		case "\u05DE":gematriaKnit += L13;	break;
 	/*nun*/		case "\u05E0":gematriaKnit += L14;	break;
+	/*Bk nun*/	case "\u05C6":gematriaKnit += L14;	break;
 	/*samech*/	case "\u05E1":gematriaKnit += L15;	break;
 	/*ayin*/	case "\u05E2":gematriaKnit += L16;	break;
 	/*pey*/		case "\u05E4":gematriaKnit += L17;	break;
@@ -4127,8 +4180,8 @@ for (var i=0; i < knit.length; i++){
 
 // Gematria systems for Word 1 of Ragil, Kolel, Kolel+1, HaKlali, Reduced, Integral Reduced, Katan, Ordinal, HaKadmi, HaPerati, and Miluy values.
 var RagilValue = KolelValue = Kolel1Value = HaKlaliValue = ReducedlValue = IntegralReducedlValue = KatanValue = OrdinalValue = HaKadmiValue = HaPeratiValue = MiluyValue = CrownValue = 0;
-for (var i=0; i < inputText.length; i++){
-	switch(inputText[i]){
+for (var i=0; i < array.length; i++){
+	switch(array[i]){
 	/*aleph*/	case "\u05D0":RagilValue += ragL01;	KolelValue += ragL01;	Kolel1Value += ragL01;	HaKlaliValue += ragL01;	ReducedlValue += redL01;	IntegralReducedlValue += redL01;	KatanValue += redL01;	OrdinalValue += ordL01;	HaKadmiValue += hakL01;	HaPeratiValue += hapL01;	MiluyValue += milL01;	CrownValue += 0;	break;
 	/*bet*/		case "\u05D1":RagilValue += ragL02;	KolelValue += ragL02;	Kolel1Value += ragL02;	HaKlaliValue += ragL02;	ReducedlValue += redL02;	IntegralReducedlValue += redL02;	KatanValue += redL02;	OrdinalValue += ordL02;	HaKadmiValue += hakL02;	HaPeratiValue += hapL02;	MiluyValue += milL02;	CrownValue += 1;	break;
 	/*gimel*/	case "\u05D2":RagilValue += ragL03;	KolelValue += ragL03;	Kolel1Value += ragL03;	HaKlaliValue += ragL03;	ReducedlValue += redL03;	IntegralReducedlValue += redL03;	KatanValue += redL03;	OrdinalValue += ordL03;	HaKadmiValue += hakL03;	HaPeratiValue += hapL03;	MiluyValue += milL03;	CrownValue += 3;	break;
@@ -4143,6 +4196,7 @@ for (var i=0; i < inputText.length; i++){
 	/*lamed*/	case "\u05DC":RagilValue += ragL12;	KolelValue += ragL12;	Kolel1Value += ragL12;	HaKlaliValue += ragL12;	ReducedlValue += redL12;	IntegralReducedlValue += redL12;	KatanValue += redL12;	OrdinalValue += ordL12;	HaKadmiValue += hakL12;	HaPeratiValue += hapL12;	MiluyValue += milL12;	CrownValue += 0;	break;
 	/*mem*/		case "\u05DE":RagilValue += ragL13;	KolelValue += ragL13;	Kolel1Value += ragL13;	HaKlaliValue += ragL13;	ReducedlValue += redL13;	IntegralReducedlValue += redL13;	KatanValue += redL13;	OrdinalValue += ordL13;	HaKadmiValue += hakL13;	HaPeratiValue += hapL13;	MiluyValue += milL13;	CrownValue += 3;	break;
 	/*nun*/		case "\u05E0":RagilValue += ragL14;	KolelValue += ragL14;	Kolel1Value += ragL14;	HaKlaliValue += ragL14;	ReducedlValue += redL14;	IntegralReducedlValue += redL14;	KatanValue += redL14;	OrdinalValue += ordL14;	HaKadmiValue += hakL14;	HaPeratiValue += hapL14;	MiluyValue += milL14;	CrownValue += 3;	break;
+	/*Bk nun*/	case "\u05C6":RagilValue += ragL14;	KolelValue += ragL14;	Kolel1Value += ragL14;	HaKlaliValue += ragL14;	ReducedlValue += redL14;	IntegralReducedlValue += redL14;	KatanValue += redL14;	OrdinalValue += ordL14;	HaKadmiValue += hakL14;	HaPeratiValue += hapL14;	MiluyValue += milL14;	CrownValue += 3;	break;
 	/*samech*/	case "\u05E1":RagilValue += ragL15;	KolelValue += ragL15;	Kolel1Value += ragL15;	HaKlaliValue += ragL15;	ReducedlValue += redL15;	IntegralReducedlValue += redL15;	KatanValue += redL15;	OrdinalValue += ordL15;	HaKadmiValue += hakL15;	HaPeratiValue += hapL15;	MiluyValue += milL15;	CrownValue += 4;	break;
 	/*ayin*/	case "\u05E2":RagilValue += ragL16;	KolelValue += ragL16;	Kolel1Value += ragL16;	HaKlaliValue += ragL16;	ReducedlValue += redL16;	IntegralReducedlValue += redL16;	KatanValue += redL16;	OrdinalValue += ordL16;	HaKadmiValue += hakL16;	HaPeratiValue += hapL16;	MiluyValue += milL16;	CrownValue += 7;	break;
 	/*pey*/		case "\u05E4":RagilValue += ragL17;	KolelValue += ragL17;	Kolel1Value += ragL17;	HaKlaliValue += ragL17;	ReducedlValue += redL17;	IntegralReducedlValue += redL17;	KatanValue += redL17;	OrdinalValue += ordL17;	HaKadmiValue += hakL17;	HaPeratiValue += hapL17;	MiluyValue += milL17;	CrownValue += 1;	break;
@@ -4205,6 +4259,7 @@ for (var i=0; i < alphas.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D0";gematria2ALBaM += L01;break;	// aleph
 			/*mem*/		case "\u05DE":letter = "\u05D1";gematria2ALBaM += L02;break;	// bet
 			/*nun*/		case "\u05E0":letter = "\u05D2";gematria2ALBaM += L03;break;	// gimel
+			/*Bk nun*/	case "\u05C6":letter = "\u05D2";gematria2ALBaM += L03;break;	// gimel
 			/*samech*/	case "\u05E1":letter = "\u05D3";gematria2ALBaM += L04;break;	// dalet
 			/*ayin*/	case "\u05E2":letter = "\u05D4";gematria2ALBaM += L05;break;	// hey
 			/*pey*/		case "\u05E4":letter = "\u05D5";gematria2ALBaM += L06;break;	// vav
@@ -4228,6 +4283,7 @@ for (var i=0; i < alphas.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";ALBaM = ALBaM.substring(0, ALBaM.length - 1);gematria2ALBaM -= L11;gematria2ALBaM += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";ALBaM = ALBaM.substring(0, ALBaM.length - 1);gematria2ALBaM -= L13;gematria2ALBaM += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";ALBaM = ALBaM.substring(0, ALBaM.length - 1);gematria2ALBaM -= L14;gematria2ALBaM += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";ALBaM = ALBaM.substring(0, ALBaM.length - 1);gematria2ALBaM -= L14;gematria2ALBaM += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";ALBaM = ALBaM.substring(0, ALBaM.length - 1);gematria2ALBaM -= L17;gematria2ALBaM += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";ALBaM = ALBaM.substring(0, ALBaM.length - 1);gematria2ALBaM -= L18;gematria2ALBaM += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4255,6 +4311,7 @@ for (var i=0; i < alphas.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05DB";gematria2ATBaSh += L11;break;	// kaf
 			/*mem*/		case "\u05DE":letter = "\u05D9";gematria2ATBaSh += L10;break;	// yod
 			/*nun*/		case "\u05E0":letter = "\u05D8";gematria2ATBaSh += L09;break;	// tet
+			/*Bk nun*/	case "\u05C6":letter = "\u05D8";gematria2ATBaSh += L09;break;	// tet
 			/*samech*/	case "\u05E1":letter = "\u05D7";gematria2ATBaSh += L08;break;	// chet
 			/*ayin*/	case "\u05E2":letter = "\u05D6";gematria2ATBaSh += L07;break;	// zayin
 			/*pey*/		case "\u05E4":letter = "\u05D5";gematria2ATBaSh += L06;break;	// vav
@@ -4277,6 +4334,7 @@ for (var i=0; i < alphas.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L11;gematria2ATBaSh += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L13;gematria2ATBaSh += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L14;gematria2ATBaSh += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L14;gematria2ATBaSh += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L17;gematria2ATBaSh += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";ATBaSh = ATBaSh.substring(0, ATBaSh.length - 1);gematria2ATBaSh -= L18;gematria2ATBaSh += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4304,6 +4362,7 @@ for (var i=0; i < alphas.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05EA";gematria2AChBI += L22;break;	// tav
 			/*mem*/		case "\u05DE":letter = "\u05E9";gematria2AChBI += L21;break;	// shin
 			/*nun*/		case "\u05E0":letter = "\u05E8";gematria2AChBI += L20;break;	// resh
+			/*Bk nun*/	case "\u05C6":letter = "\u05E8";gematria2AChBI += L20;break;	// resh
 			/*samech*/	case "\u05E1":letter = "\u05E7";gematria2AChBI += L19;break;	// kuf
 			/*ayin*/	case "\u05E2":letter = "\u05E6";gematria2AChBI += L18;break;	// tzadi
 			/*pey*/		case "\u05E4":letter = "\u05E4";gematria2AChBI += L17;break;	// pey
@@ -4326,6 +4385,7 @@ for (var i=0; i < alphas.length; i++){
 			/*kaf*/		case "\u05DB":letter = "\u05DA";AChBI = AChBI.substring(0, AChBI.length - 1);gematria2AChBI -= L11;gematria2AChBI += L23;break;	// kaf F
 			/*mem*/		case "\u05DE":letter = "\u05DD";AChBI = AChBI.substring(0, AChBI.length - 1);gematria2AChBI -= L13;gematria2AChBI += L24;break;	// mem F
 			/*nun*/		case "\u05E0":letter = "\u05DF";AChBI = AChBI.substring(0, AChBI.length - 1);gematria2AChBI -= L14;gematria2AChBI += L25;break;	// nun F
+			/*Bk nun*/	case "\u05C6":letter = "\u05DF";AChBI = AChBI.substring(0, AChBI.length - 1);gematria2AChBI -= L14;gematria2AChBI += L25;break;	// nun F
 			/*pey*/		case "\u05E4":letter = "\u05E3";AChBI = AChBI.substring(0, AChBI.length - 1);gematria2AChBI -= L17;gematria2AChBI += L26;break;	// pey F
 			/*tzadi*/	case "\u05E6":letter = "\u05E5";AChBI = AChBI.substring(0, AChBI.length - 1);gematria2AChBI -= L18;gematria2AChBI += L27;break;	// tzadi F
 			default:letter = "";break;
@@ -4353,6 +4413,7 @@ for (var i=0; i < alphas.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E9";gematria2AYiKBeCheR += L21;break;	// shin
 			/*mem*/		case "\u05DE":letter = "\u05EA";gematria2AYiKBeCheR += L22;break;	// tav
 			/*nun*/		case "\u05E0":letter = "\u05DB";gematria2AYiKBeCheR += L11;break;	// kaf
+			/*Bk nun*/	case "\u05C6":letter = "\u05DB";gematria2AYiKBeCheR += L11;break;	// kaf
 			/*samech*/	case "\u05E1":letter = "\u05DE";gematria2AYiKBeCheR += L13;break;	// mem
 			/*ayin*/	case "\u05E2":letter = "\u05E0";gematria2AYiKBeCheR += L14;break;	// nun
 			/*pey*/		case "\u05E4":letter = "\u05E4";gematria2AYiKBeCheR += L17;break;	// pey
@@ -4376,6 +4437,7 @@ for (var i=0; i < alphas.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AYiKBeCheR = AYiKBeCheR.substring(0, AYiKBeCheR.length - 1);gematria2AYiKBeCheR -= L11;gematria2AYiKBeCheR += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AYiKBeCheR = AYiKBeCheR.substring(0, AYiKBeCheR.length - 1);gematria2AYiKBeCheR -= L13;gematria2AYiKBeCheR += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AYiKBeCheR = AYiKBeCheR.substring(0, AYiKBeCheR.length - 1);gematria2AYiKBeCheR -= L14;gematria2AYiKBeCheR += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AYiKBeCheR = AYiKBeCheR.substring(0, AYiKBeCheR.length - 1);gematria2AYiKBeCheR -= L14;gematria2AYiKBeCheR += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AYiKBeCheR = AYiKBeCheR.substring(0, AYiKBeCheR.length - 1);gematria2AYiKBeCheR -= L17;gematria2AYiKBeCheR += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AYiKBeCheR = AYiKBeCheR.substring(0, AYiKBeCheR.length - 1);gematria2AYiKBeCheR -= L18;gematria2AYiKBeCheR += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4403,6 +4465,7 @@ for (var i=0; i < alphas.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E7";gematria2AChaSBeTA += L19;break;	// kuf
 			/*mem*/		case "\u05DE":letter = "\u05E8";gematria2AChaSBeTA += L20;break;	// resh
 			/*nun*/		case "\u05E0":letter = "\u05E9";gematria2AChaSBeTA += L21;break;	// shin
+			/*Bk nun*/	case "\u05C6":letter = "\u05E9";gematria2AChaSBeTA += L21;break;	// shin
 			/*samech*/	case "\u05E1":letter = "\u05D0";gematria2AChaSBeTA += L01;break;	// aleph
 			/*ayin*/	case "\u05E2":letter = "\u05D1";gematria2AChaSBeTA += L02;break;	// bet
 			/*pey*/		case "\u05E4":letter = "\u05D2";gematria2AChaSBeTA += L03;break;	// gimel
@@ -4426,6 +4489,7 @@ for (var i=0; i < alphas.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AChaSBeTA = AChaSBeTA.substring(0, AChaSBeTA.length - 1);gematria2AChaSBeTA -= L11;gematria2AChaSBeTA += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AChaSBeTA = AChaSBeTA.substring(0, AChaSBeTA.length - 1);gematria2AChaSBeTA -= L13;gematria2AChaSBeTA += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AChaSBeTA = AChaSBeTA.substring(0, AChaSBeTA.length - 1);gematria2AChaSBeTA -= L14;gematria2AChaSBeTA += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AChaSBeTA = AChaSBeTA.substring(0, AChaSBeTA.length - 1);gematria2AChaSBeTA -= L14;gematria2AChaSBeTA += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AChaSBeTA = AChaSBeTA.substring(0, AChaSBeTA.length - 1);gematria2AChaSBeTA -= L17;gematria2AChaSBeTA += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AChaSBeTA = AChaSBeTA.substring(0, AChaSBeTA.length - 1);gematria2AChaSBeTA -= L18;gematria2AChaSBeTA += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4453,6 +4517,7 @@ for (var i=0; i < alphas.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E2";gematria2ATBaCh += L16;break;	// ayin
 			/*mem*/		case "\u05DE":letter = "\u05E1";gematria2ATBaCh += L15;break;	// samech
 			/*nun*/		case "\u05E0":letter = "\u05E0";gematria2ATBaCh += L14;break;	// nun
+			/*Bk nun*/	case "\u05C6":letter = "\u05C6";gematria2ATBaCh += L14;break;	// Bk nun
 			/*samech*/	case "\u05E1":letter = "\u05DE";gematria2ATBaCh += L13;break;	// mem
 			/*ayin*/	case "\u05E2":letter = "\u05DC";gematria2ATBaCh += L12;break;	// lamed
 			/*pey*/		case "\u05E4":letter = "\u05DB";gematria2ATBaCh += L11;break;	// kaf
@@ -4476,6 +4541,7 @@ for (var i=0; i < alphas.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";ATBaCh = ATBaCh.substring(0, ATBaCh.length - 1);gematria2ATBaCh -= L11;gematria2ATBaCh += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";ATBaCh = ATBaCh.substring(0, ATBaCh.length - 1);gematria2ATBaCh -= L13;gematria2ATBaCh += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";ATBaCh = ATBaCh.substring(0, ATBaCh.length - 1);gematria2ATBaCh -= L14;gematria2ATBaCh += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";ATBaCh = ATBaCh.substring(0, ATBaCh.length - 1);gematria2ATBaCh -= L14;gematria2ATBaCh += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";ATBaCh = ATBaCh.substring(0, ATBaCh.length - 1);gematria2ATBaCh -= L17;gematria2ATBaCh += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";ATBaCh = ATBaCh.substring(0, ATBaCh.length - 1);gematria2ATBaCh -= L18;gematria2ATBaCh += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4503,6 +4569,7 @@ for (var i=0; i < alphas.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E2";gematria2ATBaCh999 += L16;break;	// ayin
 			/*mem*/		case "\u05DE":letter = "\u05E1";gematria2ATBaCh999 += L15;break;	// samech
 			/*nun*/		case "\u05E0":letter = "\u05E0";gematria2ATBaCh999 += L14;break;	// nun
+			/*Bk nun*/	case "\u05C6":letter = "\u05C6";gematria2ATBaCh999 += L14;break;	// Bk nun
 			/*samech*/	case "\u05E1":letter = "\u05DE";gematria2ATBaCh999 += L13;break;	// mem
 			/*ayin*/	case "\u05E2":letter = "\u05DC";gematria2ATBaCh999 += L12;break;	// lamed
 			/*pey*/		case "\u05E4":letter = "\u05DB";gematria2ATBaCh999 += L11;break;	// kaf
@@ -4526,6 +4593,7 @@ for (var i=0; i < alphas.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";ATBaCh999 = ATBaCh999.substring(0, ATBaCh999.length - 1);gematria2ATBaCh999 -= L11;gematria2ATBaCh999 += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";ATBaCh999 = ATBaCh999.substring(0, ATBaCh999.length - 1);gematria2ATBaCh999 -= L13;gematria2ATBaCh999 += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";ATBaCh999 = ATBaCh999.substring(0, ATBaCh999.length - 1);gematria2ATBaCh999 -= L14;gematria2ATBaCh999 += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";ATBaCh999 = ATBaCh999.substring(0, ATBaCh999.length - 1);gematria2ATBaCh999 -= L14;gematria2ATBaCh999 += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";ATBaCh999 = ATBaCh999.substring(0, ATBaCh999.length - 1);gematria2ATBaCh999 -= L17;gematria2ATBaCh999 += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";ATBaCh999 = ATBaCh999.substring(0, ATBaCh999.length - 1);gematria2ATBaCh999 -= L18;gematria2ATBaCh999 += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4553,6 +4621,7 @@ for (var i=0; i < alphas.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D2";gematria2AiYBaK += L03;break;	// gimel
 			/*mem*/		case "\u05DE":letter = "\u05D3";gematria2AiYBaK += L04;break;	// dalet
 			/*nun*/		case "\u05E0":letter = "\u05D4";gematria2AiYBaK += L05;break;	// hey
+			/*Bk nun*/	case "\u05C6":letter = "\u05D4";gematria2AiYBaK += L05;break;	// hey
 			/*samech*/	case "\u05E1":letter = "\u05D5";gematria2AiYBaK += L06;break;	// vav
 			/*ayin*/	case "\u05E2":letter = "\u05D6";gematria2AiYBaK += L07;break;	// zayin
 			/*pey*/		case "\u05E4":letter = "\u05D7";gematria2AiYBaK += L08;break;	// chet
@@ -4576,6 +4645,7 @@ for (var i=0; i < alphas.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AiYBaK = AiYBaK.substring(0, AiYBaK.length - 1);gematria2AiYBaK -= L11;gematria2AiYBaK += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AiYBaK = AiYBaK.substring(0, AiYBaK.length - 1);gematria2AiYBaK -= L13;gematria2AiYBaK += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AiYBaK = AiYBaK.substring(0, AiYBaK.length - 1);gematria2AiYBaK -= L14;gematria2AiYBaK += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AiYBaK = AiYBaK.substring(0, AiYBaK.length - 1);gematria2AiYBaK -= L14;gematria2AiYBaK += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AiYBaK = AiYBaK.substring(0, AiYBaK.length - 1);gematria2AiYBaK -= L17;gematria2AiYBaK += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AiYBaK = AiYBaK.substring(0, AiYBaK.length - 1);gematria2AiYBaK -= L18;gematria2AiYBaK += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4603,6 +4673,7 @@ for (var i=0; i < alphas.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E2";gematria2ATzBaPh += L16;break;	// ayin
 			/*mem*/		case "\u05DE":letter = "\u05E1";gematria2ATzBaPh += L15;break;	// samech
 			/*nun*/		case "\u05E0":letter = "\u05E0";gematria2ATzBaPh += L14;break;	// nun
+			/*Bk nun*/	case "\u05C6":letter = "\u05C6";gematria2ATzBaPh += L14;break;	// Bk nun
 			/*samech*/	case "\u05E1":letter = "\u05DE";gematria2ATzBaPh += L13;break;	// mem
 			/*ayin*/	case "\u05E2":letter = "\u05DC";gematria2ATzBaPh += L12;break;	// lamed
 			/*pey*/		case "\u05E4":letter = "\u05DB";gematria2ATzBaPh += L11;break;	// kaf
@@ -4626,6 +4697,7 @@ for (var i=0; i < alphas.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";ATzBaPh = ATzBaPh.substring(0, ATzBaPh.length - 1);gematria2ATzBaPh -= L11;gematria2ATzBaPh += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";ATzBaPh = ATzBaPh.substring(0, ATzBaPh.length - 1);gematria2ATzBaPh -= L13;gematria2ATzBaPh += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";ATzBaPh = ATzBaPh.substring(0, ATzBaPh.length - 1);gematria2ATzBaPh -= L14;gematria2ATzBaPh += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";ATzBaPh = ATzBaPh.substring(0, ATzBaPh.length - 1);gematria2ATzBaPh -= L14;gematria2ATzBaPh += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";ATzBaPh = ATzBaPh.substring(0, ATzBaPh.length - 1);gematria2ATzBaPh -= L17;gematria2ATzBaPh += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";ATzBaPh = ATzBaPh.substring(0, ATzBaPh.length - 1);gematria2ATzBaPh -= L18;gematria2ATzBaPh += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4653,6 +4725,7 @@ for (var i=0; i < alphas.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D0";gematria2ALBeTh += L01;break;	// aleph
 			/*mem*/		case "\u05DE":letter = "\u05D2";gematria2ALBeTh += L03;break;	// gimel
 			/*nun*/		case "\u05E0":letter = "\u05D4";gematria2ALBeTh += L05;break;	// hey
+			/*Bk nun*/	case "\u05C6":letter = "\u05D4";gematria2ALBeTh += L05;break;	// hey
 			/*samech*/	case "\u05E1":letter = "\u05D6";gematria2ALBeTh += L07;break;	// zayin
 			/*ayin*/	case "\u05E2":letter = "\u05D8";gematria2ALBeTh += L09;break;	// tet
 			/*pey*/		case "\u05E4":letter = "\u05DB";gematria2ALBeTh += L11;break;	// kaf
@@ -4676,6 +4749,7 @@ for (var i=0; i < alphas.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";ALBeTh = ALBeTh.substring(0, ALBeTh.length - 1);gematria2ALBeTh -= L11;gematria2ALBeTh += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";ALBeTh = ALBeTh.substring(0, ALBeTh.length - 1);gematria2ALBeTh -= L13;gematria2ALBeTh += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";ALBeTh = ALBeTh.substring(0, ALBeTh.length - 1);gematria2ALBeTh -= L14;gematria2ALBeTh += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";ALBeTh = ALBeTh.substring(0, ALBeTh.length - 1);gematria2ALBeTh -= L14;gematria2ALBeTh += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";ALBeTh = ALBeTh.substring(0, ALBeTh.length - 1);gematria2ALBeTh -= L17;gematria2ALBeTh += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";ALBeTh = ALBeTh.substring(0, ALBeTh.length - 1);gematria2ALBeTh -= L18;gematria2ALBeTh += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4703,6 +4777,7 @@ for (var i=0; i < alphas.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D3";gematria2Ofanim += L04;break;	// delet
 			/*mem*/		case "\u05DE":letter = "\u05DE";gematria2Ofanim += L13;break;	// mem
 			/*nun*/		case "\u05E0":letter = "\u05E0";gematria2Ofanim += L14;break;	// nun
+			/*Bk nun*/	case "\u05C6":letter = "\u05C6";gematria2Ofanim += L14;break;	// Bk nun
 			/*samech*/	case "\u05E1":letter = "\u05DB";gematria2Ofanim += L11;break;	// kaf
 			/*ayin*/	case "\u05E2":letter = "\u05E0";gematria2Ofanim += L14;break;	// nun
 			/*pey*/		case "\u05E4":letter = "\u05D0";gematria2Ofanim += L01;break;	// aleph
@@ -4726,6 +4801,7 @@ for (var i=0; i < alphas.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";Ofanim = Ofanim.substring(0, Ofanim.length - 1);gematria2Ofanim -= L11;gematria2Ofanim += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";Ofanim = Ofanim.substring(0, Ofanim.length - 1);gematria2Ofanim -= L13;gematria2Ofanim += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";Ofanim = Ofanim.substring(0, Ofanim.length - 1);gematria2Ofanim -= L14;gematria2Ofanim += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";Ofanim = Ofanim.substring(0, Ofanim.length - 1);gematria2Ofanim -= L14;gematria2Ofanim += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";Ofanim = Ofanim.substring(0, Ofanim.length - 1);gematria2Ofanim -= L17;gematria2Ofanim += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";Ofanim = Ofanim.substring(0, Ofanim.length - 1);gematria2Ofanim -= L18;gematria2Ofanim += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4764,6 +4840,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05DB";gematria2AltATBaSh += L11;break;	// kaf
 			/*mem*/		case "\u05DE":letter = "\u05D9";gematria2AltATBaSh += L10;break;	// yod
 			/*nun*/		case "\u05E0":letter = "\u05D8";gematria2AltATBaSh += L09;break;	// tet
+			/*Bk nun*/	case "\u05C6":letter = "\u05D8";gematria2AltATBaSh += L09;break;	// tet
 			/*samech*/	case "\u05E1":letter = "\u05D7";gematria2AltATBaSh += L08;break;	// chet
 			/*ayin*/	case "\u05E2":letter = "\u05D6";gematria2AltATBaSh += L07;break;	// zayin
 			/*pey*/		case "\u05E4":letter = "\u05D5";gematria2AltATBaSh += L06;break;	// vav
@@ -4782,11 +4859,12 @@ for (var i=0; i < inputText.length; i++){
 		AltATBaSh += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltATBaSh = AltATBaSh.substring(0, AltATBaSh.length - 1);gematria2AltATBaSh -= L11;gematria2AltATBaSh += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltATBaSh = AltATBaSh.substring(0, AltATBaSh.length - 1);gematria2AltATBaSh -= L13;gematria2AltATBaSh += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltATBaSh = AltATBaSh.substring(0, AltATBaSh.length - 1);gematria2AltATBaSh -= L14;gematria2AltATBaSh += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltATBaSh = AltATBaSh.substring(0, AltATBaSh.length - 1);gematria2AltATBaSh -= L14;gematria2AltATBaSh += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltATBaSh = AltATBaSh.substring(0, AltATBaSh.length - 1);gematria2AltATBaSh -= L17;gematria2AltATBaSh += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltATBaSh = AltATBaSh.substring(0, AltATBaSh.length - 1);gematria2AltATBaSh -= L18;gematria2AltATBaSh += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4798,7 +4876,7 @@ for (var i=0; i < inputText.length; i++){
 // AltAShBaR
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05E9";gematria2AltAShBaR += L21;break;	// shin
 			/*bet*/		case "\u05D1":letter = "\u05E8";gematria2AltAShBaR += L20;break;	// resh
 			/*gimel*/	case "\u05D2":letter = "\u05E7";gematria2AltAShBaR += L19;break;	// kuf
@@ -4813,6 +4891,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D9";gematria2AltAShBaR += L10;break;	// yod
 			/*mem*/		case "\u05DE":letter = "\u05D8";gematria2AltAShBaR += L09;break;	// tet
 			/*nun*/		case "\u05E0":letter = "\u05D7";gematria2AltAShBaR += L08;break;	// chet
+			/*Bk nun*/	case "\u05C6":letter = "\u05D7";gematria2AltAShBaR += L08;break;	// chet
 			/*samech*/	case "\u05E1":letter = "\u05D6";gematria2AltAShBaR += L07;break;	// zayin
 			/*ayin*/	case "\u05E2":letter = "\u05D5";gematria2AltAShBaR += L06;break;	// vav
 			/*pey*/		case "\u05E4":letter = "\u05D4";gematria2AltAShBaR += L05;break;	// hey
@@ -4831,11 +4910,12 @@ for (var i=0; i < inputText.length; i++){
 		AltAShBaR += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAShBaR = AltAShBaR.substring(0, AltAShBaR.length - 1);gematria2AltAShBaR -= L11;gematria2AltAShBaR += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAShBaR = AltAShBaR.substring(0, AltAShBaR.length - 1);gematria2AltAShBaR -= L13;gematria2AltAShBaR += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAShBaR = AltAShBaR.substring(0, AltAShBaR.length - 1);gematria2AltAShBaR -= L14;gematria2AltAShBaR += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAShBaR = AltAShBaR.substring(0, AltAShBaR.length - 1);gematria2AltAShBaR -= L14;gematria2AltAShBaR += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAShBaR = AltAShBaR.substring(0, AltAShBaR.length - 1);gematria2AltAShBaR -= L17;gematria2AltAShBaR += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAShBaR = AltAShBaR.substring(0, AltAShBaR.length - 1);gematria2AltAShBaR -= L18;gematria2AltAShBaR += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4847,7 +4927,7 @@ for (var i=0; i < inputText.length; i++){
 	// AltARBaK
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05E8";gematria2AltARBaK += L20;break;	// resh
 			/*bet*/		case "\u05D1":letter = "\u05E7";gematria2AltARBaK += L19;break;	// kuf
 			/*gimel*/	case "\u05D2":letter = "\u05E6";gematria2AltARBaK += L18;break;	// tzadi
@@ -4862,6 +4942,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D8";gematria2AltARBaK += L09;break;	// tet
 			/*mem*/		case "\u05DE":letter = "\u05D7";gematria2AltARBaK += L08;break;	// chet
 			/*nun*/		case "\u05E0":letter = "\u05D6";gematria2AltARBaK += L07;break;	// zayin
+			/*Bk nun*/	case "\u05C6":letter = "\u05D6";gematria2AltARBaK += L07;break;	// zayin
 			/*samech*/	case "\u05E1":letter = "\u05D5";gematria2AltARBaK += L06;break;	// vav
 			/*ayin*/	case "\u05E2":letter = "\u05D4";gematria2AltARBaK += L05;break;	// hey
 			/*pey*/		case "\u05E4":letter = "\u05D3";gematria2AltARBaK += L04;break;	// dalet
@@ -4880,11 +4961,12 @@ for (var i=0; i < inputText.length; i++){
 		AltARBaK += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltARBaK = AltARBaK.substring(0, AltARBaK.length - 1);gematria2AltARBaK -= L11;gematria2AltARBaK += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltARBaK = AltARBaK.substring(0, AltARBaK.length - 1);gematria2AltARBaK -= L13;gematria2AltARBaK += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltARBaK = AltARBaK.substring(0, AltARBaK.length - 1);gematria2AltARBaK -= L14;gematria2AltARBaK += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltARBaK = AltARBaK.substring(0, AltARBaK.length - 1);gematria2AltARBaK -= L14;gematria2AltARBaK += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltARBaK = AltARBaK.substring(0, AltARBaK.length - 1);gematria2AltARBaK -= L17;gematria2AltARBaK += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltARBaK = AltARBaK.substring(0, AltARBaK.length - 1);gematria2AltARBaK -= L18;gematria2AltARBaK += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4896,7 +4978,7 @@ for (var i=0; i < inputText.length; i++){
 // AltAQBeTz
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05E7";gematria2AltAQBeTz += L19;break;	// kuf
 			/*bet*/		case "\u05D1":letter = "\u05E6";gematria2AltAQBeTz += L18;break;	// tzadi
 			/*gimel*/	case "\u05D2":letter = "\u05E4";gematria2AltAQBeTz += L17;break;	// pey
@@ -4911,6 +4993,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D7";gematria2AltAQBeTz += L08;break;	// chet
 			/*mem*/		case "\u05DE":letter = "\u05D6";gematria2AltAQBeTz += L07;break;	// zayin
 			/*nun*/		case "\u05E0":letter = "\u05D5";gematria2AltAQBeTz += L06;break;	// vav
+			/*Bk nun*/	case "\u05C6":letter = "\u05D5";gematria2AltAQBeTz += L06;break;	// vav
 			/*samech*/	case "\u05E1":letter = "\u05D4";gematria2AltAQBeTz += L05;break;	// hey
 			/*ayin*/	case "\u05E2":letter = "\u05D3";gematria2AltAQBeTz += L04;break;	// dalet
 			/*pey*/		case "\u05E4":letter = "\u05D2";gematria2AltAQBeTz += L03;break;	// gimel
@@ -4929,11 +5012,12 @@ for (var i=0; i < inputText.length; i++){
 		AltAQBeTz += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAQBeTz = AltAQBeTz.substring(0, AltAQBeTz.length - 1);gematria2AltAQBeTz -= L11;gematria2AltAQBeTz += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAQBeTz = AltAQBeTz.substring(0, AltAQBeTz.length - 1);gematria2AltAQBeTz -= L13;gematria2AltAQBeTz += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAQBeTz = AltAQBeTz.substring(0, AltAQBeTz.length - 1);gematria2AltAQBeTz -= L14;gematria2AltAQBeTz += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAQBeTz = AltAQBeTz.substring(0, AltAQBeTz.length - 1);gematria2AltAQBeTz -= L14;gematria2AltAQBeTz += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAQBeTz = AltAQBeTz.substring(0, AltAQBeTz.length - 1);gematria2AltAQBeTz -= L17;gematria2AltAQBeTz += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAQBeTz = AltAQBeTz.substring(0, AltAQBeTz.length - 1);gematria2AltAQBeTz -= L18;gematria2AltAQBeTz += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4945,7 +5029,7 @@ for (var i=0; i < inputText.length; i++){
 // AltEZBePh
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05E6";gematria2AltEZBePh += L18;break;	// tzadi
 			/*bet*/		case "\u05D1":letter = "\u05E4";gematria2AltEZBePh += L17;break;	// pey
 			/*gimel*/	case "\u05D2":letter = "\u05E2";gematria2AltEZBePh += L16;break;	// ayin
@@ -4960,6 +5044,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D6";gematria2AltEZBePh += L07;break;	// zayin
 			/*mem*/		case "\u05DE":letter = "\u05D5";gematria2AltEZBePh += L06;break;	// vav
 			/*nun*/		case "\u05E0":letter = "\u05D4";gematria2AltEZBePh += L05;break;	// hey
+			/*Bk nun*/	case "\u05C6":letter = "\u05D4";gematria2AltEZBePh += L05;break;	// hey
 			/*samech*/	case "\u05E1":letter = "\u05D3";gematria2AltEZBePh += L04;break;	// dalet
 			/*ayin*/	case "\u05E2":letter = "\u05D2";gematria2AltEZBePh += L03;break;	// gimel
 			/*pey*/		case "\u05E4":letter = "\u05D1";gematria2AltEZBePh += L02;break;	// bet
@@ -4978,11 +5063,12 @@ for (var i=0; i < inputText.length; i++){
 		AltEZBePh += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltEZBePh = AltEZBePh.substring(0, AltEZBePh.length - 1);gematria2AltEZBePh -= L11;gematria2AltEZBePh += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltEZBePh = AltEZBePh.substring(0, AltEZBePh.length - 1);gematria2AltEZBePh -= L13;gematria2AltEZBePh += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltEZBePh = AltEZBePh.substring(0, AltEZBePh.length - 1);gematria2AltEZBePh -= L14;gematria2AltEZBePh += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltEZBePh = AltEZBePh.substring(0, AltEZBePh.length - 1);gematria2AltEZBePh -= L14;gematria2AltEZBePh += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltEZBePh = AltEZBePh.substring(0, AltEZBePh.length - 1);gematria2AltEZBePh -= L17;gematria2AltEZBePh += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltEZBePh = AltEZBePh.substring(0, AltEZBePh.length - 1);gematria2AltEZBePh -= L18;gematria2AltEZBePh += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -4994,7 +5080,7 @@ for (var i=0; i < inputText.length; i++){
 // AltAPBE
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05E4";gematria2AltAPBE += L17;break;	// pey
 			/*bet*/		case "\u05D1":letter = "\u05E2";gematria2AltAPBE += L16;break;	// ayin
 			/*gimel*/	case "\u05D2":letter = "\u05E1";gematria2AltAPBE += L15;break;	// samech
@@ -5009,6 +5095,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D5";gematria2AltAPBE += L06;break;	// vav
 			/*mem*/		case "\u05DE":letter = "\u05D4";gematria2AltAPBE += L05;break;	// hey
 			/*nun*/		case "\u05E0":letter = "\u05D3";gematria2AltAPBE += L04;break;	// dalet
+			/*Bk nun*/	case "\u05C6":letter = "\u05D3";gematria2AltAPBE += L04;break;	// dalet
 			/*samech*/	case "\u05E1":letter = "\u05D2";gematria2AltAPBE += L03;break;	// gimel
 			/*ayin*/	case "\u05E2":letter = "\u05D1";gematria2AltAPBE += L02;break;	// bet
 			/*pey*/		case "\u05E4":letter = "\u05D0";gematria2AltAPBE += L01;break;	// aleph
@@ -5027,11 +5114,12 @@ for (var i=0; i < inputText.length; i++){
 		AltAPBE += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAPBE = AltAPBE.substring(0, AltAPBE.length - 1);gematria2AltAPBE -= L11;gematria2AltAPBE += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAPBE = AltAPBE.substring(0, AltAPBE.length - 1);gematria2AltAPBE -= L13;gematria2AltAPBE += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAPBE = AltAPBE.substring(0, AltAPBE.length - 1);gematria2AltAPBE -= L14;gematria2AltAPBE += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAPBE = AltAPBE.substring(0, AltAPBE.length - 1);gematria2AltAPBE -= L14;gematria2AltAPBE += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAPBE = AltAPBE.substring(0, AltAPBE.length - 1);gematria2AltAPBE -= L17;gematria2AltAPBE += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAPBE = AltAPBE.substring(0, AltAPBE.length - 1);gematria2AltAPBE -= L18;gematria2AltAPBE += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5043,7 +5131,7 @@ for (var i=0; i < inputText.length; i++){
 // AltAEBaS
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05E2";gematria2AltAEBaS += L16;break;	// ayin
 			/*bet*/		case "\u05D1":letter = "\u05E1";gematria2AltAEBaS += L15;break;	// samech
 			/*gimel*/	case "\u05D2":letter = "\u05E0";gematria2AltAEBaS += L14;break;	// nun
@@ -5058,6 +5146,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D4";gematria2AltAEBaS += L05;break;	// hey
 			/*mem*/		case "\u05DE":letter = "\u05D3";gematria2AltAEBaS += L04;break;	// dalet
 			/*nun*/		case "\u05E0":letter = "\u05D2";gematria2AltAEBaS += L03;break;	// gimel
+			/*Bk nun*/	case "\u05C6":letter = "\u05D2";gematria2AltAEBaS += L03;break;	// gimel
 			/*samech*/	case "\u05E1":letter = "\u05D1";gematria2AltAEBaS += L02;break;	// bet
 			/*ayin*/	case "\u05E2":letter = "\u05D0";gematria2AltAEBaS += L01;break;	// aleph
 			/*pey*/		case "\u05E4":letter = "\u05EA";gematria2AltAEBaS += L22;break;	// tav
@@ -5076,11 +5165,12 @@ for (var i=0; i < inputText.length; i++){
 		AltAEBaS += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAEBaS = AltAEBaS.substring(0, AltAEBaS.length - 1);gematria2AltAEBaS -= L11;gematria2AltAEBaS += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAEBaS = AltAEBaS.substring(0, AltAEBaS.length - 1);gematria2AltAEBaS -= L13;gematria2AltAEBaS += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAEBaS = AltAEBaS.substring(0, AltAEBaS.length - 1);gematria2AltAEBaS -= L14;gematria2AltAEBaS += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAEBaS = AltAEBaS.substring(0, AltAEBaS.length - 1);gematria2AltAEBaS -= L14;gematria2AltAEBaS += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAEBaS = AltAEBaS.substring(0, AltAEBaS.length - 1);gematria2AltAEBaS -= L17;gematria2AltAEBaS += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAEBaS = AltAEBaS.substring(0, AltAEBaS.length - 1);gematria2AltAEBaS -= L18;gematria2AltAEBaS += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5092,7 +5182,7 @@ for (var i=0; i < inputText.length; i++){
 // AltASBeN
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05E1";gematria2AltASBeN += L15;break;	// samech
 			/*bet*/		case "\u05D1":letter = "\u05E0";gematria2AltASBeN += L14;break;	// nun
 			/*gimel*/	case "\u05D2":letter = "\u05DE";gematria2AltASBeN += L13;break;	// mem
@@ -5107,6 +5197,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D3";gematria2AltASBeN += L04;break;	// dalet
 			/*mem*/		case "\u05DE":letter = "\u05D2";gematria2AltASBeN += L03;break;	// gimel
 			/*nun*/		case "\u05E0":letter = "\u05D1";gematria2AltASBeN += L02;break;	// bet
+			/*Bk nun*/	case "\u05C6":letter = "\u05D1";gematria2AltASBeN += L02;break;	// bet
 			/*samech*/	case "\u05E1":letter = "\u05D0";gematria2AltASBeN += L01;break;	// aleph
 			/*ayin*/	case "\u05E2":letter = "\u05EA";gematria2AltASBeN += L22;break;	// tav
 			/*pey*/		case "\u05E4":letter = "\u05E9";gematria2AltASBeN += L21;break;	// shin
@@ -5125,11 +5216,12 @@ for (var i=0; i < inputText.length; i++){
 		AltASBeN += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltASBeN = AltASBeN.substring(0, AltASBeN.length - 1);gematria2AltASBeN -= L11;gematria2AltASBeN += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltASBeN = AltASBeN.substring(0, AltASBeN.length - 1);gematria2AltASBeN -= L13;gematria2AltASBeN += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltASBeN = AltASBeN.substring(0, AltASBeN.length - 1);gematria2AltASBeN -= L14;gematria2AltASBeN += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltASBeN = AltASBeN.substring(0, AltASBeN.length - 1);gematria2AltASBeN -= L14;gematria2AltASBeN += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltASBeN = AltASBeN.substring(0, AltASBeN.length - 1);gematria2AltASBeN -= L17;gematria2AltASBeN += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltASBeN = AltASBeN.substring(0, AltASBeN.length - 1);gematria2AltASBeN -= L18;gematria2AltASBeN += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5141,7 +5233,7 @@ for (var i=0; i < inputText.length; i++){
 // AltANBaM
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05E0";gematria2AltANBaM += L14;break;	// nun
 			/*bet*/		case "\u05D1":letter = "\u05DE";gematria2AltANBaM += L13;break;	// mem
 			/*gimel*/	case "\u05D2":letter = "\u05DC";gematria2AltANBaM += L12;break;	// lamed
@@ -5156,6 +5248,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D2";gematria2AltANBaM += L03;break;	// gimel
 			/*mem*/		case "\u05DE":letter = "\u05D1";gematria2AltANBaM += L02;break;	// bet
 			/*nun*/		case "\u05E0":letter = "\u05D0";gematria2AltANBaM += L01;break;	// aleph
+			/*Bk nun*/	case "\u05C6":letter = "\u05D0";gematria2AltANBaM += L01;break;	// aleph
 			/*samech*/	case "\u05E1":letter = "\u05EA";gematria2AltANBaM += L22;break;	// tav
 			/*ayin*/	case "\u05E2":letter = "\u05E9";gematria2AltANBaM += L21;break;	// shin
 			/*pey*/		case "\u05E4":letter = "\u05E8";gematria2AltANBaM += L20;break;	// resh
@@ -5174,11 +5267,12 @@ for (var i=0; i < inputText.length; i++){
 		AltANBaM += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltANBaM = AltANBaM.substring(0, AltANBaM.length - 1);gematria2AltANBaM -= L11;gematria2AltANBaM += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltANBaM = AltANBaM.substring(0, AltANBaM.length - 1);gematria2AltANBaM -= L13;gematria2AltANBaM += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltANBaM = AltANBaM.substring(0, AltANBaM.length - 1);gematria2AltANBaM -= L14;gematria2AltANBaM += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltANBaM = AltANBaM.substring(0, AltANBaM.length - 1);gematria2AltANBaM -= L14;gematria2AltANBaM += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltANBaM = AltANBaM.substring(0, AltANBaM.length - 1);gematria2AltANBaM -= L17;gematria2AltANBaM += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltANBaM = AltANBaM.substring(0, AltANBaM.length - 1);gematria2AltANBaM -= L18;gematria2AltANBaM += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5190,7 +5284,7 @@ for (var i=0; i < inputText.length; i++){
 // AltAMBeL
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05DE";gematria2AltAMBeL += L13;break;	// mem
 			/*bet*/		case "\u05D1":letter = "\u05DC";gematria2AltAMBeL += L12;break;	// lamed
 			/*gimel*/	case "\u05D2":letter = "\u05DB";gematria2AltAMBeL += L11;break;	// kaf
@@ -5205,6 +5299,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D1";gematria2AltAMBeL += L02;break;	// bet
 			/*mem*/		case "\u05DE":letter = "\u05D0";gematria2AltAMBeL += L01;break;	// aleph
 			/*nun*/		case "\u05E0":letter = "\u05EA";gematria2AltAMBeL += L22;break;	// tav
+			/*nun*/		case "\u05C6":letter = "\u05EA";gematria2AltAMBeL += L22;break;	// tav
 			/*samech*/	case "\u05E1":letter = "\u05E9";gematria2AltAMBeL += L21;break;	// shin
 			/*ayin*/	case "\u05E2":letter = "\u05E8";gematria2AltAMBeL += L20;break;	// resh
 			/*pey*/		case "\u05E4":letter = "\u05E7";gematria2AltAMBeL += L19;break;	// kuf
@@ -5223,11 +5318,12 @@ for (var i=0; i < inputText.length; i++){
 		AltAMBeL += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAMBeL = AltAMBeL.substring(0, AltAMBeL.length - 1);gematria2AltAMBeL -= L11;gematria2AltAMBeL += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAMBeL = AltAMBeL.substring(0, AltAMBeL.length - 1);gematria2AltAMBeL -= L13;gematria2AltAMBeL += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAMBeL = AltAMBeL.substring(0, AltAMBeL.length - 1);gematria2AltAMBeL -= L14;gematria2AltAMBeL += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAMBeL = AltAMBeL.substring(0, AltAMBeL.length - 1);gematria2AltAMBeL -= L14;gematria2AltAMBeL += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAMBeL = AltAMBeL.substring(0, AltAMBeL.length - 1);gematria2AltAMBeL -= L17;gematria2AltAMBeL += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAMBeL = AltAMBeL.substring(0, AltAMBeL.length - 1);gematria2AltAMBeL -= L18;gematria2AltAMBeL += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5239,7 +5335,7 @@ for (var i=0; i < inputText.length; i++){
 // AltELBaCh
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05DC";gematria2AltELBaCh += L12;break;	// lamed
 			/*bet*/		case "\u05D1":letter = "\u05DB";gematria2AltELBaCh += L11;break;	// kaf
 			/*gimel*/	case "\u05D2":letter = "\u05D9";gematria2AltELBaCh += L10;break;	// yod
@@ -5254,6 +5350,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D0";gematria2AltELBaCh += L01;break;	// aleph
 			/*mem*/		case "\u05DE":letter = "\u05EA";gematria2AltELBaCh += L22;break;	// tav
 			/*nun*/		case "\u05E0":letter = "\u05E9";gematria2AltELBaCh += L21;break;	// shin
+			/*Bk nun*/	case "\u05C6":letter = "\u05E9";gematria2AltELBaCh += L21;break;	// shin
 			/*samech*/	case "\u05E1":letter = "\u05E8";gematria2AltELBaCh += L20;break;	// resh
 			/*ayin*/	case "\u05E2":letter = "\u05E7";gematria2AltELBaCh += L19;break;	// kuf
 			/*pey*/		case "\u05E4":letter = "\u05E6";gematria2AltELBaCh += L18;break;	// tzadi
@@ -5272,11 +5369,12 @@ for (var i=0; i < inputText.length; i++){
 		AltELBaCh += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltELBaCh = AltELBaCh.substring(0, AltELBaCh.length - 1);gematria2AltELBaCh -= L11;gematria2AltELBaCh += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltELBaCh = AltELBaCh.substring(0, AltELBaCh.length - 1);gematria2AltELBaCh -= L13;gematria2AltELBaCh += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltELBaCh = AltELBaCh.substring(0, AltELBaCh.length - 1);gematria2AltELBaCh -= L14;gematria2AltELBaCh += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltELBaCh = AltELBaCh.substring(0, AltELBaCh.length - 1);gematria2AltELBaCh -= L14;gematria2AltELBaCh += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltELBaCh = AltELBaCh.substring(0, AltELBaCh.length - 1);gematria2AltELBaCh -= L17;gematria2AltELBaCh += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltELBaCh = AltELBaCh.substring(0, AltELBaCh.length - 1);gematria2AltELBaCh -= L18;gematria2AltELBaCh += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5288,7 +5386,7 @@ for (var i=0; i < inputText.length; i++){
 // AltAChBI
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05DB";gematria2AltAChBI += L11;break;	// kaf
 			/*bet*/		case "\u05D1":letter = "\u05D9";gematria2AltAChBI += L10;break;	// yod
 			/*gimel*/	case "\u05D2":letter = "\u05D8";gematria2AltAChBI += L09;break;	// tet
@@ -5303,6 +5401,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05EA";gematria2AltAChBI += L22;break;	// tav
 			/*mem*/		case "\u05DE":letter = "\u05E9";gematria2AltAChBI += L21;break;	// shin
 			/*nun*/		case "\u05E0":letter = "\u05E8";gematria2AltAChBI += L20;break;	// resh
+			/*Bk nun*/	case "\u05C6":letter = "\u05E8";gematria2AltAChBI += L20;break;	// resh
 			/*samech*/	case "\u05E1":letter = "\u05E7";gematria2AltAChBI += L19;break;	// kuf
 			/*ayin*/	case "\u05E2":letter = "\u05E6";gematria2AltAChBI += L18;break;	// tzadi
 			/*pey*/		case "\u05E4":letter = "\u05E4";gematria2AltAChBI += L17;break;	// pey
@@ -5321,11 +5420,12 @@ for (var i=0; i < inputText.length; i++){
 		AltAChBI += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAChBI = AltAChBI.substring(0, AltAChBI.length - 1);gematria2AltAChBI -= L11;gematria2AltAChBI += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAChBI = AltAChBI.substring(0, AltAChBI.length - 1);gematria2AltAChBI -= L13;gematria2AltAChBI += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAChBI = AltAChBI.substring(0, AltAChBI.length - 1);gematria2AltAChBI -= L14;gematria2AltAChBI += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAChBI = AltAChBI.substring(0, AltAChBI.length - 1);gematria2AltAChBI -= L14;gematria2AltAChBI += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAChBI = AltAChBI.substring(0, AltAChBI.length - 1);gematria2AltAChBI -= L17;gematria2AltAChBI += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAChBI = AltAChBI.substring(0, AltAChBI.length - 1);gematria2AltAChBI -= L18;gematria2AltAChBI += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5337,7 +5437,7 @@ for (var i=0; i < inputText.length; i++){
 // AltAIBeT
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05D9";gematria2AltAIBeT += L10;break;	// yod
 			/*bet*/		case "\u05D1":letter = "\u05D8";gematria2AltAIBeT += L09;break;	// tet
 			/*gimel*/	case "\u05D2":letter = "\u05D7";gematria2AltAIBeT += L08;break;	// chet
@@ -5352,6 +5452,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E9";gematria2AltAIBeT += L21;break;	// shin
 			/*mem*/		case "\u05DE":letter = "\u05E8";gematria2AltAIBeT += L20;break;	// resh
 			/*nun*/		case "\u05E0":letter = "\u05E7";gematria2AltAIBeT += L19;break;	// kuf
+			/*Bk nun*/	case "\u05C6":letter = "\u05E7";gematria2AltAIBeT += L19;break;	// kuf
 			/*samech*/	case "\u05E1":letter = "\u05E6";gematria2AltAIBeT += L18;break;	// tzadi
 			/*ayin*/	case "\u05E2":letter = "\u05E4";gematria2AltAIBeT += L17;break;	// pey
 			/*pey*/		case "\u05E4":letter = "\u05E2";gematria2AltAIBeT += L16;break;	// ayin
@@ -5370,11 +5471,12 @@ for (var i=0; i < inputText.length; i++){
 		AltAIBeT += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAIBeT = AltAIBeT.substring(0, AltAIBeT.length - 1);gematria2AltAIBeT -= L11;gematria2AltAIBeT += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAIBeT = AltAIBeT.substring(0, AltAIBeT.length - 1);gematria2AltAIBeT -= L13;gematria2AltAIBeT += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAIBeT = AltAIBeT.substring(0, AltAIBeT.length - 1);gematria2AltAIBeT -= L14;gematria2AltAIBeT += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAIBeT = AltAIBeT.substring(0, AltAIBeT.length - 1);gematria2AltAIBeT -= L14;gematria2AltAIBeT += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAIBeT = AltAIBeT.substring(0, AltAIBeT.length - 1);gematria2AltAIBeT -= L17;gematria2AltAIBeT += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAIBeT = AltAIBeT.substring(0, AltAIBeT.length - 1);gematria2AltAIBeT -= L18;gematria2AltAIBeT += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5386,7 +5488,7 @@ for (var i=0; i < inputText.length; i++){
 // AltATBaCh
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05D8";gematria2AltATBaCh += L09;break;	// tet
 			/*bet*/		case "\u05D1":letter = "\u05D7";gematria2AltATBaCh += L08;break;	// chet
 			/*gimel*/	case "\u05D2":letter = "\u05D6";gematria2AltATBaCh += L07;break;	// zayin
@@ -5401,6 +5503,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E8";gematria2AltATBaCh += L20;break;	// resh
 			/*mem*/		case "\u05DE":letter = "\u05E7";gematria2AltATBaCh += L19;break;	// kuf
 			/*nun*/		case "\u05E0":letter = "\u05E6";gematria2AltATBaCh += L18;break;	// tzadi
+			/*Bk nun*/	case "\u05C6":letter = "\u05E6";gematria2AltATBaCh += L18;break;	// tzadi
 			/*samech*/	case "\u05E1":letter = "\u05E4";gematria2AltATBaCh += L17;break;	// pey
 			/*ayin*/	case "\u05E2":letter = "\u05E2";gematria2AltATBaCh += L16;break;	// ayin
 			/*pey*/		case "\u05E4":letter = "\u05E1";gematria2AltATBaCh += L15;break;	// samech
@@ -5419,11 +5522,12 @@ for (var i=0; i < inputText.length; i++){
 		AltATBaCh += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltATBaCh = AltATBaCh.substring(0, AltATBaCh.length - 1);gematria2AltATBaCh -= L11;gematria2AltATBaCh += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltATBaCh = AltATBaCh.substring(0, AltATBaCh.length - 1);gematria2AltATBaCh -= L13;gematria2AltATBaCh += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltATBaCh = AltATBaCh.substring(0, AltATBaCh.length - 1);gematria2AltATBaCh -= L14;gematria2AltATBaCh += L25;break;	// nun F
+				/*BK nun*/	case "\u05C6":letter = "\u05DF";AltATBaCh = AltATBaCh.substring(0, AltATBaCh.length - 1);gematria2AltATBaCh -= L14;gematria2AltATBaCh += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltATBaCh = AltATBaCh.substring(0, AltATBaCh.length - 1);gematria2AltATBaCh -= L17;gematria2AltATBaCh += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltATBaCh = AltATBaCh.substring(0, AltATBaCh.length - 1);gematria2AltATBaCh -= L18;gematria2AltATBaCh += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5435,7 +5539,7 @@ for (var i=0; i < inputText.length; i++){
 // AltAChBaZ
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05D7";gematria2AltAChBaZ += L08;break;	// chet
 			/*bet*/		case "\u05D1":letter = "\u05D6";gematria2AltAChBaZ += L07;break;	// zayin
 			/*gimel*/	case "\u05D2":letter = "\u05D5";gematria2AltAChBaZ += L06;break;	// vav
@@ -5450,6 +5554,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E7";gematria2AltAChBaZ += L19;break;	// kuf
 			/*mem*/		case "\u05DE":letter = "\u05E6";gematria2AltAChBaZ += L18;break;	// tzadi
 			/*nun*/		case "\u05E0":letter = "\u05E4";gematria2AltAChBaZ += L17;break;	// pey
+			/*Bk nun*/	case "\u05C6":letter = "\u05E4";gematria2AltAChBaZ += L17;break;	// pey
 			/*samech*/	case "\u05E1":letter = "\u05E2";gematria2AltAChBaZ += L16;break;	// ayin
 			/*ayin*/	case "\u05E2":letter = "\u05E1";gematria2AltAChBaZ += L15;break;	// samech
 			/*pey*/		case "\u05E4":letter = "\u05E0";gematria2AltAChBaZ += L14;break;	// nun
@@ -5468,11 +5573,12 @@ for (var i=0; i < inputText.length; i++){
 		AltAChBaZ += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAChBaZ = AltAChBaZ.substring(0, AltAChBaZ.length - 1);gematria2AltAChBaZ -= L11;gematria2AltAChBaZ += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAChBaZ = AltAChBaZ.substring(0, AltAChBaZ.length - 1);gematria2AltAChBaZ -= L13;gematria2AltAChBaZ += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAChBaZ = AltAChBaZ.substring(0, AltAChBaZ.length - 1);gematria2AltAChBaZ -= L14;gematria2AltAChBaZ += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAChBaZ = AltAChBaZ.substring(0, AltAChBaZ.length - 1);gematria2AltAChBaZ -= L14;gematria2AltAChBaZ += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAChBaZ = AltAChBaZ.substring(0, AltAChBaZ.length - 1);gematria2AltAChBaZ -= L17;gematria2AltAChBaZ += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAChBaZ = AltAChBaZ.substring(0, AltAChBaZ.length - 1);gematria2AltAChBaZ -= L18;gematria2AltAChBaZ += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5484,7 +5590,7 @@ for (var i=0; i < inputText.length; i++){
 // AltAZBO
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05D6";gematria2AltAZBO += L07;break;	// zayin
 			/*bet*/		case "\u05D1":letter = "\u05D5";gematria2AltAZBO += L06;break;	// vav
 			/*gimel*/	case "\u05D2":letter = "\u05D4";gematria2AltAZBO += L05;break;	// hey
@@ -5499,6 +5605,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E6";gematria2AltAZBO += L18;break;	// tzadi
 			/*mem*/		case "\u05DE":letter = "\u05E4";gematria2AltAZBO += L17;break;	// pey
 			/*nun*/		case "\u05E0":letter = "\u05E2";gematria2AltAZBO += L16;break;	// ayin
+			/*Bk nun*/	case "\u05C6":letter = "\u05E2";gematria2AltAZBO += L16;break;	// ayin
 			/*samech*/	case "\u05E1":letter = "\u05E1";gematria2AltAZBO += L15;break;	// samech
 			/*ayin*/	case "\u05E2":letter = "\u05E0";gematria2AltAZBO += L14;break;	// nun
 			/*pey*/		case "\u05E4":letter = "\u05DE";gematria2AltAZBO += L13;break;	// mem
@@ -5517,11 +5624,12 @@ for (var i=0; i < inputText.length; i++){
 		AltAZBO += letter;
 
 		// If the last letter in the converted string is a kaf, mem, nun, pey, or tzadi it will be converted to its final form
-		if(i+1 == inputText.length){
+		if(i+1 == array.length){
 			switch(letter){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAZBO = AltAZBO.substring(0, AltAZBO.length - 1);gematria2AltAZBO -= L11;gematria2AltAZBO += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAZBO = AltAZBO.substring(0, AltAZBO.length - 1);gematria2AltAZBO -= L13;gematria2AltAZBO += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAZBO = AltAZBO.substring(0, AltAZBO.length - 1);gematria2AltAZBO -= L14;gematria2AltAZBO += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAZBO = AltAZBO.substring(0, AltAZBO.length - 1);gematria2AltAZBO -= L14;gematria2AltAZBO += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAZBO = AltAZBO.substring(0, AltAZBO.length - 1);gematria2AltAZBO -= L17;gematria2AltAZBO += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAZBO = AltAZBO.substring(0, AltAZBO.length - 1);gematria2AltAZBO -= L18;gematria2AltAZBO += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5533,7 +5641,7 @@ for (var i=0; i < inputText.length; i++){
 // AltAVBaH
 letter = '';
 for (var i=0; i < inputText.length; i++){
-		switch(inputText[i]){
+		switch(array[i]){
 			/*aleph*/	case "\u05D0":letter = "\u05D5";gematria2AltAVBaH += L06;break;	// vav
 			/*bet*/		case "\u05D1":letter = "\u05D4";gematria2AltAVBaH += L05;break;	// hey
 			/*gimel*/	case "\u05D2":letter = "\u05D3";gematria2AltAVBaH += L04;break;	// dalet
@@ -5548,6 +5656,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E4";gematria2AltAVBaH += L17;break;	// pey
 			/*mem*/		case "\u05DE":letter = "\u05E2";gematria2AltAVBaH += L16;break;	// ayin
 			/*nun*/		case "\u05E0":letter = "\u05E1";gematria2AltAVBaH += L15;break;	// samech
+			/*Bk nun*/	case "\u05C6":letter = "\u05E1";gematria2AltAVBaH += L15;break;	// samech
 			/*samech*/	case "\u05E1":letter = "\u05E0";gematria2AltAVBaH += L14;break;	// nun
 			/*ayin*/	case "\u05E2":letter = "\u05DE";gematria2AltAVBaH += L13;break;	// mem
 			/*pey*/		case "\u05E4":letter = "\u05DC";gematria2AltAVBaH += L12;break;	// lamed
@@ -5571,6 +5680,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAVBaH = AltAVBaH.substring(0, AltAVBaH.length - 1);gematria2AltAVBaH -= L11;gematria2AltAVBaH += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAVBaH = AltAVBaH.substring(0, AltAVBaH.length - 1);gematria2AltAVBaH -= L13;gematria2AltAVBaH += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAVBaH = AltAVBaH.substring(0, AltAVBaH.length - 1);gematria2AltAVBaH -= L14;gematria2AltAVBaH += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAVBaH = AltAVBaH.substring(0, AltAVBaH.length - 1);gematria2AltAVBaH -= L14;gematria2AltAVBaH += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAVBaH = AltAVBaH.substring(0, AltAVBaH.length - 1);gematria2AltAVBaH -= L17;gematria2AltAVBaH += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAVBaH = AltAVBaH.substring(0, AltAVBaH.length - 1);gematria2AltAVBaH -= L18;gematria2AltAVBaH += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5597,6 +5707,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E2";gematria2AltAHBaD += L16;break;	// ayin
 			/*mem*/		case "\u05DE":letter = "\u05E1";gematria2AltAHBaD += L15;break;	// samech
 			/*nun*/		case "\u05E0":letter = "\u05E0";gematria2AltAHBaD += L14;break;	// nun
+			/*Bk nun*/	case "\u05C6":letter = "\u05C6";gematria2AltAHBaD += L14;break;	// Bk nun
 			/*samech*/	case "\u05E1":letter = "\u05DE";gematria2AltAHBaD += L13;break;	// mem
 			/*ayin*/	case "\u05E2":letter = "\u05DC";gematria2AltAHBaD += L12;break;	// lamed
 			/*pey*/		case "\u05E4":letter = "\u05DB";gematria2AltAHBaD += L11;break;	// kaf
@@ -5620,6 +5731,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAHBaD = AltAHBaD.substring(0, AltAHBaD.length - 1);gematria2AltAHBaD -= L11;gematria2AltAHBaD += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAHBaD = AltAHBaD.substring(0, AltAHBaD.length - 1);gematria2AltAHBaD -= L13;gematria2AltAHBaD += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAHBaD = AltAHBaD.substring(0, AltAHBaD.length - 1);gematria2AltAHBaD -= L14;gematria2AltAHBaD += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAHBaD = AltAHBaD.substring(0, AltAHBaD.length - 1);gematria2AltAHBaD -= L14;gematria2AltAHBaD += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAHBaD = AltAHBaD.substring(0, AltAHBaD.length - 1);gematria2AltAHBaD -= L17;gematria2AltAHBaD += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAHBaD = AltAHBaD.substring(0, AltAHBaD.length - 1);gematria2AltAHBaD -= L18;gematria2AltAHBaD += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5646,6 +5758,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E1";gematria2AltADBeG += L15;break;	// samech
 			/*mem*/		case "\u05DE":letter = "\u05E0";gematria2AltADBeG += L14;break;	// nun
 			/*nun*/		case "\u05E0":letter = "\u05DE";gematria2AltADBeG += L13;break;	// mem
+			/*Bk nun*/	case "\u05C6":letter = "\u05DE";gematria2AltADBeG += L13;break;	// mem
 			/*samech*/	case "\u05E1":letter = "\u05DC";gematria2AltADBeG += L12;break;	// lamed
 			/*ayin*/	case "\u05E2":letter = "\u05DB";gematria2AltADBeG += L11;break;	// kaf
 			/*pey*/		case "\u05E4":letter = "\u05D9";gematria2AltADBeG += L10;break;	// yod
@@ -5669,6 +5782,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltADBeG = AltADBeG.substring(0, AltADBeG.length - 1);gematria2AltADBeG -= L11;gematria2AltADBeG += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltADBeG = AltADBeG.substring(0, AltADBeG.length - 1);gematria2AltADBeG -= L13;gematria2AltADBeG += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltADBeG = AltADBeG.substring(0, AltADBeG.length - 1);gematria2AltADBeG -= L14;gematria2AltADBeG += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltADBeG = AltADBeG.substring(0, AltADBeG.length - 1);gematria2AltADBeG -= L14;gematria2AltADBeG += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltADBeG = AltADBeG.substring(0, AltADBeG.length - 1);gematria2AltADBeG -= L17;gematria2AltADBeG += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltADBeG = AltADBeG.substring(0, AltADBeG.length - 1);gematria2AltADBeG -= L18;gematria2AltADBeG += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5695,6 +5809,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E0";gematria2AltAGBaB += L14;break;	// nun
 			/*mem*/		case "\u05DE":letter = "\u05DE";gematria2AltAGBaB += L13;break;	// mem
 			/*nun*/		case "\u05E0":letter = "\u05DC";gematria2AltAGBaB += L12;break;	// lamed
+			/*Bk nun*/	case "\u05C6":letter = "\u05DC";gematria2AltAGBaB += L12;break;	// lamed
 			/*samech*/	case "\u05E1":letter = "\u05DB";gematria2AltAGBaB += L11;break;	// kaf
 			/*ayin*/	case "\u05E2":letter = "\u05D9";gematria2AltAGBaB += L10;break;	// yod
 			/*pey*/		case "\u05E4":letter = "\u05D8";gematria2AltAGBaB += L09;break;	// tet
@@ -5718,6 +5833,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAGBaB = AltAGBaB.substring(0, AltAGBaB.length - 1);gematria2AltAGBaB -= L11;gematria2AltAGBaB += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAGBaB = AltAGBaB.substring(0, AltAGBaB.length - 1);gematria2AltAGBaB -= L13;gematria2AltAGBaB += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAGBaB = AltAGBaB.substring(0, AltAGBaB.length - 1);gematria2AltAGBaB -= L14;gematria2AltAGBaB += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAGBaB = AltAGBaB.substring(0, AltAGBaB.length - 1);gematria2AltAGBaB -= L14;gematria2AltAGBaB += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAGBaB = AltAGBaB.substring(0, AltAGBaB.length - 1);gematria2AltAGBaB -= L17;gematria2AltAGBaB += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAGBaB = AltAGBaB.substring(0, AltAGBaB.length - 1);gematria2AltAGBaB -= L18;gematria2AltAGBaB += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5744,6 +5860,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05DE";gematria2AltABBA += L13;break;	// mem
 			/*mem*/		case "\u05DE":letter = "\u05DC";gematria2AltABBA += L12;break;	// lamed
 			/*nun*/		case "\u05E0":letter = "\u05DB";gematria2AltABBA += L11;break;	// kaf
+			/*Bk nun*/	case "\u05C6":letter = "\u05DB";gematria2AltABBA += L11;break;	// kaf
 			/*samech*/	case "\u05E1":letter = "\u05D9";gematria2AltABBA += L10;break;	// yod
 			/*ayin*/	case "\u05E2":letter = "\u05D8";gematria2AltABBA += L09;break;	// tet
 			/*pey*/		case "\u05E4":letter = "\u05D7";gematria2AltABBA += L08;break;	// chet
@@ -5767,6 +5884,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltABBA = AltABBA.substring(0, AltABBA.length - 1);gematria2AltABBA -= L11;gematria2AltABBA += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltABBA = AltABBA.substring(0, AltABBA.length - 1);gematria2AltABBA -= L13;gematria2AltABBA += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltABBA = AltABBA.substring(0, AltABBA.length - 1);gematria2AltABBA -= L14;gematria2AltABBA += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltABBA = AltABBA.substring(0, AltABBA.length - 1);gematria2AltABBA -= L14;gematria2AltABBA += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltABBA = AltABBA.substring(0, AltABBA.length - 1);gematria2AltABBA -= L17;gematria2AltABBA += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltABBA = AltABBA.substring(0, AltABBA.length - 1);gematria2AltABBA -= L18;gematria2AltABBA += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5793,6 +5911,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05DC";gematria2AltAAhBaT += L12;break;	// lamed
 			/*mem*/		case "\u05DE":letter = "\u05DB";gematria2AltAAhBaT += L11;break;	// kaf
 			/*nun*/		case "\u05E0":letter = "\u05D9";gematria2AltAAhBaT += L10;break;	// yod
+			/*Bk nun*/	case "\u05C6":letter = "\u05D9";gematria2AltAAhBaT += L10;break;	// yod
 			/*samech*/	case "\u05E1":letter = "\u05D8";gematria2AltAAhBaT += L09;break;	// tet
 			/*ayin*/	case "\u05E2":letter = "\u05D7";gematria2AltAAhBaT += L08;break;	// chet
 			/*pey*/		case "\u05E4":letter = "\u05D6";gematria2AltAAhBaT += L07;break;	// zayin
@@ -5816,6 +5935,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAAhBaT = AltAAhBaT.substring(0, AltAAhBaT.length - 1);gematria2AltAAhBaT -= L11;gematria2AltAAhBaT += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAAhBaT = AltAAhBaT.substring(0, AltAAhBaT.length - 1);gematria2AltAAhBaT -= L13;gematria2AltAAhBaT += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAAhBaT = AltAAhBaT.substring(0, AltAAhBaT.length - 1);gematria2AltAAhBaT -= L14;gematria2AltAAhBaT += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAAhBaT = AltAAhBaT.substring(0, AltAAhBaT.length - 1);gematria2AltAAhBaT -= L14;gematria2AltAAhBaT += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAAhBaT = AltAAhBaT.substring(0, AltAAhBaT.length - 1);gematria2AltAAhBaT -= L17;gematria2AltAAhBaT += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAAhBaT = AltAAhBaT.substring(0, AltAAhBaT.length - 1);gematria2AltAAhBaT -= L18;gematria2AltAAhBaT += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5842,6 +5962,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05DE";gematria2AltABBaG += L13;break;	// mem
 			/*mem*/		case "\u05DE":letter = "\u05E0";gematria2AltABBaG += L14;break;	// nun
 			/*nun*/		case "\u05E0":letter = "\u05E1";gematria2AltABBaG += L15;break;	// samech
+			/*Bk nun*/	case "\u05C6":letter = "\u05E1";gematria2AltABBaG += L15;break;	// samech
 			/*samech*/	case "\u05E1":letter = "\u05E2";gematria2AltABBaG += L16;break;	// ayin
 			/*ayin*/	case "\u05E2":letter = "\u05E4";gematria2AltABBaG += L17;break;	// pey
 			/*pey*/		case "\u05E4":letter = "\u05E6";gematria2AltABBaG += L18;break;	// tzadi
@@ -5865,6 +5986,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltABBaG = AltABBaG.substring(0, AltABBaG.length - 1);gematria2AltABBaG -= L11;gematria2AltABBaG += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltABBaG = AltABBaG.substring(0, AltABBaG.length - 1);gematria2AltABBaG -= L13;gematria2AltABBaG += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltABBaG = AltABBaG.substring(0, AltABBaG.length - 1);gematria2AltABBaG -= L14;gematria2AltABBaG += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltABBaG = AltABBaG.substring(0, AltABBaG.length - 1);gematria2AltABBaG -= L14;gematria2AltABBaG += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltABBaG = AltABBaG.substring(0, AltABBaG.length - 1);gematria2AltABBaG -= L17;gematria2AltABBaG += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltABBaG = AltABBaG.substring(0, AltABBaG.length - 1);gematria2AltABBaG -= L18;gematria2AltABBaG += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5891,6 +6013,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E0";gematria2AltAGBaD += L14;break;	// nun
 			/*mem*/		case "\u05DE":letter = "\u05E1";gematria2AltAGBaD += L15;break;	// samech
 			/*nun*/		case "\u05E0":letter = "\u05E2";gematria2AltAGBaD += L16;break;	// ayin
+			/*Bk nun*/	case "\u05C6":letter = "\u05E2";gematria2AltAGBaD += L16;break;	// ayin
 			/*samech*/	case "\u05E1":letter = "\u05E4";gematria2AltAGBaD += L17;break;	// pey
 			/*ayin*/	case "\u05E2":letter = "\u05E6";gematria2AltAGBaD += L18;break;	// tzadi
 			/*pey*/		case "\u05E4":letter = "\u05E7";gematria2AltAGBaD += L19;break;	// kuf
@@ -5914,6 +6037,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAGBaD = AltAGBaD.substring(0, AltAGBaD.length - 1);gematria2AltAGBaD -= L11;gematria2AltAGBaD += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAGBaD = AltAGBaD.substring(0, AltAGBaD.length - 1);gematria2AltAGBaD -= L13;gematria2AltAGBaD += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAGBaD = AltAGBaD.substring(0, AltAGBaD.length - 1);gematria2AltAGBaD -= L14;gematria2AltAGBaD += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAGBaD = AltAGBaD.substring(0, AltAGBaD.length - 1);gematria2AltAGBaD -= L14;gematria2AltAGBaD += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAGBaD = AltAGBaD.substring(0, AltAGBaD.length - 1);gematria2AltAGBaD -= L17;gematria2AltAGBaD += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAGBaD = AltAGBaD.substring(0, AltAGBaD.length - 1);gematria2AltAGBaD -= L18;gematria2AltAGBaD += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5940,6 +6064,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E1";gematria2AltADBaH += L15;break;	// samech
 			/*mem*/		case "\u05DE":letter = "\u05E2";gematria2AltADBaH += L16;break;	// ayin
 			/*nun*/		case "\u05E0":letter = "\u05E4";gematria2AltADBaH += L17;break;	// pey
+			/*Bk nun*/	case "\u05C6":letter = "\u05E4";gematria2AltADBaH += L17;break;	// pey
 			/*samech*/	case "\u05E1":letter = "\u05E6";gematria2AltADBaH += L18;break;	// tzadi
 			/*ayin*/	case "\u05E2":letter = "\u05E7";gematria2AltADBaH += L19;break;	// kuf
 			/*pey*/		case "\u05E4":letter = "\u05E8";gematria2AltADBaH += L20;break;	// resh
@@ -5963,6 +6088,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltADBaH = AltADBaH.substring(0, AltADBaH.length - 1);gematria2AltADBaH -= L11;gematria2AltADBaH += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltADBaH = AltADBaH.substring(0, AltADBaH.length - 1);gematria2AltADBaH -= L13;gematria2AltADBaH += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltADBaH = AltADBaH.substring(0, AltADBaH.length - 1);gematria2AltADBaH -= L14;gematria2AltADBaH += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltADBaH = AltADBaH.substring(0, AltADBaH.length - 1);gematria2AltADBaH -= L14;gematria2AltADBaH += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltADBaH = AltADBaH.substring(0, AltADBaH.length - 1);gematria2AltADBaH -= L17;gematria2AltADBaH += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltADBaH = AltADBaH.substring(0, AltADBaH.length - 1);gematria2AltADBaH -= L18;gematria2AltADBaH += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -5989,6 +6115,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E2";gematria2AltAHBeV += L16;break;	// ayin
 			/*mem*/		case "\u05DE":letter = "\u05E4";gematria2AltAHBeV += L17;break;	// pey
 			/*nun*/		case "\u05E0":letter = "\u05E6";gematria2AltAHBeV += L18;break;	// tzadi
+			/*Bk nun*/	case "\u05C6":letter = "\u05E6";gematria2AltAHBeV += L18;break;	// tzadi
 			/*samech*/	case "\u05E1":letter = "\u05E7";gematria2AltAHBeV += L19;break;	// kuf
 			/*ayin*/	case "\u05E2":letter = "\u05E8";gematria2AltAHBeV += L20;break;	// resh
 			/*pey*/		case "\u05E4":letter = "\u05E9";gematria2AltAHBeV += L21;break;	// shin
@@ -6012,6 +6139,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAHBeV = AltAHBeV.substring(0, AltAHBeV.length - 1);gematria2AltAHBeV -= L11;gematria2AltAHBeV += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAHBeV = AltAHBeV.substring(0, AltAHBeV.length - 1);gematria2AltAHBeV -= L13;gematria2AltAHBeV += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAHBeV = AltAHBeV.substring(0, AltAHBeV.length - 1);gematria2AltAHBeV -= L14;gematria2AltAHBeV += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAHBeV = AltAHBeV.substring(0, AltAHBeV.length - 1);gematria2AltAHBeV -= L14;gematria2AltAHBeV += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAHBeV = AltAHBeV.substring(0, AltAHBeV.length - 1);gematria2AltAHBeV -= L17;gematria2AltAHBeV += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAHBeV = AltAHBeV.substring(0, AltAHBeV.length - 1);gematria2AltAHBeV -= L18;gematria2AltAHBeV += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6038,6 +6166,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E4";gematria2AltAVBeZ += L17;break;	// pey
 			/*mem*/		case "\u05DE":letter = "\u05E6";gematria2AltAVBeZ += L18;break;	// tzadi
 			/*nun*/		case "\u05E0":letter = "\u05E7";gematria2AltAVBeZ += L19;break;	// kuf
+			/*Bk nun*/	case "\u05C6":letter = "\u05E7";gematria2AltAVBeZ += L19;break;	// kuf
 			/*samech*/	case "\u05E1":letter = "\u05E8";gematria2AltAVBeZ += L20;break;	// resh
 			/*ayin*/	case "\u05E2":letter = "\u05E9";gematria2AltAVBeZ += L21;break;	// shin
 			/*pey*/		case "\u05E4":letter = "\u05EA";gematria2AltAVBeZ += L22;break;	// tav
@@ -6061,6 +6190,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAVBeZ = AltAVBeZ.substring(0, AltAVBeZ.length - 1);gematria2AltAVBeZ -= L11;gematria2AltAVBeZ += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAVBeZ = AltAVBeZ.substring(0, AltAVBeZ.length - 1);gematria2AltAVBeZ -= L13;gematria2AltAVBeZ += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAVBeZ = AltAVBeZ.substring(0, AltAVBeZ.length - 1);gematria2AltAVBeZ -= L14;gematria2AltAVBeZ += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAVBeZ = AltAVBeZ.substring(0, AltAVBeZ.length - 1);gematria2AltAVBeZ -= L14;gematria2AltAVBeZ += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAVBeZ = AltAVBeZ.substring(0, AltAVBeZ.length - 1);gematria2AltAVBeZ -= L17;gematria2AltAVBeZ += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAVBeZ = AltAVBeZ.substring(0, AltAVBeZ.length - 1);gematria2AltAVBeZ -= L18;gematria2AltAVBeZ += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6087,6 +6217,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E6";gematria2AltAZBeCh += L18;break;	// tzadi
 			/*mem*/		case "\u05DE":letter = "\u05E7";gematria2AltAZBeCh += L19;break;	// kuf
 			/*nun*/		case "\u05E0":letter = "\u05E8";gematria2AltAZBeCh += L20;break;	// resh
+			/*Bk nun*/	case "\u05C6":letter = "\u05E8";gematria2AltAZBeCh += L20;break;	// resh
 			/*samech*/	case "\u05E1":letter = "\u05E9";gematria2AltAZBeCh += L21;break;	// shin
 			/*ayin*/	case "\u05E2":letter = "\u05EA";gematria2AltAZBeCh += L22;break;	// tav
 			/*pey*/		case "\u05E4":letter = "\u05D0";gematria2AltAZBeCh += L01;break;	// aleph
@@ -6110,6 +6241,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAZBeCh = AltAZBeCh.substring(0, AltAZBeCh.length - 1);gematria2AltAZBeCh -= L11;gematria2AltAZBeCh += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAZBeCh = AltAZBeCh.substring(0, AltAZBeCh.length - 1);gematria2AltAZBeCh -= L13;gematria2AltAZBeCh += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAZBeCh = AltAZBeCh.substring(0, AltAZBeCh.length - 1);gematria2AltAZBeCh -= L14;gematria2AltAZBeCh += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAZBeCh = AltAZBeCh.substring(0, AltAZBeCh.length - 1);gematria2AltAZBeCh -= L14;gematria2AltAZBeCh += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAZBeCh = AltAZBeCh.substring(0, AltAZBeCh.length - 1);gematria2AltAZBeCh -= L17;gematria2AltAZBeCh += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAZBeCh = AltAZBeCh.substring(0, AltAZBeCh.length - 1);gematria2AltAZBeCh -= L18;gematria2AltAZBeCh += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6136,6 +6268,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E7";gematria2AltAChBeT += L19;break;	// kuf
 			/*mem*/		case "\u05DE":letter = "\u05E8";gematria2AltAChBeT += L20;break;	// resh
 			/*nun*/		case "\u05E0":letter = "\u05E9";gematria2AltAChBeT += L21;break;	// shin
+			/*Bk nun*/	case "\u05C6":letter = "\u05E9";gematria2AltAChBeT += L21;break;	// shin
 			/*samech*/	case "\u05E1":letter = "\u05EA";gematria2AltAChBeT += L22;break;	// tav
 			/*ayin*/	case "\u05E2":letter = "\u05D0";gematria2AltAChBeT += L01;break;	// aleph
 			/*pey*/		case "\u05E4":letter = "\u05D1";gematria2AltAChBeT += L02;break;	// bet
@@ -6159,6 +6292,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAChBeT = AltAChBeT.substring(0, AltAChBeT.length - 1);gematria2AltAChBeT -= L11;gematria2AltAChBeT += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAChBeT = AltAChBeT.substring(0, AltAChBeT.length - 1);gematria2AltAChBeT -= L13;gematria2AltAChBeT += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAChBeT = AltAChBeT.substring(0, AltAChBeT.length - 1);gematria2AltAChBeT -= L14;gematria2AltAChBeT += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAChBeT = AltAChBeT.substring(0, AltAChBeT.length - 1);gematria2AltAChBeT -= L14;gematria2AltAChBeT += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAChBeT = AltAChBeT.substring(0, AltAChBeT.length - 1);gematria2AltAChBeT -= L17;gematria2AltAChBeT += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAChBeT = AltAChBeT.substring(0, AltAChBeT.length - 1);gematria2AltAChBeT -= L18;gematria2AltAChBeT += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6185,6 +6319,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E8";gematria2AltATBI += L20;break;	// resh
 			/*mem*/		case "\u05DE":letter = "\u05E9";gematria2AltATBI += L21;break;	// shin
 			/*nun*/		case "\u05E0":letter = "\u05EA";gematria2AltATBI += L22;break;	// tav
+			/*Bk nun*/	case "\u05C6":letter = "\u05EA";gematria2AltATBI += L22;break;	// tav
 			/*samech*/	case "\u05E1":letter = "\u05D0";gematria2AltATBI += L01;break;	// aleph
 			/*ayin*/	case "\u05E2":letter = "\u05D1";gematria2AltATBI += L02;break;	// bet
 			/*pey*/		case "\u05E4":letter = "\u05D2";gematria2AltATBI += L03;break;	// gimel
@@ -6208,6 +6343,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltATBI = AltATBI.substring(0, AltATBI.length - 1);gematria2AltATBI -= L11;gematria2AltATBI += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltATBI = AltATBI.substring(0, AltATBI.length - 1);gematria2AltATBI -= L13;gematria2AltATBI += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltATBI = AltATBI.substring(0, AltATBI.length - 1);gematria2AltATBI -= L14;gematria2AltATBI += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltATBI = AltATBI.substring(0, AltATBI.length - 1);gematria2AltATBI -= L14;gematria2AltATBI += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltATBI = AltATBI.substring(0, AltATBI.length - 1);gematria2AltATBI -= L17;gematria2AltATBI += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltATBI = AltATBI.substring(0, AltATBI.length - 1);gematria2AltATBI -= L18;gematria2AltATBI += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6234,6 +6370,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05E9";gematria2AltAIBech += L21;break;	// shin
 			/*mem*/		case "\u05DE":letter = "\u05EA";gematria2AltAIBech += L22;break;	// tav
 			/*nun*/		case "\u05E0":letter = "\u05D0";gematria2AltAIBech += L01;break;	// aleph
+			/*Bk nun*/	case "\u05C6":letter = "\u05D0";gematria2AltAIBech += L01;break;	// aleph
 			/*samech*/	case "\u05E1":letter = "\u05D1";gematria2AltAIBech += L02;break;	// bet
 			/*ayin*/	case "\u05E2":letter = "\u05D2";gematria2AltAIBech += L03;break;	// gimel
 			/*pey*/		case "\u05E4":letter = "\u05D3";gematria2AltAIBech += L04;break;	// dalet
@@ -6257,6 +6394,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAIBech = AltAIBech.substring(0, AltAIBech.length - 1);gematria2AltAIBech -= L11;gematria2AltAIBech += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAIBech = AltAIBech.substring(0, AltAIBech.length - 1);gematria2AltAIBech -= L13;gematria2AltAIBech += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAIBech = AltAIBech.substring(0, AltAIBech.length - 1);gematria2AltAIBech -= L14;gematria2AltAIBech += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAIBech = AltAIBech.substring(0, AltAIBech.length - 1);gematria2AltAIBech -= L14;gematria2AltAIBech += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAIBech = AltAIBech.substring(0, AltAIBech.length - 1);gematria2AltAIBech -= L17;gematria2AltAIBech += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAIBech = AltAIBech.substring(0, AltAIBech.length - 1);gematria2AltAIBech -= L18;gematria2AltAIBech += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6283,6 +6421,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05EA";gematria2AltAChBeL += L22;break;	// tav
 			/*mem*/		case "\u05DE":letter = "\u05D0";gematria2AltAChBeL += L01;break;	// aleph
 			/*nun*/		case "\u05E0":letter = "\u05D1";gematria2AltAChBeL += L02;break;	// bet
+			/*Bk nun*/	case "\u05C6":letter = "\u05D1";gematria2AltAChBeL += L02;break;	// bet
 			/*samech*/	case "\u05E1":letter = "\u05D2";gematria2AltAChBeL += L03;break;	// gimel
 			/*ayin*/	case "\u05E2":letter = "\u05D3";gematria2AltAChBeL += L04;break;	// dalet
 			/*pey*/		case "\u05E4":letter = "\u05D4";gematria2AltAChBeL += L05;break;	// hey
@@ -6306,6 +6445,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAChBeL = AltAChBeL.substring(0, AltAChBeL.length - 1);gematria2AltAChBeL -= L11;gematria2AltAChBeL += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAChBeL = AltAChBeL.substring(0, AltAChBeL.length - 1);gematria2AltAChBeL -= L13;gematria2AltAChBeL += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAChBeL = AltAChBeL.substring(0, AltAChBeL.length - 1);gematria2AltAChBeL -= L14;gematria2AltAChBeL += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAChBeL = AltAChBeL.substring(0, AltAChBeL.length - 1);gematria2AltAChBeL -= L14;gematria2AltAChBeL += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAChBeL = AltAChBeL.substring(0, AltAChBeL.length - 1);gematria2AltAChBeL -= L17;gematria2AltAChBeL += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAChBeL = AltAChBeL.substring(0, AltAChBeL.length - 1);gematria2AltAChBeL -= L18;gematria2AltAChBeL += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6332,6 +6472,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D0";gematria2AltELBaM += L01;break;	// aleph
 			/*mem*/		case "\u05DE":letter = "\u05D1";gematria2AltELBaM += L02;break;	// bet
 			/*nun*/		case "\u05E0":letter = "\u05D2";gematria2AltELBaM += L03;break;	// gimel
+			/*Bk nun*/	case "\u05C6":letter = "\u05D2";gematria2AltELBaM += L03;break;	// gimel
 			/*samech*/	case "\u05E1":letter = "\u05D3";gematria2AltELBaM += L04;break;	// dalet
 			/*ayin*/	case "\u05E2":letter = "\u05D4";gematria2AltELBaM += L05;break;	// hey
 			/*pey*/		case "\u05E4":letter = "\u05D5";gematria2AltELBaM += L06;break;	// vav
@@ -6355,6 +6496,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltELBaM = AltELBaM.substring(0, AltELBaM.length - 1);gematria2AltELBaM -= L11;gematria2AltELBaM += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltELBaM = AltELBaM.substring(0, AltELBaM.length - 1);gematria2AltELBaM -= L13;gematria2AltELBaM += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltELBaM = AltELBaM.substring(0, AltELBaM.length - 1);gematria2AltELBaM -= L14;gematria2AltELBaM += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltELBaM = AltELBaM.substring(0, AltELBaM.length - 1);gematria2AltELBaM -= L14;gematria2AltELBaM += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltELBaM = AltELBaM.substring(0, AltELBaM.length - 1);gematria2AltELBaM -= L17;gematria2AltELBaM += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltELBaM = AltELBaM.substring(0, AltELBaM.length - 1);gematria2AltELBaM -= L18;gematria2AltELBaM += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6381,6 +6523,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D1";gematria2AltAMBeN += L02;break;	// bet
 			/*mem*/		case "\u05DE":letter = "\u05D2";gematria2AltAMBeN += L03;break;	// gimel
 			/*nun*/		case "\u05E0":letter = "\u05D3";gematria2AltAMBeN += L04;break;	// dalet
+			/*Bk nun*/	case "\u05C6":letter = "\u05D3";gematria2AltAMBeN += L04;break;	// dalet
 			/*samech*/	case "\u05E1":letter = "\u05D4";gematria2AltAMBeN += L05;break;	// hey
 			/*ayin*/	case "\u05E2":letter = "\u05D5";gematria2AltAMBeN += L06;break;	// vav
 			/*pey*/		case "\u05E4":letter = "\u05D6";gematria2AltAMBeN += L07;break;	// zayin
@@ -6404,6 +6547,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAMBeN = AltAMBeN.substring(0, AltAMBeN.length - 1);gematria2AltAMBeN -= L11;gematria2AltAMBeN += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAMBeN = AltAMBeN.substring(0, AltAMBeN.length - 1);gematria2AltAMBeN -= L13;gematria2AltAMBeN += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAMBeN = AltAMBeN.substring(0, AltAMBeN.length - 1);gematria2AltAMBeN -= L14;gematria2AltAMBeN += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAMBeN = AltAMBeN.substring(0, AltAMBeN.length - 1);gematria2AltAMBeN -= L14;gematria2AltAMBeN += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAMBeN = AltAMBeN.substring(0, AltAMBeN.length - 1);gematria2AltAMBeN -= L17;gematria2AltAMBeN += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAMBeN = AltAMBeN.substring(0, AltAMBeN.length - 1);gematria2AltAMBeN -= L18;gematria2AltAMBeN += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6430,6 +6574,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D2";gematria2AltANBeS += L03;break;	// gimel
 			/*mem*/		case "\u05DE":letter = "\u05D3";gematria2AltANBeS += L04;break;	// dalet
 			/*nun*/		case "\u05E0":letter = "\u05D4";gematria2AltANBeS += L05;break;	// hey
+			/*Bk nun*/	case "\u05C6":letter = "\u05D4";gematria2AltANBeS += L05;break;	// hey
 			/*samech*/	case "\u05E1":letter = "\u05D5";gematria2AltANBeS += L06;break;	// vav
 			/*ayin*/	case "\u05E2":letter = "\u05D6";gematria2AltANBeS += L07;break;	// zayin
 			/*pey*/		case "\u05E4":letter = "\u05D7";gematria2AltANBeS += L08;break;	// chet
@@ -6453,6 +6598,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltANBeS = AltANBeS.substring(0, AltANBeS.length - 1);gematria2AltANBeS -= L11;gematria2AltANBeS += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltANBeS = AltANBeS.substring(0, AltANBeS.length - 1);gematria2AltANBeS -= L13;gematria2AltANBeS += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltANBeS = AltANBeS.substring(0, AltANBeS.length - 1);gematria2AltANBeS -= L14;gematria2AltANBeS += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltANBeS = AltANBeS.substring(0, AltANBeS.length - 1);gematria2AltANBeS -= L14;gematria2AltANBeS += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltANBeS = AltANBeS.substring(0, AltANBeS.length - 1);gematria2AltANBeS -= L17;gematria2AltANBeS += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltANBeS = AltANBeS.substring(0, AltANBeS.length - 1);gematria2AltANBeS -= L18;gematria2AltANBeS += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6479,6 +6625,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D3";gematria2AltASBA += L04;break;	// dalet
 			/*mem*/		case "\u05DE":letter = "\u05D4";gematria2AltASBA += L05;break;	// hey
 			/*nun*/		case "\u05E0":letter = "\u05D5";gematria2AltASBA += L06;break;	// vav
+			/*Bk nun*/	case "\u05C6":letter = "\u05D5";gematria2AltASBA += L06;break;	// vav
 			/*samech*/	case "\u05E1":letter = "\u05D6";gematria2AltASBA += L07;break;	// zayin
 			/*ayin*/	case "\u05E2":letter = "\u05D7";gematria2AltASBA += L08;break;	// chet
 			/*pey*/		case "\u05E4":letter = "\u05D8";gematria2AltASBA += L09;break;	// tet
@@ -6502,6 +6649,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltASBA = AltASBA.substring(0, AltASBA.length - 1);gematria2AltASBA -= L11;gematria2AltASBA += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltASBA = AltASBA.substring(0, AltASBA.length - 1);gematria2AltASBA -= L13;gematria2AltASBA += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltASBA = AltASBA.substring(0, AltASBA.length - 1);gematria2AltASBA -= L14;gematria2AltASBA += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltASBA = AltASBA.substring(0, AltASBA.length - 1);gematria2AltASBA -= L14;gematria2AltASBA += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltASBA = AltASBA.substring(0, AltASBA.length - 1);gematria2AltASBA -= L17;gematria2AltASBA += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltASBA = AltASBA.substring(0, AltASBA.length - 1);gematria2AltASBA -= L18;gematria2AltASBA += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6528,6 +6676,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D4";gematria2AltAABaPh += L05;break;	// hey
 			/*mem*/		case "\u05DE":letter = "\u05D5";gematria2AltAABaPh += L06;break;	// vav
 			/*nun*/		case "\u05E0":letter = "\u05D6";gematria2AltAABaPh += L07;break;	// zayin
+			/*Bk nun*/	case "\u05C6":letter = "\u05D6";gematria2AltAABaPh += L07;break;	// zayin
 			/*samech*/	case "\u05E1":letter = "\u05D7";gematria2AltAABaPh += L08;break;	// chet
 			/*ayin*/	case "\u05E2":letter = "\u05D8";gematria2AltAABaPh += L09;break;	// tet
 			/*pey*/		case "\u05E4":letter = "\u05D9";gematria2AltAABaPh += L10;break;	// yod
@@ -6551,6 +6700,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAABaPh = AltAABaPh.substring(0, AltAABaPh.length - 1);gematria2AltAABaPh -= L11;gematria2AltAABaPh += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAABaPh = AltAABaPh.substring(0, AltAABaPh.length - 1);gematria2AltAABaPh -= L13;gematria2AltAABaPh += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAABaPh = AltAABaPh.substring(0, AltAABaPh.length - 1);gematria2AltAABaPh -= L14;gematria2AltAABaPh += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAABaPh = AltAABaPh.substring(0, AltAABaPh.length - 1);gematria2AltAABaPh -= L14;gematria2AltAABaPh += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAABaPh = AltAABaPh.substring(0, AltAABaPh.length - 1);gematria2AltAABaPh -= L17;gematria2AltAABaPh += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAABaPh = AltAABaPh.substring(0, AltAABaPh.length - 1);gematria2AltAABaPh -= L18;gematria2AltAABaPh += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6577,6 +6727,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D5";gematria2AltAPhBaTz += L06;break;	// vav
 			/*mem*/		case "\u05DE":letter = "\u05D6";gematria2AltAPhBaTz += L07;break;	// zayin
 			/*nun*/		case "\u05E0":letter = "\u05D7";gematria2AltAPhBaTz += L08;break;	// chet
+			/*Bk nun*/	case "\u05C6":letter = "\u05D7";gematria2AltAPhBaTz += L08;break;	// chet
 			/*samech*/	case "\u05E1":letter = "\u05D8";gematria2AltAPhBaTz += L09;break;	// tet
 			/*ayin*/	case "\u05E2":letter = "\u05D9";gematria2AltAPhBaTz += L10;break;	// yod
 			/*pey*/		case "\u05E4":letter = "\u05DB";gematria2AltAPhBaTz += L11;break;	// kaf
@@ -6600,6 +6751,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAPhBaTz = AltAPhBaTz.substring(0, AltAPhBaTz.length - 1);gematria2AltAPhBaTz -= L11;gematria2AltAPhBaTz += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAPhBaTz = AltAPhBaTz.substring(0, AltAPhBaTz.length - 1);gematria2AltAPhBaTz -= L13;gematria2AltAPhBaTz += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAPhBaTz = AltAPhBaTz.substring(0, AltAPhBaTz.length - 1);gematria2AltAPhBaTz -= L14;gematria2AltAPhBaTz += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAPhBaTz = AltAPhBaTz.substring(0, AltAPhBaTz.length - 1);gematria2AltAPhBaTz -= L14;gematria2AltAPhBaTz += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAPhBaTz = AltAPhBaTz.substring(0, AltAPhBaTz.length - 1);gematria2AltAPhBaTz -= L17;gematria2AltAPhBaTz += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAPhBaTz = AltAPhBaTz.substring(0, AltAPhBaTz.length - 1);gematria2AltAPhBaTz -= L18;gematria2AltAPhBaTz += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6626,6 +6778,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D6";gematria2AltATzBeQ += L07;break;	// zayin
 			/*mem*/		case "\u05DE":letter = "\u05D7";gematria2AltATzBeQ += L08;break;	// chet
 			/*nun*/		case "\u05E0":letter = "\u05D8";gematria2AltATzBeQ += L09;break;	// tet
+			/*Bk nun*/	case "\u05C6":letter = "\u05D8";gematria2AltATzBeQ += L09;break;	// tet
 			/*samech*/	case "\u05E1":letter = "\u05D9";gematria2AltATzBeQ += L10;break;	// yod
 			/*ayin*/	case "\u05E2":letter = "\u05DB";gematria2AltATzBeQ += L11;break;	// kaf
 			/*pey*/		case "\u05E4":letter = "\u05DC";gematria2AltATzBeQ += L12;break;	// lamed
@@ -6649,6 +6802,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltATzBeQ = AltATzBeQ.substring(0, AltATzBeQ.length - 1);gematria2AltATzBeQ -= L11;gematria2AltATzBeQ += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltATzBeQ = AltATzBeQ.substring(0, AltATzBeQ.length - 1);gematria2AltATzBeQ -= L13;gematria2AltATzBeQ += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltATzBeQ = AltATzBeQ.substring(0, AltATzBeQ.length - 1);gematria2AltATzBeQ -= L14;gematria2AltATzBeQ += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltATzBeQ = AltATzBeQ.substring(0, AltATzBeQ.length - 1);gematria2AltATzBeQ -= L14;gematria2AltATzBeQ += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltATzBeQ = AltATzBeQ.substring(0, AltATzBeQ.length - 1);gematria2AltATzBeQ -= L17;gematria2AltATzBeQ += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltATzBeQ = AltATzBeQ.substring(0, AltATzBeQ.length - 1);gematria2AltATzBeQ -= L18;gematria2AltATzBeQ += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6675,6 +6829,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D7";gematria2AltAKBaR += L08;break;	// chet
 			/*mem*/		case "\u05DE":letter = "\u05D8";gematria2AltAKBaR += L09;break;	// tet
 			/*nun*/		case "\u05E0":letter = "\u05D9";gematria2AltAKBaR += L10;break;	// yod
+			/*Bk nun*/	case "\u05C6":letter = "\u05D9";gematria2AltAKBaR += L10;break;	// yod
 			/*samech*/	case "\u05E1":letter = "\u05DB";gematria2AltAKBaR += L11;break;	// kaf
 			/*ayin*/	case "\u05E2":letter = "\u05DC";gematria2AltAKBaR += L12;break;	// lamed
 			/*pey*/		case "\u05E4":letter = "\u05DE";gematria2AltAKBaR += L13;break;	// mem
@@ -6698,6 +6853,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAKBaR = AltAKBaR.substring(0, AltAKBaR.length - 1);gematria2AltAKBaR -= L11;gematria2AltAKBaR += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAKBaR = AltAKBaR.substring(0, AltAKBaR.length - 1);gematria2AltAKBaR -= L13;gematria2AltAKBaR += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAKBaR = AltAKBaR.substring(0, AltAKBaR.length - 1);gematria2AltAKBaR -= L14;gematria2AltAKBaR += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAKBaR = AltAKBaR.substring(0, AltAKBaR.length - 1);gematria2AltAKBaR -= L14;gematria2AltAKBaR += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAKBaR = AltAKBaR.substring(0, AltAKBaR.length - 1);gematria2AltAKBaR -= L17;gematria2AltAKBaR += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAKBaR = AltAKBaR.substring(0, AltAKBaR.length - 1);gematria2AltAKBaR -= L18;gematria2AltAKBaR += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6724,6 +6880,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D8";gematria2AltARBeSh += L09;break;	// tet
 			/*mem*/		case "\u05DE":letter = "\u05D9";gematria2AltARBeSh += L10;break;	// yod
 			/*nun*/		case "\u05E0":letter = "\u05DB";gematria2AltARBeSh += L11;break;	// kaf
+			/*nun*/		case "\u05C6":letter = "\u05DB";gematria2AltARBeSh += L11;break;	// kaf
 			/*samech*/	case "\u05E1":letter = "\u05DC";gematria2AltARBeSh += L12;break;	// lamed
 			/*ayin*/	case "\u05E2":letter = "\u05DE";gematria2AltARBeSh += L13;break;	// mem
 			/*pey*/		case "\u05E4":letter = "\u05E0";gematria2AltARBeSh += L14;break;	// nun
@@ -6747,6 +6904,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltARBeSh = AltARBeSh.substring(0, AltARBeSh.length - 1);gematria2AltARBeSh -= L11;gematria2AltARBeSh += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltARBeSh = AltARBeSh.substring(0, AltARBeSh.length - 1);gematria2AltARBeSh -= L13;gematria2AltARBeSh += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltARBeSh = AltARBeSh.substring(0, AltARBeSh.length - 1);gematria2AltARBeSh -= L14;gematria2AltARBeSh += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltARBeSh = AltARBeSh.substring(0, AltARBeSh.length - 1);gematria2AltARBeSh -= L14;gematria2AltARBeSh += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltARBeSh = AltARBeSh.substring(0, AltARBeSh.length - 1);gematria2AltARBeSh -= L17;gematria2AltARBeSh += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltARBeSh = AltARBeSh.substring(0, AltARBeSh.length - 1);gematria2AltARBeSh -= L18;gematria2AltARBeSh += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6773,6 +6931,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05D9";gematria2AltAShBeT += L10;break;	// yod
 			/*mem*/		case "\u05DE":letter = "\u05DB";gematria2AltAShBeT += L11;break;	// kaf
 			/*nun*/		case "\u05E0":letter = "\u05DC";gematria2AltAShBeT += L12;break;	// lamed
+			/*Bk nun*/	case "\u05C6":letter = "\u05DC";gematria2AltAShBeT += L12;break;	// lamed
 			/*samech*/	case "\u05E1":letter = "\u05DE";gematria2AltAShBeT += L13;break;	// mem
 			/*ayin*/	case "\u05E2":letter = "\u05E0";gematria2AltAShBeT += L14;break;	// nun
 			/*pey*/		case "\u05E4":letter = "\u05E1";gematria2AltAShBeT += L15;break;	// samech
@@ -6796,6 +6955,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltAShBeT = AltAShBeT.substring(0, AltAShBeT.length - 1);gematria2AltAShBeT -= L11;gematria2AltAShBeT += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltAShBeT = AltAShBeT.substring(0, AltAShBeT.length - 1);gematria2AltAShBeT -= L13;gematria2AltAShBeT += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltAShBeT = AltAShBeT.substring(0, AltAShBeT.length - 1);gematria2AltAShBeT -= L14;gematria2AltAShBeT += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltAShBeT = AltAShBeT.substring(0, AltAShBeT.length - 1);gematria2AltAShBeT -= L14;gematria2AltAShBeT += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltAShBeT = AltAShBeT.substring(0, AltAShBeT.length - 1);gematria2AltAShBeT -= L17;gematria2AltAShBeT += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltAShBeT = AltAShBeT.substring(0, AltAShBeT.length - 1);gematria2AltAShBeT -= L18;gematria2AltAShBeT += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6822,6 +6982,7 @@ for (var i=0; i < inputText.length; i++){
 			/*lamed*/	case "\u05DC":letter = "\u05DB";gematria2AltATBaH += L11;break;	// kaf
 			/*mem*/		case "\u05DE":letter = "\u05DC";gematria2AltATBaH += L12;break;	// lamed
 			/*nun*/		case "\u05E0":letter = "\u05DE";gematria2AltATBaH += L13;break;	// mem
+			/*Bk nun*/	case "\u05C6":letter = "\u05DE";gematria2AltATBaH += L13;break;	// mem
 			/*samech*/	case "\u05E1":letter = "\u05E0";gematria2AltATBaH += L14;break;	// nun
 			/*ayin*/	case "\u05E2":letter = "\u05E1";gematria2AltATBaH += L15;break;	// samech
 			/*pey*/		case "\u05E4":letter = "\u05E2";gematria2AltATBaH += L16;break;	// ayin
@@ -6845,6 +7006,7 @@ for (var i=0; i < inputText.length; i++){
 				/*kaf*/		case "\u05DB":letter = "\u05DA";AltATBaH = AltATBaH.substring(0, AltATBaH.length - 1);gematria2AltATBaH -= L11;gematria2AltATBaH += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";AltATBaH = AltATBaH.substring(0, AltATBaH.length - 1);gematria2AltATBaH -= L13;gematria2AltATBaH += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";AltATBaH = AltATBaH.substring(0, AltATBaH.length - 1);gematria2AltATBaH -= L14;gematria2AltATBaH += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";AltATBaH = AltATBaH.substring(0, AltATBaH.length - 1);gematria2AltATBaH -= L14;gematria2AltATBaH += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";AltATBaH = AltATBaH.substring(0, AltATBaH.length - 1);gematria2AltATBaH -= L17;gematria2AltATBaH += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";AltATBaH = AltATBaH.substring(0, AltATBaH.length - 1);gematria2AltATBaH -= L18;gematria2AltATBaH += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -6895,7 +7057,7 @@ document.getElementById("transpose").focus();
 function randomString(length, chars) {
 	var ranum = Math.floor(Math.random() * ((7-2)+1) + 2);	// Make ranum a random number of characters between 2 through 7 to create a typical Hebrew word
 		var inputText = document.getElementById('inputText').value;
-		inputText = inputText.replace(/[^\w\u05D0-\u05EA\u037B-\u03FF]/g, '');
+	inputText = inputText.replace(/[^\w\u05C6\u05D0-\u05EA\u037B-\u03FF]/g, '');
 		if((inputText.length > 1) && (inputText.length < 8)) {
 		var ranum = inputText.length;	// Make ranum the same number of characters as the input word(s)
 		}

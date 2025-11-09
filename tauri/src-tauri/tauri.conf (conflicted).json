@@ -1,0 +1,79 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "GemaCrypt",
+  "version": "0.0.1",
+  "identifier": "com.bumpper.gemacrypt",
+  "build": {
+    "frontendDist": "src",
+    "devUrl": "http://127.0.0.1:8000",
+    "beforeDevCommand": "",
+    "beforeBuildCommand": "node ../scripts/copy-php.js"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "GemaCrypt",
+        "width": 800,
+        "height": 600,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico",
+      "icons/icon.png"
+    ],
+    "publisher": "Bumpper",
+    "copyright": "Copyright © 2024 Dan Neiderhiser",
+    "category": "Utility",
+    "shortDescription": "GemaCrypt - Gematria and Cryptography Tool",
+    "longDescription": "Desktop application for gematria calculations and cryptographic operations",
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": "",
+      "wix": {
+        "language": "en-US"
+      },
+      "nsis": {
+        "installerIcon": "icons/icon.ico",
+        "license": null,
+        "languages": ["en-US"]
+      }
+    },
+    "macOS": {
+      "frameworks": [],
+      "minimumSystemVersion": "10.13",
+      "exceptionDomain": "",
+      "signingIdentity": null,
+      "providerShortName": null,
+      "entitlements": null
+    },
+    "linux": {
+      "deb": {
+        "depends": ["php"],
+        "section": "utils",
+        "priority": "optional"
+      },
+      "rpm": {
+        "depends": ["php"],
+        "release": "1",
+        "epoch": 0
+      },
+      "appimage": {
+        "bundleMediaFramework": false
+      }
+    }
+  }
+}

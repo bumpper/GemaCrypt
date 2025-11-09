@@ -5,27 +5,16 @@
   "description": "Desktop wrapper for GemaCrypt PHP application using Tauri",
   "author": "Dan Neiderhiser",
   "scripts": {
+    "start:php": "php -S 127.0.0.1:8000 -t \"F:/Daniel/My Web Sites/radius.center/gemacrypt\"",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
-    "start:php": "node scripts/dev-server.js",
-    "dev": "node scripts/dev-server.js & npm run tauri:dev",
-    "dev:windows": "start /B cmd /C \"node scripts/dev-server.js\" & tauri dev",
-    "dev:mac": "node scripts/dev-server.js & npm run tauri:dev",
-    "dev:linux": "node scripts/dev-server.js & npm run tauri:dev",
+    "dev": "start /B cmd /C \"php -S 127.0.0.1:8000 -t \"F:/Daniel/My Web Sites/radius.center/gemacrypt\"\" & tauri dev",
+    "dev:all": "start /B cmd /C \"php -S 127.0.0.1:8000 -t \"F:/Daniel/My Web Sites/radius.center/gemacrypt\"\" & tauri dev",
     "build": "tauri build",
     "build:windows": "tauri build --target x86_64-pc-windows-msvc",
-    "build:mac": "tauri build --target aarch64-apple-darwin",
-    "build:mac-intel": "tauri build --target x86_64-apple-darwin",
-    "build:linux": "tauri build",
-    "build:linux-deb": "tauri build --bundles deb",
-    "build:linux-rpm": "RPM_BUILD=true tauri build --bundles rpm",
-    "build:linux-appimage": "tauri build --bundles appimage",
-    "build:fedora": "RPM_BUILD=true tauri build --bundles rpm,appimage",
-    "package:php": "node scripts/copy-php-cross-platform.js",
-    "package:php-windows": "node scripts/copy-php.js",
-    "platform:info": "node -e \"require('./scripts/platform-utils').printPlatformInfo()\"",
+    "package:php-windows": "node ./scripts/copy-php.js",
     "clean": "cd src-tauri && cargo clean && cd ..",
-    "clean:all": "npm run clean && rm -rf node_modules || rmdir /s /q node_modules 2>nul || echo Cleaned"
+    "clean:all": "npm run clean && rmdir /s /q node_modules 2>nul || echo Cleaned"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.0.0"

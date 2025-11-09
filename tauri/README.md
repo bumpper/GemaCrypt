@@ -1,16 +1,10 @@
 # GemaCrypt - Desktop Application
 
-A cross-platform desktop wrapper for the GemaCrypt PHP application built with Tauri 2.0.
+A desktop wrapper for the GemaCrypt PHP application built with Tauri 2.0.
 
 ## Overview
 
 GemaCrypt is a native desktop application that wraps a PHP-based gematria and cryptography tool, providing a seamless desktop experience with the power of Tauri's native performance and security features.
-
-**✨ Now with full cross-platform support!**
-- 🪟 Windows (MSI, NSIS)
-- 🍎 macOS (DMG, APP)
-- 🐧 Linux (DEB, AppImage)
-- 🎩 Fedora/RHEL (RPM)
 
 ## Quick Start
 
@@ -38,63 +32,12 @@ GemaCrypt is a native desktop application that wraps a PHP-based gematria and cr
    ```
    Or double-click `quick-build.bat` (Windows)
 
-## Cross-Platform Support
-
-### Can I build for other platforms from Windows?
-
-**Short Answer:** No, you must build on each target platform.
-
-**What You Can Do:**
-- ✅ Copy the project files to any platform (Mac, Linux, Fedora)
-- ✅ Build native executables on each platform
-- ✅ Create platform-specific installers (DMG, DEB, RPM)
-
-**What You Cannot Do:**
-- ❌ Build macOS DMG from Windows
-- ❌ Build Linux DEB/RPM from Windows
-- ❌ Build Windows MSI from macOS/Linux
-
-### Building on Different Platforms
-
-**Windows:**
-```cmd
-quick-build.bat
-# Creates: MSI, NSIS installers
-```
-
-**macOS:**
-```bash
-chmod +x quick-build.sh
-./quick-build.sh
-# Creates: DMG, APP bundle
-```
-
-**Linux (Ubuntu/Debian):**
-```bash
-chmod +x quick-build.sh
-./quick-build.sh
-# Creates: DEB, AppImage
-```
-
-**Fedora/RHEL:**
-```bash
-chmod +x quick-build.sh
-./quick-build.sh
-# Creates: RPM, AppImage
-```
-
-📖 **For detailed cross-platform instructions, see:**
-- **[BUILD_INSTRUCTIONS_CROSS_PLATFORM.md](BUILD_INSTRUCTIONS_CROSS_PLATFORM.md)** - Complete cross-platform build guide
-- **[PLATFORM_SETUP.md](PLATFORM_SETUP.md)** - Platform-specific setup instructions
-
 ## Documentation
 
 📚 **Complete documentation is available in the following files:**
 
 - **[START_HERE.md](START_HERE.md)** - Quick start guide for new users
-- **[BUILD_INSTRUCTIONS.md](BUILD_INSTRUCTIONS.md)** - Detailed build instructions (Windows)
-- **[BUILD_INSTRUCTIONS_CROSS_PLATFORM.md](BUILD_INSTRUCTIONS_CROSS_PLATFORM.md)** - Cross-platform build guide
-- **[PLATFORM_SETUP.md](PLATFORM_SETUP.md)** - Platform-specific setup guide
+- **[BUILD_INSTRUCTIONS.md](BUILD_INSTRUCTIONS.md)** - Detailed build instructions
 - **[SETUP.md](SETUP.md)** - Environment setup guide
 - **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** - Technical overview
 - **[CHECKLIST.md](CHECKLIST.md)** - Development checklist

@@ -723,6 +723,30 @@
 			gap: 5px;
 			align-items: center;
 		}
+
+	#loadingIndicator .loading-close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		color: #fff;
+		font-size: 22px;
+		font-weight: bold;
+		cursor: pointer;
+		background: rgba(0,0,0,0.2);
+		border: none;
+		border-radius: 50%;
+		width: 32px;
+		height: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background 0.2s;
+		z-index: 10001;
+	}
+	#loadingIndicator .loading-close:hover {
+		background: rgba(255,255,255,0.2);
+		color: #ff6666;
+	}
 		
 		/* === MOBILE ONLY (≤ 600 px) === */
 		@media (max-width: 650px) {
@@ -1007,6 +1031,7 @@
 					/*lamed*/	case "\u05DC": letter = "\u05DB"; break;	// kaf
 					/*mem*/		case "\u05DE": letter = "\u05D9"; break;	// yod
 					/*nun*/		case "\u05E0": letter = "\u05D8"; break;	// tet
+					/*Bk nun*/	case "\u05C6": letter = "\u05D8"; break;	// tet
 					/*samech*/	case "\u05E1": letter = "\u05D7"; break;	// chet
 					/*ayin*/	case "\u05E2": letter = "\u05D6"; break;	// zayin
 					/*pey*/		case "\u05E4": letter = "\u05D5"; break;	// vav
@@ -1048,6 +1073,7 @@
 				case "\u05DC": encryptedTotal += L12;	break;	//lamed		ל
 				case "\u05DE": encryptedTotal += L13;	break;	//mem		מ
 				case "\u05E0": encryptedTotal += L14;	break;	//nun		נ
+				case "\u05C6": encryptedTotal += L14;	break;	//Bk nun	׆
 				case "\u05E1": encryptedTotal += L15;	break;	//samech	ס
 				case "\u05E2": encryptedTotal += L16;	break;	//ayin		ע
 				case "\u05E4": encryptedTotal += L17;	break;	//pey		פ
@@ -1235,6 +1261,7 @@
 		#bookSelect option          { background:#3333aa; color:#fff; border-radius: 5px; }	/*  Fallback color for any option that does not get an override  */
 		#bookSelect option          { background:var(--opt-bg,#3333aa); border-radius: 5px; }   /*  Apply the custom color (if it exists)  */
 		/*--------OT Hebrew--------*/
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Hebrew/HebrewOT.txt"]														{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Hebrew/genesis/genesis.txt"]												{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Hebrew/exodus/exodus.txt"]													{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Hebrew/leviticus/leviticus.txt"]											{ --opt-bg:#3333aa; }
@@ -1275,6 +1302,7 @@
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Hebrew/zechariah/zechariah.txt"]											{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Hebrew/malachi/malachi.txt"]												{ --opt-bg:#3333aa; }
 		/*--------NT Hebrew----------E. Magoliouth-Trans--*/
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/HebrewNT.txt"]						{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/matthew/matthew.txt"]				{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/mark/mark.txt"]						{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/luke/luke.txt"]						{ --opt-bg:#546cad; }
@@ -1303,6 +1331,7 @@
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/jude/jude.txt"]						{ --opt-bg:#546cad; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/revelation/revelation.txt"]			{ --opt-bg:#546cad; }
 		/*--------NT Hebrew---------Delitzsch-Translation-*/
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/HebrewNT.txt"]								{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/matthew/matthew.txt"]							{ --opt-bg:#4589a8; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/mark/mark.txt"]								{ --opt-bg:#4589a8; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/luke/luke.txt"]								{ --opt-bg:#4589a8; }
@@ -1331,6 +1360,7 @@
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/jude/jude.txt"]								{ --opt-bg:#4589a8; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/revelation/revelation.txt"]					{ --opt-bg:#4589a8; }
 		/*--------NT Hebrew---------Salkinson-Translation-*/
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/HebrewNT.txt"]								{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/matthew/matthew.txt"]							{ --opt-bg:#00aeff; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/mark/mark.txt"]								{ --opt-bg:#00aeff; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/luke/luke.txt"]								{ --opt-bg:#00aeff; }
@@ -1359,6 +1389,7 @@
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/jude/jude.txt"]								{ --opt-bg:#00aeff; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/revelation/revelation.txt"]					{ --opt-bg:#00aeff; }
 		/*--------NT Hebrew---------Richmond-Translation--*/
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/HebrewNT.txt"]									{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/matthew/matthew.txt"]							{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/mark/mark.txt"]								{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/luke/luke.txt"]								{ --opt-bg:#48bef5; }
@@ -1387,6 +1418,7 @@
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/jude/jude.txt"]								{ --opt-bg:#48bef5; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/revelation/revelation.txt"]					{ --opt-bg:#48bef5; }
 		/*--------OT Greek--------*/
+		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/GreekOT.txt"]														{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/genesis/genesis.txt"]												{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/exodus/exodus.txt"]													{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/leviticus/leviticus.txt"]											{ --opt-bg:#007700; }
@@ -1427,6 +1459,7 @@
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/zechariah/zechariah.txt"]											{ --opt-bg:#007700; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/Greek/malachi/malachi.txt"]												{ --opt-bg:#007700; }
 		/*--------NT Greek--------*/
+		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/GreekNT.txt"]														{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/matthew/matthew.txt"]												{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/mark/mark.txt"]														{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/luke/luke.txt"]														{ --opt-bg:#009900; }
@@ -1455,6 +1488,7 @@
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/jude/jude.txt"]														{ --opt-bg:#009900; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/Greek/revelation/revelation.txt"]											{ --opt-bg:#009900; }
 		/*--------OT English--------*/
+		#bookSelect option[value*="/gemacrypt/files/books/OT/English/EnglishOT.txt"]													{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/genesis/genesis.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/exodus/exodus.txt"]												{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/leviticus/leviticus.txt"]											{ --opt-bg:#cc8000; }
@@ -1495,6 +1529,7 @@
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/zechariah/zechariah.txt"]											{ --opt-bg:#cc8000; }
 		#bookSelect option[value*="/gemacrypt/files/books/OT/English/malachi/malachi.txt"]												{ --opt-bg:#cc8000; }
 		/*--------NT English--------*/
+		#bookSelect option[value*="/gemacrypt/files/books/NT/English/EnglishNT.txt"]													{ --opt-bg:#3333aa; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/matthew/matthew.txt"]												{ --opt-bg:#cc5000; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/mark/mark.txt"]													{ --opt-bg:#cc5000; }
 		#bookSelect option[value*="/gemacrypt/files/books/NT/English/luke/luke.txt"]													{ --opt-bg:#cc5000; }
@@ -1662,7 +1697,7 @@
 		
 		<select id="bookSelect" onchange="loadFile(this.value)">
 			<option value='Book' selected="true">&#x1F4D6; Book:</option>
-			<option value='---'>--------OT Hebrew--------</option><!-- OT in Hebrew -->
+			<option value='/gemacrypt/files/books/OT/Hebrew/HebrewOT.txt'>--------OT Hebrew--------</option><!-- OT in Hebrew -->
 			<option value='/gemacrypt/files/books/OT/Hebrew/genesis/genesis.txt'>&#x1F4DC; Genesis</option>
 			<option value='/gemacrypt/files/books/OT/Hebrew/exodus/exodus.txt'>&#x1F4DC; Exodus</option>
 			<option value='/gemacrypt/files/books/OT/Hebrew/leviticus/leviticus.txt'>&#x1F4DC; Leviticus</option>
@@ -1703,8 +1738,8 @@
 			<option value='/gemacrypt/files/books/OT/Hebrew/zechariah/zechariah.txt'>&#x1F4DC; Zechariah</option>
 			<option value='/gemacrypt/files/books/OT/Hebrew/malachi/malachi.txt'>&#x1F4DC; Malachi</option>
 			<option value='---'> </option>
-			<option value='---'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
-			<option value='---'>--(E. Magoliouth-Trans)--</option><!-- Ezekiel Magoliouth's Translation of the Greek NT to Hebrew -->
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/HebrewNT.txt'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
+			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/HebrewNT.txt'>--(E. Magoliouth-Trans)--</option><!-- Ezekiel Magoliouth's Translation of the Greek NT to Hebrew -->
 			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/matthew/matthew.txt'>&#x1F4D8; Matthew</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/mark/mark.txt'>&#x1F4D8; Mark</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/luke/luke.txt'>&#x1F4D8; Luke</option>
@@ -1733,8 +1768,8 @@
 			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/jude/jude.txt'>&#x1F4D8; Jude</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Ezekiel-Magoliouth-Translation/revelation/revelation.txt'>&#x1F4D8; Revelation</option>
 			<option value='---'> </option>
-			<option value='---'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
-			<option value='---'>-(Delitzsch Translation)-</option><!-- Delitzsch's Translation of the Greek NT to Hebrew -->
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/HebrewNT.txt'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
+			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/HebrewNT.txt'>-(Delitzsch Translation)-</option><!-- Delitzsch's Translation of the Greek NT to Hebrew -->
 			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/matthew/matthew.txt'>&#x1F4D7; Matthew</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/mark/mark.txt'>&#x1F4D7; Mark</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/luke/luke.txt'>&#x1F4D7; Luke</option>
@@ -1763,8 +1798,8 @@
 			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/jude/jude.txt'>&#x1F4D7; Jude</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Delitzsch-Translation/revelation/revelation.txt'>&#x1F4D7; Revelation</option>
 			<option value='---'> </option>
-			<option value='---'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
-			<option value='---'>-(Salkinson-Translation)-</option><!-- Salkinson's Translation of the Greek NT to Hebrew -->
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/HebrewNT.txt'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
+			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/HebrewNT.txt'>-(Salkinson-Translation)-</option><!-- Salkinson's Translation of the Greek NT to Hebrew -->
 			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/matthew/matthew.txt'>&#x1F4D5; Matthew</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/mark/mark.txt'>&#x1F4D5; Mark</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/luke/luke.txt'>&#x1F4D5; Luke</option>
@@ -1793,8 +1828,8 @@
 			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/jude/jude.txt'>&#x1F4D5; Jude</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Salkinson-Translation/revelation/revelation.txt'>&#x1F4D5; Revelation</option>
 			<option value='---'> </option>
-			<option value='---'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
-			<option value='---'>-(Richmond Translation)--</option><!-- Richmond's Translation of the Greek NT to Hebrew -->
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/HebrewNT.txt'>--------NT Hebrew--------</option><!-- NT in Hebrew -->
+			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/HebrewNT.txt'>-(Richmond Translation)--</option><!-- Richmond's Translation of the Greek NT to Hebrew -->
 			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/matthew/matthew.txt'>&#x1F4D9; Matthew</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/mark/mark.txt'>&#x1F4D9; Mark</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/luke/luke.txt'>&#x1F4D9; Luke</option>
@@ -1823,7 +1858,7 @@
 			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/jude/jude.txt'>&#x1F4D9; Jude</option>
 			<option value='/gemacrypt/files/books/NT/Hebrew/Richmond-Translation/revelation/revelation.txt'>&#x1F4D9; Revelation</option>
 			<option value='---'> </option>
-			<option value='---'>--------OT Greek--------</option><!-- OT in Greek -->
+			<option value='/gemacrypt/files/books/OT/Greek/GreekOT.txt'>--------OT Greek--------</option><!-- OT in Greek -->
 			<option value='/gemacrypt/files/books/OT/Greek/genesis/genesis.txt'>&#x1F4DC; Genesis</option>
 			<option value='/gemacrypt/files/books/OT/Greek/exodus/exodus.txt'>&#x1F4DC; Exodus</option>
 			<option value='/gemacrypt/files/books/OT/Greek/leviticus/leviticus.txt'>&#x1F4DC; Leviticus</option>
@@ -1864,7 +1899,7 @@
 			<option value='/gemacrypt/files/books/OT/Greek/zechariah/zechariah.txt'>&#x1F4DC; Zechariah</option>
 			<option value='/gemacrypt/files/books/OT/Greek/malachi/malachi.txt'>&#x1F4DC; Malachi</option>
 			<option value='---'> </option>
-			<option value='---'>--------NT Greek--------</option><!-- NT in Greek -->
+			<option value='/gemacrypt/files/books/NT/Greek/GreekNT.txt'>--------NT Greek--------</option><!-- NT in Greek -->
 			<option value='/gemacrypt/files/books/NT/Greek/matthew/matthew.txt'>&#x1F4D8; Matthew</option>
 			<option value='/gemacrypt/files/books/NT/Greek/mark/mark.txt'>&#x1F4D8; Mark</option>
 			<option value='/gemacrypt/files/books/NT/Greek/luke/luke.txt'>&#x1F4D8; Luke</option>
@@ -1893,7 +1928,7 @@
 			<option value='/gemacrypt/files/books/NT/Greek/jude/jude.txt'>&#x1F4D8; Jude</option>
 			<option value='/gemacrypt/files/books/NT/Greek/revelation/revelation.txt'>&#x1F4D8; Revelation</option>
 			<option value='---'> </option>
-			<option value='---'>--------OT English--------</option>
+			<option value='/gemacrypt/files/books/OT/English/EnglishOT.txt'>--------OT English--------</option>
 			<option value='/gemacrypt/files/books/OT/English/genesis/genesis.txt'>&#x1F4DC; Genesis</option>
 			<option value='/gemacrypt/files/books/OT/English/exodus/exodus.txt'>&#x1F4DC; Exodus</option>
 			<option value='/gemacrypt/files/books/OT/English/leviticus/leviticus.txt'>&#x1F4DC; Leviticus</option>
@@ -1934,7 +1969,7 @@
 			<option value='/gemacrypt/files/books/OT/English/zechariah/zechariah.txt'>&#x1F4DC; Zechariah</option>
 			<option value='/gemacrypt/files/books/OT/English/malachi/malachi.txt'>&#x1F4DC; Malachi</option>
 			<option value='---'> </option>
-			<option value='---'>--------NT English--------</option>
+			<option value='/gemacrypt/files/books/NT/English/EnglishNT.txt'>--------NT English--------</option>
 			<option value='/gemacrypt/files/books/NT/English/matthew/matthew.txt'>&#x1F4D8; Matthew</option>
 			<option value='/gemacrypt/files/books/NT/English/mark/mark.txt'>&#x1F4D8; Mark</option>
 			<option value='/gemacrypt/files/books/NT/English/luke/luke.txt'>&#x1F4D8; Luke</option>
@@ -2911,7 +2946,7 @@
 			<option value='AltWord2'>&#x26D4; Alt Word #2 ⁕</option>
 			<option value='AltWord1'>&#x26D4; Alt Word #1 *</option>
 			<option value='AltLetterSize'>&#x2705; Alt Letter Size</option>
-			<option value='LetterSize'>&#x26D4; Alt Letter Size</option>
+			<!--<option value='LetterSize'>&#x26D4; Alt Letter Size</option>-->
 			<option value='Cantillation'>&#x26D4; Cantillation (♫ notes)</option>
 			<option value='Niqqud'>&#x26D4; Niqqud (Vowel Points)</option>
 			<option value='Maqaf'>&#x26D4; Maqaf (dash, hypenes)</option>
@@ -2973,7 +3008,7 @@
 		<button id="directionBtn" class="textBtn" onclick="greenFlash(this); toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><img src="img/invis.gif" width="6" border="0">Align</button>
 		<button id="wrapBtn" class="textBtn" onclick="greenFlash(this); toggleWrap()"><img src="img/wrap.png" height="16" width="20" border="0" alt="Wrap Text"><img src="img/invis.gif" width="6" border="0">Wrap</button>
 		<button id="lightmodeBtn" class="textBtn" onclick="greenFlash(this); toggleLightMode()"><img src="img/moon.png" height="16" width="16" border="0" alt="Light/Dark Mode"><img src="img/invis.gif" width="4" border="0">Mode</button>
-        <button id="translateBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/translate.png" height="16" width="16" border="0" alt="Translate"><img src="img/invis.gif" width="4" border="0">Tran</button>
+        <button id="transBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/translate.png" height="16" width="16" border="0" alt="Translate"><img src="img/invis.gif" width="4" border="0">Trans</button>
         <button id="printBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/print.png" height="16" width="16" border="0" alt="Print"><img src="img/invis.gif" width="6" border="0">Print</button>
         <button id="exportBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/export.png" height="16" width="16" border="0" alt="Export"><img src="img/invis.gif" width="6" border="0">Export</button>
         <button id="clearBtn" class="textBtn" onclick="greenFlash(this)"><!--<img src="img/clear.png" height="16" width="16" border="0" alt="Clear"><img src="img/invis.gif" width="4" border="0">-->&#x274C; Clear</button>
@@ -3010,6 +3045,7 @@
 	
 	<!-- Loading Indicator -->
 	<div id="loadingIndicator">
+		<div class="loading-close" onclick="hideLoadingIndicator()" title="Close">&#10006;</div>
 		<div class="spinner"></div>
 		<div class="loading-text">
 			<p>Loading...</p>
@@ -3121,6 +3157,7 @@
 						case "\u05DC": total += L12; break; // lamed
 						case "\u05DE": total += L13; break; // mem
 						case "\u05E0": total += L14; break; // nun
+						case "\u05C6": total += L14; break; // Bk nun
 						case "\u05E1": total += L15; break; // samech
 						case "\u05E2": total += L16; break; // ayin
 						case "\u05E4": total += L17; break; // pey
@@ -3487,17 +3524,25 @@
 						const words = plainLineText.split(/[\s\t\u00A0\u2000-\u200B\u2028\u2029\u3000]+/).filter(word => word.trim().length > 0);
 						let gematriaValuesWithTabs = [];
 						
+						// Utility to strip zero-width chars (move outside loop)
+						// Utility to strip zero-width chars
+						function stripZeroWidth(str) {
+						// Remove all specified zero-width and formatting Unicode characters and HTML entities in one regex
+						return str.replace(/[\u200B-\u200F\u202A-\u202E\u2060-\u206F\uFEFF]|&ZeroWidthSpace;|&zwnj;|&zwj;|&NoBreak;|&#8203;|&#8204;|&#8205;|&#8288;|&#2060;|&#65279;|&#x200B;|&#x200C;|&#x200D;|&#xFEFF;/gi, '');
+						
+						}
 						// Calculate gematria for each word
 						for (let word of words) {
 							// Remove Niqqud characters and HTML tags for calculation
 							const wordWithoutNiqqud = word.replace(/[\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '');
-							const wordLength = wordWithoutNiqqud.length;
-							
+							const wordLength = stripZeroWidth(wordWithoutNiqqud).length;
+                            
 							const cleanWord = word.replace(/[.,!?\-;\*\(\)\[\]\u05C3\u05C0⁕]/g, '');
-							if (cleanWord.length > 0 && /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(cleanWord)) {
-								const gematriaValue = calculateWordGematria(cleanWord);
+							let cleanWordForGematria = stripZeroWidth(cleanWord);
+							if (cleanWordForGematria.length > 0 && /[a-zA-Z\u05D0-\u05EA\u05DA-\u05E5\u0370-\u03FF]/.test(cleanWordForGematria)) {
+								const gematriaValue = calculateWordGematria(cleanWordForGematria);
 								let tabCount = Math.floor(wordLength / 8) + 1;
-								
+                                
 								gematriaValuesWithTabs.push({
 									value: gematriaValue,
 									tabs: tabCount
@@ -3689,6 +3734,7 @@
 							case "\u05DE": letterValue = L13; break; // mem = 40
 							case "\u05DF": letterValue = L25; break; // nun sofit = 700
 							case "\u05E0": letterValue = L14; break; // nun = 50
+							case "\u05C6": letterValue = L14; break; // Bk nun = 50
 							case "\u05E1": letterValue = L15; break; // samech = 60
 							case "\u05E2": letterValue = L16; break; // ayin = 70
 							case "\u05E3": letterValue = L26; break; // pey sofit = 800
@@ -3766,6 +3812,7 @@
 							case "\u05DE": total += L13; break; // mem = 40
 							case "\u05DF": total += L25; break; // nun sofit = 700
 							case "\u05E0": total += L14; break; // nun = 50
+							case "\u05C6": total += L14; break; // Bk nun = 50
 							case "\u05E1": total += L15; break; // samech = 60
 							case "\u05E2": total += L16; break; // ayin = 70
 							case "\u05E3": total += L26; break; // pey sofit = 800
@@ -3837,6 +3884,7 @@
 							case "\u05DC": total += L12; break;
 							case "\u05DE": total += L13; break;
 							case "\u05E0": total += L14; break;
+							case "\u05C6": total += L14; break;
 							case "\u05E1": total += L15; break;
 							case "\u05E2": total += L16; break;
 							case "\u05E4": total += L17; break;
@@ -3960,6 +4008,7 @@
 								case "\u05DC": total += L12; break; // lamed
 								case "\u05DE": total += L13; break; // mem
 								case "\u05E0": total += L14; break; // nun
+								case "\u05C6": total += L14; break; // Bk nun
 								case "\u05E1": total += L15; break; // samech
 								case "\u05E2": total += L16; break; // ayin
 								case "\u05E4": total += L17; break; // pey
@@ -4703,6 +4752,7 @@
 							case "\u05DC": total += L12; break; // lamed ל = 30
 							case "\u05DE": total += L13; break; // mem מ = 40
 							case "\u05E0": total += L14; break; // nun נ = 50
+							case "\u05C6": total += L14; break; // Bk nun ׆ = 50
 							case "\u05E1": total += L15; break; // samech ס = 60
 							case "\u05E2": total += L16; break; // ayin ע = 70
 							case "\u05E4": total += L17; break; // pey פ = 80
@@ -5070,6 +5120,7 @@
 								case "\u05DE": letterValue = L13; break; // mem מ = 40
 								case "\u05DF": letterValue = L25; break; // nun sofit ן = 700
 								case "\u05E0": letterValue = L14; break; // nun נ = 50
+								case "\u05C6": letterValue = L14; break; // Bk nun נ = 50
 								case "\u05E1": letterValue = L15; break; // samech ס = 60
 								case "\u05E2": letterValue = L16; break; // ayin ע = 70
 								case "\u05E3": letterValue = L26; break; // pey sofit ף = 800
@@ -5165,6 +5216,7 @@
 								case "\u05DC": total += L12; break; // lamed ל = 30
 								case "\u05DE": total += L13; break; // mem מ = 40
 								case "\u05E0": total += L14; break; // nun נ = 50
+								case "\u05C6": total += L14; break; // Bk nun ׆ = 50
 								case "\u05E1": total += L15; break; // samech ס = 60
 								case "\u05E2": total += L16; break; // ayin ע = 70
 								case "\u05E4": total += L17; break; // pey פ = 80
@@ -5265,6 +5317,7 @@
 							case "\u05DE": letterValue = L13; break; // mem = 40
 							case "\u05DF": letterValue = L25; break; // nun sofit = 700
 							case "\u05E0": letterValue = L14; break; // nun = 50
+							case "\u05C6": letterValue = L14; break; // Bk nun = 50
 							case "\u05E1": letterValue = L15; break; // samech = 60
 							case "\u05E2": letterValue = L16; break; // ayin = 70
 							case "\u05E3": letterValue = L26; break; // pey sofit = 800
@@ -5342,6 +5395,7 @@
 							case "\u05DE": total += L13; break; // mem = 40
 							case "\u05DF": total += L25; break; // nun sofit = 700
 							case "\u05E0": total += L14; break; // nun = 50
+							case "\u05C6": total += L14; break; // Bk nun = 50
 							case "\u05E1": total += L15; break; // samech = 60
 							case "\u05E2": total += L16; break; // ayin = 70
 							case "\u05E3": total += L26; break; // pey sofit = 800
@@ -5856,6 +5910,7 @@
 									case '\u05DB': convertedResult += '\u05DA'; break; // כ → ך
 									case '\u05DE': convertedResult += '\u05DD'; break; // מ → ם
 									case '\u05E0': convertedResult += '\u05DF'; break; // נ → ן
+									case '\u05C6': convertedResult += '\u05DF'; break; // ׆ → ן
 									case '\u05E4': convertedResult += '\u05E3'; break; // פ → ף
 									case '\u05E6': convertedResult += '\u05E5'; break; // צ → ץ
 									default: convertedResult += char; break; // Keep as is (including existing finals)
@@ -5972,6 +6027,7 @@
 								/*lamed*/	case "\u05DC":letter = "\u05DB";break;	// kaf
 								/*mem*/		case "\u05DE":letter = "\u05D9";break;	// yod
 								/*nun*/		case "\u05E0":letter = "\u05D8";break;	// tet
+								/*Bk nun*/	case "\u05C6":letter = "\u05D8";break;	// tet
 								/*samech*/	case "\u05E1":letter = "\u05D7";break;	// chet
 								/*ayin*/	case "\u05E2":letter = "\u05D6";break;	// zayin
 								/*pey*/		case "\u05E4":letter = "\u05D5";break;	// vav
@@ -6005,6 +6061,7 @@
 								/*lamed*/	case "\u05DC":letter = "\u05E9";break;	// shin
 								/*mem*/		case "\u05DE":letter = "\u05EA";break;	// tav
 								/*nun*/		case "\u05E0":letter = "\u05DB";break;	// kaf
+								/*Bk nun*/	case "\u05C6":letter = "\u05DB";break;	// kaf
 								/*samech*/	case "\u05E1":letter = "\u05DE";break;	// mem
 								/*ayin*/	case "\u05E2":letter = "\u05E0";break;	// nun
 								/*pey*/		case "\u05E4":letter = "\u05E4";break;	// pey
@@ -6038,6 +6095,7 @@
 								/*lamed*/	case "\u05DC":letter = "\u05D0";break;	// aleph
 								/*mem*/		case "\u05DE":letter = "\u05D1";break;	// bet
 								/*nun*/		case "\u05E0":letter = "\u05D2";break;	// gimel
+								/*Bk nun*/	case "\u05C6":letter = "\u05D2";break;	// gimel
 								/*samech*/	case "\u05E1":letter = "\u05D3";break;	// dalet
 								/*ayin*/	case "\u05E2":letter = "\u05D4";break;	// hey
 								/*pey*/		case "\u05E4":letter = "\u05D5";break;	// vav
@@ -6071,6 +6129,7 @@
 								/*lamed*/	case "\u05DC":letter = "\u05EA";break;	// tav
 								/*mem*/		case "\u05DE":letter = "\u05E9";break;	// shin
 								/*nun*/		case "\u05E0":letter = "\u05E8";break;	// resh
+								/*Bk nun*/	case "\u05C6":letter = "\u05E8";break;	// resh
 								/*samech*/	case "\u05E1":letter = "\u05E7";break;	// kuf
 								/*ayin*/	case "\u05E2":letter = "\u05E6";break;	// tzadi
 								/*pey*/		case "\u05E4":letter = "\u05E4";break;	// pey
@@ -6104,6 +6163,7 @@
 								/*lamed*/	case "\u05DC":letter = "\u05E7";break;	// kuf
 								/*mem*/		case "\u05DE":letter = "\u05E8";break;	// resh
 								/*nun*/		case "\u05E0":letter = "\u05E9";break;	// shin
+								/*Bk nun*/	case "\u05C6":letter = "\u05E9";break;	// shin
 								/*samech*/	case "\u05E1":letter = "\u05D0";break;	// aleph
 								/*ayin*/	case "\u05E2":letter = "\u05D1";break;	// bet
 								/*pey*/		case "\u05E4":letter = "\u05D2";break;	// gimel
@@ -6137,6 +6197,7 @@
 								/*lamed*/	case "\u05DC":letter = "\u05E2";break;	// ayin
 								/*mem*/		case "\u05DE":letter = "\u05E1";break;	// samech
 								/*nun*/		case "\u05E0":letter = "\u05E0";break;	// nun
+								/*Bk nun*/	case "\u05C6":letter = "\u05C6";break;	// Bk nun
 								/*samech*/	case "\u05E1":letter = "\u05DE";break;	// mem
 								/*ayin*/	case "\u05E2":letter = "\u05DC";break;	// lamed
 								/*pey*/		case "\u05E4":letter = "\u05DB";break;	// kaf
@@ -6170,6 +6231,7 @@
 								/*lamed*/	case "\u05DC":letter = "\u05E2";break;	// ayin
 								/*mem*/		case "\u05DE":letter = "\u05E1";break;	// samech
 								/*nun*/		case "\u05E0":letter = "\u05E0";break;	// nun
+								/*Bk nun*/	case "\u05C6":letter = "\u05C6";break;	// Bk nun
 								/*samech*/	case "\u05E1":letter = "\u05DE";break;	// mem
 								/*ayin*/	case "\u05E2":letter = "\u05DC";break;	// lamed
 								/*pey*/		case "\u05E4":letter = "\u05DB";break;	// kaf
@@ -6203,6 +6265,7 @@
 								/*lamed*/	case "\u05DC":letter = "\u05D2";break;	// gimel
 								/*mem*/		case "\u05DE":letter = "\u05D3";break;	// dalet
 								/*nun*/		case "\u05E0":letter = "\u05D4";break;	// hey
+								/*Bk nun*/	case "\u05C6":letter = "\u05D4";break;	// hey
 								/*samech*/	case "\u05E1":letter = "\u05D5";break;	// vav
 								/*ayin*/	case "\u05E2":letter = "\u05D6";break;	// zayin
 								/*pey*/		case "\u05E4":letter = "\u05D7";break;	// chet
@@ -6236,6 +6299,7 @@
 								/*lamed*/	case "\u05DC":letter = "\u05E2";break;	// ayin
 								/*mem*/		case "\u05DE":letter = "\u05E1";break;	// samech
 								/*nun*/		case "\u05E0":letter = "\u05E0";break;	// nun
+								/*Bk nun*/	case "\u05C6":letter = "\u05C6";break;	// Bk nun
 								/*samech*/	case "\u05E1":letter = "\u05DE";break;	// mem
 								/*ayin*/	case "\u05E2":letter = "\u05DC";break;	// lamed
 								/*pey*/		case "\u05E4":letter = "\u05DB";break;	// kaf
@@ -6269,6 +6333,7 @@
 								/*lamed*/	case "\u05DC":letter = "\u05D0";break;	// aleph
 								/*mem*/		case "\u05DE":letter = "\u05D2";break;	// gimel
 								/*nun*/		case "\u05E0":letter = "\u05D4";break;	// hey
+								/*Bk nun*/	case "\u05C6":letter = "\u05D4";break;	// hey
 								/*samech*/	case "\u05E1":letter = "\u05D6";break;	// zayin
 								/*ayin*/	case "\u05E2":letter = "\u05D8";break;	// tet
 								/*pey*/		case "\u05E4":letter = "\u05DB";break;	// kaf
@@ -6302,6 +6367,7 @@
 								/*lamed*/	case "\u05DC":letter = "\u05D3";break;	// dalet
 								/*mem*/		case "\u05DE":letter = "\u05DE";break;	// mem
 								/*nun*/		case "\u05E0":letter = "\u05E0";break;	// nun
+								/*Bk nun*/	case "\u05C6":letter = "\u05C6";break;	// Bk nun
 								/*samech*/	case "\u05E1":letter = "\u05DB";break;	// kaf
 								/*ayin*/	case "\u05E2":letter = "\u05E0";break;	// nun
 								/*pey*/		case "\u05E4":letter = "\u05D0";break;	// aleph
@@ -6335,6 +6401,7 @@
 						/*kaf*/		case "\u05DB":finalChar = "\u05DA";break;	// kaf F
 						/*mem*/		case "\u05DE":finalChar = "\u05DD";break;	// mem F
 						/*nun*/		case "\u05E0":finalChar = "\u05DF";break;	// nun F
+						/*Bk nun*/	case "\u05C6":finalChar = "\u05DF";break;	// nun F
 						/*pey*/		case "\u05E4":finalChar = "\u05E3";break;	// pey F
 						/*tzadi*/	case "\u05E6":finalChar = "\u05E5";break;	// tzadi F
 					}
@@ -6841,6 +6908,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05DB";gematria2 += L11;break;	// kaf
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D9";gematria2 += L10;break;	// yod
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D8";gematria2 += L09;break;	// tet
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D8";gematria2 += L09;break;	// tet
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D7";gematria2 += L08;break;	// chet
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D6";gematria2 += L07;break;	// zayin
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D5";gematria2 += L06;break;	// vav
@@ -6863,6 +6931,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 			/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 			/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+			/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 			/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 			/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 			default:letter = "";break;
@@ -6910,6 +6979,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E9";gematria2 += L21;break;	// shin
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05EA";gematria2 += L22;break;	// tav
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05DB";gematria2 += L11;break;	// kaf
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05DB";gematria2 += L11;break;	// kaf
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05E0";gematria2 += L14;break;	// nun
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05E4";gematria2 += L17;break;	// pey
@@ -6932,6 +7002,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+					/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 					default:letter = "";break;
@@ -6979,6 +7050,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D0";gematria2 += L01;break;	// aleph
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D1";gematria2 += L02;break;	// bet
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D2";gematria2 += L03;break;	// gimel
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D2";gematria2 += L03;break;	// gimel
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D3";gematria2 += L04;break;	// dalet
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D4";gematria2 += L05;break;	// hey
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D5";gematria2 += L06;break;	// vav
@@ -7001,6 +7073,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+					/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 					default:letter = "";break;
@@ -7048,6 +7121,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05DB";gematria2 += L11;break;	// kaf
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D9";gematria2 += L10;break;	// yod
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D8";gematria2 += L09;break;	// tet
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D8";gematria2 += L09;break;	// tet
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D7";gematria2 += L08;break;	// chet
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D6";gematria2 += L07;break;	// zayin
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D5";gematria2 += L06;break;	// vav
@@ -7070,6 +7144,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 			/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 			/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+			/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 			/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 			/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 			default:letter = "";break;
@@ -7117,6 +7192,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05EA";gematria2 += L22;break;	// tav
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E9";gematria2 += L21;break;	// shin
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E8";gematria2 += L20;break;	// resh
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05E8";gematria2 += L20;break;	// resh
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05E7";gematria2 += L19;break;	// kuf
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05E6";gematria2 += L18;break;	// tzadi
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05E4";gematria2 += L17;break;	// pey
@@ -7139,6 +7215,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 				/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 				/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+				/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 				/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 				/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 				default:letter = "";break;
@@ -7186,6 +7263,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E7";gematria2 += L19;break;	// kuf
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E8";gematria2 += L20;break;	// resh
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E9";gematria2 += L21;break;	// shin
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05E9";gematria2 += L21;break;	// shin
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D0";gematria2 += L01;break;	// aleph
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D1";gematria2 += L02;break;	// bet
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D2";gematria2 += L03;break;	// gimel
@@ -7208,6 +7286,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+					/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 					default:letter = "";break;
@@ -7255,6 +7334,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E2";gematria2 += L16;break;	// ayin
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E1";gematria2 += L15;break;	// samech
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05DC";gematria2 += L12;break;	// lamed
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -7277,6 +7357,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+					/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 					default:letter = "";break;
@@ -7324,6 +7405,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E2";gematria2 += L16;break;	// ayin
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E1";gematria2 += L15;break;	// samech
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05DC";gematria2 += L12;break;	// lamed
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -7346,6 +7428,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+					/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 					default:letter = "";break;
@@ -7393,6 +7476,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D2";gematria2 += L03;break;	// gimel
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D3";gematria2 += L04;break;	// dalet
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D5";gematria2 += L06;break;	// vav
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D6";gematria2 += L07;break;	// zayin
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D7";gematria2 += L08;break;	// chet
@@ -7415,6 +7499,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+					/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 					default:letter = "";break;
@@ -7462,6 +7547,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E2";gematria2 += L16;break;	// ayin
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E1";gematria2 += L15;break;	// samech
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05DC";gematria2 += L12;break;	// lamed
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -7484,6 +7570,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+					/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 					default:letter = "";break;
@@ -7531,6 +7618,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D0";gematria2 += L01;break;	// aleph
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D2";gematria2 += L03;break;	// gimel
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D6";gematria2 += L07;break;	// zayin
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D8";gematria2 += L09;break;	// tet
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -7553,6 +7641,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+					/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 					default:letter = "";break;
@@ -7600,6 +7689,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D3";gematria2 += L04;break;	// delet
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05DE";gematria2 += L13;break;	// mem
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DB";gematria2 += L11;break;	// kaf
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05E0";gematria2 += L14;break;	// nun
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D0";gematria2 += L01;break;	// aleph
@@ -7622,6 +7712,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+					/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 					default:letter = "";break;
@@ -7669,6 +7760,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05DB";gematria2 += L11;break;	// kaf
 				/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D9";gematria2 += L10;break;	// yod
 				/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D8";gematria2 += L09;break;	// tet
+				/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D8";gematria2 += L09;break;	// tet
 				/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D7";gematria2 += L08;break;	// chet
 				/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D6";gematria2 += L07;break;	// zayin
 				/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D5";gematria2 += L06;break;	// vav
@@ -7691,6 +7783,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 					/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 					/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+					/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 					/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 					/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 					default:letter = "";break;
@@ -7739,7 +7832,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		const wrapBtn = document.getElementById('wrapBtn');
 		const lightmodeBtn = document.getElementById('lightmodeBtn');
         const matchBtn = document.getElementById('matchBtn');
-        const translateBtn = document.getElementById('translateBtn');
+        const transBtn = document.getElementById('transBtn');
         const printBtn = document.getElementById('printBtn');
         const exportBtn = document.getElementById('exportBtn');
         const clearBtn = document.getElementById('clearBtn');
@@ -8021,6 +8114,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						case "\u05DC": textTotal += L12;	break;	//lamed		ל
 						case "\u05DE": textTotal += L13;	break;	//mem		מ
 						case "\u05E0": textTotal += L14;	break;	//nun		נ
+						case "\u05C6": textTotal += L14;	break;	//Bk nun	׆
 						case "\u05E1": textTotal += L15;	break;	//samech	ס
 						case "\u05E2": textTotal += L16;	break;	//ayin		ע
 						case "\u05E4": textTotal += L17;	break;	//pey		פ
@@ -8759,6 +8853,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E9";gematria2 += L21;break;	// shin
 							/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05EA";gematria2 += L22;break;	// tav
 							/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05DB";gematria2 += L11;break;	// kaf
+							/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05DB";gematria2 += L11;break;	// kaf
 							/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 							/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05E0";gematria2 += L14;break;	// nun
 							/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05E4";gematria2 += L17;break;	// pey
@@ -8781,6 +8876,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 								/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 								/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 								/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+								/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 								/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 								/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 								default:letter = "";break;
@@ -8840,6 +8936,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D0";gematria2 += L01;break;	// aleph
 							/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D1";gematria2 += L02;break;	// bet
 							/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D2";gematria2 += L03;break;	// gimel
+							/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D2";gematria2 += L03;break;	// gimel
 							/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D3";gematria2 += L04;break;	// dalet
 							/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D4";gematria2 += L05;break;	// hey
 							/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D5";gematria2 += L06;break;	// vav
@@ -8862,6 +8959,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 								/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 								/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 								/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+								/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 								/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 								/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 								default:letter = "";break;
@@ -8913,6 +9011,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05DB";gematria2 += L11;break;	// kaf
 							/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D9";gematria2 += L10;break;	// yod
 							/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D8";gematria2 += L09;break;	// tet
+							/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D8";gematria2 += L09;break;	// tet
 							/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D7";gematria2 += L08;break;	// chet
 							/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D6";gematria2 += L07;break;	// zayin
 							/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D5";gematria2 += L06;break;	// vav
@@ -8935,6 +9034,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 						/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 						/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+						/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 						/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 						/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 						default:letter = "";break;
@@ -8986,6 +9086,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05EA";gematria2 += L22;break;	// tav
 							/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E9";gematria2 += L21;break;	// shin
 							/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E8";gematria2 += L20;break;	// resh
+							/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05E8";gematria2 += L20;break;	// resh
 							/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05E7";gematria2 += L19;break;	// kuf
 							/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05E6";gematria2 += L18;break;	// tzadi
 							/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05E4";gematria2 += L17;break;	// pey
@@ -9008,6 +9109,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 							/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 							/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+							/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 							/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 							/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 							default:letter = "";break;
@@ -9059,6 +9161,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E7";gematria2 += L19;break;	// kuf
 							/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E8";gematria2 += L20;break;	// resh
 							/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E9";gematria2 += L21;break;	// shin
+							/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05E9";gematria2 += L21;break;	// shin
 							/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D0";gematria2 += L01;break;	// aleph
 							/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D1";gematria2 += L02;break;	// bet
 							/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D2";gematria2 += L03;break;	// gimel
@@ -9081,6 +9184,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 								/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 								/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 								/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+								/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 								/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 								/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 								default:letter = "";break;
@@ -9132,6 +9236,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E2";gematria2 += L16;break;	// ayin
 							/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E1";gematria2 += L15;break;	// samech
 							/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+							/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 							/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 							/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05DC";gematria2 += L12;break;	// lamed
 							/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -9154,6 +9259,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 								/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 								/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 								/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+								/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 								/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 								/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 								default:letter = "";break;
@@ -9205,6 +9311,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E2";gematria2 += L16;break;	// ayin
 							/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E1";gematria2 += L15;break;	// samech
 							/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+							/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 							/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 							/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05DC";gematria2 += L12;break;	// lamed
 							/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -9227,6 +9334,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 								/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 								/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 								/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+								/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 								/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 								/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 								default:letter = "";break;
@@ -9278,6 +9386,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D2";gematria2 += L03;break;	// gimel
 							/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D3";gematria2 += L04;break;	// dalet
 							/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
+							/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
 							/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D5";gematria2 += L06;break;	// vav
 							/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D6";gematria2 += L07;break;	// zayin
 							/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D7";gematria2 += L08;break;	// chet
@@ -9300,6 +9409,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 								/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 								/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 								/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+								/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 								/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 								/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 								default:letter = "";break;
@@ -9351,6 +9461,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05E2";gematria2 += L16;break;	// ayin
 							/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05E1";gematria2 += L15;break;	// samech
 							/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+							/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 							/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DE";gematria2 += L13;break;	// mem
 							/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05DC";gematria2 += L12;break;	// lamed
 							/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -9373,6 +9484,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 								/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 								/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 								/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+								/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 								/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 								/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 								default:letter = "";break;
@@ -9424,6 +9536,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D0";gematria2 += L01;break;	// aleph
 							/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05D2";gematria2 += L03;break;	// gimel
 							/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
+							/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05D4";gematria2 += L05;break;	// hey
 							/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05D6";gematria2 += L07;break;	// zayin
 							/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05D8";gematria2 += L09;break;	// tet
 							/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05DB";gematria2 += L11;break;	// kaf
@@ -9446,6 +9559,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 								/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 								/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 								/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+								/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 								/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 								/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 								default:letter = "";break;
@@ -9497,6 +9611,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC":gematria1 += L12;letter = "\u05D3";gematria2 += L04;break;	// delet
 							/*mem*/		case "\u05DE":gematria1 += L13;letter = "\u05DE";gematria2 += L13;break;	// mem
 							/*nun*/		case "\u05E0":gematria1 += L14;letter = "\u05E0";gematria2 += L14;break;	// nun
+							/*Bk nun*/	case "\u05C6":gematria1 += L14;letter = "\u05C6";gematria2 += L14;break;	// Bk nun
 							/*samech*/	case "\u05E1":gematria1 += L15;letter = "\u05DB";gematria2 += L11;break;	// kaf
 							/*ayin*/	case "\u05E2":gematria1 += L16;letter = "\u05E0";gematria2 += L14;break;	// nun
 							/*pey*/		case "\u05E4":gematria1 += L17;letter = "\u05D0";gematria2 += L01;break;	// aleph
@@ -9519,6 +9634,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 								/*kaf*/		case "\u05DB":letter = "\u05DA";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L11;gematria2 += L23;break;	// kaf F
 								/*mem*/		case "\u05DE":letter = "\u05DD";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L13;gematria2 += L24;break;	// mem F
 								/*nun*/		case "\u05E0":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
+								/*Bk nun*/	case "\u05C6":letter = "\u05DF";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L14;gematria2 += L25;break;	// nun F
 								/*pey*/		case "\u05E4":letter = "\u05E3";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L17;gematria2 += L26;break;	// pey F
 								/*tzadi*/	case "\u05E6":letter = "\u05E5";textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1);gematria2 -= L18;gematria2 += L27;break;	// tzadi F
 								default:letter = "";break;
@@ -9582,6 +9698,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						case "\u05DC": encryptedTotal += L12;	break;	//lamed		ל
 						case "\u05DE": encryptedTotal += L13;	break;	//mem		מ
 						case "\u05E0": encryptedTotal += L14;	break;	//nun		נ
+						case "\u05C6": encryptedTotal += L14;	break;	//Bk nun	׆
 						case "\u05E1": encryptedTotal += L15;	break;	//samech	ס
 						case "\u05E2": encryptedTotal += L16;	break;	//ayin		ע
 						case "\u05E4": encryptedTotal += L17;	break;	//pey		פ
@@ -10353,6 +10470,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						case "\u05DC": textTotal += L12; break; // lamed
 						case "\u05DE": textTotal += L13; break; // mem
 						case "\u05E0": textTotal += L14; break; // nun
+						case "\u05C6": textTotal += L14; break; // Bk nun
 						case "\u05E1": textTotal += L15; break; // samech
 						case "\u05E2": textTotal += L16; break; // ayin
 						case "\u05E4": textTotal += L17; break; // pey
@@ -10513,6 +10631,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*lamed*/	case "\u05DC": letter = "\u05DB"; break;	// kaf
 							/*mem*/		case "\u05DE": letter = "\u05D9"; break;	// yod
 							/*nun*/		case "\u05E0": letter = "\u05D8"; break;	// tet
+							/*Bk nun*/	case "\u05C6": letter = "\u05D8"; break;	// tet
 							/*samech*/	case "\u05E1": letter = "\u05D7"; break;	// chet
 							/*ayin*/	case "\u05E2": letter = "\u05D6"; break;	// zayin
 							/*pey*/		case "\u05E4": letter = "\u05D5"; break;	// vav
@@ -10536,6 +10655,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 								/*kaf*/		case "\u05DB": letter = "\u05DA"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// kaf F
 								/*mem*/		case "\u05DE": letter = "\u05DD"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// mem F
 								/*nun*/		case "\u05E0": letter = "\u05DF"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// nun F
+								/*Bk nun*/	case "\u05C6": letter = "\u05DF"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// nun F
 								/*pey*/		case "\u05E4": letter = "\u05E3"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// pey F
 								/*tzadi*/	case "\u05E6": letter = "\u05E5"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// tzadi F
 								default: letter = ""; break;
@@ -10564,7 +10684,22 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				if (letters == 0) { words = 0; verses = 0; encryptedTotal = ""; }
 				document.getElementById('verses').innerHTML = `Verses: ~<span style="color: #35ab47; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${verses.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('words').innerHTML = `Words: <span style="color: #025be0; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${words.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
-				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${letters.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
+				// Count only base letters (Hebrew, Greek, English), ignore asterisks, flower marks, dashes, punctuation, zero-width
+				function countBaseLetters(str) {
+					return Array.from(str).filter(ch => {
+						// Hebrew, Greek, English
+						const code = ch.charCodeAt(0);
+						if (
+							(code >= 0x05D0 && code <= 0x05EA) || // Hebrew
+							(code >= 0x0370 && code <= 0x03FF) || // Greek
+							((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) // English
+						) {
+							return true;
+						}
+						return false;
+					}).length;
+				}
+				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${countBaseLetters(textHighlight).toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				document.getElementById('sum').innerHTML = `Gematria: <span style="color: #FF0000; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${textTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 				
 				// Show 'Not Applicable' if no Hebrew letters were selected; otherwise show encrypted text and numeric sum
@@ -10749,6 +10884,22 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 				var verses = (textHighlight.match(/\d+:\d+/g) || ['1']).length;
 				let words = textHighlight.trim().split(/\s+/).length;
 				let letters = textHighlight.replace(/[.,&!$%#~*|><}^{/)(-=:;\d\s\r\n_'"`\]\[\+\\\u05C3?\u05BE\u0590-\u05BD\u05BF-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g, '').length;
+				// Count only base letters (Hebrew, Greek, English), ignore asterisks, flower marks, dashes, punctuation, zero-width
+				function countBaseLetters(str) {
+					return Array.from(str).filter(ch => {
+						// Hebrew, Greek, English
+						const code = ch.charCodeAt(0);
+						if (
+							(code >= 0x05D0 && code <= 0x05EA) || // Hebrew
+							(code >= 0x0370 && code <= 0x03FF) || // Greek
+							((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) // English
+						) {
+							return true;
+						}
+						return false;
+					}).length;
+				}
+				document.getElementById('letters').innerHTML = `Letters: <span style="color: #7a489c; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${countBaseLetters(textHighlight).toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
 
 				if (letters == 0) { words = 0; verses = 0; encryptedTotal = ""; document.getElementById('encryptedsum').innerHTML = `En. Gematria: <span style="color: #FF8800; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">Not Applicable</span>`; }
 				document.getElementById('verses').innerHTML = `Verses: ~<span style="color: #35ab47; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 100);">${verses.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>`;
@@ -10778,6 +10929,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						/*lamed*/	case "\u05DC": letter = "\u05DB"; break;	// kaf
 						/*mem*/		case "\u05DE": letter = "\u05D9"; break;	// yod
 						/*nun*/		case "\u05E0": letter = "\u05D8"; break;	// tet
+						/*Bk nun*/	case "\u05C6": letter = "\u05D8"; break;	// tet
 						/*samech*/	case "\u05E1": letter = "\u05D7"; break;	// chet
 						/*ayin*/	case "\u05E2": letter = "\u05D6"; break;	// zayin
 						/*pey*/		case "\u05E4": letter = "\u05D5"; break;	// vav
@@ -10801,6 +10953,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 							/*kaf*/		case "\u05DB": letter = "\u05DA"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// kaf F
 							/*mem*/		case "\u05DE": letter = "\u05DD"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// mem F
 							/*nun*/		case "\u05E0": letter = "\u05DF"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// nun F
+							/*Bk nun*/	case "\u05C6": letter = "\u05DF"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// nun F
 							/*pey*/		case "\u05E4": letter = "\u05E3"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// pey F
 							/*tzadi*/	case "\u05E6": letter = "\u05E5"; textEncrypted = textEncrypted.substring(0, textEncrypted.length - 1); break;	// tzadi F
 							default: letter = ""; break;
@@ -10847,7 +11000,7 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						}
 						document.getElementById('verses').innerHTML = `Verses: ~<span style="color:#35ab47;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${verses.toLocaleString('en-US')}</span>`;
 						document.getElementById('words').innerHTML = `Words: <span style="color:#025be0;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${words.toLocaleString('en-US')}</span>`;
-						document.getElementById('letters').innerHTML = `Letters: <span style="color:#7a489c;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${letters.toLocaleString('en-US')}</span>`;
+						document.getElementById('letters').innerHTML = `Letters: <span style="color:#7a489c;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${countBaseLetters(textHighlight).toLocaleString('en-US')}</span>`;
 						document.getElementById('sum').innerHTML = `Gematria: <span style="color:#FF0000;font-weight:bold;text-shadow:1px 1px 2px rgba(0,0,0,1);">${textTotal.toLocaleString('en-US')}</span>`;
 					}
 
@@ -10967,11 +11120,36 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		});
 
 		// The Translate button's functionality
-		translateBtn.addEventListener('click', () => {
-		    // Extract the language code from the navigator.language string
-		    const languageCode = navigator.language.split('-')[0];
-		    const url = `https://translate.google.com/#view=home&op=translate&sl=auto&tl=${languageCode}&text=${encodeURIComponent(textHighlight)}`;
-		    window.open(url, '_blank');
+		// Global function to strip zero-width characters
+		function stripZeroWidth(str) {
+			// Remove all Unicode zero-width characters
+			return str.replace(/[\u200B-\u200F\u202A-\u202E\u2060-\u206F\uFEFF]/g, '');
+		}
+
+		transBtn.addEventListener('click', () => {
+				// Extract the language code from the navigator.language string
+				const languageCode = navigator.language.split('-')[0];
+				let selectedText = '';
+				const selection = window.getSelection();
+				if (selection && selection.rangeCount > 0) {
+					const range = selection.getRangeAt(0);
+					let node = range.commonAncestorContainer;
+					// Traverse up the DOM tree to check if selection is inside textArea
+					while (node) {
+						if (node === textArea) {
+							selectedText = selection.toString().trim();
+							break;
+						}
+						node = node.parentNode;
+					}
+				}
+				if (!selectedText) {
+					selectedText = textHighlight || '';
+				}
+				// Strip zero-width characters before sending to Google Translate
+				const cleanText = stripZeroWidth(selectedText);
+				const url = `https://translate.google.com/#view=home&op=translate&sl=auto&tl=${languageCode}&text=${encodeURIComponent(cleanText)}`;
+				window.open(url, '_blank');
 		});
 
         // The Print button's functionality
@@ -11322,11 +11500,8 @@ function makeModalDraggable(modalElement) {
 
 // Auto-initialize: Make all existing modals draggable
 document.addEventListener('DOMContentLoaded', function() {
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(modal => makeModalDraggable(modal));
-    if (modals.length > 0) {
-        console.log('✅ Made ' + modals.length + ' modal(s) draggable');
-    }
+	const modals = document.querySelectorAll('.modal');
+	modals.forEach(modal => makeModalDraggable(modal));
 });
 
 // Watch for dynamically created modals (like findModal and elsModal)
@@ -11379,8 +11554,6 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-console.log('🎯 Draggable modal system initialized - modals can be moved by dragging the top area');
-console.log('⌨️ Escape key handler initialized - press Escape to close modals');
 </script>
 </body>
 </html>
