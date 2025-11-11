@@ -892,6 +892,16 @@
 		</style>
 
 <script>
+		// Ensure loading-close works on mobile (touch)
+		document.addEventListener('DOMContentLoaded', function() {
+			var closeBtn = document.querySelector('#loadingIndicator .loading-close');
+			if (closeBtn) {
+				closeBtn.addEventListener('touchend', function(e) {
+					e.preventDefault();
+					hideLoadingIndicator();
+				});
+			}
+		});
 	// Declair variables initially
 	var L01 = 1;L02 = 2;L03 = 3;L04 = 4;L05 = 5;L06 = 6;L07 = 7;L08 = 8;L09 = 9;L10 = 10;L11 = 20;L12 = 30;L13 = 40;L14 = 50;L15 = 60;L16 = 70;L17 = 80;L18 = 90;L19 = 100;L20 = 200;L21 = 300;L22 = 400;L23 = 500;L24 = 600;L25 = 700;L26 = 800;L27 = 900;
 	var textTotal=wordCount=letterCount=product1=product2=remainder1=remainder2=gematria1=gematria2=encryptedTotal=encryptedsum=0;
@@ -902,6 +912,12 @@
 	
 	// Variable to store the current book path
 	var currentBook = '/gemacrypt/files/books/default.txt';
+
+	// After language detection and content rendering, hide loading indicator and log
+	// Moved below function definition to avoid ReferenceError
+	// console.log('Language detected:', detectedLanguage);
+	// hideLoadingIndicator(); // Ensure loading indicator is hidden after content loads
+	// console.log('hideLoadingIndicator called after language detection');
 
 	// Green flash effect function for buttons
 	function greenFlash(buttonElement) {
@@ -1210,7 +1226,7 @@
 <body>
 <div class="hidden-title"><center><h1>GemaThesaurus</h1></center></p></div>
     <div class="toolbar">
-        <button id="openBtn" class="textBtn" onclick="greenFlash(this)"><!--<img src="img/open.png" height="13" width="16" border="0" alt="Open">-->&#x1F4C2;<img src="img/invis.gif" width="4" border="0">Open</button>
+	<button id="openBtn" class="textBtn" onclick="greenFlash(this)"><!--<img src="img/open.png" height="13" width="16" border="0" alt="Open">-->&#x1F4C2;<img src="img/invis.gif" width="4" border="0"><span class="btn-label">Open</span></button>
 		
         <script>
         // Collapsible Toolbar
@@ -2695,6 +2711,9 @@
 			loadingTimeout = setTimeout(() => {
 				if (indicator) {
 					indicator.classList.add('show');
+					// Focus the close button for accessibility
+					const closeBtn = indicator.querySelector('.loading-close');
+					if (closeBtn) closeBtn.focus();
 					
 					// Start the counter
 					loadingCounterInterval = setInterval(() => {
@@ -2724,9 +2743,8 @@
 			const indicator = document.getElementById('loadingIndicator');
 			if (indicator) {
 				indicator.classList.remove('show');
-				
-				// Clear any forced CSS styles that might override the class behavior
-				indicator.style.display = '';
+				// Force hide for mobile browsers that ignore class removal
+				indicator.style.setProperty('display', 'none', 'important');
 				indicator.style.opacity = '';
 				indicator.style.visibility = '';
 			}
@@ -2858,6 +2876,8 @@
 							// Detect language and store in global variable
 							detectedLanguage = detectLanguage(text);
 							console.log('Language detected:', detectedLanguage);
+							hideLoadingIndicator();
+							console.log('hideLoadingIndicator called after language detection');
 						} else {
 							console.error(`Error loading file from primary CORS proxy: ${response.status} - ${response.statusText}`);
 							corsProxy = 'http://radius.center/';
@@ -3000,21 +3020,306 @@
 			}
 		  </script>
 
-		<button id="calcBtn" class="textBtn" onclick="greenFlash(this); toggleCalc();"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="4" border="0">Calc</button>
-		<button id="findBtn" class="textBtn" onclick="greenFlash(this); toggleFind()"><img src="img/find.png" height="16" width="14" border="0" alt="Find"><img src="img/invis.gif" width="4" border="0">Find</button>
-		<button id="elsBtn" class="textBtn" onclick="greenFlash(this); toggleELS()"><img src="img/els.png" height="16" width="14" border="0" alt="Equidistant Letter Sequence"><img src="img/invis.gif" width="4" border="0">ELS</button>
-		<button id="swapBtn" class="textBtn" onclick="greenFlash(this); toggleSwap()"><img src="img/swap.png" height="16" width="14" border="0" alt="Swap"><img src="img/invis.gif" width="4" border="0">Swap</button>
-		<button id="copyBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/copy.png" height="16" width="16" border="0" alt="Copy">&#x1F4D1;<img src="img/invis.gif" width="4" border="0">Copy</button>
-		<button id="directionBtn" class="textBtn" onclick="greenFlash(this); toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><img src="img/invis.gif" width="6" border="0">Align</button>
-		<button id="wrapBtn" class="textBtn" onclick="greenFlash(this); toggleWrap()"><img src="img/wrap.png" height="16" width="20" border="0" alt="Wrap Text"><img src="img/invis.gif" width="6" border="0">Wrap</button>
-		<button id="lightmodeBtn" class="textBtn" onclick="greenFlash(this); toggleLightMode()"><img src="img/moon.png" height="16" width="16" border="0" alt="Light/Dark Mode"><img src="img/invis.gif" width="4" border="0">Mode</button>
-        <button id="transBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/translate.png" height="16" width="16" border="0" alt="Translate"><img src="img/invis.gif" width="4" border="0">Trans</button>
-        <button id="printBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/print.png" height="16" width="16" border="0" alt="Print"><img src="img/invis.gif" width="6" border="0">Print</button>
-        <button id="exportBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/export.png" height="16" width="16" border="0" alt="Export"><img src="img/invis.gif" width="6" border="0">Export</button>
-        <button id="clearBtn" class="textBtn" onclick="greenFlash(this)"><!--<img src="img/clear.png" height="16" width="16" border="0" alt="Clear"><img src="img/invis.gif" width="4" border="0">-->&#x274C; Clear</button>
-		<button id="app1Btn" class="textBtn" onclick="greenFlash(this); openApp1WithSelection()"><img src="img/db.png" height="16" width="16" border="0" alt="GemaCrypt DB"><img src="img/invis.gif" width="4" border="0">DB</button>
-        <button id="helpBtn" class="textBtn" onclick="greenFlash(this); window.open('help.html', '_blank')"><img src="img/help.png" height="17" width="14" border="0" alt="Help"><img src="img/invis.gif" width="4" border="0">Help</button>
+		<button id="calcBtn" class="textBtn" onclick="greenFlash(this); toggleCalc();"><img src="img/calculate.png" height="16" width="14" border="0" alt="Calculate"><img src="img/invis.gif" width="4" border="0"><span class="btn-label">Calc</span></button>
+		<button id="findBtn" class="textBtn" onclick="greenFlash(this); toggleFind()"><img src="img/find.png" height="16" width="14" border="0" alt="Find"><img src="img/invis.gif" width="4" border="0"><span class="btn-label">Find</span></button>
+		<button id="elsBtn" class="textBtn" onclick="greenFlash(this); toggleELS()"><img src="img/els.png" height="16" width="14" border="0" alt="Equidistant Letter Sequence"><img src="img/invis.gif" width="4" border="0"><span class="btn-label">ELS</span></button>
+		<button id="swapBtn" class="textBtn" onclick="greenFlash(this); toggleSwap()"><img src="img/swap.png" height="16" width="14" border="0" alt="Swap"><img src="img/invis.gif" width="4" border="0"><span class="btn-label">Swap</span></button>
+		<button id="copyBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/copy.png" height="16" width="16" border="0" alt="Copy">&#x1F4D1;<img src="img/invis.gif" width="4" border="0"><span class="btn-label">Copy</span></button>
+		<button id="directionBtn" class="textBtn" onclick="greenFlash(this); toggleDirection()"><img src="img/direction.png" height="16" width="20" border="0" alt="Text Direction"><img src="img/invis.gif" width="6" border="0"><span class="btn-label">Align</span></button>
+		<button id="wrapBtn" class="textBtn" onclick="greenFlash(this); toggleWrap()"><img src="img/wrap.png" height="16" width="20" border="0" alt="Wrap Text"><img src="img/invis.gif" width="6" border="0"><span class="btn-label">Wrap</span></button>
+		<button id="lightmodeBtn" class="textBtn" onclick="greenFlash(this); toggleLightMode()"><img src="img/moon.png" height="16" width="16" border="0" alt="Light/Dark Mode"><img src="img/invis.gif" width="4" border="0"><span class="btn-label">Mode</span></button>
+		<button id="transBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/translate.png" height="16" width="16" border="0" alt="Translate"><img src="img/invis.gif" width="4" border="0"><span class="btn-label">Trans</span></button>
+		<button id="printBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/print.png" height="16" width="16" border="0" alt="Print"><img src="img/invis.gif" width="6" border="0"><span class="btn-label">Print</span></button>
+		<button id="exportBtn" class="textBtn" onclick="greenFlash(this)"><img src="img/export.png" height="16" width="16" border="0" alt="Export"><img src="img/invis.gif" width="6" border="0"><span class="btn-label">Export</span></button>
+		<button id="clearBtn" class="textBtn" onclick="greenFlash(this)"><!--<img src="img/clear.png" height="16" width="16" border="0" alt="Clear"><img src="img/invis.gif" width="4" border="0">-->&#x274C; <span class="btn-label">Clear</span></button>
+		<button id="app1Btn" class="textBtn" onclick="greenFlash(this); openApp1WithSelection()"><img src="img/db.png" height="16" width="16" border="0" alt="GemaCrypt DB"><img src="img/invis.gif" width="4" border="0"><span class="btn-label">DB</span></button>
+		<button id="helpBtn" class="textBtn" onclick="greenFlash(this); window.open('help.html', '_blank')"><img src="img/help.png" height="17" width="14" border="0" alt="Help"><img src="img/invis.gif" width="4" border="0"><span class="btn-label">Help</span></button>
     </div>
+		<script>
+		// === Toolbar Button & Dropdown Translation ===
+		function translateDropdowns() {
+			const translations = {
+				'he': {
+					Book: 'ספר:',
+					Genesis: 'בראשית', Exodus: 'שמות', Leviticus: 'ויקרא', Numbers: 'במדבר', Deuteronomy: 'דברים', Joshua: 'יהושע', Judges: 'שופטים', Ruth: 'רות', '1 Samuel': 'שמואל א׳', '2 Samuel': 'שמואל ב׳', '1 Kings': 'מלכים א׳', '2 Kings': 'מלכים ב׳', '1 Chronicles': 'דברי הימים א׳', '2 Chronicles': 'דברי הימים ב׳', Ezra: 'עזרא', Nehemiah: 'נחמיה', Esther: 'אסתר', Job: 'איוב', Psalms: 'תהילים', Proverbs: 'משלי', Ecclesiastes: 'קהלת', 'Song of Songs': 'שיר השירים', Isaiah: 'ישעיהו', Jeremiah: 'ירמיהו', Lamentations: 'איכה', Ezekiel: 'יחזקאל', Daniel: 'דניאל', Hosea: 'הושע', Joel: 'יואל', Amos: 'עמוס', Obadiah: 'עובדיה', Jonah: 'יונה', Micah: 'מיכה', Nahum: 'נחום', Habakkuk: 'חבקוק', Zephaniah: 'צפניה', Haggai: 'חגי', Zechariah: 'זכריה', Malachi: 'מלאכי', Matthew: 'מתי', Mark: 'מרקוס', Luke: 'לוקס', John: 'יוחנן', Acts: 'מעשים', Romans: 'רומים', '1 Corinthians': 'קורינתים א׳', '2 Corinthians': 'קורינתים ב׳', Galatians: 'גלטים', Ephesians: 'אפסים', Philippians: 'פיליפים', Colossians: 'קולוסים', '1 Thessalonians': 'תסלוניקים א׳', '2 Thessalonians': 'תסלוניקים ב׳', '1 Timothy': 'טימותיאוס א׳', '2 Timothy': 'טימותיאוס ב׳', Titus: 'טיטוס', Philemon: 'פילימון', Hebrews: 'עברים', James: 'יעקב', '1 Peter': 'פטרוס א׳', '2 Peter': 'פטרוס ב׳', '1 John': 'יוחנן א׳', '2 John': 'יוחנן ב׳', '3 John': 'יוחנן ג׳', Jude: 'יהודה', Revelation: 'התגלות', 'Testament of Abraham': 'צוואת אברהם', 'Testament of Moses': 'צוואת משה', 'Testament of Solomon': 'צוואת שלמה', 'Testament of the 12 Patriarchs': 'צוואת שנים עשר הפטריארכים', 'Testimony of Truth': 'עדות האמת', 'Theodotus': 'תאודוטוס', 'Theophilus of Antioch': 'תאופילוס מאנטיוכיה', 'Thomas the Contender': 'תומאס המתמודד', 'Thunder, Perfect Mind': 'רעם, תודעה מושלמת', 'Tobit': 'טוביה', 'Traditions of Matthias': 'מסורות מתיאס', 'Vision of Ezra': 'חזון עזרא', 'Wisdom of Sirach': 'חכמת בן סירא', 'Wisdom of Solomon': 'חכמת שלמה', 'Modify:': 'שנה:', 'Alt Word #2 ⁕': 'מילה חלופית #2 ⁕', 'Alt Word #1 *': 'מילה חלופית #1 *', 'Alt Letter Size': 'גודל אות חלופית', 'Cantillation (♫ notes)': 'טעמי המקרא (תווים ♫)', 'Niqqud (Vowel Points)': 'ניקוד (סימני תנועה)', 'Maqaf (dash, hypenes)': 'מקאף (מקף, קו)', 'Punctuation': 'פיסוק', 'Digits': 'ספרות', 'Spaces': 'רווחים', 'Carriage Returns': 'מעברי שורה', 'Latin/English Letters': 'אותיות לטיניות/אנגליות', 'Greek Letters': 'אותיות יווניות', 'Hebrew Letters': 'אותיות עבריות', 'Convert Finals': 'המר סופיות', 'Split Hyphenated': 'פצל מילים עם מקף', 'Gematria:': 'גימטריה:', 'Ragil': 'רגיל', 'Katan': 'קטן', 'HaKlali': 'הכללי', 'Kolel': 'כולל', 'Kolel+word': 'כולל+מילה', 'Ordinal': 'סידורי', 'Reduced': 'מצומצם', 'Integral Reduced': 'מצומצם שלם', 'HaKadmi': 'הקדמי', 'HaPerati': 'הפרטי', 'Miluy': 'מילוי', 'Encryption:': 'הצפנה:', 'AYiK-BeCheR': 'אייק-בכר', 'AL-BaM': 'אל-בם', 'AT-BaSh': 'את-בש', 'ACh-BI': 'אך-בי', 'AChaS-BeTA': 'אחס-בטא', 'AT-BaCh': 'את-בח', 'AT-BaCh (with Finals)': 'את-בח (עם סופיות)', 'AiY-BaK': 'איי-בק', 'ATz-BaPh': 'אץ-בף', 'AL-BeTh': 'אל-בת', 'Ofanim': 'אופנים'
+				},
+				'es': {
+					Book: 'Libro:', Genesis: 'Génesis', Exodus: 'Éxodo', Leviticus: 'Levítico', Numbers: 'Números', Deuteronomy: 'Deuteronomio', Joshua: 'Josué', Judges: 'Jueces', Ruth: 'Rut', '1 Samuel': '1 Samuel', '2 Samuel': '2 Samuel', '1 Kings': '1 Reyes', '2 Kings': '2 Reyes', '1 Chronicles': '1 Crónicas', '2 Chronicles': '2 Crónicas', Ezra: 'Esdras', Nehemiah: 'Nehemías', Esther: 'Ester', Job: 'Job', Psalms: 'Salmos', Proverbs: 'Proverbios', Ecclesiastes: 'Eclesiastés', 'Song of Songs': 'Cantar de los Cantares', Isaiah: 'Isaías', Jeremiah: 'Jeremías', Lamentations: 'Lamentaciones', Ezekiel: 'Ezequiel', Daniel: 'Daniel', Hosea: 'Oseas', Joel: 'Joel', Amos: 'Amós', Obadiah: 'Abdías', Jonah: 'Jonás', Micah: 'Miqueas', Nahum: 'Nahúm', Habakkuk: 'Habacuc', Zephaniah: 'Sofonías', Haggai: 'Hageo', Zechariah: 'Zacarías', Malachi: 'Malaquías', Matthew: 'Mateo', Mark: 'Marcos', Luke: 'Lucas', John: 'Juan', Acts: 'Hechos', Romans: 'Romanos', '1 Corinthians': '1 Corintios', '2 Corinthians': '2 Corintios', Galatians: 'Gálatas', Ephesians: 'Efesios', Philippians: 'Filipenses', Colossians: 'Colosenses', '1 Thessalonians': '1 Tesalonicenses', '2 Thessalonians': '2 Tesalonicenses', '1 Timothy': '1 Timoteo', '2 Timothy': '2 Timoteo', Titus: 'Tito', Philemon: 'Filemón', Hebrews: 'Hebreos', James: 'Santiago', '1 Peter': '1 Pedro', '2 Peter': '2 Pedro', '1 John': '1 Juan', '2 John': '2 Juan', '3 John': '3 Juan', Jude: 'Judas', Revelation: 'Apocalipsis', 'Testament of Abraham': 'Testamento de Abraham', 'Testament of Moses': 'Testamento de Moisés', 'Testament of Solomon': 'Testamento de Salomón', 'Testament of the 12 Patriarchs': 'Testamento de los 12 Patriarcas', 'Testimony of Truth': 'Testimonio de la Verdad', 'Theodotus': 'Teodoto', 'Theophilus of Antioch': 'Teófilo de Antioquía', 'Thomas the Contender': 'Tomás el contendiente', 'Thunder, Perfect Mind': 'Trueno, Mente Perfecta', 'Tobit': 'Tobías', 'Traditions of Matthias': 'Tradiciones de Matías', 'Vision of Ezra': 'Visión de Esdras', 'Wisdom of Sirach': 'Sabiduría de Sirach', 'Wisdom of Solomon': 'Sabiduría de Salomón', 'Modify:': 'Modificar:', 'Alt Word #2 ⁕': 'Palabra alternativa #2 ⁕', 'Alt Word #1 *': 'Palabra alternativa #1 *', 'Alt Letter Size': 'Tamaño de letra alternativo', 'Cantillation (♫ notes)': 'Cantilación (notas ♫)', 'Niqqud (Vowel Points)': 'Niqqud (puntos vocálicos)', 'Maqaf (dash, hypenes)': 'Maqaf (guion, raya)', 'Punctuation': 'Puntuación', 'Digits': 'Dígitos', 'Spaces': 'Espacios', 'Carriage Returns': 'Retornos de carro', 'Latin/English Letters': 'Letras latinas/inglesas', 'Greek Letters': 'Letras griegas', 'Hebrew Letters': 'Letras hebreas', 'Convert Finals': 'Convertir finales', 'Split Hyphenated': 'Separar palabras con guion', 'Gematria:': 'Guematria:', 'Ragil': 'Ragil', 'Katan': 'Katan', 'HaKlali': 'HaKlali', 'Kolel': 'Kolel', 'Kolel+word': 'Kolel+palabra', 'Ordinal': 'Ordinal', 'Reduced': 'Reducido', 'Integral Reduced': 'Reducido integral', 'HaKadmi': 'HaKadmi', 'HaPerati': 'HaPerati', 'Miluy': 'Miluy', 'Encryption:': 'Encriptación:', 'AYiK-BeCheR': 'AYiK-BeCheR', 'AL-BaM': 'AL-BaM', 'AT-BaSh': 'AT-BaSh', 'ACh-BI': 'ACh-BI', 'AChaS-BeTA': 'AChaS-BeTA', 'AT-BaCh': 'AT-BaCh', 'AT-BaCh (with Finals)': 'AT-BaCh (con finales)', 'AiY-BaK': 'AiY-BaK', 'ATz-BaPh': 'ATz-BaPh', 'AL-BeTh': 'AL-BeTh', 'Ofanim': 'Ofanim'
+				'es': {
+					// ...existing code...
+				},
+				'fr': {
+					Book: 'Livre :',
+					Genesis: 'Genèse',
+					Exodus: 'Exode',
+					Leviticus: 'Lévitique',
+					Numbers: 'Nombres',
+					Deuteronomy: 'Deutéronome',
+					Joshua: 'Josué',
+					Judges: 'Juges',
+					Ruth: 'Ruth',
+					'1 Samuel': '1 Samuel',
+					'2 Samuel': '2 Samuel',
+					'1 Kings': '1 Rois',
+					'2 Kings': '2 Rois',
+					'1 Chronicles': '1 Chroniques',
+					'2 Chronicles': '2 Chroniques',
+					Ezra: 'Esdras',
+					Nehemiah: 'Néhémie',
+					Esther: 'Esther',
+					Job: 'Job',
+					Psalms: 'Psaumes',
+					Proverbs: 'Proverbes',
+					Ecclesiastes: 'Ecclésiaste',
+					'Song of Songs': 'Cantique des cantiques',
+					Isaiah: 'Ésaïe',
+					Jeremiah: 'Jérémie',
+					Lamentations: 'Lamentations',
+					Ezekiel: 'Ézéchiel',
+					Daniel: 'Daniel',
+					Hosea: 'Osée',
+					Joel: 'Joël',
+					Amos: 'Amos',
+					Obadiah: 'Abdias',
+					Jonah: 'Jonas',
+					Micah: 'Michée',
+					Nahum: 'Nahum',
+					Habakkuk: 'Habacuc',
+					Zephaniah: 'Sophonie',
+					Haggai: 'Aggée',
+					Zechariah: 'Zacharie',
+					Malachi: 'Malachie',
+					Matthew: 'Matthieu',
+					Mark: 'Marc',
+					Luke: 'Luc',
+					John: 'Jean',
+					Acts: 'Actes',
+					Romans: 'Romains',
+					'1 Corinthians': '1 Corinthiens',
+					'2 Corinthians': '2 Corinthiens',
+					Galatians: 'Galates',
+					Ephesians: 'Éphésiens',
+					Philippians: 'Philippiens',
+					Colossians: 'Colossiens',
+					'1 Thessalonians': '1 Thessaloniciens',
+					'2 Thessalonians': '2 Thessaloniciens',
+					'1 Timothy': '1 Timothée',
+					'2 Timothy': '2 Timothée',
+					Titus: 'Tite',
+					Philemon: 'Philémon',
+					Hebrews: 'Hébreux',
+					James: 'Jacques',
+					'1 Peter': '1 Pierre',
+					'2 Peter': '2 Pierre',
+					'1 John': '1 Jean',
+					'2 John': '2 Jean',
+					'3 John': '3 Jean',
+					Jude: 'Jude',
+					Revelation: 'Apocalypse',
+					'Testament of Abraham': 'Testament d’Abraham',
+					'Testament of Moses': 'Testament de Moïse',
+					'Testament of Solomon': 'Testament de Salomon',
+					'Testament of the 12 Patriarchs': 'Testament des 12 Patriarches',
+					'Testimony of Truth': 'Témoignage de la Vérité',
+					'Theodotus': 'Théodote',
+					'Theophilus of Antioch': 'Théophile d’Antioche',
+					'Thomas the Contender': 'Thomas le Contendant',
+					'Thunder, Perfect Mind': 'Tonnerre, Esprit Parfait',
+					'Tobit': 'Tobie',
+					'Traditions of Matthias': 'Traditions de Matthias',
+					'Vision of Ezra': 'Vision d’Esdras',
+					'Wisdom of Sirach': 'Sagesse de Sirach',
+					'Wisdom of Solomon': 'Sagesse de Salomon',
+					'Modify:': 'Modifier :',
+					'Alt Word #2 ⁕': 'Mot alternatif #2 ⁕',
+					'Alt Word #1 *': 'Mot alternatif #1 *',
+					'Alt Letter Size': 'Taille de lettre alternative',
+					'Cantillation (♫ notes)': 'Cantillation (notes ♫)',
+					'Niqqud (Vowel Points)': 'Niqqud (points voyelles)',
+					'Maqaf (dash, hypenes)': 'Maqaf (tiret, trait d’union)',
+					'Punctuation': 'Ponctuation',
+					'Digits': 'Chiffres',
+					'Spaces': 'Espaces',
+					'Carriage Returns': 'Retours chariot',
+					'Latin/English Letters': 'Lettres latines/anglaises',
+					'Greek Letters': 'Lettres grecques',
+					'Hebrew Letters': 'Lettres hébraïques',
+					'Convert Finals': 'Convertir les finales',
+					'Split Hyphenated': 'Séparer les mots avec tiret',
+					'Gematria:': 'Guématria :',
+					'Ragil': 'Ragil',
+					'Katan': 'Katan',
+					'HaKlali': 'HaKlali',
+					'Kolel': 'Kolel',
+					'Kolel+word': 'Kolel+mot',
+					'Ordinal': 'Ordinal',
+					'Reduced': 'Réduit',
+					'Integral Reduced': 'Réduit intégral',
+					'HaKadmi': 'HaKadmi',
+					'HaPerati': 'HaPerati',
+					'Miluy': 'Miluy',
+					'Encryption:': 'Chiffrement :',
+					'AYiK-BeCheR': 'AYiK-BeCheR',
+					'AL-BaM': 'AL-BaM',
+					'AT-BaSh': 'AT-BaSh',
+					'ACh-BI': 'ACh-BI',
+					'AChaS-BeTA': 'AChaS-BeTA',
+					'AT-BaCh': 'AT-BaCh',
+					'AT-BaCh (with Finals)': 'AT-BaCh (avec finales)',
+					'AiY-BaK': 'AiY-BaK',
+					'ATz-BaPh': 'ATz-BaPh',
+					'AL-BeTh': 'AL-BeTh',
+					'Ofanim': 'Ofanim'
+				}
+				// Add more languages as needed
+			};
+			function getLang() {
+				let lang = navigator.language || navigator.userLanguage || 'en';
+				lang = lang.split('-')[0];
+				return translations[lang] ? lang : 'en';
+			}
+			const lang = getLang();
+			const map = translations[lang];
+			// List of select IDs to translate
+			const selectIds = ['bookSelect', 'modifySelect', 'gematriaSelect', 'encryptionSelect'];
+			selectIds.forEach(function(id) {
+				const select = document.getElementById(id);
+				if (select) {
+					select.querySelectorAll('option').forEach(function(opt) {
+						let label = opt.textContent.replace(/^[^A-Za-z0-9]*([A-Za-z0-9].*)$/, '$1').trim().toLowerCase();
+						let matched = false;
+						for (const key in map) {
+							if (key.toLowerCase() === label) {
+								let prefix = opt.textContent.replace(/([A-Za-z0-9].*)$/, '');
+								opt.textContent = prefix + map[key];
+								matched = true;
+								break;
+							}
+						}
+						if (!matched) {
+							console.log('No translation for:', opt.textContent, 'Extracted label:', label);
+						}
+					});
+				}
+			});
+		}
+		// === Status Bar Label Translation ===
+		function translateStatusBarLabels() {
+			const statusTranslations = {
+				'fr': {
+					'Verses:': 'Versets :',
+					'Words:': 'Mots :',
+					'Letters:': 'Lettres :',
+					'Gematria:': 'Guématria :',
+					'En. Gematria:': 'Guématria Anglaise :',
+					'Encrypted:': 'Chiffré :'
+				},
+				'es': {
+					'Verses:': 'Versículos:',
+					'Words:': 'Palabras:',
+					'Letters:': 'Letras:',
+					'Gematria:': 'Guematria:',
+					'En. Gematria:': 'Guematria Ing.:',
+					'Encrypted:': 'Encriptado:'
+				},
+				'he': {
+					'Verses:': 'פסוקים:',
+					'Words:': 'מילים:',
+					'Letters:': 'אותיות:',
+					'Gematria:': 'גימטריה:',
+					'En. Gematria:': 'גימטריה אנגלית:',
+					'Encrypted:': 'מוצפן:'
+				}
+			};
+			function getLang() {
+				let lang = navigator.language || navigator.userLanguage || 'en';
+				lang = lang.split('-')[0];
+				return statusTranslations[lang] ? lang : 'en';
+			}
+			const lang = getLang();
+			const map = statusTranslations[lang];
+			if (!map) return;
+			// Find and translate status bar labels
+			const labels = document.querySelectorAll('.status-label');
+			labels.forEach(function(label) {
+				// Only translate if label contains only the label text (not the result)
+				const txt = label.textContent.trim();
+				if (map[txt]) {
+					// If label is followed by a result node, preserve it
+					if (label.nextSibling && label.nextSibling.nodeType === Node.TEXT_NODE) {
+						label.textContent = map[txt];
+						// The result text remains in the nextSibling
+					} else {
+						label.textContent = map[txt];
+					}
+				}
+			});
+		}
+		function observeDropdowns() {
+			const selectIds = ['bookSelect', 'modifySelect', 'gematriaSelect', 'encryptionSelect'];
+			selectIds.forEach(function(id) {
+				const select = document.getElementById(id);
+				if (select) {
+					const observer = new MutationObserver(function() {
+						translateDropdowns();
+					});
+					observer.observe(select, { childList: true, subtree: true });
+				}
+			});
+		}
+		document.addEventListener('DOMContentLoaded', function() {
+			setTimeout(function() {
+				translateDropdowns();
+				observeDropdowns();
+				translateStatusBarLabels();
+			}, 300);
+		});
+		</script>
+		<script>
+		// === Toolbar Button Translation ===
+		document.addEventListener('DOMContentLoaded', function() {
+			const translations = {
+				'en': {
+					Open: 'Open', Calc: 'Calc', Find: 'Find', ELS: 'ELS', Swap: 'Swap', Copy: 'Copy', Align: 'Align', Wrap: 'Wrap', Mode: 'Mode', Trans: 'Trans', Print: 'Print', Export: 'Export', Clear: 'Clear', DB: 'DB', Help: 'Help'
+				},
+				'he': {
+					Open: 'פתח', Calc: 'חשב', Find: 'מצא', ELS: 'רצף', Swap: 'החלף', Copy: 'העתק', Align: 'יישור', Wrap: 'גלישת טקסט', Mode: 'מצב', Trans: 'תרגם', Print: 'הדפס', Export: 'יצא', Clear: 'נקה', DB: 'מסד', Help: 'עזרה'
+				},
+				'es': {
+					Open: 'Abrir', Calc: 'Calcular', Find: 'Buscar', ELS: 'ELS', Swap: 'Intercambiar', Copy: 'Copiar', Align: 'Alinear', Wrap: 'Ajustar', Mode: 'Modo', Trans: 'Traducir', Print: 'Imprimir', Export: 'Exportar', Clear: 'Limpiar', DB: 'BD', Help: 'Ayuda'
+				},
+				'fr': {
+					Open: 'Ouvrir', Calc: 'Calculer', Find: 'Trouver', ELS: 'ELS', Swap: 'Échanger', Copy: 'Copier', Align: 'Aligner', Wrap: 'Retour à la ligne', Mode: 'Mode', Trans: 'Traduire', Print: 'Imprimer', Export: 'Exporter', Clear: 'Effacer', DB: 'BD', Help: 'Aide'
+				},
+				'ru': {
+					Open: 'Открыть', Calc: 'Вычислить', Find: 'Найти', ELS: 'ELS', Swap: 'Поменять', Copy: 'Копировать', Align: 'Выровнять', Wrap: 'Перенос', Mode: 'Режим', Trans: 'Перевести', Print: 'Печать', Export: 'Экспорт', Clear: 'Очистить', DB: 'БД', Help: 'Помощь'
+				}
+				// Add more languages as needed
+			};
+			function getLang() {
+				let lang = navigator.language || navigator.userLanguage || 'en';
+				lang = lang.split('-')[0];
+				return translations[lang] ? lang : 'en';
+			}
+			const lang = getLang();
+			const map = translations[lang];
+			// Button IDs and their label keys
+			const btns = [
+				['openBtn', 'Open'], ['calcBtn', 'Calc'], ['findBtn', 'Find'], ['elsBtn', 'ELS'], ['swapBtn', 'Swap'], ['copyBtn', 'Copy'],
+				['directionBtn', 'Align'], ['wrapBtn', 'Wrap'], ['lightmodeBtn', 'Mode'], ['transBtn', 'Trans'], ['printBtn', 'Print'],
+				['exportBtn', 'Export'], ['clearBtn', 'Clear'], ['app1Btn', 'DB'], ['helpBtn', 'Help']
+			];
+			btns.forEach(([id, key]) => {
+				const btn = document.getElementById(id);
+				if (btn) {
+					let labelSpan = btn.querySelector('.btn-label');
+					if (labelSpan) {
+						labelSpan.textContent = map[key] || key;
+					}
+				}
+			});
+		});
+		</script>
 	
 		<a id="breakOutLink" href="javascript:void(0)" title="Frame Break Out"><img src="img/breakout.png" alt="Frame Break Out"></a>
 		<script>
@@ -3045,7 +3350,7 @@
 	
 	<!-- Loading Indicator -->
 	<div id="loadingIndicator">
-		<div class="loading-close" onclick="hideLoadingIndicator()" title="Close">&#10006;</div>
+	<div class="loading-close" onclick="hideLoadingIndicator()" ontouchend="hideLoadingIndicator()" title="Close">&#10006;</div>
 		<div class="spinner"></div>
 		<div class="loading-text">
 			<p>Loading...</p>
@@ -7832,7 +8137,18 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 		const wrapBtn = document.getElementById('wrapBtn');
 		const lightmodeBtn = document.getElementById('lightmodeBtn');
         const matchBtn = document.getElementById('matchBtn');
-        const transBtn = document.getElementById('transBtn');
+		const transBtn = document.getElementById('transBtn');
+		// Hide transBtn if not Chromium-based browser
+		(function() {
+			const ua = navigator.userAgent;
+			// Chromium-based browsers include 'Chrome' but not 'Edg' (Edge), 'OPR' (Opera), or 'Chromium' itself
+			// Safari includes 'Safari' but not 'Chrome', Firefox includes 'Firefox'
+			// This will show only for Chrome/Chromium/Opera/Edge, but hide for Firefox/Safari/others
+			const isChromium = ua.includes('Chrome') || ua.includes('Chromium') || ua.includes('Edg') || ua.includes('OPR');
+			if (!isChromium && transBtn) {
+				transBtn.style.display = 'none';
+			}
+		})();
         const printBtn = document.getElementById('printBtn');
         const exportBtn = document.getElementById('exportBtn');
         const clearBtn = document.getElementById('clearBtn');
@@ -7852,8 +8168,16 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 			fileInput.setAttribute('nwworkingdir', defaultPath);								// Set the default working directory to open to contained in variable defaultPath.
 			fileInput.click();
 		}
-		openBtn.addEventListener('mouseup',  openFiles);
-		openBtn.addEventListener('touchend', openFiles);
+		openBtn.addEventListener('mouseup', function(e) {
+			openFiles(e);
+			const modifySelect = document.getElementById('modifySelect');
+			if (modifySelect) modifySelect.value = 'Modify';
+		});
+		openBtn.addEventListener('touchend', function(e) {
+			openFiles(e);
+			const modifySelect = document.getElementById('modifySelect');
+			if (modifySelect) modifySelect.value = 'Modify';
+		});
 
         // The app1Btn functionality - opens app1.php with selected text
         function openApp1WithSelection() {
@@ -7902,7 +8226,9 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
                                 
                                 // Detect language and store in global variable
                                 detectedLanguage = detectLanguage(fileText);
-                                console.log('Language detected:', detectedLanguage);
+								console.log('Language detected:', detectedLanguage);
+								hideLoadingIndicator();
+								console.log('hideLoadingIndicator called after language detection');
                             }
                         };
                         reader.readAsText(file);
@@ -11251,7 +11577,9 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 						
 						// Detect language and store in global variable
 						detectedLanguage = detectLanguage(text);
-						console.log('Language detected:', detectedLanguage);
+								console.log('Language detected:', detectedLanguage);
+								hideLoadingIndicator();
+								console.log('hideLoadingIndicator called after language detection');
 					} else {
 						console.error(`Error loading book file: ${response.status} - ${response.statusText}`);
 					}
@@ -11395,7 +11723,11 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
     
     const bookSelect = document.getElementById('bookSelect');
     if (bookSelect) {
-        bookSelect.addEventListener('change', saveSettings);
+		bookSelect.addEventListener('change', function(e) {
+			saveSettings(e);
+			const modifySelect = document.getElementById('modifySelect');
+			if (modifySelect) modifySelect.value = 'Modify';
+		});
     }
     
     // Load settings when page loads
@@ -11554,6 +11886,12 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+</script>
+<script>
+// Fallback: hide loading indicator after DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(hideLoadingIndicator, 1000); // Fallback: hide after 1s
+});
 </script>
 </body>
 </html>
