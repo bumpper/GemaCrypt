@@ -213,6 +213,71 @@ You will need to enable JavaScript in your web browser: see the <a href="https:/
     </div>
 
     <script>
+        // Loading message translations
+        const loadingTranslations = {
+            'en': 'Calculating matches...',
+            'fr': 'Calcul des correspondances...',
+            'es': 'Calculando coincidencias...',
+            'he': 'מחשב התאמות...',
+            'ru': 'Вычисление совпадений...',
+            'de': 'Berechne Übereinstimmungen...',
+            'ja': '一致を計算中...',
+            'pt': 'Calculando correspondências...',
+            'it': 'Calcolo delle corrispondenze...',
+            'nl': 'Overeenkomsten worden berekend...',
+            'pl': 'Obliczanie dopasowań...',
+            'tr': 'Eşleşmeler hesaplanıyor...',
+            'fa': 'در حال محاسبه تطابق‌ها...',
+            'zh': '正在计算匹配项...',
+            'vi': 'Đang tính kết quả trùng khớp...',
+            'cs': 'Počítání shod...',
+            'id': 'Menghitung kecocokan...',
+            'ko': '일치 계산 중...',
+            'uk': 'Обчислення збігів...',
+            'hu': 'Egyezések számítása...',
+            'ar': 'جارٍ حساب التطابقات...'
+        };
+        // Language detection and button translation
+        const buttonTranslations = {
+            'en': 'Calculate Matches',
+            'fr': 'Calculer les correspondances',
+            'es': 'Calcular coincidencias',
+            'he': 'חשב התאמות',
+            'ru': 'Вычислить совпадения',
+            'de': 'Übereinstimmungen berechnen',
+            'ja': '一致を計算する',
+            'pt': 'Calcular correspondências',
+            'it': 'Calcola corrispondenze',
+            'nl': 'Overeenkomsten berekenen',
+            'pl': 'Oblicz dopasowania',
+            'tr': 'Eşleşmeleri Hesapla',
+            'fa': 'محاسبه تطابق‌ها',
+            'zh': '计算匹配项',
+            'vi': 'Tính kết quả trùng khớp',
+            'cs': 'Vypočítat shody',
+            'id': 'Hitung Kecocokan',
+            'ko': '일치 계산',
+            'uk': 'Обчислити збіги',
+            'hu': 'Egyezések kiszámítása',
+            'ar': 'احسب التطابقات'
+        };
+        function getLang() {
+            let lang = navigator.language || navigator.userLanguage || 'en';
+            lang = lang.split('-')[0];
+            return buttonTranslations[lang] ? lang : 'en';
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const lang = getLang();
+            const button = document.querySelector('.input-section button');
+            if (button) {
+                button.textContent = buttonTranslations[lang];
+            }
+            // Set loading message translation
+            const loadingMsg = document.getElementById('loadingMessage');
+            if (loadingMsg) {
+                loadingMsg.textContent = loadingTranslations[lang];
+            }
+        });
         // Function to get URL parameters
         function getURLParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -243,7 +308,8 @@ You will need to enable JavaScript in your web browser: see the <a href="https:/
                 return;
             }
             
-            document.getElementById('loadingMessage').innerHTML = 'Calculating matches...';
+            const lang = getLang();
+            document.getElementById('loadingMessage').innerHTML = loadingTranslations[lang];
             document.getElementById('results').innerHTML = '';
             
             // Send AJAX request to get gematria matches
