@@ -1,11 +1,110 @@
+<!DOCTYPE html>
 <html>
-    
-    <head>
-   		<link rel="SHORTCUT ICON" href="favicon.png" />
-        <meta http-equiv="REFRESH" content="0;url=app1.php">
-    </head>
-    
-    <body>
-    </body>
-
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Gemacrypt</title>
+    <link rel="SHORTCUT ICON" href="favicon.png" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            min-height: 100vh;
+            background: url('img/matrix.jpg') repeat-x;
+            background-size: auto 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            gap: 320px; /* gap equal to one button width */
+        }
+        .welcome-btn {
+            background: #fff;
+            border-radius: 32px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+            width: 320px;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            transition: box-shadow 0.2s;
+            cursor: pointer;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .welcome-btn:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 0 32px 8px #fffbe6, 0 0 16px 4px #ffd700;
+            border: 2px solid #ffd700;
+        }
+        .welcome-btn img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 16px;
+        }
+        .welcome-btn.book-img img.main-img {
+            width: 160px;
+            height: 80px;
+        }
+        .img-stack {
+            position: relative;
+            display: inline-block;
+        }
+        .main-img {
+            display: block;
+        }
+        .find-overlay {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 16px;
+            height: 16px;
+        }
+        .welcome-btn.book-img img {
+            width: 160px;
+            height: 80px;
+        }
+        .welcome-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .welcome-desc {
+            font-size: 1em;
+            color: #333;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-btn" onclick="location.href='app1.php'">
+            <span class="img-stack">
+                <img src="img/db.png" alt="Database" class="main-img">
+                <!--<img src="img/find.png" alt="Find" class="find-overlay">-->
+            </span>
+            <div class="welcome-title">Gematria Database</div>
+            <div class="welcome-desc">Search individual words and phrases to find their Gematria values and Encrypted forms</div>
+        </div>
+        <div class="welcome-btn book-img" onclick="location.href='app2.php'">
+            <span class="img-stack">
+                <img src="img/book.png" alt="Ancient Scroll" class="main-img">
+                <!--<img src="img/find.png" alt="Find" class="find-overlay">-->
+            </span>
+            <div class="welcome-title">Gematria Books</div>
+            <div class="welcome-desc">Research and cross-reference Gematria values and their Encrypted forms within large texts</div>
+        </div>
+    </div>
+</body>
 </html>

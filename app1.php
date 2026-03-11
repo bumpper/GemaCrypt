@@ -1078,7 +1078,7 @@ function openPhpMyAdminWithGuest() {
 <tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Replacing each letter of the original word, by rolling forward one letter to what comes next in the alphabet."><a href="/gemacrypt/help.html#ABaG_BeGeD" target="_blank" style="text-decoration: none;">Av-Gad (Forward Exchange):</a></span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="forexch"></div></td>
 <!-- Knit Word -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Weaving the letters of two words together into one new word, by alternativing between each word, letter by letter."><a href="" target="_blank" style="text-decoration: none;">Knit Word:</a></span></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Weaving the letters of two words together into one new word, by alternativing between each word, letter by letter."><a href="" target="_blank" style="text-decoration: none;">Knit Words:</a></span></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="knit"></div></td>
 <!-- Backward Exchange -->
 <td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Replacing each letter of the original word, by rolling backwards one letter to what came before it in the alphabet."><a href="/gemacrypt/help.html#ABaG_BeGeD" target="_blank" style="text-decoration: none;">At-Ba (Backward Exchange):</a></span></u></b></p>
@@ -1111,17 +1111,17 @@ function openPhpMyAdminWithGuest() {
 <td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The number of possible combinations from each letter of the original word to every other letter of the original word."><a href="#" onclick="openGateModal();" style="text-decoration: none;"># of Gates:</a></span></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="gates"></div></td>
 <!-- A"B -->
-<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><span title="AB Spelling"><a href='' target='_blank' style='font-weight: bold;'></span>A"B:</a></u></b></p>
+<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><span title="AB Spelling"><a href='' target='_blank' style='font-weight: bold;'></span>A"B Spelling:</a></u></b></p>
 <div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="AB"></div></div></td></tr>
 
 <!-- SaG -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="SaG Spelling"><a href="" target="_blank" style="text-decoration: none;">SaG:</a></span></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="SaG Spelling"><a href="" target="_blank" style="text-decoration: none;">SaG Spelling:</a></span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="SaG"></div></td>
 <!-- MaH -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="MaH Spelling"><a href="" target="_blank" style="text-decoration: none;">MaH:</a></span></a></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="MaH Spelling"><a href="" target="_blank" style="text-decoration: none;">MaH Spelling:</a></span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="MaH"></div></td>
 <!-- BaN -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="BaN Spelling"><a href="" style="text-decoration: none;">BaN:</a></span></u></b></p>
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="BaN Spelling"><a href="" style="text-decoration: none;">BaN Spelling:</a></span></u></b></p>
 <div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="BaN"></div></div></td></tr>
 
 <!-- Words -->
@@ -1131,77 +1131,77 @@ function openPhpMyAdminWithGuest() {
 <td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Total number of letters in the word or phrase."><a href="" style="text-decoration: none;"># of Letters:</a></span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="letters"></div></td>
 <!-- Ofanim -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Using this method replaces each letter by the last letter of its fully spelled out name."><a href="" style="text-decoration: none;">Ofanim:</a></span></u></b></p>
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Using this method replaces each letter by the last letter of its fully spelled out name."><a href="" style="text-decoration: none;">Ofanim Encryption:</a></span></u></b></p>
 <div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="Ofanim"></div></div></td></tr>
 
 <!-- AYiK-BeCheR -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is also known as the Kabbalah of Nine Chambers, because of its 9 equal rows."><a href="" target="_blank" style="text-decoration: none;">AYiK-BeCheR:</a></span></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is also known as the Kabbalah of Nine Chambers, because of its 9 equal rows."><a href="" target="_blank" style="text-decoration: none;">AYiK-BeCheR Encryption:</a></span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="AYiK-BeCheR"></div></td>
 <!-- AL-BaM -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The basic direct transformation pattern, wherein the alef-beit is divided into two equal groups of eleven letters which are then paired (first to first, second to second, etc.…) to transform one into the other."><a href="" target="_blank" style="text-decoration: none;">AL-BaM:</a></span></a></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The basic direct transformation pattern, wherein the alef-beit is divided into two equal groups of eleven letters which are then paired (first to first, second to second, etc.…) to transform one into the other."><a href="" target="_blank" style="text-decoration: none;">AL-BaM Encryption:</a></span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="AL-BaM"></div></td>
 <!-- AT-BaSh -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="This is a basic reflective transformation pattern, wherein the first and last letters of the alef-beit transform into one another, as do the second and second-to-last, and so on."><a href="" style="text-decoration: none;">AT-BaSh:</a></span></u></b></p>
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="This is a basic reflective transformation pattern, wherein the first and last letters of the alef-beit transform into one another, as do the second and second-to-last, and so on."><a href="" style="text-decoration: none;">AT-BaSh Encryption:</a></span></u></b></p>
 <div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="AT-BaSh"></div></div></td></tr>
 
 <!-- ACh-BI -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is a method of alphabetic transformation wherein the alef-beit is divided into two equal groups of eleven letters. Within each group, the letters pair reflectively --the first with the last, the second with the second-to-last, etc."><a href="" target="_blank" style="text-decoration: none;">ACh-BI:</a></span></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is a method of alphabetic transformation wherein the alef-beit is divided into two equal groups of eleven letters. Within each group, the letters pair reflectively --the first with the last, the second with the second-to-last, etc."><a href="" target="_blank" style="text-decoration: none;">ACh-BI Encryption:</a></span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="ACh-BI"></div></td>
 <!-- AChaS-BeTA -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="This is a method of alphabetic transformation wherein the first 21 letters of the alef-beit are initially divided into three equal groups of seven letters, which are then tripled together in direct order."><a href="" target="_blank" style="text-decoration: none;">AChaS-BeTA:</a></span></a></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="This is a method of alphabetic transformation wherein the first 21 letters of the alef-beit are initially divided into three equal groups of seven letters, which are then tripled together in direct order."><a href="" target="_blank" style="text-decoration: none;">AChaS-BeTA Encryption:</a></span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="AChaS-BeTA"></div></td>
 <!-- AiY-BaK -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Used for purposes of reincarnation to find the correction one must make.  The first 9 letters are paired with the second 9 letters based on a one for one method.  But the last four letters then make up two pairs."><a href="" style="text-decoration: none;">AiY-BaK:</a></span></u></b></p>
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Used for purposes of reincarnation to find the correction one must make.  The first 9 letters are paired with the second 9 letters based on a one for one method.  But the last four letters then make up two pairs."><a href="" style="text-decoration: none;">AiY-BaK Encryption:</a></span></u></b></p>
 <div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="AiY-BaK"></div></div></td></tr>
 
 <!-- AT-BaCh -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is a method of alphabetic transformation that is initially divided into three groups (9, 9, 4)"><a href="" target="_blank" style="text-decoration: none;">AT-BaCh:</a></span></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="This is a method of alphabetic transformation that is initially divided into three groups (9, 9, 4)"><a href="" target="_blank" style="text-decoration: none;">AT-BaCh Encryption:</a></span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="AT-BaCh"></div></td>
 <!-- AT-BaCh (with Finals) -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="This is a method of alphabetic transformation that is initially divided into three groups (9, 9, 9)"><a href="" target="_blank" style="text-decoration: none;">AT-BaCh (with Finals):</a></span></a></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="This is a method of alphabetic transformation that is initially divided into three groups (9, 9, 9)"><a href="" target="_blank" style="text-decoration: none;">AT-BaCh (with Finals) Encryption:</a></span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="AT-BaCh999"></div></td>
 <!-- ATz-BaPh -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Similar to AT-BaSh, but also including the 5 final form letters."><a href="" style="text-decoration: none;">ATz-BaPh:</a></span></u></b></p>
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Similar to AT-BaSh, but also including the 5 final form letters."><a href="" style="text-decoration: none;">ATz-BaPh Encryption:</a></span></u></b></p>
 <div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="ATz-BaPh"></div></div></td></tr>
 
 <!-- AL-BeTh -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Based on At-BaSh, but the letters of the 2nd column are reversed and alternated."><a href="" target="_blank" style="text-decoration: none;">AL-BeTh:</a></span></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Based on At-BaSh, but the letters of the 2nd column are reversed and alternated."><a href="" target="_blank" style="text-decoration: none;">AL-BeTh Encryption:</a></span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="AL-BeTh"></div></td>
 <!-- Ragil -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The standard and most commonly used form of gematria."><a href="" target="_blank" style="text-decoration: none;">Ragil:</a></span></a></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The standard and most commonly used form of gematria."><a href="" target="_blank" style="text-decoration: none;">Ragil Gematria:</a></span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="Ragil"></div></td>
 <!-- HaKlali -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="The Ragil value of the word squared."><a href="" style="text-decoration: none;">HaKlali:</a></span></u></b></p>
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="The Ragil value of the word squared."><a href="" style="text-decoration: none;">HaKlali Gematria:</a></span></u></b></p>
 <div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="HaKlali"></div></div></td></tr>
 
 <!-- Kolel+letters -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="The Ragil value of the word + the numbers of the letters."><a href="" target="_blank" style="text-decoration: none;">Kolel +letters:</a></span></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="The Ragil value of the word + the numbers of the letters."><a href="" target="_blank" style="text-decoration: none;">Kolel +letters Gematria:</a></span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="Kolel"></div></td>
 <!-- Kolel+word(s) -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The Ragil value of the word + the word itself, or the number of words."><a href="" target="_blank" style="text-decoration: none;">Kolel +word(s):</a></span></a></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="The Ragil value of the word + the word itself, or the number of words."><a href="" target="_blank" style="text-decoration: none;">Kolel +word(s) Gematria:</a></span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="Kolel+1"></div></td>
 <!-- Reduced -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="The letters positional value by column when the alphabet is ordered in a 3x9 grid (1-9, 1-9, 1-9)."><a href="" style="text-decoration: none;">Reduced:</a></span></u></b></p>
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="The letters positional value by column when the alphabet is ordered in a 3x9 grid (1-9, 1-9, 1-9)."><a href="" style="text-decoration: none;">Reduced Value:</a></span></u></b></p>
 <div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="Reduced"></div></div></td></tr>
 
 <!-- Integral-Reduced -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Sum of digits of a word until only one digit is left."><a href="" target="_blank" style="text-decoration: none;">Integral Reduced:</a></span></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><span title="Sum of digits of a word until only one digit is left."><a href="" target="_blank" style="text-decoration: none;">Integral Reduced Value:</a></span></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="Integral-Reduced"></div></td>
 <!-- Katan -->
-<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Made by truncating all the trailing zeros."><a href="" target="_blank" style="text-decoration: none;">Katan:</a></span></a></u></b></p>
+<td width="33%" valign="top"><p align="center" valign="top"><b><u><span title="Made by truncating all the trailing zeros."><a href="" target="_blank" style="text-decoration: none;">Katan Gematria:</a></span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id="Katan"></div></td>
 <!-- Ordinal -->
-<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Value is calculated by the letters place within the alphabet, 1-27."><a href="" style="text-decoration: none;">Ordinal:</a></span></u></b></p>
+<td width="33%" valign="top"><p align="right" valign="top"><b><u><span title="Value is calculated by the letters place within the alphabet, 1-27."><a href="" style="text-decoration: none;">Ordinal Value:</a></span></u></b></p>
 <div id=""><div align="right" data-role="fieldcontain" class="mobiletextinput4" id="Ordinal"></div></div></td></tr>
 
 <!-- HaKadmi -->
-<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="" style="text-decoration: none;"><span title="Ragil value plus the value of the preceding letters (triangular value), which uses each letter as the sum of all the standard gematria letter values preceding it."><a href="" target="_blank" style="text-decoration: none;">HaKadmi:</a></span></a></u></b></p>
+<tr><td width="33%" valign="top"><p align="left" valign="top"><b><u><a href="" style="text-decoration: none;"><span title="Ragil value plus the value of the preceding letters (triangular value), which uses each letter as the sum of all the standard gematria letter values preceding it."><a href="" target="_blank" style="text-decoration: none;">HaKadmi Gematria:</a></span></a></u></b></p>
 <div align="left" data-role="fieldcontain" class="mobiletextinput4" id="HaKadmi"></div></td>
 <!--  -->
 <td width="33%" valign="top"><p align="center" valign="top"><b><u><span title=""><a href="" target="_blank" style="text-decoration: none;"><!--Something:--></a></span></a></u></b></p>
 <div align="center" data-role="fieldcontain" class="mobiletextinput4" id=""></div></td>
 <!-- HaPerati -->
-<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><span title="Each letter squared and added together."><a href="" target="_blank" style="text-decoration: none;">HaPerati:</a></span></a></u></b></p>
+<td width="33%" valign="top" rowspan="*"><p align="right" valign="top"><b><u><span title="Each letter squared and added together."><a href="" target="_blank" style="text-decoration: none;">HaPerati Gematria:</a></span></a></u></b></p>
 <div align="right" data-role="fieldcontain" class="mobiletextinput4" id="HaPerati"></div></div></td></tr>
 
 <!-- Crowns -->
@@ -2560,12 +2560,15 @@ document.getElementById("backexch").innerHTML = "<a href='http://translate.googl
 document.getElementById("forexch").innerHTML = "<a href='http://translate.google.com/#auto/en/"+encodeURIComponent(forexch)+"' target='_blank' style='color: white; font-weight: 400;'><b>" + forexch + "</b></a><br />";
 
 // Number of Paths (the 32 paths of Wisdom are the 10 Sephirot 0-9 and the 22 Hebrew letters)
-var noDups = inputText.replace(/(.)(?=.*\1)/gi, "")// Remove duplicated letters for original word
-gates=noDups.length;
-var gatesTotal=noDups.length;
-paths=noDups.length;
-for (gates-1;gates>0;gates--) { // Loop to find the number of connections between each unique letter and every other unique letter the the word.
-gatesTotal+=(gates-1);
+var noDups = inputText.replace(/(.)(?=.*\1)/gi, ""); // Remove duplicated letters from the original word
+var uniqueLetters = noDups.split("");
+var gatesTotal = 0;
+var paths = uniqueLetters.length;
+// Count unique pairs (unordered, no repeats)
+for (var i = 0; i < uniqueLetters.length; i++) {
+	for (var j = i + 1; j < uniqueLetters.length; j++) {
+		gatesTotal++;
+	}
 }
 document.getElementById("paths").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${paths}); Transpose(); return false;" target='_blank'><b>${paths}</b></a>`;
 document.getElementById("gates").innerHTML = `<a href='#' onclick="replaceInputField('inputText', ${gatesTotal}); Transpose(); return false;" target='_blank'><b>${gatesTotal}</b></a>`;
