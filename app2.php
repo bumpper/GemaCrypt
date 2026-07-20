@@ -14,7 +14,29 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Elymaic&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hatran&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mandaic&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mende+Kikakui&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Nabataean&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Meroitic&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Old+North+Arabian&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Old+Permic&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Palmyrene&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Samaritan&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Avestan&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Anatolian+Hieroglyphs&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Caucasian+Albanian&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hanifi+Rohingya&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Warang+Citi&display=swap" rel="stylesheet">
     <style>
+		@font-face {
+			font-family: 'Noto Serif Yezidi';
+			src: url('https://notofonts.github.io/yezidi/fonts/NotoSerifYezidi/unhinted/ttf/NotoSerifYezidi-Regular.ttf') format('truetype');
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+		}
         
 		html, body {
 			height: 100%;          /* keep everything strictly inside the window */
@@ -240,6 +262,54 @@
 			color: #FFF;			/* white text for Dark Mode */
 			text-shadow: none;			 /* remove text shadow for Dark Mode*/
         }
+		.textArea.script-font-elymaic {
+			font-family: 'Noto Sans Elymaic', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-hatran {
+			font-family: 'Noto Sans Hatran', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-mandaic {
+			font-family: 'Noto Sans Mandaic', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-nabataean {
+			font-family: 'Noto Sans Nabataean', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-old-north-arabian {
+			font-family: 'Noto Sans Old North Arabian', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-palmyrene {
+			font-family: 'Noto Sans Palmyrene', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-samaritan {
+			font-family: 'Noto Sans Samaritan', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-yezidi {
+			font-family: 'Noto Serif Yezidi', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-avestan {
+			font-family: 'Noto Sans Avestan', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-anatolian-hieroglyphs {
+			font-family: 'Noto Sans Anatolian Hieroglyphs', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-caucasian-albanian {
+			font-family: 'Noto Sans Caucasian Albanian', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-hanifi-rohingya {
+			font-family: 'Noto Sans Hanifi Rohingya', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-mende-kikakui {
+			font-family: 'Noto Sans Mende Kikakui', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-meroitic {
+			font-family: 'Noto Sans Meroitic', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-old-permic {
+			font-family: 'Noto Sans Old Permic', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
+		.textArea.script-font-warang-citi {
+			font-family: 'Noto Sans Warang Citi', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Fira Code', 'Courier New', monospace !important;
+		}
 		.light-mode {
 			background-color: #FFF;
 			color: #000;
@@ -3022,7 +3092,45 @@
 			<option value='HebrewLetters'>&#x26D4; Hebrew Letters</option>
 			<option value='ConvertFinals'>&#x2705; Convert Finals</option>
 			<option value='SplitHyphen'>&#x2705; Split Hyphenated</option>
-
+			<option value='Hebrew'>--- CONVERT HEBREW TO: ---</option>
+			<option value='Adlam'>&#x2194; Adlam</option>
+			<option value='AnatolianHieroglyphs'>&#x2194; Anatolian Hieroglyphs</option>
+			<option value='Aramaic'>&#x2194; Aramaic</option>
+			<option value='Bamum'>&#x2194; Bamum</option>
+			<option value='CaucasianAlbanian'>&#x2194; Caucasian Albanian</option>
+			<option value='Coptic'>&#x2194; Coptic</option>
+			<option value='Cuneiform'>&#x2194; Cuneiform</option>
+			<option value='CypriotSyllabary'>&#x2194; Cypriot Syllabary</option>
+			<option value='Deseret'>&#x2194; Deseret</option>
+			<option value='EgyptianHieroglyphs'>&#x2194; Egyptian Hieroglyphs</option>
+			<option value='Elymaic'>&#x2194; Elymaic</option>
+			<option value='Glagolitic'>&#x2194; Glagolitic</option>
+			<option value='Gothic'>&#x2194; Gothic</option>
+			<option value='HanifiRohingya'>&#x2194; Hanifi Rohingya</option>
+			<option value='Hatram'>&#x2194; Hatram</option>
+			<option value='Mandaic'>&#x2194; Mandaic</option>
+			<option value='MendeKikakui'>&#x2194; Mende Kikakui</option>
+			<option value='MeroiticCursive'>&#x2194; Meroitic Cursive</option>
+			<option value='MeroiticHieroglyphs'>&#x2194; Meroitic Hieroglyphs</option>
+			<option value='Nabataeam'>&#x2194; Nabataeam</option>
+			<option value='NKo'>&#x2194; N Ko</option>
+			<option value='OldNArabian'>&#x2194; Old N Arabian</option>
+			<option value='OldSAraboan'>&#x2194; Old S Arabian</option>
+			<option value='OldPermic'>&#x2194; Old Permic</option>
+			<option value='OldTurkic'>&#x2194; Old Turkic</option>
+			<option value='Osmanya'>&#x2194; Osmanya</option>
+			<option value='Palmyrene'>&#x2194; Palmyrene</option>
+			<option value='Parthian'>&#x2194; Parthian</option>
+			<option value='Phoenician'>&#x2194; Phoenician</option>
+			<option value='Runic'>&#x2194; Runic</option>
+			<option value='Samaritan'>&#x2194; Samaritan</option>
+			<option value='Shavian'>&#x2194; Shavian</option>
+			<option value='Syriac'>&#x2194; Syriac</option>
+			<option value='Tifinagh'>&#x2194; Tifinagh</option>
+			<option value='Ugaritic'>&#x2194; Ugaritic</option>
+			<option value='WarangCiti'>&#x2194; Warang Citi</option>
+			<option value='Yezidi'>&#x2194; Yezidi</option>
+			<option value='Zoroastrian'>&#x2194; Zoroastrian</option>
         </select>
 
 		<select id="gematriaSelect" tabIndex="3" onChange="gematria = this.value">
@@ -8241,45 +8349,224 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 
 		});
 
+		const HEBREW_LETTER_ORDER = [
+			"\u05D0", "\u05D1", "\u05D2", "\u05D3", "\u05D4", "\u05D5", "\u05D6", "\u05D7", "\u05D8", "\u05D9", "\u05DB",
+			"\u05DC", "\u05DE", "\u05E0", "\u05E1", "\u05E2", "\u05E4", "\u05E6", "\u05E7", "\u05E8", "\u05E9", "\u05EA"
+		];
+
+		const HEBREW_FINAL_TO_BASE = {
+			"\u05DA": "\u05DB",
+			"\u05DD": "\u05DE",
+			"\u05DF": "\u05E0",
+			"\u05E3": "\u05E4",
+			"\u05E5": "\u05E6"
+		};
+
+		const HEBREW_LETTER_INDEX = HEBREW_LETTER_ORDER.reduce((acc, letter, index) => {
+			acc[letter] = index;
+			return acc;
+		}, {});
+
+		const HEBREW_SCRIPT_BLOCK_STARTS = {
+			Aramaic: 0x10840,
+			Elymaic: 0x10FE0,
+			Hatram: 0x108E0,
+			Mandaic: 0x0840,
+			Nabataeam: 0x10880,
+			OldNArabian: 0x10A80,
+			OldSAraboan: 0x10A60,
+			Palmyrene: 0x10860,
+			Parthian: 0x10B40,
+			Phoenician: 0x10900,
+			Samaritan: 0x0800,
+			Syriac: 0x0710,
+			Ugaritic: 0x10380,
+			Yezidi: 0x10E80,
+			Zoroastrian: 0x10B00,
+			Coptic: 0x2C80,
+			Glagolitic: 0x2C00,
+			Gothic: 0x10330,
+			OldTurkic: 0x10C00,
+			Runic: 0x16A0,
+			Tifinagh: 0x2D30,
+			Deseret: 0x10400,
+			Shavian: 0x10450,
+			Osmanya: 0x10480,
+			WarangCiti: 0x118A0,
+			Adlam: 0x1E900,
+			HanifiRohingya: 0x10D00,
+			MendeKikakui: 0x1E800,
+			NKo: 0x07C0,
+			OldPermic: 0x10350,
+			CaucasianAlbanian: 0x10530,
+			CypriotSyllabary: 0x10800,
+			AnatolianHieroglyphs: 0x14400,
+			EgyptianHieroglyphs: 0x13000,
+			Cuneiform: 0x12000,
+			Bamum: 0xA6A0,
+			MeroiticCursive: 0x109A0,
+			MeroiticHieroglyphs: 0x10980
+		};
+
+		const SCRIPT_FONT_CLASS_BY_KEY = {
+			AnatolianHieroglyphs: 'script-font-anatolian-hieroglyphs',
+			CaucasianAlbanian: 'script-font-caucasian-albanian',
+			Elymaic: 'script-font-elymaic',
+			HanifiRohingya: 'script-font-hanifi-rohingya',
+			Hatram: 'script-font-hatran',
+			Mandaic: 'script-font-mandaic',
+			MendeKikakui: 'script-font-mende-kikakui',
+			MeroiticCursive: 'script-font-meroitic',
+			MeroiticHieroglyphs: 'script-font-meroitic',
+			Nabataeam: 'script-font-nabataean',
+			OldNArabian: 'script-font-old-north-arabian',
+			OldPermic: 'script-font-old-permic',
+			Palmyrene: 'script-font-palmyrene',
+			Samaritan: 'script-font-samaritan',
+			WarangCiti: 'script-font-warang-citi',			
+			Yezidi: 'script-font-yezidi',
+			Zoroastrian: 'script-font-avestan'
+		};
+
+		function applyScriptDisplayClass(scriptKey) {
+			Object.values(SCRIPT_FONT_CLASS_BY_KEY).forEach((className) => {
+				textArea.classList.remove(className);
+			});
+			const className = SCRIPT_FONT_CLASS_BY_KEY[scriptKey];
+			if (className) {
+				textArea.classList.add(className);
+			}
+		}
+
+		function convertHebrewLettersToScript(text, scriptKey) {
+			const blockStart = HEBREW_SCRIPT_BLOCK_STARTS[scriptKey];
+			if (typeof blockStart !== 'number') {
+				return null;
+			}
+
+			return text.replace(/[\u05D0-\u05EA\u05DA\u05DD\u05DF\u05E3\u05E5]/g, (char) => {
+				const baseChar = HEBREW_FINAL_TO_BASE[char] || char;
+				const letterIndex = HEBREW_LETTER_INDEX[baseChar];
+				if (typeof letterIndex !== 'number') {
+					return char;
+				}
+				return String.fromCodePoint(blockStart + letterIndex);
+			});
+		}
+
+		function convertScriptLettersToHebrew(text, scriptKey) {
+			const blockStart = HEBREW_SCRIPT_BLOCK_STARTS[scriptKey];
+			if (typeof blockStart !== 'number') {
+				return text;
+			}
+
+			return text.replace(/[\s\S]/gu, (char) => {
+				const codePoint = char.codePointAt(0);
+				const letterIndex = codePoint - blockStart;
+				if (letterIndex >= 0 && letterIndex < HEBREW_LETTER_ORDER.length) {
+					return HEBREW_LETTER_ORDER[letterIndex];
+				}
+				return char;
+			});
+		}
+
+		function convertAnySupportedScriptToHebrew(text) {
+			let convertedText = text;
+			for (const scriptKey of Object.keys(HEBREW_SCRIPT_BLOCK_STARTS)) {
+				convertedText = convertScriptLettersToHebrew(convertedText, scriptKey);
+			}
+			return convertedText;
+		}
+
 		let lastModifySelectValue = null;
+		let activeScriptConversion = null;
+		let scriptOriginalHebrewContent = '';
 		function handleModifySelectEvent(e) {
 			const selectedValue = modifySelect.value;
 			const textAreaContent = textArea.textContent;
+			const isScriptOption = Object.prototype.hasOwnProperty.call(HEBREW_SCRIPT_BLOCK_STARTS, selectedValue);
 			let html;
 			// Always run if event is mousedown (repeated clicks), or if value changed
 			if (!e || (e.type !== 'mousedown' && selectedValue === lastModifySelectValue)) {
 				return;
 			}
 			lastModifySelectValue = selectedValue;
+
+			if (isScriptOption) {
+				if (activeScriptConversion === selectedValue && scriptOriginalHebrewContent !== '') {
+					textArea.innerHTML = highlightSpecialCharacters(scriptOriginalHebrewContent);
+					applyScriptDisplayClass(null);
+					textArea.classList.remove('horizontalScroll');
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
+					return;
+				}
+
+				const sourceHebrewText = (activeScriptConversion && scriptOriginalHebrewContent !== '')
+					? scriptOriginalHebrewContent
+					: textAreaContent;
+				const scriptConvertedContent = convertHebrewLettersToScript(sourceHebrewText, selectedValue);
+				if (scriptConvertedContent === null) {
+					return;
+				}
+				scriptOriginalHebrewContent = sourceHebrewText;
+				activeScriptConversion = selectedValue;
+				textArea.innerHTML = highlightSpecialCharacters(scriptConvertedContent);
+				applyScriptDisplayClass(selectedValue);
+				textArea.classList.remove('horizontalScroll');
+				return;
+			}
+
 			switch (selectedValue) {
 				case 'AltWord2':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const noAltWord2Content = textAreaContent.replace(/⁕[^\s⁕]* ?/g, '');
 					textArea.innerHTML = highlightSpecialCharacters(noAltWord2Content);
 					break;
 				case 'AltWord1':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const noAltWord1Content = textAreaContent.replace(/\*[^\s\*]* ?/g, '');
 					textArea.innerHTML = highlightSpecialCharacters(noAltWord1Content);
 					break;
 				case 'Cantillation':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const cantillationMarks = /[\u0591\u0592\u0593\u0594\u0595\u0596\u0597\u0598\u0599\u059A\u059B\u059C\u059D\u059E\u059F\u05A0\u05A1\u05A2\u05A3\u05A4\u05A5\u05A6\u05A7\u05A8\u05A9\u05AA\u05AB\u05AC\u05AD\u05C0\u05AF]/g;
 					const noCantillationContent = textAreaContent.replace(cantillationMarks, '');
 					textArea.innerHTML = highlightSpecialCharacters(noCantillationContent);
 					break;
 				case 'Niqqud':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const hebrewCharacters = /[\u0590\u05B0-\u05BD\u05BF\u05C1-\u05C5\u05C7-\u05CF\u05EB-\u05EF\u05F3-\u05FF]/g;
 					const noNiqqudContent = textAreaContent.replace(hebrewCharacters, '');
 					textArea.innerHTML = highlightSpecialCharacters(noNiqqudContent);
 					break;
 				case 'Maqaf':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const maqafDashMinus = /[\u05BE|­|-]/g;
 					const noMaqafContent = textAreaContent.replace(maqafDashMinus, '');
 					textArea.innerHTML = highlightSpecialCharacters(noMaqafContent);
 					break;
 				case 'Punctuation':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const noPunctuationContent = textAreaContent.replace(/ \u05C0/g, '').replace(/[.,!?\-;\(\)\[\]\u05C3\u05C0]/g, '');
 					textArea.innerHTML = highlightSpecialCharacters(noPunctuationContent);
 					break;
 				case 'Digits':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const noDigitsContent = textAreaContent
 						.replace(/[\d,\u003A\u05C3\t]/g, '')
 						.replace(/\n{2,}/g, '\n')
@@ -8287,33 +8574,70 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					textArea.innerHTML = highlightSpecialCharacters(noDigitsContent);
 					break;
 				case 'Spaces':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const noSpacesContent = textAreaContent.replace(/[^\S\r\n]+/g, '');
 					textArea.innerHTML = highlightSpecialCharacters(noSpacesContent);
 					break;
 				case 'CarriageReturns':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const noCarriageReturnsContent = textAreaContent.replace(/(\r\n|\n|\r)/gm, '');
 					textArea.innerHTML = highlightSpecialCharacters(noCarriageReturnsContent);
 					textArea.classList.add('horizontalScroll');
 					break;
 				case 'LatinLetters':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const noLatinLettersContent = textAreaContent.replace(/[a-zA-Z\uAB30–\uAB6F\uAB65)(]/g, '');
 					textArea.innerHTML = highlightSpecialCharacters(noLatinLettersContent);
 					break;
 				case 'GreekLetters':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const noGreekLettersContent = textAreaContent.replace(/[\u0370-\u03FF\u10140–\u1018F\u1D200–\u1D24F\u101A0\uAB65\u2126\u1DBF&&[^0-9]]/g, '');
 					textArea.innerHTML = highlightSpecialCharacters(noGreekLettersContent);
 					break;
 				case 'HebrewLetters':
-					const noHebrewLettersContent = textAreaContent.replace(/[\u0590-\u05FF]/g, '');
-					textArea.innerHTML = highlightSpecialCharacters(noHebrewLettersContent);
+					if (scriptOriginalHebrewContent !== '') {
+						textArea.innerHTML = highlightSpecialCharacters(scriptOriginalHebrewContent);
+						applyScriptDisplayClass(null);
+						textArea.classList.remove('horizontalScroll');
+						activeScriptConversion = null;
+						scriptOriginalHebrewContent = '';
+						break;
+					}
+					const restoredHebrewContent = convertAnySupportedScriptToHebrew(textAreaContent);
+					if (restoredHebrewContent !== textAreaContent) {
+						textArea.innerHTML = highlightSpecialCharacters(restoredHebrewContent);
+						applyScriptDisplayClass(null);
+						textArea.classList.remove('horizontalScroll');
+						activeScriptConversion = null;
+						scriptOriginalHebrewContent = '';
+					} else {
+						const noHebrewLettersContent = textAreaContent.replace(/[\u0590-\u05FF]/g, '');
+						textArea.innerHTML = highlightSpecialCharacters(noHebrewLettersContent);
+						activeScriptConversion = null;
+						scriptOriginalHebrewContent = '';
+					}
 					break;
 				case 'LetterSize':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					html = textArea.innerHTML;
 					html = html.replace(/(\uFEFF|&#65279;|\u2060|&#8288;|&NoBreak;|&#xFEFF;|&#x2060;)/g, '');
 					html = html.replace(/font-size:\s*(?!18px)(\d+px)/g, 'font-size:18px');
 					textArea.innerHTML = html;
 					break;
 				case 'AltLetterSize':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					// Use GraphemeSplitter to split text into grapheme clusters and apply font size if BOM/NoBreak present
 					// Load GraphemeSplitter if not already loaded
 					if (typeof GraphemeSplitter === 'undefined') {
@@ -8376,6 +8700,9 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					textArea.innerHTML = finalHtml;
 					break;
 				case 'ConvertFinals':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const convertedContent = textAreaContent
 						.replace(/ך/g, 'כ')
 						.replace(/ם/g, 'מ')
@@ -8385,18 +8712,27 @@ encryptionSelect.onchange = encryptionSelect.onclick = function() {
 					textArea.innerHTML = highlightSpecialCharacters(convertedContent);
 					break;
 				case 'SplitHyphen':
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					const splitHyphenContent = textAreaContent.replace(/[\u05BE\u00AD\-]/g, ' ');
 					textArea.innerHTML = highlightSpecialCharacters(splitHyphenContent);
 					break;
 				default:
+					applyScriptDisplayClass(null);
+					activeScriptConversion = null;
+					scriptOriginalHebrewContent = '';
 					textArea.classList.remove('horizontalScroll');
 					break;
 			}
 		}
 		modifySelect.addEventListener('change', handleModifySelectEvent);
 		modifySelect.addEventListener('mousedown', function(e) {
-			// Always trigger the handler on mousedown, even if the same option is selected
-			handleModifySelectEvent({type: 'mousedown'});
+			// Only treat mousedown as a re-select when the dropdown already had focus.
+			// This prevents opening the menu from immediately triggering a revert.
+			if (document.activeElement === modifySelect) {
+				handleModifySelectEvent({type: 'mousedown'});
+			}
 		});
 
 		//\S\s\r\n\d.:;,!*-|()+
